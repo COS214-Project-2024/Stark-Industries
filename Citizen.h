@@ -2,14 +2,14 @@
 #define CITIZEN_H
 
 #include "CitizenPrototype.h"
-#include "Building.h"
+// #include "Building.h"
 #include <string>
 using namespace std;
 
 class Citizen : CitizenPrototype {
 
 private:
-	Building* observerList; //Building is abstract
+	// Building* observerList; //Building is abstract
 	string name;
 	int income;
 	double propertyValue;
