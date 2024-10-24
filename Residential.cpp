@@ -1,41 +1,44 @@
 #include "Residential.h"
 
+Residential::Residential(string name, int satisfaction, double economicImpact, double resourceConsumption, bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius)
+        : name(name), satisfaction(satisfaction), 
+        economicImpact(economicImpact), resourceConsumption(resourceConsumption), 
+        constructionStatus(constructionStatus), improvementLevel(improvementLevel), 
+        resourcesAvailable(resourcesAvailable), citizenNotificationRadius(notificationRadius) {}
+
 string Residential::getType() {
-	// TODO - implement Residential::getType
-	throw "Not yet implemented";
+	return name;
 }
 
 int Residential::calculateSatisfaction() {
-	// TODO - implement Residential::calculateSatisfaction
-	throw "Not yet implemented";
+	return satisfaction;
 }
 
 double Residential::calculateEconomicImpact() {
-	// TODO - implement Residential::calculateEconomicImpact
-	throw "Not yet implemented";
+	return economicImpact;
 }
 
 double Residential::calculateResourceConsumption() {
-	// TODO - implement Residential::calculateResourceConsumption
-	throw "Not yet implemented";
+	return resourceConsumption;
 }
 
 bool Residential::constructionComplete() {
-	// TODO - implement Residential::constructionComplete
-	throw "Not yet implemented";
+	return constructionStatus;
 }
 
 void Residential::doImprovments() {
-	// TODO - implement Residential::doImprovments
-	throw "Not yet implemented";
+	//What do I do here?
+	if (resourcesAvailable) {
+		improvementLevel++;
+		satisfaction += 5; //Adjust
+		economicImpact *= 1.1; //Adjust
+	}
 }
 
 void Residential::checkReasourceAvailability() {
-	// TODO - implement Residential::checkReasourceAvailability
-	throw "Not yet implemented";
+	resourcesAvailable = true;
 }
 
 void Residential::notifyCitizens() {
-	// TODO - implement Residential::notifyCitizens
-	throw "Not yet implemented";
+	//What do I do here?
 }

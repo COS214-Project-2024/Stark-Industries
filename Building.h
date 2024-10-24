@@ -13,6 +13,15 @@ class Building : public Element {
 private:
 	vector<Utilities*> utilities;
 	Citizen* observerList;
+	private:
+    string name;
+    int satisfactionImpact;
+    double economicImpact;
+    double resourceConsumption;
+    bool constructionStatus;
+    int improvementLevel;
+    bool resourcesAvailable;
+    int citizenNotificationRadius;
 
 public:
 	Building();
