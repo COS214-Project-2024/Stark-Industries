@@ -1,41 +1,44 @@
 #include "Landmark.h"
 
+Landmark::Landmark(string name, int satisfaction, double economicImpact, double resourceConsumption, bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius)
+        : name(name), satisfaction(satisfaction), 
+        economicImpact(economicImpact), resourceConsumption(resourceConsumption), 
+        constructionStatus(constructionStatus), improvementLevel(improvementLevel), 
+        resourcesAvailable(resourcesAvailable), citizenNotificationRadius(notificationRadius) {}
+
 string Landmark::getType() {
-	// TODO - implement Landmark::getType
-	throw "Not yet implemented";
+	return name;
 }
 
 int Landmark::calculateSatisfaction() {
-	// TODO - implement Landmark::calculateSatisfaction
-	throw "Not yet implemented";
+	return satisfaction;
 }
 
 double Landmark::calculateEconomicImpact() {
-	// TODO - implement Landmark::calculateEconomicImpact
-	throw "Not yet implemented";
+	return economicImpact;
 }
 
 double Landmark::calculateResourceConsumption() {
-	// TODO - implement Landmark::calculateResourceConsumption
-	throw "Not yet implemented";
+	return resourceConsumption;
 }
 
 bool Landmark::constructionComplete() {
-	// TODO - implement Landmark::constructionComplete
-	throw "Not yet implemented";
+	return constructionStatus;
 }
 
 void Landmark::doImprovments() {
-	// TODO - implement Landmark::doImprovments
-	throw "Not yet implemented";
+	//What do I do here?
+	if (resourcesAvailable) {
+		improvementLevel++;
+		satisfaction += 5; //Adjust
+		economicImpact *= 1.1; //Adjust
+	}
 }
 
 void Landmark::checkReasourceAvailability() {
-	// TODO - implement Landmark::checkReasourceAvailability
-	throw "Not yet implemented";
+	resourcesAvailable = true;
 }
 
 void Landmark::notifyCitizens() {
-	// TODO - implement Landmark::notifyCitizens
-	throw "Not yet implemented";
+	//What do I do here?
 }
