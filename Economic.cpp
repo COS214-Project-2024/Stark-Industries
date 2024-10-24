@@ -1,11 +1,16 @@
+// Economic.cpp
 #include "Economic.h"
+#include <iostream>
 
-Economic::Economic(int jobs, double growthRate) : GrowthHandler(jobs, growthRate) {
-	// TODO - implement Economic::Economic
-	throw "Not yet implemented";
-}
+Economic::Economic(int jobs, double growthRate) : jobCreationRate(jobs), economicGrowthRate(growthRate) {}
 
 void Economic::handleRequest() {
-	// TODO - implement Economic::handleRequest
-	throw "Not yet implemented";
+    if (jobCreationRate > 0) {
+        std::cout << "Handling Economic Growth: There are " 
+                  << jobCreationRate << " new job opportunities.\n";
+    } else if (nextHandler) {
+        nextHandler->handleRequest();
+    } else {
+        std::cout << "No handler available for this request.\n";
+    }
 }
