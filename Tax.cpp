@@ -22,3 +22,8 @@ void Tax::operate() {
 	// TODO - implement Tax::operate
 	throw "Not yet implemented";
 }
+
+void Tax::performAction() {
+	// TODO - implement Tax::performAction
+	throw "Not yet implemented";
+}

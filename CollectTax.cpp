@@ -1,11 +1,9 @@
 #include "CollectTax.h"
 
-CollectTax::CollectTax(Government* gov) {
-	// TODO - implement CollectTax::CollectTax
-	throw "Not yet implemented";
+CollectTax::CollectTax(Department * receiver) {
+	this->receiver = receiver;
 }
 
 void CollectTax::execute() {
-	// TODO - implement CollectTax::execute
-	throw "Not yet implemented";
+	receiver->performAction();
 }

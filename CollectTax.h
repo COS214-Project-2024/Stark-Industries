@@ -9,10 +9,8 @@ using namespace std;
 class CollectTax : public Command {
 
 public:
-	Government gov;
-
-	CollectTax(Government* gov);
-
+	Department * receiver;
+	CollectTax(Department * receiver);
 	void execute();
 };
 

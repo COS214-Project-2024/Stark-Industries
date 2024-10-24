@@ -1,11 +1,11 @@
 #include "IncreaseTax.h"
 
-IncreaseTax::IncreaseTax(Government gov, int increase, string type) {
-	// TODO - implement IncreaseTax::IncreaseTax
-	throw "Not yet implemented";
+IncreaseTax::IncreaseTax(Department * receiver, int increase, string type) {
+	this->receiver = receiver;
+	this->increase = increase;
+	this->taxType = type;
 }
 
 void IncreaseTax::execute() {
-	// TODO - implement IncreaseTax::execute
-	throw "Not yet implemented";
+	receiver->performAction();
 }

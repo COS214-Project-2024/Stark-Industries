@@ -21,6 +21,9 @@ public:
 	void collectTaxes(double revenue);
 
 	void operate();
+
+	//command function
+	void performAction();
 };
 
 #endif

@@ -7,16 +7,14 @@ class Command {
 
 public:
 	Department * receiver; 
-	void execute();
+	virtual void execute() = 0;
 };
 
 #endif
-
-
 
 /*
 Command Command Pattern:
 	Invoker: Department
 	ConcreteCommand: Allocatetax, CollectTax, IncreaseTax
-	Receiver: Department
+	Receiver: Department, then there is tax-child of departemnnt
 */
