@@ -1,20 +1,18 @@
+// Infrastructure.h
 #ifndef INFRASTRUCTURE_H
 #define INFRASTRUCTURE_H
 
 #include "GrowthHandler.h"
-#include <string>
-using namespace std;
+#include <iostream>
 
 class Infrastructure : public GrowthHandler {
-
 private:
-	int roadsBuilt;
-	int utilityCapacity;
+    int roads;
+    int capacity;
 
 public:
-	Infrastructure(int roads, int capacity);
-
-	void handleRequest();
+    Infrastructure(int roadsBuilt, int utilityCapacity);
+    void handleRequest() override;
 };
 
-#endif
+#endif // INFRASTRUCTURE_H
