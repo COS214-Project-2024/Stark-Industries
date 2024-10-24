@@ -36,6 +36,9 @@ public:
 	virtual void checkReasourceAvailability() = 0;
 
 	virtual void notifyCitizens() = 0;
+
+	//command functions
+	virtual void performAction(int type) = 0;
 };
 
 #endif

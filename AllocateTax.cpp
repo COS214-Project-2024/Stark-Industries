@@ -1,11 +1,13 @@
 #include "AllocateTax.h"
 
-AllocateTax::AllocateTax(Department * receiver, string dep, double amount) {
-	this->receiver = receiver;
+AllocateTax::AllocateTax(Citizen * citizenReceiver, Building * buildingReceiver, string dep, double amount) {
+	this->citizenReceiver = citizenReceiver;
+	this->buildingReceiver = buildingReceiver;
 	this->department = dep;
 	this->amount = amount;
 }
 
 void AllocateTax::execute() {
-	receiver->performAction();
+	citizenReceiver->performAction(2);
+	buildingReceiver->performAction(2);
 }

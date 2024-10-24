@@ -1,4 +1,6 @@
 #include "Citizen.h"
+#include <iostream>
+
 
 void Citizen::get() {
 	// TODO - implement Citizen::get
@@ -48,4 +50,23 @@ void Citizen::choseTransport(int Transport_trans) {
 void Citizen::requestUtilitieService() {
 	// TODO - implement Citizen::requestUtilitieService
 	throw "Not yet implemented";
+}
+
+//command functions
+void Citizen::performAction(int type) {
+	if(type == 0) {
+		//collect tax
+		std::cout<<"Income Tax collected from citizens"<<std::endl;
+	}
+	else if(type == 1) {
+		//increase tax
+		std::cout<<"Tax increased"<<std::endl;
+	}
+	else if(type == 2) {
+		//allocate tax
+		std::cout<<"Tax allocated"<<std::endl;
+	}
+	else {
+		std::cout<<"Invalid command"<<std::endl;
+	}
 }

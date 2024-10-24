@@ -13,8 +13,9 @@ private:
 	string taxType;
 
 public:
-	Department * receiver;
-	IncreaseTax(Department * receiver, int increase, string type);
+	Citizen * citizenReceiver; 
+	Building * buildingReceiver;
+	IncreaseTax(Citizen* citizenReceiver, Building * buildingReceiver, int increase, string type);
 	void execute();
 };
 

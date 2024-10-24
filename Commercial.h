@@ -24,6 +24,9 @@ public:
 	void checkReasourceAvailability();
 
 	void notifyCitizens();
+
+	//command functions
+	void performAction(int type);
 };
 
 #endif

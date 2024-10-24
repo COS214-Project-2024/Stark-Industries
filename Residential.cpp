@@ -1,4 +1,5 @@
 #include "Residential.h"
+#include <iostream>
 
 string Residential::getType() {
 	// TODO - implement Residential::getType
@@ -38,4 +39,23 @@ void Residential::checkReasourceAvailability() {
 void Residential::notifyCitizens() {
 	// TODO - implement Residential::notifyCitizens
 	throw "Not yet implemented";
+}
+
+//command functions
+void Residential::performAction(int type) {
+	if(type == 0) {
+		//collect tax
+		std::cout<<"Property Tax collected"<<std::endl;
+	}
+	else if(type == 1) {
+		//allocate tax
+		std::cout<<"Tax allocated"<<std::endl;
+	}
+	else if(type == 2) {
+		//increase tax
+		std::cout<<"Tax increased"<<std::endl;
+	}
+	else {
+		std::cout<<"Invalid command"<<std::endl;
+	}
 }

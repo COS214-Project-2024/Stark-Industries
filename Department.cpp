@@ -39,18 +39,4 @@ void Department::fundsReceived() {
 	throw "Not yet implemented";
 }
 
-//command functions
-void Department::execute() {
-	for (int i = 0; i < commands.size(); i++) {
-        commands[i]->execute();
-    }
-}
-
-void Department::addCommand(Command* command) {
-	commands.push_back(command);
-}
-
-void Department::removeCommand(int i) {
-	commands.erase(commands.begin() + i);
-}
 

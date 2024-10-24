@@ -1,9 +1,11 @@
 #include "CollectTax.h"
 
-CollectTax::CollectTax(Department * receiver) {
-	this->receiver = receiver;
+CollectTax::CollectTax(Citizen* citizenReceiver, Building* buildingReceiver) {
+	this->citizenReceiver = citizenReceiver;
+	this->buildingReceiver = buildingReceiver;
 }
 
 void CollectTax::execute() {
-	receiver->performAction();
+	citizenReceiver->performAction(0);
+	buildingReceiver->performAction(0);
 }

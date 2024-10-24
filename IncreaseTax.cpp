@@ -1,11 +1,13 @@
 #include "IncreaseTax.h"
 
-IncreaseTax::IncreaseTax(Department * receiver, int increase, string type) {
-	this->receiver = receiver;
+IncreaseTax::IncreaseTax(Citizen * citizenReceiver, Building * buildingReceiver, int increase, string type) {
+	this->citizenReceiver = citizenReceiver;
+	this->buildingReceiver = buildingReceiver;
 	this->increase = increase;
 	this->taxType = type;
 }
 
 void IncreaseTax::execute() {
-	receiver->performAction();
+	citizenReceiver->performAction(1);
+	buildingReceiver->performAction(1);
 }

@@ -24,12 +24,10 @@ public:
 	void getName();
 	void fundsReceived();
 
-	//command function for invoker
-	void execute();
-	void addCommand(Command* command);
-	void removeCommand(int i);
-	//command function for receiver
-	virtual void performAction() = 0;
+	//command functions for invoker
+	virtual void execute() = 0;
+	virtual void addCommand(Command* command) = 0;
+	virtual void removeCommand(int i) =	0;
 
 };
 

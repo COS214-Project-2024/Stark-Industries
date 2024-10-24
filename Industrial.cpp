@@ -1,4 +1,5 @@
 #include "Industrial.h"
+#include <iostream>
 
 string Industrial::getType() {
 	// TODO - implement Industrial::getType
@@ -38,4 +39,23 @@ void Industrial::checkReasourceAvailability() {
 void Industrial::notifyCitizens() {
 	// TODO - implement Industrial::notifyCitizens
 	throw "Not yet implemented";
+}
+
+//command functions
+void Industrial::performAction(int type) {
+	if(type == 0) {
+		//collect tax
+		std::cout<<"Property Tax collected"<<std::endl;
+	}
+	else if(type == 1) {
+		//allocate tax
+		std::cout<<"Tax allocated"<<std::endl;
+	}
+	else if(type == 2) {
+		//increase tax
+		std::cout<<"Tax increased"<<std::endl;
+	}
+	else {
+		std::cout<<"Invalid command"<<std::endl;
+	}
 }

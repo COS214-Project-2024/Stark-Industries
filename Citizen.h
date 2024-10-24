@@ -19,24 +19,18 @@ private:
 
 public:
 	void get();
-
 	void set();
-
 	CitizenPrototype* clone();
-
 	void observerUpdate();
-
 	int calculateSatisfaction();
-
 	void taxPaid();
-
 	void requestBuilding(int City_city, int String_buildtype);
-
 	void recieveMoveinDate();
-
 	void choseTransport(int Transport_trans);
-
 	void requestUtilitieService();
+
+	//command functions
+	void performAction(int type);
 };
 
 #endif

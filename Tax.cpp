@@ -23,7 +23,17 @@ void Tax::operate() {
 	throw "Not yet implemented";
 }
 
-void Tax::performAction() {
-	// TODO - implement Tax::performAction
-	throw "Not yet implemented";
+//command functions
+void Department::execute() {
+	for (int i = 0; i < commands.size(); i++) {
+        commands[i]->execute();
+    }
+}
+
+void Department::addCommand(Command* command) {
+	commands.push_back(command);
+}
+
+void Department::removeCommand(int i) {
+	commands.erase(commands.begin() + i);
 }

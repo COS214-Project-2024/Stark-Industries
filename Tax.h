@@ -13,17 +13,15 @@ private:
 
 public:
 	Tax(std:: string name, float initialTaxRate);
-
 	void setTaxRate(float rate);
-
 	float getTaxRate();
-
 	void collectTaxes(double revenue);
-
 	void operate();
 
-	//command function
-	void performAction();
+	//command functions
+	void execute();
+	void addCommand(Command* command);
+	void removeCommand(int i);
 };
 
 #endif

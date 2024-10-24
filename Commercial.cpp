@@ -1,4 +1,5 @@
 #include "Commercial.h"
+#include <iostream>
 
 string Commercial::getType() {
 	// TODO - implement Commercial::getType
@@ -38,4 +39,24 @@ void Commercial::checkReasourceAvailability() {
 void Commercial::notifyCitizens() {
 	// TODO - implement Commercial::notifyCitizens
 	throw "Not yet implemented";
+}
+
+//command functions
+void Commercial::performAction(int type) {
+	if(type == 0) {
+		//collect tax
+		//std::cout<<"Have to collect Property T"<<std::endl;
+		std::cout<<"Property and Sales Tax collected"<<std::endl;
+	}
+	else if(type == 1) {
+		//allocate tax
+		std::cout<<"Tax allocated"<<std::endl;
+	}
+	else if(type == 2) {
+		//increase tax
+		std::cout<<"Tax increased"<<std::endl;
+	}
+	else {
+		std::cout<<"Invalid command"<<std::endl;
+	}
 }
