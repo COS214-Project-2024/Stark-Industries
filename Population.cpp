@@ -1,11 +1,16 @@
+// Population.cpp
 #include "Population.h"
+#include <iostream>
 
-Population::Population(int rate) : GrowthHandler(rate) {
-	// TODO - implement Population::Population
-	throw "Not yet implemented";
-}
+Population::Population(int rate) : populationGrowthRate(rate) {}
 
 void Population::handleRequest() {
-	// TODO - implement Population::handleRequest
-	throw "Not yet implemented";
+    if (populationGrowthRate > 0) {
+        std::cout << "Handling Population Growth: The population is growing at a rate of " 
+                  << populationGrowthRate << "%.\n";
+    } else if (nextHandler) {
+        nextHandler->handleRequest();
+    } else {
+        std::cout << "No handler available for this request.\n";
+    }
 }
