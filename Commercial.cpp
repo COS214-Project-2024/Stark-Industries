@@ -26,7 +26,7 @@ bool Commercial::constructionComplete() {
 	return constructionStatus;
 }
 
-void Commercial::doImprovments() {
+void Commercial::doImprovements() {
 	//What do I do here?
 	if (resourcesAvailable) {
 		improvementLevel++;
