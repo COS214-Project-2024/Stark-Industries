@@ -4,11 +4,11 @@
 #include "Infrastructure.h"
 #include <iostream>
 
-int main() {
+void testCOR() {
       // Create handlers with test values
     Population populationHandler(5);        // 5% population growth rate
-    Housing housingHandler(1000,8989);           // Demand for 1000 housing units
-    Economic economicHandler(500,9979);          // 500 job opportunities
+    Housing housingHandler(1000,1000);           // Demand for 1000 housing units
+    Economic economicHandler(500,500);          // 500 job opportunities
     Infrastructure infrastructureHandler(10, 200); // 10 roads and capacity of 200
 
     // Set up the chain of responsibility
@@ -38,4 +38,11 @@ int main() {
     Infrastructure unhandledHandler(0, 0); // No roads or capacity
     unhandledHandler.setNextHandler(nullptr); // End of chain
     unhandledHandler.handleRequest(); // Should indicate no handler available
+}
+
+int main ()
+{
+  testCOR();
+
+  return 0;
 }
