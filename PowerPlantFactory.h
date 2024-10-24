@@ -9,7 +9,7 @@ using namespace std;
 class PowerPlantFactory : public UtilitiesFactory {
 
 
-protected:
+public:
 	Utilities* createUtility();
 };
 
