@@ -26,7 +26,7 @@ bool Residential::constructionComplete() {
 	return constructionStatus;
 }
 
-void Residential::doImprovments() {
+void Residential::doImprovements() {
 	//What do I do here?
 	if (resourcesAvailable) {
 		improvementLevel++;
