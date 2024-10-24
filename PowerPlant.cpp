@@ -1,16 +1,23 @@
 #include "PowerPlant.h"
+#include <iostream>
+
+PowerPlant::PowerPlant(string name, double capacity, double operationalCost): Utilities(name, capacity, operationalCost) 
+{
+	this->name=name;
+	this->capacity=capacity;
+	this->operationalCost=operationalCost;
+}
 
 void PowerPlant::displayInfo() {
-	// TODO - implement PowerPlant::displayInfo
-	throw "Not yet implemented";
+    cout << "Power Plant Name: " << name << endl;
+    cout << "Capacity: " << capacity << " MW" << endl;
+    cout << "Operational Cost: $" << operationalCost << " per hour" << endl;
 }
 
 void PowerPlant::generateResources() {
-	// TODO - implement PowerPlant::generateResources
-	throw "Not yet implemented";
+    cout << "Generating " << capacity << " MW of power." << endl;
 }
 
 void PowerPlant::requestMaintenance(int Utilities_util) {
-	// TODO - implement PowerPlant::requestMaintenance
-	throw "Not yet implemented";
+    cout << "Requesting maintenance for power plant. Maintenance ID: " << Utilities_util << endl;
 }

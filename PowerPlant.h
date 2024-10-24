@@ -13,6 +13,10 @@ private:
 	double operationalCost;
 
 public:
+
+	// Constructor to initialize PowerPlant specifics
+    PowerPlant(string name, double capacity, double operationalCost);
+	
 	void displayInfo();
 
 	void generateResources();

@@ -1,6 +1,7 @@
 #include "WasteFactory.h"
+#include "Waste.h"
 
 Utilities* WasteFactory::createUtility() {
-	// TODO - implement WasteFactory::createUtility
-	throw "Not yet implemented";
+    // Create and return a new Waste object
+    return new Waste("City Waste Management", 500.0, 300.0);
 }
