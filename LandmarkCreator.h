@@ -7,9 +7,10 @@ using namespace std;
 
 class LandmarkCreator : public BuildingCreator {
 
-
+public:
+	LandmarkCreator();
 protected:
-	Building* createBuilding();
+	Building* createBuilding(string name, int satisfaction, double economicImpact, double resourceConsumption, bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius);
 };
 
 #endif

@@ -26,7 +26,7 @@ bool Landmark::constructionComplete() {
 	return constructionStatus;
 }
 
-void Landmark::doImprovments() {
+void Landmark::doImprovements() {
 	//What do I do here?
 	if (resourcesAvailable) {
 		improvementLevel++;

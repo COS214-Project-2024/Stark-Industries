@@ -40,7 +40,7 @@ public:
 
 	virtual bool constructionComplete() = 0;
 
-	virtual void doImprovemets() = 0;
+	virtual void doImprovements() = 0;
 
 	virtual void checkReasourceAvailability() = 0;
 

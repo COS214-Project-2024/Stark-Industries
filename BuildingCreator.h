@@ -7,7 +7,7 @@ using namespace std;
 
 class BuildingCreator {
 
-private:
+protected:
 	Building* buildings;
 
 public:
