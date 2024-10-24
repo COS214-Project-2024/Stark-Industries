@@ -1,13 +1,10 @@
 #include "Department.h"
+#include <iostream>
 
-Department::Department(std::string departmentName) {
-	// TODO - implement Department::Department
-	throw "Not yet implemented";
-}
+Department::Department(const std::string& departmentName)
+    : name(departmentName) {}
 
-Department::Department() {
-	// TODO - implement Department::Department
-}
+Department::~Department() {}
 
 void Department::operate() {
 	// TODO - implement Department::operate
@@ -15,26 +12,26 @@ void Department::operate() {
 }
 
 void Department::add(Department* department) {
-	// TODO - implement Department::add
-	throw "Not yet implemented";
+    std::cerr << "Add operation not supported by this department.\n";
 }
 
 void Department::remove(Department* department) {
-	// TODO - implement Department::remove
-	throw "Not yet implemented";
+	std::cerr << "Remove operation not supported by this department.\n";
 }
 
 Department* Department::getChild(int index) {
-	// TODO - implement Department::getChild
-	throw "Not yet implemented";
+	std::cerr << "Get child operation not supported by this department.\n";
+    return nullptr;
 }
 
-void Department::getName() {
-	// TODO - implement Department::getName
-	throw "Not yet implemented";
+std::string Department::getName(){
+	return name;
 }
 
-void Department::fundsReceived() {
-	// TODO - implement Department::fundsReceived
-	throw "Not yet implemented";
+void Department::fundsReceived(double amount) {
+	std::cout << "Department " << name << " received funds: " << amount << "\n";
+}
+
+void Department::displayInfo() const {
+    std::cout << "Department Name: " << name << "\n";
 }
