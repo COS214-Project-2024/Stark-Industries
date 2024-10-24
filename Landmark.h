@@ -19,7 +19,7 @@ private:
 
 public:
 
-	Landmark(string name, int satisfactionImpact, double economicImpact, double resourceConsumption, bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius);
+	Landmark(string name, int satisfaction, double economicImpact, double resourceConsumption, bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius);
 
 	string getType();
 
