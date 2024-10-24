@@ -59,3 +59,8 @@ void Industrial::performAction(int type) {
 		std::cout<<"Invalid command"<<std::endl;
 	}
 }
+
+//visitor functions
+void Industrial::payTax(float taxRate) {
+	std::cout<<"Property Tax collected"<<std::endl;
+}

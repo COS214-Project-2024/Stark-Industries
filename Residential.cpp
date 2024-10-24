@@ -59,3 +59,8 @@ void Residential::performAction(int type) {
 		std::cout<<"Invalid command"<<std::endl;
 	}
 }
+
+//visitor functions
+void Residential::payTax(float taxRate) {
+	std::cout<<"Property Tax collected"<<std::endl;
+}

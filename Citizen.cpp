@@ -27,11 +27,6 @@ int Citizen::calculateSatisfaction() {
 	throw "Not yet implemented";
 }
 
-void Citizen::taxPaid() {
-	// TODO - implement Citizen::taxPaid
-	throw "Not yet implemented";
-}
-
 void Citizen::requestBuilding(int City_city, int String_buildtype) {
 	// TODO - implement Citizen::requestBuilding
 	throw "Not yet implemented";
@@ -69,4 +64,13 @@ void Citizen::performAction(int type) {
 	else {
 		std::cout<<"Invalid command"<<std::endl;
 	}
+}
+
+void Citizen::payTax(double income) {
+	std::cout<<"Time to collect Income Tax from citizens"<<std::endl;
+	// citizens pay 15% of their income
+	double tax = income * 0.15;
+	income -= tax;
+	std::cout<<"Tax paid: "<<tax<<std::endl;
+	//will have to send to government
 }

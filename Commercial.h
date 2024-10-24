@@ -27,6 +27,8 @@ public:
 
 	//command functions
 	void performAction(int type);
+	//visitor functions
+	void payTax(float taxRate);
 };
 
 #endif

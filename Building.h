@@ -39,6 +39,8 @@ public:
 
 	//command functions
 	virtual void performAction(int type) = 0;
+	//visitor functions
+	virtual void payTax(float taxRate) = 0;
 };
 
 #endif

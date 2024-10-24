@@ -60,3 +60,8 @@ void Commercial::performAction(int type) {
 		std::cout<<"Invalid command"<<std::endl;
 	}
 }
+
+//visitor functions
+void Commercial::payTax(float taxRate) {
+	std::cout<<"Property and Sales Tax collected"<<std::endl;
+}
