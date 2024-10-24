@@ -7,8 +7,20 @@ using namespace std;
 
 class Industrial : public Building {
 
+private:
+    string name;
+    int satisfaction;
+    double economicImpact;
+    double resourceConsumption;
+    bool constructionStatus;
+    int improvementLevel;
+    bool resourcesAvailable;
+    int citizenNotificationRadius;
 
 public:
+
+	Industrial(string name, int satisfaction, double economicImpact, double resourceConsumption, bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius);
+
 	string getType();
 
 	int calculateSatisfaction();

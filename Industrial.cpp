@@ -1,41 +1,44 @@
 #include "Industrial.h"
 
+Industrial::Industrial(string name, int satisfaction, double economicImpact, double resourceConsumption, bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius)
+        : name(name), satisfaction(satisfaction), 
+        economicImpact(economicImpact), resourceConsumption(resourceConsumption), 
+        constructionStatus(constructionStatus), improvementLevel(improvementLevel), 
+        resourcesAvailable(resourcesAvailable), citizenNotificationRadius(notificationRadius) {}
+		
 string Industrial::getType() {
-	// TODO - implement Industrial::getType
-	throw "Not yet implemented";
+	return name;
 }
 
 int Industrial::calculateSatisfaction() {
-	// TODO - implement Industrial::calculateSatisfaction
-	throw "Not yet implemented";
+	return satisfaction;
 }
 
 double Industrial::calculateEconomicImpact() {
-	// TODO - implement Industrial::calculateEconomicImpact
-	throw "Not yet implemented";
+	return economicImpact;
 }
 
 double Industrial::calculateResourceConsumption() {
-	// TODO - implement Industrial::calculateResourceConsumption
-	throw "Not yet implemented";
+	return resourceConsumption;
 }
 
 bool Industrial::constructionComplete() {
-	// TODO - implement Industrial::constructionComplete
-	throw "Not yet implemented";
+	return constructionStatus;
 }
 
 void Industrial::doImprovments() {
-	// TODO - implement Industrial::doImprovments
-	throw "Not yet implemented";
+	//What do I do here?
+	if (resourcesAvailable) {
+		improvementLevel++;
+		satisfaction += 5; //Adjust
+		economicImpact *= 1.1; //Adjust
+	}
 }
 
 void Industrial::checkReasourceAvailability() {
-	// TODO - implement Industrial::checkReasourceAvailability
-	throw "Not yet implemented";
+	resourcesAvailable = true;
 }
 
 void Industrial::notifyCitizens() {
-	// TODO - implement Industrial::notifyCitizens
-	throw "Not yet implemented";
+	//What do I do here?
 }
