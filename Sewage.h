@@ -5,7 +5,7 @@
 #include <string>
 using namespace std;
 
-class Sewage : Utilities {
+class Sewage : public Utilities {
 
 private:
 	string name;
@@ -13,6 +13,10 @@ private:
 	double operationalCost;
 
 public:
+
+	// Constructor to initialize Sewage specifics
+    Sewage(string name, double capacity, double operationalCost);
+
 	void displayInfo();
 
 	void generateResources();

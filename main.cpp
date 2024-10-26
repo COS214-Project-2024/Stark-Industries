@@ -58,7 +58,6 @@ void testFactoryUtilities() {
     delete powerPlantUtility;
 }
 
-
 void testComposite(){
      std::cout << "City Simulation using Composite Pattern\n";
 
@@ -109,5 +108,6 @@ int main() {
     
     testFactoryUtilities();
     testComposite();
+   
     return 0;
 }
