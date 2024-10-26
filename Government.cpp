@@ -1,65 +1,38 @@
 #include "Government.h"
+#include <iostream>
+#include <algorithm>
+#include <vector>
 
-Government::Government() : Department() {
-
-}
-
-void Government::increaseTax(int amount) {
-	// TODO - implement Government::increaseTax
-	throw "Not yet implemented";
-}
-
-void Government::allocateTax(string dep, double amount) {
-	// TODO - implement Government::allocateTax
-	throw "Not yet implemented";
-}
-
-void Government::collectTax(Citizen citizen) {
-	// TODO - implement Government::collectTax
-	throw "Not yet implemented";
-}
-
-void Government::get() {
-	// TODO - implement Government::get
-	throw "Not yet implemented";
-}
-
-void Government::set() {
-	// TODO - implement Government::set
-	throw "Not yet implemented";
-}
-
-Government* Government::getState() {
-	// TODO - implement Government::getState
-	throw "Not yet implemented";
-}
-
-void Government::setState() {
-	// TODO - implement Government::setState
-	throw "Not yet implemented";
-}
+Government::Government(double incomeTaxRate, double propertyTaxRate)
+    : Department("Government"), incomeTaxRate(incomeTaxRate), propertyTaxRate(propertyTaxRate) {}
 
 void Government::add(Department* department) {
-	// TODO - implement Government::add
-	throw "Not yet implemented";
+    departments.push_back(department);
 }
 
 void Government::remove(Department* department) {
-	// TODO - implement Government::remove
-	throw "Not yet implemented";
+    auto it = std::remove(departments.begin(), departments.end(), department);
+    if (it != departments.end()) {
+        departments.erase(it, departments.end()); 
+    }
 }
 
+
 Department* Government::getChild(int index) {
-	// TODO - implement Government::getChild
-	throw "Not yet implemented";
+    if (index >= 0 && index < departments.size()) {
+        return departments[index];
+    }
+    return nullptr;
 }
 
 void Government::operate() {
-	// TODO - implement Government::operate
-	throw "Not yet implemented";
+    std::cout << "Government is operating and managing departments.\n";
+    for (Department* dep : departments) {
+        dep->operate(); 
+    }
 }
 
+// Notify citizens about tax changes (delegated to Command)
 void Government::notifyCitizensTaxIncreased() {
-	// TODO - implement Government::notifyCitizensTaxIncreased
-	throw "Not yet implemented";
+    std::cout << "Notifying citizens: Taxes have been increased.\n";
 }

@@ -1,24 +1,23 @@
 #include "Tax.h"
+#include <iostream>
 
-Tax::Tax(std:: string name, float initialTaxRate) {
-	// TODO - implement Tax::Tax
-	throw "Not yet implemented";
-}
+Tax::Tax(const std::string& name, float initialTaxRate)
+    : Department(name), totalRevenue(0.0), taxRate(initialTaxRate) {}
 
 void Tax::setTaxRate(float rate) {
-	this->taxRate = rate;
+    taxRate = rate;
 }
 
-float Tax::getTaxRate() {
-	return this->taxRate;
+float Tax::getTaxRate() const {
+    return taxRate;
 }
 
-void Tax::collectTaxes(double revenue) {
-	// TODO - implement Tax::collectTaxes
-	throw "Not yet implemented";
+void Tax::trackRevenue(double revenue) {
+    totalRevenue += revenue;
+    std::cout << "Tracked revenue: " << revenue << ". Total revenue: " << totalRevenue << "\n";
 }
 
 void Tax::operate() {
-	// TODO - implement Tax::operate
-	throw "Not yet implemented";
+    std::cout << "Operating Tax Department: Current Tax Rate = " << taxRate 
+              << ", Total Revenue = " << totalRevenue << "\n";
 }
