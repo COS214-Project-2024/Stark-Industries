@@ -10,15 +10,13 @@ private:
 	std::string name;
 
 public:
-	Department(const std::string& departmentName);	
-	virtual ~Department();
+	Department(const std::string& departmentName);
+	virtual ~Department() = default;
 	virtual void operate() = 0;
 	virtual void add(Department* department);
 	virtual void remove(Department* department);
 	virtual Department* getChild(int index);
-	std::string getName();
-	virtual void fundsReceived(double amount);
-	virtual void displayInfo() const;
+	std::string getName() const;
 };
 
 #endif
