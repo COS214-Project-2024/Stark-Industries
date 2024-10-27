@@ -11,7 +11,7 @@ protected:
 	Building* buildings;
 
 protected:
-	virtual Building* createBuilding() = 0;
+	virtual Building* createBuilding(string name, int satisfaction, double economicImpact, double resourceConsumption, bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius) = 0;
 };
 
 #endif
