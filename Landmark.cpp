@@ -28,17 +28,17 @@ bool Landmark::constructionComplete() {
 
 void Landmark::doImprovements() {
 	//What do I do here?
-	if (resourcesAvailable) {
+	if (checkReasourceAvailability()) {
 		improvementLevel++;
 		satisfaction += 5; //Adjust
 		economicImpact *= 1.1; //Adjust
 	}
 }
 
-void Landmark::checkReasourceAvailability() {
-	resourcesAvailable = true;
+bool Landmark::checkReasourceAvailability() {
+	return resourcesAvailable;
 }
 
 void Landmark::notifyCitizens() {
-	//What do I do here?
+	//What do I do here? //Part of observer
 }
