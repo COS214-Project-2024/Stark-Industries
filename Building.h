@@ -42,7 +42,7 @@ public:
 
 	virtual void doImprovements() = 0;
 
-	virtual void checkReasourceAvailability() = 0;
+	virtual bool checkReasourceAvailability() = 0;
 
 	virtual void notifyCitizens() = 0;
 };
