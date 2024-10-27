@@ -33,7 +33,7 @@ public:
 
 	void doImprovements();
 
-	void checkReasourceAvailability();
+	bool checkReasourceAvailability();
 
 	void notifyCitizens();
 };
