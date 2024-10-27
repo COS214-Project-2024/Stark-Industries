@@ -10,9 +10,6 @@ class BuildingCreator {
 protected:
 	Building* buildings;
 
-public:
-	void create();
-
 protected:
 	virtual Building* createBuilding() = 0;
 };
