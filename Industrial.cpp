@@ -28,17 +28,17 @@ bool Industrial::constructionComplete() {
 
 void Industrial::doImprovements() {
 	//What do I do here?
-	if (resourcesAvailable) {
+	if (checkReasourceAvailability()) {
 		improvementLevel++;
 		satisfaction += 5; //Adjust
 		economicImpact *= 1.1; //Adjust
 	}
 }
 
-void Industrial::checkReasourceAvailability() {
-	resourcesAvailable = true;
+bool Industrial::checkReasourceAvailability() {
+	return resourcesAvailable;
 }
 
 void Industrial::notifyCitizens() {
-	//What do I do here?
+	//What do I do here? //Part of observer
 }
