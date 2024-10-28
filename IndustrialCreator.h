@@ -9,7 +9,7 @@ class IndustrialCreator : public BuildingCreator {
 
 public:
 	IndustrialCreator();
-protected:
+public: //Should be protected
 	Building* createBuilding(string name, int satisfaction, double economicImpact, double resourceConsumption, bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius);
 };
 

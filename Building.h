@@ -13,7 +13,7 @@ class Building : public Element {
 private:
 	vector<Utilities*> utilities;
 	Citizen* observerList;
-	private:
+
     string name;
     int satisfactionImpact;
     double economicImpact;
@@ -24,7 +24,7 @@ private:
     int citizenNotificationRadius;
 
 public:
-	Building();
+	Building(string name, int satisfaction, double economicImpact, double resourceConsumption, bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius);
 
 	void get();
 

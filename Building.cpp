@@ -1,6 +1,6 @@
 #include "Building.h"
 
-Building::Building() {
+Building::Building(string name, int satisfaction, double economicImpact, double resourceConsumption, bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius) {
 	// TODO - implement Building::Building
 	throw "Not yet implemented";
 }

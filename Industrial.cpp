@@ -1,10 +1,7 @@
 #include "Industrial.h"
 
 Industrial::Industrial(string name, int satisfaction, double economicImpact, double resourceConsumption, bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius)
-        : name(name), satisfaction(satisfaction), 
-        economicImpact(economicImpact), resourceConsumption(resourceConsumption), 
-        constructionStatus(constructionStatus), improvementLevel(improvementLevel), 
-        resourcesAvailable(resourcesAvailable), citizenNotificationRadius(notificationRadius) {}
+        : Building(name, satisfaction, economicImpact, resourceConsumption, constructionStatus, improvementLevel, resourcesAvailable, notificationRadius) {}
 		
 string Industrial::getType() {
 	return name;

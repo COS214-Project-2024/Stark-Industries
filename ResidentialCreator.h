@@ -9,7 +9,7 @@ class ResidentialCreator : public BuildingCreator {
 
 public:
 	ResidentialCreator();
-protected:
+public: //Should be protected
 	Building* createBuilding(string name, int satisfaction, double economicImpact, double resourceConsumption, bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius);
 };
 
