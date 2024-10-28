@@ -1,41 +1,44 @@
 #include "Commercial.h"
 
+Commercial::Commercial(string name, int satisfaction, double economicImpact, double resourceConsumption, bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius)
+        : name(name), satisfaction(satisfaction), economicImpact(economicImpact),
+      resourceConsumption(resourceConsumption), constructionStatus(constructionStatus),
+      improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
+      citizenNotificationRadius(notificationRadius), Building(name, satisfaction, economicImpact, resourceConsumption, constructionStatus, improvementLevel, resourcesAvailable, notificationRadius) {}
+
 string Commercial::getType() {
-	// TODO - implement Commercial::getType
-	throw "Not yet implemented";
+	return name;
 }
 
 int Commercial::calculateSatisfaction() {
-	// TODO - implement Commercial::calculateSatisfaction
-	throw "Not yet implemented";
+	return satisfaction;
 }
 
 double Commercial::calculateEconomicImpact() {
-	// TODO - implement Commercial::calculateEconomicImpact
-	throw "Not yet implemented";
+	return economicImpact;
 }
 
 double Commercial::calculateResourceConsumption() {
-	// TODO - implement Commercial::calculateResourceConsumption
-	throw "Not yet implemented";
+	return resourceConsumption;
 }
 
 bool Commercial::constructionComplete() {
-	// TODO - implement Commercial::constructionComplete
-	throw "Not yet implemented";
+	return constructionStatus;
 }
 
-void Commercial::doImprovments() {
-	// TODO - implement Commercial::doImprovments
-	throw "Not yet implemented";
+void Commercial::doImprovements() {
+	//What do I do here?
+	if (checkReasourceAvailability()) {
+		improvementLevel++;
+		satisfaction += 5; //Adjust
+		economicImpact *= 1.1; //Adjust
+	}
 }
 
-void Commercial::checkReasourceAvailability() {
-	// TODO - implement Commercial::checkReasourceAvailability
-	throw "Not yet implemented";
+bool Commercial::checkReasourceAvailability() {
+	return resourcesAvailable;
 }
 
 void Commercial::notifyCitizens() {
-	// TODO - implement Commercial::notifyCitizens
-	throw "Not yet implemented";
+	//What do I do here? //Part of observer
 }

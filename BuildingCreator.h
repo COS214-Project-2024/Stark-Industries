@@ -7,14 +7,12 @@ using namespace std;
 
 class BuildingCreator {
 
-private:
+protected:
 	Building* buildings;
+	virtual Building* createBuilding(string name, int satisfaction, double economicImpact, double resourceConsumption, bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius) = 0;
 
 public:
-	void create();
-
-protected:
-	virtual Building* createBuilding() = 0;
+virtual ~BuildingCreator() = default;
 };
 
 #endif

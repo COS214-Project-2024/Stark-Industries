@@ -14,8 +14,19 @@ private:
 	vector<Utilities*> utilities;
 	Citizen* observerList;
 
+    string name;
+    int satisfaction;
+    double economicImpact;
+    double resourceConsumption;
+    bool constructionStatus;
+    int improvementLevel;
+    bool resourcesAvailable;
+    int citizenNotificationRadius;
+
 public:
-	Building();
+	Building(string name, int satisfaction, double economicImpact, double resourceConsumption, bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius);
+
+	virtual ~Building() = default;
 
 	void get();
 
@@ -31,9 +42,9 @@ public:
 
 	virtual bool constructionComplete() = 0;
 
-	virtual void doImprovemets() = 0;
+	virtual void doImprovements() = 0;
 
-	virtual void checkReasourceAvailability() = 0;
+	virtual bool checkReasourceAvailability() = 0;
 
 	virtual void notifyCitizens() = 0;
 };

@@ -7,9 +7,10 @@ using namespace std;
 
 class IndustrialCreator : public BuildingCreator {
 
-
-protected:
-	Building* createBuilding();
+public:
+	IndustrialCreator();
+public: //Should be protected
+	Building* createBuilding(string name, int satisfaction, double economicImpact, double resourceConsumption, bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius);
 };
 
 #endif
