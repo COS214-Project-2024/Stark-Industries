@@ -26,7 +26,7 @@ void factoryBuildings() {
     cout << "Satisfaction after improvement: " << residentialBuilding->calculateSatisfaction() << endl;
 
     // Create Landmark Building
-    Building* landmarkBuilding = landmarkCreator.createBuilding("Statue of Liberty", 50, 1000000, 500, true, 1, true, 500);
+    Building* landmarkBuilding = landmarkCreator.createBuilding("Statue of Liberty", 50, 100000, 500, true, 1, true, 500);
     cout << "\nLandmark Building Created:" << endl;
     cout << "Type: " << landmarkBuilding->getType() << endl;
     cout << "Satisfaction: " << landmarkBuilding->calculateSatisfaction() << endl;
@@ -64,6 +64,5 @@ void factoryBuildings() {
 
 int main() {
     factoryBuildings();
-
     return 0;
 }
