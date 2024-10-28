@@ -170,7 +170,7 @@ void factoryBuildings() {
 int main() {
     
     testFactoryUtilities();
-    testComposite
+    testComposite();
     factoryBuildings();
   
     return 0;
