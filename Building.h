@@ -15,7 +15,7 @@ private:
 	Citizen* observerList;
 
     string name;
-    int satisfactionImpact;
+    int satisfaction;
     double economicImpact;
     double resourceConsumption;
     bool constructionStatus;
@@ -25,6 +25,8 @@ private:
 
 public:
 	Building(string name, int satisfaction, double economicImpact, double resourceConsumption, bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius);
+
+	virtual ~Building() = default;
 
 	void get();
 

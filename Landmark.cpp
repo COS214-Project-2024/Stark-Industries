@@ -1,7 +1,10 @@
 #include "Landmark.h"
 
 Landmark::Landmark(string name, int satisfaction, double economicImpact, double resourceConsumption, bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius)
-        : Building(name, satisfaction, economicImpact, resourceConsumption, constructionStatus, improvementLevel, resourcesAvailable, notificationRadius) {}
+        : name(name), satisfaction(satisfaction), economicImpact(economicImpact),
+      resourceConsumption(resourceConsumption), constructionStatus(constructionStatus),
+      improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
+      citizenNotificationRadius(notificationRadius), Building(name, satisfaction, economicImpact, resourceConsumption, constructionStatus, improvementLevel, resourcesAvailable, notificationRadius) {}
 
 string Landmark::getType() {
 	return name;
