@@ -42,3 +42,7 @@ bool Landmark::checkReasourceAvailability() {
 void Landmark::notifyCitizens() {
 	//What do I do here? //Part of observer
 }
+
+Building* Landmark::clone() const {
+    return new Landmark(*this); // Create a new Commercial object using the copy constructor
+}
