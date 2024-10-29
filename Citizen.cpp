@@ -90,9 +90,9 @@ void Citizen::leaveFeedback() {
     satisfactionLevelTrans -= 10;
 }
 
-bool Citizen::checkSatisfaction() {
+/*bool Citizen::checkSatisfaction() {
     return satisfactionLevelTrans > 50;
-}
+}*/
 
 void Citizen::updateSatisfaction() {
     if (commuteTime > 60) {
@@ -109,6 +109,9 @@ void Citizen::disembark() {
         std::cout << name << " has disembarked from " << chosenTransport->getType() << " transport.\n";
         if(chosenTransport->hasCargoCapacity()){
         chosenTransport->unloadCargo(cargo);}
+		if(getSatisfaction()<60){
+chosenTransport->doMaintenance();}
+		}
         chosenTransport = NULL;
     }
 }

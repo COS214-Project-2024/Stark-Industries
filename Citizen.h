@@ -45,9 +45,10 @@ public:
 
 	void chooseTransport(Transport* trans);
 	 void updateSatisfaction();
-        bool checkSatisfaction();
+      //  bool checkSatisfaction();
 	    void disembark();
     void leaveFeedback() ;
+	int getSatisfaction();
 };
 
 #endif
