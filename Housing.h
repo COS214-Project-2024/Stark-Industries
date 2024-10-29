@@ -8,13 +8,13 @@ using namespace std;
 class Housing : public GrowthHandler {
 
 private:
-	int housingCapacity;
-	int housingDemand;
+	double rate;
+	//int housingDemand;
 
 public:
-	Housing(int capacity, int demand);
+	Housing(double growthRate);
 
-	void handleRequest();
+	void handleRequest(int growthFactor);
 };
 
 #endif
