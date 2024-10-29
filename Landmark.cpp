@@ -1,4 +1,5 @@
 #include "Landmark.h"
+#include <iostream>
 
 Landmark::Landmark(string name, int satisfaction, double economicImpact, double resourceConsumption, bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius)
         : name(name), satisfaction(satisfaction), economicImpact(economicImpact),
@@ -27,18 +28,26 @@ bool Landmark::constructionComplete() {
 }
 
 void Landmark::doImprovements() {
-	//What do I do here?
-	if (checkReasourceAvailability()) {
-		improvementLevel++;
-		satisfaction += 5; //Adjust
-		economicImpact *= 1.1; //Adjust
-	}
+    if (checkResourceAvailability()) {
+        improvementLevel++;
+        satisfaction += 10; // Adjust
+        economicImpact *= 1.2; // Adjust
+
+        std::cout << "Landmark improved! New Improvement Level: " 
+                  << improvementLevel << "\n";
+
+        // Notify citizens about the improvement
+        notifyCitizens();
+    } else {
+        std::cout << "Resources unavailable for improvements.\n";
+    }
 }
 
-bool Landmark::checkReasourceAvailability() {
+bool Landmark::checkResourceAvailability() {
 	return resourcesAvailable;
 }
 
 void Landmark::notifyCitizens() {
-	//What do I do here? //Part of observer
+	std::cout << "Notifying citizens about changes to the landmark: " << name << "\n";
+    Building::notifyCitizens();
 }
