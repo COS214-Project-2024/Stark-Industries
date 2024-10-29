@@ -31,11 +31,11 @@ public:
     bool reserveSeat() override;
     void releaseSeat() override;
 
-    virtual bool hasCargoCapacity() const = 0; // Check if this transport supports cargo
-    virtual int getCargoCapacity() const = 0;
-    virtual int getAvailableCargoSpace() const = 0;
-    virtual bool loadCargo(int cargo) = 0;
-    virtual void unloadCargo(int cargo) = 0;
+     bool hasCargoCapacity() const ; // Check if this transport supports cargo
+    int getCargoCapacity() const ;
+     int getAvailableCargoSpace() const ;
+    bool loadCargo(int cargo) ;
+     void unloadCargo(int cargo) ;
 };
 
 #endif // CAR_TRANSPORT_H

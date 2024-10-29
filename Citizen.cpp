@@ -111,7 +111,11 @@ void Citizen::disembark() {
         chosenTransport->unloadCargo(cargo);}
 		if(getSatisfaction()<60){
 chosenTransport->doMaintenance();}
+chosenTransport = NULL;
 		}
-        chosenTransport = NULL;
+        
     }
+
+int Citizen::getSatisfaction(){
+	return satisfactionLevelTrans;
 }
