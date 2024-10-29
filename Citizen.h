@@ -16,15 +16,17 @@ private:
 	double commuteTime;
 	int isSatisfiedTrans;
 	bool hasPaid;
+	double satisfaction;
 
 public:
+
+	Citizen(const std::string& name, int income, double propertyValue);
+
 	void get();
 
 	void set();
 
 	CitizenPrototype* clone();
-
-	void observerUpdate();
 
 	int calculateSatisfaction();
 
@@ -36,7 +38,10 @@ public:
 
 	void choseTransport(int Transport_trans);
 
-	void requestUtilitieService();
+	void requestUtilitiesService();
+
+	//Observer
+	void observerUpdate();
 };
 
 #endif

@@ -1,4 +1,9 @@
 #include "Citizen.h"
+#include <iostream>
+
+Citizen::Citizen(const std::string& name, int income, double propertyValue)
+    : name(name), income(income), propertyValue(propertyValue), commuteTime(0),
+      isSatisfiedTrans(0), hasPaid(false) {}
 
 void Citizen::get() {
 	// TODO - implement Citizen::get
@@ -16,8 +21,8 @@ CitizenPrototype* Citizen::clone() {
 }
 
 void Citizen::observerUpdate() {
-	// TODO - implement Citizen::observerUpdate
-	throw "Not yet implemented";
+    std::cout << "Citizen " << name << " has been notified of a building change.\n";
+    satisfaction++; 
 }
 
 int Citizen::calculateSatisfaction() {
@@ -45,7 +50,7 @@ void Citizen::choseTransport(int Transport_trans) {
 	throw "Not yet implemented";
 }
 
-void Citizen::requestUtilitieService() {
+void Citizen::requestUtilitiesService() {
 	// TODO - implement Citizen::requestUtilitieService
 	throw "Not yet implemented";
 }
