@@ -4,7 +4,11 @@
 #include "TransportInfrastructure.h"
 
 class TransportInfrastructureFactory {
-
+private:
+    TransportInfrastructure* product;
+public:
+    void buildInfrastructure();
+    virtual ~TransportInfrastructureFactory()= default;
 
 protected:
 	virtual TransportInfrastructure* createInfrastructure() = 0;
