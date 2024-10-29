@@ -1,4 +1,5 @@
 #include "Residential.h"
+#include <iostream>
 
 Residential::Residential(string name, int satisfaction, double economicImpact, double resourceConsumption, bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius)
         : name(name), satisfaction(satisfaction), economicImpact(economicImpact),
@@ -27,18 +28,25 @@ bool Residential::constructionComplete() {
 }
 
 void Residential::doImprovements() {
-	//What do I do here?
-	if (checkReasourceAvailability()) {
-		improvementLevel++;
-		satisfaction += 5; //Adjust
-		economicImpact *= 1.1; //Adjust
-	}
+    if (checkResourceAvailability()) {
+        improvementLevel++;
+        satisfaction += 5; //Adjust
+        economicImpact *= 1.1; //Adjust
+
+        std::cout << "Residential building improved! New Improvement Level: " 
+                  << improvementLevel << "\n";
+
+        notifyCitizens(); //added this to Observer pattern, citizens are notified when improvements are done
+    } else {
+        std::cout << "Resources unavailable for improvements.\n";
+    }
 }
 
-bool Residential::checkReasourceAvailability() {
+bool Residential::checkResourceAvailability() {
 	return resourcesAvailable;
 }
 
 void Residential::notifyCitizens() {
-	//What do I do here? //Part of observer
+	std::cout << "Notifying citizens about changes in " << name << "...\n";
+    Building::notifyCitizens();
 }
