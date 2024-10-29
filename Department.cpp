@@ -38,3 +38,5 @@ void Department::fundsReceived() {
 	// TODO - implement Department::fundsReceived
 	throw "Not yet implemented";
 }
+
+

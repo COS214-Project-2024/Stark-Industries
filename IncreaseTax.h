@@ -9,13 +9,13 @@ using namespace std;
 class IncreaseTax : public Command {
 
 private:
-	Government gov;
 	double increase;
 	string taxType;
 
 public:
-	IncreaseTax(Government gov, int increase, string type);
-
+	Citizen * citizenReceiver; 
+	Building * buildingReceiver;
+	IncreaseTax(Citizen* citizenReceiver, Building * buildingReceiver, int increase, string type);
 	void execute();
 };
 

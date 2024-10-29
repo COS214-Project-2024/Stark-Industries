@@ -19,11 +19,19 @@ public:
 
 	bool constructionComplete();
 
-	void doImprovments();
+	void doImprovements();
 
 	void checkReasourceAvailability();
 
 	void notifyCitizens();
+
+	//command functions
+	void performAction(int type);
+	//visitor functions
+	void payTax(float taxRate);
+
+private: 
+	float propertyTaxRate = 0.015;
 };
 
 #endif

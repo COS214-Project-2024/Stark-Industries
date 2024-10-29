@@ -14,6 +14,11 @@ private:
 	vector<Utilities*> utilities;
 	Citizen* observerList;
 
+protected: 
+	double buildingRevenue;
+	double buildingValue;
+	double taxPaid;
+
 public:
 	Building();
 
@@ -31,11 +36,18 @@ public:
 
 	virtual bool constructionComplete() = 0;
 
-	virtual void doImprovemets() = 0;
+	virtual void doImprovements() = 0;
 
 	virtual void checkReasourceAvailability() = 0;
 
 	virtual void notifyCitizens() = 0;
+
+	//command functions
+	virtual void performAction(int type) = 0;
+	//visitor functions
+	virtual void payTax(float taxRate) = 0;
+
+	// need to do things for rent 
 };
 
-#endif
+#endif // BUILDING_H

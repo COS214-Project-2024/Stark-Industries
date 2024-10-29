@@ -3,6 +3,7 @@
 
 #include "Department.h"
 #include <string>
+#include <iostream>
 using namespace std;
 
 class Budget : public Department {
@@ -13,8 +14,9 @@ private:
 
 public:
 	void operate();
-
-	void allocateFunds(double amount);
+	std::string name = "Budget";
+	void allocateFunds();
+	void receiveTax(double tax);
 };
 
 #endif

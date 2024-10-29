@@ -11,32 +11,33 @@ class Citizen : CitizenPrototype {
 private:
 	// Building* observerList; //Building is abstract
 	string name;
-	int income;
+	double income;
 	double propertyValue;
 	double commuteTime;
 	int isSatisfiedTrans;
 	bool hasPaid;
+	double taxRate = 0.15;
 
 public:
 	void get();
-
 	void set();
-
 	CitizenPrototype* clone();
-
 	void observerUpdate();
-
 	int calculateSatisfaction();
-
-	void taxPaid();
-
 	void requestBuilding(int City_city, int String_buildtype);
-
 	void recieveMoveinDate();
-
 	void choseTransport(int Transport_trans);
-
 	void requestUtilitieService();
+	void getPaid(double income);
+	Citizen(string name, double baseIncome);
+
+	//command functions
+	void performAction(int type);
+	//visitor functions
+	void payTax();
+	void setTaxRate();
+	double taxPaid;
+
 };
 
 #endif
