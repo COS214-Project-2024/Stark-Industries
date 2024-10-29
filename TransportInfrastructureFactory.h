@@ -7,7 +7,9 @@ class TransportInfrastructureFactory {
 private:
     TransportInfrastructure* product;
 public:
-    void buildInfrastructure();
+    void buildInfrastructure(){
+        product = createInfrastructure();
+    }
     virtual ~TransportInfrastructureFactory()= default;
 
 protected:
