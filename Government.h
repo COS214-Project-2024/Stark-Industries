@@ -4,6 +4,7 @@
 #include "Department.h"
 #include "Citizen.h"
 #include <string>
+#include <vector>
 using namespace std;
 
 class Government : public Department {
@@ -11,34 +12,18 @@ class Government : public Department {
 private:
 	double incomeTaxRate;
 	double propertyTaxRate;
-	Government* subjectState;
+	std::vector<Department*> departments;
 
 public:
-	Government();
-	
-	void increaseTax(int amount);
+    Government(double incomeTaxRate = 0.0, double propertyTaxRate = 0.0);
 
-	void allocateTax(string dep, double amount);
+    void add(Department* department) override;
+    void remove(Department* department) override;
+    Department* getChild(int index) override;
 
-	void collectTax(Citizen citizen);
+    void operate() override;
 
-	void get();
-
-	void set();
-
-	Government* getState();
-
-	void setState();
-
-	void add(Department* department);
-
-	void remove(Department* department);
-
-	Department* getChild(int index);
-
-	void operate();
-
-	void notifyCitizensTaxIncreased();
+    void notifyCitizensTaxIncreased(); //delegate to Command
 };
 
 #endif

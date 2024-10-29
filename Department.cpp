@@ -1,40 +1,22 @@
 #include "Department.h"
+#include <iostream>
 
-Department::Department(std::string departmentName) {
-	// TODO - implement Department::Department
-	throw "Not yet implemented";
-}
+Department::Department(const std::string& departmentName) : name(departmentName) {}
 
-Department::Department() {
-	// TODO - implement Department::Department
-}
-
-void Department::operate() {
-	// TODO - implement Department::operate
-	throw "Not yet implemented";
-}
 
 void Department::add(Department* department) {
-	// TODO - implement Department::add
-	throw "Not yet implemented";
+	//Abstract class
 }
 
 void Department::remove(Department* department) {
-	// TODO - implement Department::remove
-	throw "Not yet implemented";
+	//Abstract class
 }
 
 Department* Department::getChild(int index) {
-	// TODO - implement Department::getChild
-	throw "Not yet implemented";
+	return nullptr; //A leaf won't have children
 }
 
-void Department::getName() {
-	// TODO - implement Department::getName
-	throw "Not yet implemented";
+std::string Department::getName() const{
+	return name;
 }
 
-void Department::fundsReceived() {
-	// TODO - implement Department::fundsReceived
-	throw "Not yet implemented";
-}
