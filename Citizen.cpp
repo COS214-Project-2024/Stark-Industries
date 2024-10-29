@@ -1,6 +1,14 @@
 #include "Citizen.h"
 #include <iostream>
 
+
+/**
+ * @brief Constructs a Citizen with the given attributes.
+ * 
+ * @param name Name of the citizen.
+ * @param income Income of the citizen.
+ * @param propertyValue Value of the citizen's property.
+ */
 Citizen::Citizen(const std::string& name, int income, double propertyValue)
     : name(name), income(income), propertyValue(propertyValue), commuteTime(0),
       isSatisfiedTrans(0), hasPaid(false) {}
@@ -20,6 +28,12 @@ CitizenPrototype* Citizen::clone() {
 	throw "Not yet implemented";
 }
 
+
+/**
+ * @brief Updates the citizen when a building notifies them of a change (Observer pattern).
+ * 
+ * This method is called by the building when there are changes, increasing the satisfaction level of the citizen.
+ */
 void Citizen::observerUpdate() {
     std::cout << "Citizen " << name << " has been notified of a building change.\n";
     satisfaction++; 
