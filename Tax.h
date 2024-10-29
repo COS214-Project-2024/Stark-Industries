@@ -10,13 +10,17 @@ class Tax : public Department {
 private:
 	double totalRevenue;
 	float taxRate;
+	string taxType;
 
 public:
-	Tax(std:: string name, float initialTaxRate);
+	Tax(double totalRevenue, float initialTaxRate, string taxType);
 	void setTaxRate(float rate);
 	float getTaxRate();
 	void collectTaxes(double revenue);
 	void operate();
+	//getaxType
+	string getTaxType();
+
 
 	//command functions
 	void execute();

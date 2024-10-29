@@ -47,6 +47,7 @@ void Commercial::performAction(int type) {
 		//collect tax
 		//std::cout<<"Have to collect Property T"<<std::endl;
 		std::cout<<"Property and Sales Tax collected"<<std::endl;
+		payTax(0);
 	}
 	else if(type == 1) {
 		//allocate tax

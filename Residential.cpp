@@ -46,6 +46,7 @@ void Residential::performAction(int type) {
 	if(type == 0) {
 		//collect tax
 		std::cout<<"Property Tax collected"<<std::endl;
+		payTax(0);
 	}
 	else if(type == 1) {
 		//allocate tax

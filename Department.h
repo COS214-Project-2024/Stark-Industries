@@ -8,7 +8,7 @@
 
 class Department {
 
-private:
+protected:
 	std::string name;
 	std::vector<Command*> commands;
 

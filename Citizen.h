@@ -27,11 +27,13 @@ public:
 	void recieveMoveinDate();
 	void choseTransport(int Transport_trans);
 	void requestUtilitieService();
+	void getPaid(double income);
+	Citizen(string name, double baseIncome);
 
 	//command functions
 	void performAction(int type);
 	//visitor functions
-	void payTax(double income);
+	void payTax();
 
 };
 

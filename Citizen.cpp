@@ -1,6 +1,10 @@
 #include "Citizen.h"
 #include <iostream>
 
+Citizen::Citizen(std::string name, double baseIncome) {
+	this->name = name;
+	this->income = baseIncome;
+}
 
 void Citizen::get() {
 	// TODO - implement Citizen::get
@@ -52,25 +56,32 @@ void Citizen::performAction(int type) {
 	if(type == 0) {
 		//collect tax
 		std::cout<<"Income Tax collected from citizens"<<std::endl;
+		payTax();
 	}
 	else if(type == 1) {
 		//increase tax
 		std::cout<<"Tax increased"<<std::endl;
+		// affect satisfaction??
 	}
 	else if(type == 2) {
 		//allocate tax
 		std::cout<<"Tax allocated"<<std::endl;
+		//probably deleting this
 	}
 	else {
 		std::cout<<"Invalid command"<<std::endl;
 	}
 }
 
-void Citizen::payTax(double income) {
+void Citizen::payTax() {
 	std::cout<<"Time to collect Income Tax from citizens"<<std::endl;
 	// citizens pay 15% of their income
-	double tax = income * 0.15;
+	double tax = this->income * 0.15;
 	income -= tax;
 	std::cout<<"Tax paid: "<<tax<<std::endl;
 	//will have to send to government
+}
+
+void Citizen::getPaid(double income) {
+	this->income += income;
 }

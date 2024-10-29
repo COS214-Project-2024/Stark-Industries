@@ -19,7 +19,7 @@ public:
 
 	bool constructionComplete();
 
-	void doImprovments();
+	void doImprovements();
 
 	void checkReasourceAvailability();
 
