@@ -14,6 +14,10 @@ private:
 	vector<Utilities*> utilities;
 	Citizen* observerList;
 
+protected: 
+	double buildingRevenue;
+	double buildingValue;
+
 public:
 	Building();
 
@@ -41,6 +45,8 @@ public:
 	virtual void performAction(int type) = 0;
 	//visitor functions
 	virtual void payTax(float taxRate) = 0;
+
+	// need to do things for rent 
 };
 
-#endif
+#endif // BUILDING_H

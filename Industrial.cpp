@@ -62,5 +62,8 @@ void Industrial::performAction(int type) {
 
 //visitor functions
 void Industrial::payTax(float taxRate) {
-	std::cout<<"Property Tax collected"<<std::endl;
+	double tax = this->propertyTaxRate * this->buildingRevenue;
+	this->buildingRevenue -= tax;
+	std::cout<<"Property Tax of: " << tax << " collected"<<std::endl;
+
 }

@@ -29,6 +29,10 @@ public:
 	void performAction(int type);
 	//visitor functions
 	void payTax(float taxRate);
+
+private:
+	float propertyTaxRate = 0.015;
+	float salesTaxRate = 0.15;
 };
 
 #endif
