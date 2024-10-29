@@ -12,7 +12,7 @@ class Building : public Element {
 
 private:
 	vector<Utilities*> utilities;
-	Citizen* observerList;
+	std::vector<Citizen*> observerList; // vector so that multiple citizens can be attached
 
     string name;
     int satisfaction;
@@ -25,27 +25,20 @@ private:
 
 public:
 	Building(string name, int satisfaction, double economicImpact, double resourceConsumption, bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius);
-
 	virtual ~Building() = default;
-
 	void get();
-
 	void set();
-
 	virtual string getType() = 0;
-
 	virtual int calculateSatisfaction() = 0;
-
 	virtual double calculateEconomicImpact() = 0;
-
 	virtual double calculateResourceConsumption() = 0;
-
 	virtual bool constructionComplete() = 0;
-
 	virtual void doImprovements() = 0;
+	virtual bool checkResourceAvailability() = 0;
 
-	virtual bool checkReasourceAvailability() = 0;
-
+	//Observer functions
+	void attach(Citizen* observer);
+	void detach(Citizen* observer);
 	virtual void notifyCitizens() = 0;
 };
 
