@@ -36,6 +36,9 @@ public:
 	bool checkReasourceAvailability();
 
 	void notifyCitizens();
+
+    Building* clone() const override; // Override the clone function
+
 };
 
 #endif

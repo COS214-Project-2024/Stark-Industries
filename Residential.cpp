@@ -42,3 +42,7 @@ bool Residential::checkReasourceAvailability() {
 void Residential::notifyCitizens() {
 	//What do I do here? //Part of observer
 }
+
+Building* Residential::clone() const {
+    return new Residential(*this); // Create a new Commercial object using the copy constructor
+}
