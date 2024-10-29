@@ -47,6 +47,9 @@ public:
 	virtual bool checkReasourceAvailability() = 0;
 
 	virtual void notifyCitizens() = 0;
+
+	virtual Building* clone() const = 0;  // Pure virtual method for cloning
+
 };
 
 #endif
