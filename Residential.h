@@ -19,7 +19,7 @@ public:
 
 	bool constructionComplete();
 
-	void doImprovments();
+	void doImprovements();
 
 	void checkReasourceAvailability();
 
@@ -32,6 +32,7 @@ public:
 
 private:
 	float propertyTaxRate = 0.01;
+	float rentalTaxRate = 0.20;
 };
 
 #endif

@@ -16,6 +16,7 @@ private:
 	double commuteTime;
 	int isSatisfiedTrans;
 	bool hasPaid;
+	double taxRate = 0.15;
 
 public:
 	void get();
@@ -34,6 +35,8 @@ public:
 	void performAction(int type);
 	//visitor functions
 	void payTax();
+	void setTaxRate();
+	double taxPaid;
 
 };
 

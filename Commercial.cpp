@@ -3,42 +3,42 @@
 
 string Commercial::getType() {
 	// TODO - implement Commercial::getType
-	throw "Not yet implemented";
+	// "Not yet implemented";
 }
 
 int Commercial::calculateSatisfaction() {
 	// TODO - implement Commercial::calculateSatisfaction
-	throw "Not yet implemented";
+	// "Not yet implemented";
 }
 
 double Commercial::calculateEconomicImpact() {
 	// TODO - implement Commercial::calculateEconomicImpact
-	throw "Not yet implemented";
+	// "Not yet implemented";
 }
 
 double Commercial::calculateResourceConsumption() {
 	// TODO - implement Commercial::calculateResourceConsumption
-	throw "Not yet implemented";
+	// "Not yet implemented";
 }
 
 bool Commercial::constructionComplete() {
 	// TODO - implement Commercial::constructionComplete
-	throw "Not yet implemented";
+	// "Not yet implemented";
 }
 
-void Commercial::doImprovments() {
+void Commercial::doImprovements() {
 	// TODO - implement Commercial::doImprovments
-	throw "Not yet implemented";
+	// "Not yet implemented";
 }
 
 void Commercial::checkReasourceAvailability() {
 	// TODO - implement Commercial::checkReasourceAvailability
-	throw "Not yet implemented";
+	// "Not yet implemented";
 }
 
 void Commercial::notifyCitizens() {
 	// TODO - implement Commercial::notifyCitizens
-	throw "Not yet implemented";
+	// "Not yet implemented";
 }
 
 //command functions
@@ -64,5 +64,9 @@ void Commercial::performAction(int type) {
 
 //visitor functions
 void Commercial::payTax(float taxRate) {
-	std::cout<<"Property and Sales Tax collected"<<std::endl;
+	double propertyTax = buildingValue * propertyTaxRate;
+	double salesTax = buildingRevenue * salesTaxRate;
+	buildingRevenue -= propertyTax + salesTax;
+	taxPaid += propertyTax + salesTax;
+	std::cout<<"Property Tax of: " << propertyTax << " and Sales Tax of: " << salesTax << " collected"<<std::endl;												
 }

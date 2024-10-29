@@ -11,6 +11,7 @@ public:
 	Citizen * citizenReceiver; 
 	Building * buildingReceiver;
 	virtual void execute() = 0;
+	std::string name;
 };
 
 #endif

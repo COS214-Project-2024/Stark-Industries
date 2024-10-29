@@ -60,7 +60,8 @@ void Citizen::performAction(int type) {
 	}
 	else if(type == 1) {
 		//increase tax
-		std::cout<<"Tax increased"<<std::endl;
+		std::cout<<"Tax increased by 2%"<<std::endl;
+		setTaxRate();
 		// affect satisfaction??
 	}
 	else if(type == 2) {
@@ -76,12 +77,17 @@ void Citizen::performAction(int type) {
 void Citizen::payTax() {
 	std::cout<<"Time to collect Income Tax from citizens"<<std::endl;
 	// citizens pay 15% of their income
-	double tax = this->income * 0.15;
+	double tax = this->income * taxRate;
 	income -= tax;
+	taxPaid += tax;
 	std::cout<<"Tax paid: "<<tax<<std::endl;
 	//will have to send to government
 }
 
 void Citizen::getPaid(double income) {
 	this->income += income;
+}
+
+void Citizen::setTaxRate() {
+	taxRate *= 1.02;
 }

@@ -6,14 +6,17 @@
 #include "Citizen.h"
 #include "Building.h"
 #include <string>
+#include <vector>
 using namespace std;
 
 class CollectTax : public Command {
 
 public:
-	Citizen * citizenReceiver; 
-	Building * buildingReceiver;
+	vector<Building*> buildingList;
+	vector<Citizen*> citizenList;
 	CollectTax(Citizen * citizenReceiver, Building * buildingReceiver);
+	void addBuilding(Building * buildingReceiver);
+	void addCitizen(Citizen * citizenReceiver);
 	void execute();
 };
 

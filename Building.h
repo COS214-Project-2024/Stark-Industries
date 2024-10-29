@@ -17,6 +17,7 @@ private:
 protected: 
 	double buildingRevenue;
 	double buildingValue;
+	double taxPaid;
 
 public:
 	Building();

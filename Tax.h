@@ -28,4 +28,6 @@ public:
 	void removeCommand(int i);
 };
 
+//order of commands is 0: Collect, 1: Increase
+
 #endif

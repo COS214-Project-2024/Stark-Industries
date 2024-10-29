@@ -5,9 +5,10 @@ IncreaseTax::IncreaseTax(Citizen * citizenReceiver, Building * buildingReceiver,
 	this->buildingReceiver = buildingReceiver;
 	this->increase = increase;
 	this->taxType = type;
+	this->name = "Increase";
 }
 
 void IncreaseTax::execute() {
 	citizenReceiver->performAction(1);
-	buildingReceiver->performAction(1);
+	//buildingReceiver->performAction(1);
 }

@@ -3,6 +3,7 @@
 
 #include "Department.h"
 #include "Citizen.h"
+#include "Visitor.h"
 #include <string>
 using namespace std;
 
@@ -12,6 +13,8 @@ private:
 	double incomeTaxRate;
 	double propertyTaxRate;
 	Government* subjectState;
+	Visitor* visitor;
+	double taxCollected;
 
 public:
 	Government();
@@ -20,7 +23,7 @@ public:
 
 	void allocateTax(string dep, double amount);
 
-	void collectTax(Citizen citizen);
+	void collectTax();
 
 	void get();
 

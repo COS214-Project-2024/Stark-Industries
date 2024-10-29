@@ -5,6 +5,7 @@ AllocateTax::AllocateTax(Citizen * citizenReceiver, Building * buildingReceiver,
 	this->buildingReceiver = buildingReceiver;
 	this->department = dep;
 	this->amount = amount;
+	this->name = "Allocate";
 }
 
 void AllocateTax::execute() {
