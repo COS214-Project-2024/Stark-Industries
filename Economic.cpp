@@ -2,15 +2,17 @@
 #include "Economic.h"
 #include <iostream>
 
-Economic::Economic(int jobs, double growthRate) : jobCreationRate(jobs), economicGrowthRate(growthRate) {}
+Economic::Economic(double growthRate) : economicGrowthRate(growthRate) {}
 
-void Economic::handleRequest() {
-    if (jobCreationRate > 0) {
-        std::cout << "Handling Economic Growth: There are " 
-                  << jobCreationRate << " new job opportunities.\n";
+void Economic::handleRequest(int growthFactor) {
+    if (growthFactor < 100 && growthFactor > 15) {
+        cout << "Handling Economy Growth: The economy is growing at a rate of " << economicGrowthRate << "%.\n";
+        GrowthHandler::handleRequest(growthFactor);
     } else if (nextHandler) {
-        nextHandler->handleRequest();
-    } else {
-        std::cout << "No handler available for this request.\n";
+        // cout << "Economy handler passes growth factor.\n";
+        GrowthHandler::handleRequest(growthFactor);
+    }
+    else {
+        cout << "Economy handler passes growth factor.\n";
     }
 }

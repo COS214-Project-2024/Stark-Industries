@@ -2,17 +2,17 @@
 #include "Infrastructure.h"
 #include <iostream>
 
-Infrastructure::Infrastructure(int roadsBuilt, int utilityCapacity)
-    : roads(roadsBuilt), capacity(utilityCapacity) {}
+Infrastructure::Infrastructure(double growthRate) : growthRate(growthRate) {}
 
-void Infrastructure::handleRequest() {
-    if (roads > 0 || capacity > 0) {
-        std::cout << "Handling Infrastructure Growth: There are " 
-                  << roads << " new roads built and a utility capacity of "
-                  << capacity << ".\n";
+void Infrastructure::handleRequest(int growthFactor) {
+    if (growthFactor < 100 && growthFactor > 20) {
+        cout << "Handling Infratructure Growth: The infrastructure is growing at a rate of " << growthRate << "%.\n";
+        GrowthHandler::handleRequest(growthFactor);
     } else if (nextHandler) {
-        nextHandler->handleRequest();
-    } else {
-        std::cout << "No handler available for this request.\n";
+        // std::cout << "Infrastructure handler passes growth factor.\n";
+        GrowthHandler::handleRequest(growthFactor);
     }
+    // else {
+    //     std::cout << "No handler available to process the request.\n";
+    // }
 }

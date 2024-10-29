@@ -7,14 +7,12 @@ protected:
     GrowthHandler* nextHandler;
 
 public:
-    GrowthHandler() : nextHandler(nullptr) {}
+    GrowthHandler();
     virtual ~GrowthHandler() = default;
 
-    virtual void setNextHandler(GrowthHandler* handler) {
-        nextHandler = handler;
-    }
+    virtual void setNextHandler(GrowthHandler* handler);
 
-    virtual void handleRequest() = 0;
+    virtual void handleRequest(int growthFactor) = 0;
 };
 
 #endif // GROWTHHANDLER_H

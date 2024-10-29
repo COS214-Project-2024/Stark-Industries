@@ -4,15 +4,15 @@
 
 #include "GrowthHandler.h"
 #include <iostream>
+using namespace std;
 
 class Infrastructure : public GrowthHandler {
 private:
-    int roads;
-    int capacity;
+    double growthRate;
 
 public:
-    Infrastructure(int roadsBuilt, int utilityCapacity);
-    void handleRequest() override;
+    Infrastructure(double growthRate);
+    void handleRequest(int growthFactor);
 };
 
 #endif // INFRASTRUCTURE_H

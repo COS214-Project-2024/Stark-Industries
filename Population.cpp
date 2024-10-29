@@ -2,15 +2,16 @@
 #include "Population.h"
 #include <iostream>
 
-Population::Population(int rate) : populationGrowthRate(rate) {}
+Population::Population(double rate) : populationGrowthRate(rate) {}
 
-void Population::handleRequest() {
-    if (populationGrowthRate > 0) {
-        std::cout << "Handling Population Growth: The population is growing at a rate of " 
-                  << populationGrowthRate << "%.\n";
+void Population::handleRequest(int growthFactor) {
+    if (growthFactor < 100 && growthFactor > 0) {
+        cout << "Handling Population Growth: The population is growing at a rate of " << populationGrowthRate << "%.\n";
+        GrowthHandler::handleRequest(growthFactor);
     } else if (nextHandler) {
-        nextHandler->handleRequest();
-    } else {
-        std::cout << "No handler available for this request.\n";
+        GrowthHandler::handleRequest(growthFactor);
+    }
+    else {
+        cout << "Population handler passes growth factor.\n";
     }
 }
