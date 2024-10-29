@@ -3,16 +3,16 @@ run: main
 	make c
 
 main: *.o
-	g++ -std=c++20 -fprofile-arcs -ftest-coverage -o main *.o
+	g++ -std=c++11 -fprofile-arcs -ftest-coverage -o main *.o
 
 *.o: *.cpp
-	g++ -std=c++20 -fprofile-arcs -ftest-coverage -c -w *.cpp
+	g++ -std=c++11 -fprofile-arcs -ftest-coverage -c -w *.cpp
 
 debugcpp: debugo
-	g++ -std=c++20 -ggdb3 -fprofile-arcs -ftest-coverage -o main *.o
+	g++ -std=c++11 -ggdb3 -fprofile-arcs -ftest-coverage -o main *.o
 
 debugo: *.cpp
-	g++ -std=c++20 -ggdb3 -fprofile-arcs -ftest-coverage -c -w *.cpp
+	g++ -std=c++11 -ggdb3 -fprofile-arcs -ftest-coverage -c -w *.cpp
 
 cov: 
 	make main
