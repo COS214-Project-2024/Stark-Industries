@@ -21,7 +21,7 @@ public:
 	//getaxType
 	string getTaxType();
 
-
+	std::string name = "Tax";
 	//command functions
 	void execute();
 	void addCommand(Command* command);

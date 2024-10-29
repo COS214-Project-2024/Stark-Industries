@@ -5,6 +5,7 @@
 #include "Citizen.h"
 #include "Visitor.h"
 #include <string>
+#include <vector>
 using namespace std;
 
 class Government : public Department {
@@ -13,6 +14,7 @@ private:
 	double incomeTaxRate;
 	double propertyTaxRate;
 	Government* subjectState;
+	std::vector<Department*> departments;
 	Visitor* visitor;
 	double taxCollected;
 
@@ -21,7 +23,7 @@ public:
 	
 	void increaseTax(int amount);
 
-	void allocateTax(string dep, double amount);
+	void allocateTax();
 
 	void collectTax();
 

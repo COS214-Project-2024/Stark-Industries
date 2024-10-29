@@ -13,9 +13,9 @@ private:
 	double amount;
 
 public:
-	Citizen * citizenReceiver; 
-	Building * buildingReceiver;
-	AllocateTax(Citizen * citizenReceiver, Building * buildingReceiver, string dep, double amount);
+	Government * govtReceiver;
+
+	AllocateTax(Government * govtReceiver);
 
 	void execute();
 };

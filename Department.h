@@ -23,12 +23,12 @@ public:
 	Department* getChild(int index);
 	void getName();
 	void fundsReceived();
-
+	std::string name;
 	//command functions for invoker
 	virtual void execute() = 0;
 	virtual void addCommand(Command* command) = 0;
 	virtual void removeCommand(int i) =	0;
-
+	virtual void receiveTax(double tax) {};
 };
 
 #endif

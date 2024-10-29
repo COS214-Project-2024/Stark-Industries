@@ -9,8 +9,13 @@ void Government::increaseTax(int amount) {
 	throw "Not yet implemented";
 }
 
-void Government::allocateTax(string dep, double amount) {
-	
+void Government::allocateTax() {
+	for (int i = 0; i < departments.size(); i++) {
+		if (departments[i]->name == "Budget"){
+			departments[i]->receiveTax(taxCollected);
+			break;
+		}
+	}
 }
 
 void Government::collectTax() {
