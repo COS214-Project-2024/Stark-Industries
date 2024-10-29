@@ -42,3 +42,7 @@ bool Industrial::checkReasourceAvailability() {
 void Industrial::notifyCitizens() {
 	//What do I do here? //Part of observer
 }
+
+  Building* Industrial::clone() const {
+    return new Industrial(*this); // Create a new Commercial object using the copy constructor
+}
