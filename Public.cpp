@@ -1,36 +1,82 @@
 #include "Public.h"
 
-Public::Public(string nameP, int Totalcapacity, int curCapacity, double price, double time, bool opne) {
-	// TODO - implement Public::Public
-	throw "Not yet implemented";
-}
+#include <iostream>
 
-void Public::transport() {
-	// TODO - implement Public::transport
-	throw "Not yet implemented";
-}
+Public::Public(string name,double travelTime, double fee,int seatingCapacity) 
+    :name(name) ,isUnderMaintenance(false), travelTime(travelTime), fee(fee),seatingCapacity(seatingCapacity),availableSeats(seatingCapacity) {}
 
-void Public::doMaintenance_() {
-	// TODO - implement Public::doMaintenance 
-	throw "Not yet implemented";
+void Public::doMaintenance() {
+    isUnderMaintenance = false;
+    std::cout << "Car transport maintenance completed.\n";
 }
 
 double Public::commuteTime() {
-	// TODO - implement Public::commuteTime
-	throw "Not yet implemented";
+    return travelTime;
 }
 
-int Public::citizenSatisfaction() {
-	// TODO - implement Public::citizenSatisfaction
-	throw "Not yet implemented";
+int Public::calculateSatisfaction() {
+    return travelTime < 30 ? 85 : 70;
 }
 
-void Public::updateTraffic() {
-	// TODO - implement Public::updateTraffic
-	throw "Not yet implemented";
+bool Public::isAvailable() const {
+    return !isUnderMaintenance;
 }
 
-void Public::updateCapacity() {
-	// TODO - implement Public::updateCapacity
-	throw "Not yet implemented";
+double Public::getFee() const {
+    return fee;
+}
+
+std::string Public::getType() const {
+    return "Public Transport";
+}
+
+
+
+
+// Seating capacity methods
+int Public::getSeatingCapacity() const {
+    return seatingCapacity;
+}
+
+int Public::getAvailableSeats() const {
+    return availableSeats;
+}
+
+bool Public::reserveSeat() {
+    if (availableSeats > 0) {
+        --availableSeats;
+        return true;
+    }
+    return false;
+}
+
+void Public::releaseSeat() {
+    if (availableSeats < seatingCapacity) {
+        ++availableSeats;
+    }
+}
+
+// Cargo handling methods
+bool Public::hasCargoCapacity() const {
+    return false;
+}
+
+int Public::getCargoCapacity() const {
+    " Public doesnt support cargo";
+    return 0;
+}
+
+int  Public::getAvailableCargoSpace() const {
+ " Public doesnt support cargo";
+    return 0;
+}
+
+bool   Public::loadCargo(int cargo) {
+    " Public doesnt support cargo";
+    return false;
+}
+
+void   Public::unloadCargo(int cargo) {
+     " Public doesnt support cargo";
+    
 }

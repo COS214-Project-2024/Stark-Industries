@@ -1,36 +1,81 @@
 #include "Car.h"
+#include <iostream>
 
-Car::Car(string nameC, int capacity, bool open, double time) {
-	// TODO - implement Car::Car
-	throw "Not yet implemented";
-}
+Car::Car(string name,double travelTime, int seatingCapacity) 
+    :name(name) ,isUnderMaintenance(false), travelTime(travelTime), fee(0),seatingCapacity(seatingCapacity),availableSeats(seatingCapacity) {}
 
-void Car::transport() {
-	// TODO - implement Car::transport
-	throw "Not yet implemented";
-}
-
-void Car::doMaintenance_() {
-	// TODO - implement Car::doMaintenance 
-	throw "Not yet implemented";
+void Car::doMaintenance() {
+    isUnderMaintenance = false;
+    std::cout << "Car transport maintenance completed.\n";
 }
 
 double Car::commuteTime() {
-	// TODO - implement Car::commuteTime
-	throw "Not yet implemented";
+    return travelTime;
 }
 
-int Car::citizenSatisfaction() {
-	// TODO - implement Car::citizenSatisfaction
-	throw "Not yet implemented";
+int Car::calculateSatisfaction() {
+    return travelTime < 30 ? 85 : 70;
 }
 
-void Car::updateTraffic() {
-	// TODO - implement Car::updateTraffic
-	throw "Not yet implemented";
+bool Car::isAvailable() const {
+    return !isUnderMaintenance;
 }
 
-void Car::updateCapacity() {
-	// TODO - implement Car::updateCapacity
-	throw "Not yet implemented";
+double Car::getFee() const {
+    return fee;
+}
+
+std::string Car::getType() const {
+    return "Car Transport";
+}
+
+
+
+
+// Seating capacity methods
+int Car::getSeatingCapacity() const {
+    return seatingCapacity;
+}
+
+int Car::getAvailableSeats() const {
+    return availableSeats;
+}
+
+bool Car::reserveSeat() {
+    if (availableSeats > 0) {
+        --availableSeats;
+        return true;
+    }
+    return false;
+}
+
+void Car::releaseSeat() {
+    if (availableSeats < seatingCapacity) {
+        ++availableSeats;
+    }
+}
+
+// Cargo handling methods
+bool Car::hasCargoCapacity() const {
+    return false;
+}
+
+int Car::getCargoCapacity() const {
+    "Car doesnt support cargo";
+    return 0;
+}
+
+int  Car::getAvailableCargoSpace() const {
+ "Car doesnt support cargo";
+    return 0;
+}
+
+bool  Car::loadCargo(int cargo) {
+    "Car doesnt support cargo";
+    return false;
+}
+
+void  Car::unloadCargo(int cargo) {
+     "Car doesnt support cargo";
+    
 }

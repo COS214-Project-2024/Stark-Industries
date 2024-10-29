@@ -1,24 +1,75 @@
 #include "TransportSystem.h"
+#include <iostream>
 
-void TransportSystem::setTrans(Transport* newTrans) {
-	// TODO - implement TransportSystem::setTransStra
-	throw "Not yet implemented";
+TransportSystem::TransportSystem() : transportStrategy(NULL) {}
+
+
+void TransportSystem::setTransportStrategy(Transport* strategy) {
+    if (transportStrategy) {
+        delete transportStrategy;
+    }
+    transportStrategy = strategy;
 }
 
-void TransportSystem::doMantenance() {
-	// TODO - implement TransportSystem::doMantenance
-	throw "Not yet implemented";
+void TransportSystem::performMaintenance() {
+    if (transportStrategy) {
+        transportStrategy->doMaintenance();
+    }
 }
 
-double TransportSystem::CalcTotalCommuteTime() {
-	// TODO - implement TransportSystem::CalcTotalCommuteTime
-	throw "Not yet implemented";
+bool TransportSystem::isTransportAvailable() const {
+    return transportStrategy ? transportStrategy->isAvailable() : false;
 }
 
-void TransportSystem::updateCitizens() {
-	// TODO - implement TransportSystem::updateCitizens
-	throw "Not yet implemented";
+double TransportSystem::getTransportFee() const {
+    return transportStrategy ? transportStrategy->getFee() : 0.0;
 }
+
+double TransportSystem::getCommuteTime() const {
+    return transportStrategy ? transportStrategy->commuteTime() : 0.0;
+}
+
+int TransportSystem::calculateSatisfaction() const {
+    return transportStrategy ? transportStrategy->calculateSatisfaction() : 0;
+}
+
+std::string TransportSystem::getTransportType() const {
+    return transportStrategy ? transportStrategy->getType() : "None";
+}
+
+bool TransportSystem::checkSeatAvailability() const {
+    return transportStrategy && transportStrategy->getAvailableSeats() > 0;
+}
+
+bool TransportSystem::checkCargoAvailability(int cargo) const {
+    return transportStrategy && transportStrategy->hasCargoCapacity() &&
+           transportStrategy->getAvailableCargoSpace() >= cargo;
+}
+
+bool TransportSystem::loadCargo(int cargo) {
+    return transportStrategy ? transportStrategy->loadCargo(cargo) : false;
+}
+
+void TransportSystem::unloadCargo(int cargo) {
+    if (transportStrategy) {
+        transportStrategy->unloadCargo(cargo);
+    }
+}
+
+TransportSystem::~TransportSystem() {
+    delete transportStrategy;
+}
+
+bool TransportSystem::reserveSeat() {
+    return transportStrategy ? transportStrategy->reserveSeat() : false;
+}
+
+void TransportSystem::releaseSeat() {
+    if (transportStrategy) {
+        transportStrategy->releaseSeat();
+    }
+}
+
 
 void TransportSystem::checkAvailability(int TransportInfastructure_transInfas) {
 	// TODO - implement TransportSystem::checkAvailability

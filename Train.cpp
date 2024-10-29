@@ -1,31 +1,82 @@
 #include "Train.h"
+#include <iostream>
 
-Train::Train(string nameT, int Totalcapacity, int curcapacity, int curG, double price, double time, bool opne) {
-	// TODO - implement Train::Train
-	throw "Not yet implemented";
-}
 
-void Train::transport() {
-	// TODO - implement Train::transport
-	throw "Not yet implemented";
-}
+Train::Train(string name,double travelTime, double fee, int seatingCap, int cargoCap) 
+    : name(name),isUnderMaintenance(false), travelTime(travelTime), fee(fee) ,seatingCapacity(seatingCap),
+      availableSeats(seatingCap), cargoCapacity(cargoCap), availableCargoSpace(cargoCap){}
 
-void Train::doMaintenance_() {
-	// TODO - implement Train::doMaintenance 
-	throw "Not yet implemented";
+void Train::doMaintenance() {
+    isUnderMaintenance = false;
+    cout << "Air transport maintenance completed.\n";
 }
 
 double Train::commuteTime() {
-	// TODO - implement Train::commuteTime
-	throw "Not yet implemented";
+    return travelTime;
 }
 
-int Train::citizenSatisfaction() {
-	// TODO - implement Train::citizenSatisfaction
-	throw "Not yet implemented";
+int Train::calculateSatisfaction() {
+    return travelTime < 45 ? 95 : 80;
 }
 
-void Train::updateCapacity() {
-	// TODO - implement Train::updateCapacity
-	throw "Not yet implemented";
+bool Train::isAvailable() const {
+    return !isUnderMaintenance;
+}
+
+double Train::getFee() const {
+    return fee;
+}
+
+std::string Train::getType() const {
+    return "Train Transport";
+}
+
+// Seating capacity methods
+int Train::getSeatingCapacity() const {
+    return seatingCapacity;
+}
+
+int Train::getAvailableSeats() const {
+    return availableSeats;
+}
+
+bool Train::reserveSeat() {
+    if (availableSeats > 0) {
+        --availableSeats;
+        return true;
+    }
+    return false;
+}
+
+void Train::releaseSeat() {
+    if (availableSeats < seatingCapacity) {
+        ++availableSeats;
+    }
+}
+
+// Cargo handling methods
+bool Train::hasCargoCapacity() const {
+    return true;
+}
+
+int Train::getCargoCapacity() const {
+    return cargoCapacity;
+}
+
+int Train::getAvailableCargoSpace() const {
+    return availableCargoSpace;
+}
+
+bool Train::loadCargo(int cargo) {
+    if (availableCargoSpace >= cargo) {
+        availableCargoSpace -= cargo;
+        return true;
+    }
+    return false;
+}
+
+void Train::unloadCargo(int cargo) {
+    if (availableCargoSpace + cargo <= cargoCapacity) {
+        availableCargoSpace += cargo;
+    }
 }

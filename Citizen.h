@@ -2,6 +2,8 @@
 #define CITIZEN_H
 
 #include "CitizenPrototype.h"
+#include "Transport.h"
+#include "TransportSystem.h"
 // #include "Building.h"
 #include <string>
 using namespace std;
@@ -14,7 +16,10 @@ private:
 	int income;
 	double propertyValue;
 	double commuteTime;
-	int isSatisfiedTrans;
+	//bool isSatisfiedTrans;
+	  int satisfactionLevelTrans;
+	Transport* chosenTransport;
+	int cargo; // Size of cargo the citizen wants to transport
 	bool hasPaid;
 
 public:
@@ -26,7 +31,7 @@ public:
 
 	void observerUpdate();
 
-	int calculateSatisfaction();
+	
 
 	void taxPaid();
 
@@ -34,9 +39,15 @@ public:
 
 	void recieveMoveinDate();
 
-	void choseTransport(int Transport_trans);
+	
 
 	void requestUtilitieService();
+
+	void chooseTransport(Transport* trans);
+	 void updateSatisfaction();
+        bool checkSatisfaction();
+	    void disembark();
+    void leaveFeedback() ;
 };
 
 #endif

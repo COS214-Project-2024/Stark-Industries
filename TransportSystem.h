@@ -8,18 +8,30 @@ using namespace std;
 class TransportSystem {
 
 private:
-	Transport* transType;
+	Transport* transportStrategy;
 
-	double totalCommuteTime;
+	//double totalCommuteTime;
 
 public:
-	void setTrans(Transport* newTrans);
+ TransportSystem();
+        void setTransportStrategy(Transport* strategy);
+    void performMaintenance();
+    bool isTransportAvailable() const;
+    double getTransportFee() const;
+    double getCommuteTime() const;
+    int calculateSatisfaction() const;
+    std::string getTransportType() const;
 
-	void doMantenance();
+ ~TransportSystem();    
 
-	double CalcTotalCommuteTime();
+  bool checkSeatAvailability() const;
+    bool reserveSeat();
+    void releaseSeat();
 
-	void updateCitizens();
+    bool checkCargoAvailability(int cargo) const;
+    bool loadCargo(int cargo);
+    void unloadCargo(int cargo);
+
 
 	void checkAvailability(int TransportInfastructure_transInfas);
 };

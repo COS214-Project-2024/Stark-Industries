@@ -8,26 +8,36 @@ using namespace std;
 class Train : public Transport {
 
 private:
-	string trainName;
-	int seatingLoad;
-	int curPassengers;
-	double price;
-	double travelTime;
-	bool isOpen;
-	int curGoods;
+    bool isUnderMaintenance;
+    double travelTime;
+    double fee;
+int seatingCapacity;
+    int availableSeats;
+    int cargoCapacity;
+    int availableCargoSpace;
+	string name;
 
-public:
-	Train(string nameT, int Totalcapacity, int curcapacity, int curG, double price, double time, bool opne);
 
-	void transport();
+    public:
+    Train(string name,double travelTime, double fee,int seatingCap, int cargoCap);
+    
+    void doMaintenance() override;
+    double commuteTime() override;
+    int calculateSatisfaction() override;
+    bool isAvailable() const override;
+    double getFee() const override;
+    std::string getType() const override;
 
-	void doMaintenance_();
+     int getSeatingCapacity() const override;
+    int getAvailableSeats() const override;
+    bool reserveSeat() override;
+    void releaseSeat() override;
 
-	double commuteTime();
-
-	int citizenSatisfaction();
-
-	void updateCapacity();
+    bool hasCargoCapacity() const override;
+    int getCargoCapacity() const override;
+    int getAvailableCargoSpace() const override;
+    bool loadCargo(int cargo) override;
+    void unloadCargo(int cargo) override;
 };
 
 #endif

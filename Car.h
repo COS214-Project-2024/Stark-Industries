@@ -6,27 +6,36 @@
 using namespace std;
 
 class Car : public Transport {
-
 private:
-	string carName;
-	int seatingCapacity;
-	double travelTime;
-	bool isOpen;
+    bool isUnderMaintenance;
+    double travelTime;
+    double fee;
+    int seatingCapacity;
+	string name;
+    int availableSeats;
+    //int cargoCapacity;
+    //int availableCargoSpace;
 
 public:
-	Car(string nameC, int capacity, bool open, double time);
+    Car(string name,double travelTime, int seatingCapacity);
+    
+    void doMaintenance() override;
+    double commuteTime() override;
+    int calculateSatisfaction() override;
+    bool isAvailable() const override;
+    double getFee() const override;
+    std::string getType() const override;
 
-	void transport();
+    int getSeatingCapacity() const override;
+    int getAvailableSeats() const override;
+    bool reserveSeat() override;
+    void releaseSeat() override;
 
-	void doMaintenance_();
-
-	double commuteTime();
-
-	int citizenSatisfaction();
-
-	void updateTraffic();
-
-	void updateCapacity();
+    virtual bool hasCargoCapacity() const = 0; // Check if this transport supports cargo
+    virtual int getCargoCapacity() const = 0;
+    virtual int getAvailableCargoSpace() const = 0;
+    virtual bool loadCargo(int cargo) = 0;
+    virtual void unloadCargo(int cargo) = 0;
 };
 
-#endif
+#endif // CAR_TRANSPORT_H

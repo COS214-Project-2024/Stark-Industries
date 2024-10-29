@@ -8,26 +8,38 @@ using namespace std;
 class Air : public Transport {
 
 private:
-	string airportName;
-	int flightCapacity;
-	int curPassengers;
-	double price;
-	double travelTime;
-	bool isOpen;
-	int curCargo;
+    bool isUnderMaintenance;
+    double travelTime;
+    double fee;
+int seatingCapacity;
+    int availableSeats;
+    int cargoCapacity;
+    int availableCargoSpace;
+	string name;
 
-public:
-	Air(string nameA, int Totalcapacity, int curcapacity, double price, double time, bool opne, int curCargo);
 
-	void transport();
+    public:
+    Air(string name,double travelTime, double fee,int seatingCap, int cargoCap);
+    
+    void doMaintenance() override;
+    double commuteTime() override;
+    int calculateSatisfaction() override;
+    bool isAvailable() const override;
+    double getFee() const override;
+    std::string getType() const override;
 
-	void doMaintenance_();
+     int getSeatingCapacity() const override;
+    int getAvailableSeats() const override;
+    bool reserveSeat() override;
+    void releaseSeat() override;
 
-	double commuteTime();
-
-	int citizenSatisfaction();
-
-	void updateCapacity();
+    bool hasCargoCapacity() const override;
+    int getCargoCapacity() const override;
+    int getAvailableCargoSpace() const override;
+    bool loadCargo(int cargo) override;
+    void unloadCargo(int cargo) override;
 };
+
+
 
 #endif
