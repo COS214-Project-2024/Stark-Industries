@@ -24,12 +24,13 @@ private:
     double propertyValue;             /**< Property value owned by the citizen. */
     double commuteTime;               /**< Commute time for the citizen. */
 	//bool isSatisfiedTrans;
-	int satisfactionLevelTrans;       /**< Satisfaction level related to transport. */
+	static int satisfactionLevelTrans;       /**< Satisfaction level related to transport. */
     Transport* chosenTransport;       /**< Pointer to the chosen transport mode. */
     int cargo;                        /**< Size of cargo the citizen wants to transport. */
     bool hasPaid;                     /**< Flag indicating if the citizen has paid their taxes. */
 
 public:
+Citizen(const std::string& name, int income,int cargo);
 	void get();
 
 	void set();
