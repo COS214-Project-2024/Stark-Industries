@@ -17,6 +17,7 @@ private:
 	int isSatisfiedTrans;
 	bool hasPaid;
 	double satisfaction;
+	bool wasNotified;
 
 public:
 
@@ -41,7 +42,9 @@ public:
 	void requestUtilitiesService();
 
 	//Observer
-	void observerUpdate();
+	void observerUpdate(string type);
+	bool isNotified() const;
+    void resetNotification();
 };
 
 #endif

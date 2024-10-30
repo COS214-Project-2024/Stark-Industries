@@ -34,10 +34,23 @@ CitizenPrototype* Citizen::clone() {
  * 
  * This method is called by the building when there are changes, increasing the satisfaction level of the citizen.
  */
-void Citizen::observerUpdate() {
-    std::cout << "Citizen " << name << " has been notified of a building change.\n";
+void Citizen::observerUpdate(string type) {
+	if (type == "City") {
+		std::cout << "Citizen " << name << " has been notified of a city change.\n";
+	}
+	else if (type == "Building") {
+		std::cout << "Citizen " << name << " has been notified of a building change.\n";
+	}
     satisfaction++; 
+	wasNotified = true;
 }
+
+bool Citizen::isNotified() const {
+	return wasNotified; 
+}
+void Citizen::resetNotification() {
+	wasNotified = false;
+} 
 
 int Citizen::calculateSatisfaction() {
 	// TODO - implement Citizen::calculateSatisfaction

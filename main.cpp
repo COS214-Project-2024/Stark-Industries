@@ -32,6 +32,8 @@
 #include "Landmark.h"
 #include "Citizen.h"
 
+#include "City.h"
+
 using namespace std;
 
 void testFactoryUtilities() {
@@ -245,6 +247,52 @@ void testBuildingObserver(){
     delete monument;
 }
 
+void testCityObserver(){
+    // Create citizens
+    Citizen* alice = new Citizen("Alice", 50000, 250000);
+    Citizen* bob = new Citizen("Bob", 60000, 300000);
+    Citizen* charlie = new Citizen("Charlie", 70000, 350000);
+
+    // Create city
+    City city;
+
+    // Attach observers
+    city.attach(alice);
+    city.attach(bob);
+    city.attach(charlie);
+
+    // Notify observers and check if they receive the update
+    city.notify();
+    
+    // Validate notifications (this would be checked by output or in a real unit test framework)
+    if (alice->isNotified() && bob->isNotified() && charlie->isNotified()) {
+        std::cout << "All citizens received the notification.\n";
+    } else {
+        std::cout << "Test failed: Not all citizens received the notification.\n";
+    }
+
+    // Reset notification status
+    alice->resetNotification();
+    bob->resetNotification();
+    charlie->resetNotification();
+
+    // Detach an observer and test again
+    city.detach(bob);
+
+    city.notify();  // Should only notify Alice and Charlie
+
+    if (alice->isNotified() && !bob->isNotified() && charlie->isNotified()) {
+        std::cout << "Test passed for detaching citizens.\n";
+    } else {
+        std::cout << "Test failed for detaching citizens.\n";
+    }
+
+    // Clean up
+    delete alice;
+    delete bob;
+    delete charlie;
+}
+
 int main() {
     
     testFactoryUtilities();
@@ -252,6 +300,7 @@ int main() {
     factoryBuildings();
     testCOR();
     testBuildingObserver();
+    testCityObserver();
   
     return 0;
 }
