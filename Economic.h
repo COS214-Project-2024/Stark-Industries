@@ -8,13 +8,12 @@ using namespace std;
 class Economic : public GrowthHandler {
 
 private:
-	int jobCreationRate;
 	double economicGrowthRate;
 
 public:
-	Economic(int jobs, double growthRate);
+	Economic(double growthRate);
 
-	void handleRequest();
+	void handleRequest(int growthFactor);
 };
 
 #endif

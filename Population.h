@@ -8,11 +8,11 @@ using namespace std;
 class Population : public GrowthHandler {
 
 public:
-	int populationGrowthRate;
+	double populationGrowthRate;
 
-	Population(int rate);
+	Population(double rate);
 
-	void handleRequest();
+	void handleRequest(int growthFactor);
 };
 
 #endif

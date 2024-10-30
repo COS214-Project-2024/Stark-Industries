@@ -1,5 +1,10 @@
 #include <iostream>
 #include <vector>
+
+#include "Population.h"
+#include "Housing.h"
+#include "Economic.h"
+#include "Infrastructure.h"
 #include "ResidentialCreator.h"
 #include "LandmarkCreator.h"
 #include "CommercialCreator.h"
@@ -20,6 +25,12 @@
 #include "Policies.h"
 #include "Services.h"
 #include "Government.h"
+
+#include "Residential.h"
+#include "Commercial.h"
+#include "Industrial.h"
+#include "Landmark.h"
+#include "Citizen.h"
 
 using namespace std;
 
@@ -167,11 +178,80 @@ void factoryBuildings() {
     delete industrialBuilding;
 }
 
+void testCOR() {
+    // Create handlers with test values
+    int growthFactor = 101;
+    Population populationHandler(growthFactor);
+    Housing housingHandler(growthFactor * 0.5);
+    Economic economicHandler(growthFactor * 0.75);
+    Infrastructure infrastructureHandler(growthFactor * 0.3);
+
+    // Set up the chain of responsibility
+    populationHandler.setNextHandler(&housingHandler);
+    housingHandler.setNextHandler(&economicHandler);
+    economicHandler.setNextHandler(&infrastructureHandler);
+
+    // Test the chain with a growth factor
+    populationHandler.handleRequest(growthFactor);
+}
+
+void testBuildingObserver(){
+    // Create citizens
+    Citizen* alice = new Citizen("Alice", 50000, 250000);
+    Citizen* bob = new Citizen("Bob", 60000, 300000);
+    Citizen* charlie = new Citizen("Charlie", 70000, 350000);
+
+    // Create different types of buildings
+    Residential* apartment = new Residential("Sunset Apartments", 80, 5000, 200, true, 1, true, 5);
+    Commercial* mall = new Commercial("City Mall", 75, 10000, 500, true, 1, true, 10);
+    Industrial* factory = new Industrial("Steel Factory", 70, 15000, 1000, true, 1, true, 8);
+    Landmark* monument = new Landmark("Freedom Monument", 90, 8000, 500, true, 1, true, 10);
+
+    // Attach citizens to different buildings
+    std::cout << "\n=== Citizens Observing Different Buildings ===\n";
+    apartment->attach(alice);
+    mall->attach(alice);
+    factory->attach(bob);
+    monument->attach(charlie);
+
+    // Perform improvements to trigger notifications
+    std::cout << "\n=== Performing Improvements on Residential Building ===\n";
+    apartment->doImprovements();  // Alice should be notified
+
+    std::cout << "\n=== Performing Improvements on Commercial Building ===\n";
+    mall->doImprovements();  // Alice should be notified again
+
+    std::cout << "\n=== Performing Improvements on Industrial Building ===\n";
+    factory->doImprovements();  // Bob should be notified
+
+    std::cout << "\n=== Performing Improvements on Landmark ===\n";
+    monument->doImprovements();  // Charlie should be notified
+
+    // Detach a citizen from a building
+    std::cout << "\n=== Detaching Alice from the Commercial Building ===\n";
+    mall->detach(alice);
+
+    // Perform another improvement on the Commercial building
+    std::cout << "\n=== Performing Improvements on Commercial Building Again ===\n";
+    mall->doImprovements();  // Alice should not be notified this time
+
+    // Clean up
+    delete alice;
+    delete bob;
+    delete charlie;
+    delete apartment;
+    delete mall;
+    delete factory;
+    delete monument;
+}
+
 int main() {
     
     testFactoryUtilities();
     testComposite();
     factoryBuildings();
+    testCOR();
+    testBuildingObserver();
   
     return 0;
 }

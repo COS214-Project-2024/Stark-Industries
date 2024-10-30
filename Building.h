@@ -22,7 +22,7 @@ private:
     vector<Utilities*> utilities;
     
     /// List of citizens observing this building.
-    Citizen* observerList;
+    std::vector<Citizen*> observerList; // vector so that multiple citizens can be attached
 
     string name;                     ///< Name of the building.
     int satisfaction;                ///< Satisfaction rating of the building.
@@ -103,17 +103,10 @@ public:
      */
     virtual void doImprovements() = 0;
 
-    /**
-     * @brief Checks the availability of resources for the building.
-     * 
-     * @return True if resources are available, false otherwise.
-     */
-    virtual bool checkResourceAvailability() = 0;
-
-    /**
-     * @brief Notifies citizens about updates regarding the building.
-     */
-    virtual void notifyCitizens() = 0;
+	//Observer functions
+	void attach(Citizen* observer);
+	void detach(Citizen* observer);
+	virtual void notifyCitizens() = 0;
 };
 
 #endif

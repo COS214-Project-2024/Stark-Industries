@@ -1,93 +1,97 @@
 #include "Landmark.h"
+#include <iostream>
 
 /**
- * @brief Constructs a Landmark building with specified attributes.
- *
- * Initializes a Landmark with given parameters such as name, satisfaction rating,
- * economic impact, resource consumption, construction status, improvement level,
- * resource availability, and citizen notification radius.
- *
+ * @brief Constructs a Landmark building with the given attributes.
+ * 
  * @param name Name of the landmark.
- * @param satisfaction Initial satisfaction rating.
- * @param economicImpact Initial economic impact.
- * @param resourceConsumption Initial resource consumption.
- * @param constructionStatus Initial construction status.
- * @param improvementLevel Initial improvement level.
- * @param resourcesAvailable Availability of resources.
- * @param notificationRadius Radius for citizen notifications.
+ * @param satisfaction Initial satisfaction score of the landmark.
+ * @param economicImpact Initial economic impact contributed by the landmark.
+ * @param resourceConsumption Initial resource consumption of the landmark.
+ * @param constructionStatus Boolean indicating if the landmark construction is complete.
+ * @param improvementLevel Initial improvement level of the landmark.
+ * @param resourcesAvailable Boolean indicating if resources are available for improvements.
+ * @param notificationRadius Radius within which citizens are notified of changes to the landmark.
  */
-Landmark::Landmark(string name, int satisfaction, double economicImpact, double resourceConsumption, 
-                   bool constructionStatus, int improvementLevel, bool resourcesAvailable, 
-                   int notificationRadius)
-    : name(name), satisfaction(satisfaction), economicImpact(economicImpact),
+Landmark::Landmark(std::string name, int satisfaction, double economicImpact, 
+                   double resourceConsumption, bool constructionStatus, 
+                   int improvementLevel, bool resourcesAvailable, int notificationRadius)
+    : Building(name, satisfaction, economicImpact, resourceConsumption, 
+               constructionStatus, improvementLevel, resourcesAvailable, notificationRadius), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
       resourceConsumption(resourceConsumption), constructionStatus(constructionStatus),
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
-      citizenNotificationRadius(notificationRadius),
-      Building(name, satisfaction, economicImpact, resourceConsumption, constructionStatus, 
-               improvementLevel, resourcesAvailable, notificationRadius) {}
+      citizenNotificationRadius(notificationRadius) {}
 
 /**
- * @brief Retrieves the type of the landmark as a string.
- *
- * @return The name of the landmark, representing its type.
+ * @brief Returns the type of the building as its name.
+ * 
+ * @return A string representing the name/type of the landmark.
  */
-string Landmark::getType() {
+std::string Landmark::getType() {
     return name;
 }
 
 /**
- * @brief Calculates and returns the satisfaction level for the landmark.
- *
- * @return The current satisfaction level.
+ * @brief Calculates the satisfaction level for the landmark.
+ * 
+ * @return An integer representing the satisfaction score.
  */
 int Landmark::calculateSatisfaction() {
     return satisfaction;
 }
 
 /**
- * @brief Calculates and returns the economic impact of the landmark.
- *
- * @return The current economic impact.
+ * @brief Calculates the economic impact of the landmark.
+ * 
+ * @return A double representing the economic impact value.
  */
 double Landmark::calculateEconomicImpact() {
     return economicImpact;
 }
 
 /**
- * @brief Calculates and returns the resource consumption of the landmark.
- *
- * @return The current resource consumption.
+ * @brief Calculates the resource consumption of the landmark.
+ * 
+ * @return A double representing the amount of resources consumed.
  */
 double Landmark::calculateResourceConsumption() {
     return resourceConsumption;
 }
 
 /**
- * @brief Checks if the landmark's construction is complete.
- *
- * @return True if the construction is complete, false otherwise.
+ * @brief Checks if the construction of the landmark is complete.
+ * 
+ * @return True if construction is complete, false otherwise.
  */
 bool Landmark::constructionComplete() {
     return constructionStatus;
 }
 
 /**
- * @brief Improves the landmark by increasing satisfaction and economic impact.
- *
- * If resources are available, the improvement level is increased, satisfaction
- * is boosted, and economic impact is adjusted.
+ * @brief Performs improvements on the landmark.
+ * 
+ * If resources are available, the improvement level and satisfaction are increased, 
+ * and the economic impact is boosted. Citizens are notified about the improvements.
  */
 void Landmark::doImprovements() {
     if (checkResourceAvailability()) {
         improvementLevel++;
-        satisfaction += 5; // Adjust as necessary
-        economicImpact *= 1.1; // Adjust as necessary
+        satisfaction += 10;  // Increase satisfaction for landmarks
+        economicImpact *= 1.2;  // Boost economic impact significantly
+
+        std::cout << "Landmark improved! New Improvement Level: " 
+                  << improvementLevel << "\n";
+
+        // Notify citizens about the improvement
+        notifyCitizens();
+    } else {
+        std::cout << "Resources unavailable for improvements.\n";
     }
 }
 
 /**
- * @brief Checks if sufficient resources are available for improvements.
- *
+ * @brief Checks if resources are available for improvements.
+ * 
  * @return True if resources are available, false otherwise.
  */
 bool Landmark::checkResourceAvailability() {
@@ -95,11 +99,11 @@ bool Landmark::checkResourceAvailability() {
 }
 
 /**
- * @brief Notifies citizens within a certain radius about the landmark.
- *
- * This method will be part of the observer pattern implementation to update citizens
- * affected by the landmark's presence or changes.
+ * @brief Notifies all attached citizens about changes to the landmark.
+ * 
+ * Uses the base class implementation to notify all observers (citizens) about changes.
  */
 void Landmark::notifyCitizens() {
-    // Implementation required for notifying citizens.
+    std::cout << "Notifying citizens about changes to the landmark: " << name << "\n";
+    Building::notifyCitizens();  // Call the base class notify method
 }
