@@ -11,7 +11,7 @@ using namespace std;
 class City : public Element {
 
 private:
-	//vector<Citizen*> citizens;
+	std::vector<Citizen*> observerList;
 	vector<TransportInfrastructure*> roads;
 
 public:

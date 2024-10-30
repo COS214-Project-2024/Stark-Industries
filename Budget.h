@@ -13,10 +13,15 @@ private:
 	double allocatedBudget;
 
 public:
+	Budget(const std::string& name, double budget);
 	void operate();
 	std::string name = "Budget";
-	void allocateFunds();
+	void allocateFunds(double amount);
 	void receiveTax(double tax);
+	virtual void execute();
+	virtual void addCommand(Command* command);
+	virtual void removeCommand(int i);
+	double getAvailableBudget() const;
 };
 
 #endif

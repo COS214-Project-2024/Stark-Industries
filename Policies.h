@@ -7,16 +7,18 @@ using namespace std;
 
 class Policies : public Department {
 
+private:
+    std::vector<std::string> activePolicies;
 
 public:
-	Policies(std::string name);
+	Policies(const std::string& name);
 	std::string name = "Policies";
-
-	void operate();
-
-	void addPolicy(std::string policy);
-
-	void removePolicy(std::string policy);
+	void operate() override;
+	void addPolicy(const std::string& policy);
+	void removePolicy(const std::string& policy);
+	virtual void execute();
+	virtual void addCommand(Command* command);
+	virtual void removeCommand(int i);
 };
 
 #endif

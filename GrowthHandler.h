@@ -1,21 +1,18 @@
+// GrowthHandler.h
 #ifndef GROWTHHANDLER_H
 #define GROWTHHANDLER_H
 
 class GrowthHandler {
-
-private:
-	GrowthHandler* nextHandler;
+protected:
+    GrowthHandler* nextHandler;
 
 public:
-	GrowthHandler(int jobs, double growthRate);
+    GrowthHandler();
+    virtual ~GrowthHandler() = default;
 
-	GrowthHandler(int, int);
+    virtual void setNextHandler(GrowthHandler* handler);
 
-	GrowthHandler(int rate);
-
-	void setNextHandler(GrowthHandler* handler);
-
-	void handleRequest();
+    virtual void handleRequest(int growthFactor) = 0;
 };
 
-#endif
+#endif // GROWTHHANDLER_H

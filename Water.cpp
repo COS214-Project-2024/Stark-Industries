@@ -1,16 +1,24 @@
 #include "Water.h"
+#include <iostream>
+
+Water::Water(string name, double capacity, double operationalCost) : Utilities(name, capacity, operationalCost) 
+{
+	this->name=name;
+	this->capacity=capacity;
+	this->operationalCost=operationalCost;
+}
+
 
 void Water::displayInfo() {
-	// TODO - implement Water::displayInfo
-	throw "Not yet implemented";
+    cout << "Water Utility Name: " << name << endl;
+    cout << "Capacity: " << capacity << " liters" << endl;
+    cout << "Operational Cost: $" << operationalCost << " per hour" << endl;
 }
 
 void Water::generateResources() {
-	// TODO - implement Water::generateResources
-	throw "Not yet implemented";
+    cout << "Supplying " << capacity << " liters of water." << endl;
 }
 
 void Water::requestMaintenance(int Utilities_util) {
-	// TODO - implement Water::requestMaintenance
-	throw "Not yet implemented";
+    cout << "Requesting maintenance for water utility. Maintenance ID: " << Utilities_util << endl;
 }

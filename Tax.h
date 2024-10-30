@@ -13,9 +13,11 @@ private:
 	string taxType;
 
 public:
+	Tax(const std::string& name, float initialTaxRate);
 	Tax(double totalRevenue, float initialTaxRate, string taxType);
 	void setTaxRate(float rate);
-	float getTaxRate();
+	float getTaxRate() const;
+	void trackRevenue(double revenue);
 	void collectTaxes(double revenue);
 	void operate();
 	//getaxType

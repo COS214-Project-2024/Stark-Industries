@@ -5,6 +5,7 @@
 
 #include <string>
 #include <vector>
+#include <vector>
 
 class Department {
 
@@ -13,15 +14,14 @@ protected:
 	std::vector<Command*> commands;
 
 public:
-	Department(std::string departmentName);
 	Department();
-
-public:
-	void operate();
-	void add(Department* department);
-	void remove(Department* department);
-	Department* getChild(int index);
-	void getName();
+	Department(const std::string& departmentName);
+	virtual ~Department() = default;
+	virtual void operate() = 0;
+	virtual void add(Department* department);
+	virtual void remove(Department* department);
+	virtual Department* getChild(int index);
+	std::string getName() const;
 	void fundsReceived();
 	std::string name;
 	//command functions for invoker

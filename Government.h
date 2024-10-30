@@ -6,6 +6,7 @@
 #include "Visitor.h"
 #include <string>
 #include <vector>
+#include <vector>
 using namespace std;
 
 class Government : public Department {
@@ -19,6 +20,11 @@ private:
 	double taxCollected;
 
 public:
+    Government(double incomeTaxRate = 0.0, double propertyTaxRate = 0.0);
+
+    void add(Department* department) override;
+    void remove(Department* department) override;
+    Department* getChild(int index) override;
 	Government();
 	
 	void increaseTax(int amount);
@@ -35,15 +41,12 @@ public:
 
 	void setState();
 
-	void add(Department* department);
+    void operate() override;
 
-	void remove(Department* department);
-
-	Department* getChild(int index);
-
-	void operate();
-
-	void notifyCitizensTaxIncreased();
+    void notifyCitizensTaxIncreased(); //delegate to Command
+	virtual void execute();
+	virtual void addCommand(Command* command);
+	virtual void removeCommand(int i);
 };
 
 #endif
