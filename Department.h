@@ -9,7 +9,7 @@
 class Department {
 
 protected:
-	std::string name;
+	//std::string name;
 	std::vector<Command*> commands;
 
 public:

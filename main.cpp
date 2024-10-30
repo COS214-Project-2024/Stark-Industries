@@ -4,6 +4,7 @@
 #include "Industrial.h"
 #include "Residential.h"
 #include "Commercial.h"
+#include "IncreaseTax.h"
 
 void testCollectTax(){
     Citizen* citizen = new Citizen("Tony", 1000);
@@ -16,7 +17,14 @@ void testCollectTax(){
     collectTax->execute();
 }
 
+void testIncreaseTax(){
+    Citizen* citizen = new Citizen("Tony", 10000);
+    Command * incTax = new IncreaseTax(citizen);
+    incTax->execute(); 
+}
+
 int main() {
     testCollectTax();
+    testIncreaseTax();
 }
 
