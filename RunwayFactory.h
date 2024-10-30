@@ -2,19 +2,11 @@
 #define RUNWAYFACTORY_H
 
 #include "TransportInfrastructureFactory.h"
-#include "TransportInfrastructure.h"
-#include <string>
-using namespace std;
+#include "Runway.h"
 
 class RunwayFactory : public TransportInfrastructureFactory {
-
 public:
-	string runwayType;
-
-	RunwayFactory();
-
-protected:
-	TransportInfrastructure* createInfrastructure();
+    TransportInfrastructure* createInfrastructure() override;
 };
 
 #endif
