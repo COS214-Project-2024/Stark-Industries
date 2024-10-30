@@ -1,16 +1,28 @@
 #include "Railway.h"
+#include <iostream>
 
-Railway::Railway() {
-	// TODO - implement Railway::Railway
-	throw "Not yet implemented";
-}
+Railway::Railway(double railLength, bool electrified) 
+    : length(railLength), isElectrified(electrified), isUnderConstruction(true) {}
 
 void Railway::build() {
-	// TODO - implement Railway::build
-	throw "Not yet implemented";
+    std::cout << "Building a " << (isElectrified ? "electrified" : "non-electrified") 
+              << " railway with length " << length << "km" << std::endl;
+    isUnderConstruction = false;
 }
 
-void Railway::updateCapacity() {
-	// TODO - implement Railway::updateCapacity
-	throw "Not yet implemented";
+
+double Railway::getCost() {
+    return length * (isElectrified ? 2000 : 1500);
+}
+
+bool Railway::getConstructionStatus() {
+    return isUnderConstruction;
+}
+
+void Railway::updateCapacity(double newLength, bool electrified) {
+    length = newLength;
+    isElectrified = electrified;
+
+    std::cout << "Updated railway capacity: Length = " << length 
+              << " km, Electrified = " << (isElectrified ? "Yes" : "No") << std::endl;
 }

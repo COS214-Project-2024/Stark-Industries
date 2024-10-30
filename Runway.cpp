@@ -1,16 +1,27 @@
 #include "Runway.h"
+#include <iostream>
 
-Runway::Runway() {
-	// TODO - implement Runway::Runway
-	throw "Not yet implemented";
-}
+Runway::Runway(double runwayLength, double runwayWidth) 
+    : length(runwayLength), width(runwayWidth), isUnderConstruction(true) {}
 
 void Runway::build() {
-	// TODO - implement Runway::build
-	throw "Not yet implemented";
+    std::cout << "Building a runway with length " << length 
+              << "km and width " << width << "km" << std::endl;
+    isUnderConstruction = false;
 }
 
-void Runway::updateCapacity() {
-	// TODO - implement Runway::updateCapacity
-	throw "Not yet implemented";
+double Runway::getCost() {
+    return length * width * 5000;
+}
+
+bool Runway::getConstructionStatus() {
+    return isUnderConstruction;
+}
+
+void Runway::updateCapacity(double newLength, double newWidth) {
+    length = newLength;
+    width = newWidth;
+
+    std::cout << "Updated runway capacity: Length = " << length 
+              << " km, Width = " << width << " km" << std::endl;
 }
