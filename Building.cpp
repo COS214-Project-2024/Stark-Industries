@@ -61,6 +61,6 @@ void Building::detach(Citizen* observer) {
 void Building::notifyCitizens() {
     std::cout << "Notifying citizens about changes in " << name << "...\n";
     for (Citizen* citizen : observerList) {
-        citizen->observerUpdate();  // Call the observer's update method
+        citizen->observerUpdate("Building");  // Call the observer's update method
     }
 }
