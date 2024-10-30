@@ -102,6 +102,8 @@ public:
      * citizens observing the building of any changes or updates.
      */
     void notifyCitizens();
+
+    Building* clone() const override; // Override the clone function
 };
 
 #endif
