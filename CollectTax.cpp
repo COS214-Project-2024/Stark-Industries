@@ -8,9 +8,11 @@ CollectTax::CollectTax(Citizen* citizenReceiver, Building* buildingReceiver) {
 
 void CollectTax::execute() {
 	for (int i = 0; i < this->buildingList.size(); i++) {
+		if (this->buildingList[i] != nullptr)
 		this->buildingList[i]->performAction(0);
 	}
 	for (int i = 0; i < this->citizenList.size(); i++) {
+		if (this->citizenList[i] != nullptr)
 		this->citizenList[i]->performAction(0);
 	}
 }

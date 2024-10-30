@@ -30,6 +30,9 @@ void testTaxCollector(){
     Citizen* citizen = new Citizen("Tony", 1000);
     Citizen* citizen2 = new Citizen("Sherlock", 1000);
     City * city = new City();
+    CollectTax* collectTax = new CollectTax(citizen, nullptr);
+    collectTax->addCitizen(citizen2);
+    collectTax->execute();
     city->attach(citizen);
     city->attach(citizen2);
     for (int i = 0 ; i < city->citizens.size() ; i++){
@@ -38,7 +41,7 @@ void testTaxCollector(){
 }
 
 int main() {
-    testCollectTax();
+    //testCollectTax();
     testIncreaseTax();
     testTaxCollector();
 }
