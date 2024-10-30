@@ -19,7 +19,7 @@ class Citizen : CitizenPrototype {
 
 private:
 	// Building* observerList; //Building is abstract
-	std::string name;                 /**< Name of the citizen. */
+	string name;                 /**< Name of the citizen. */
     int income;                       /**< Income level of the citizen. */
     double propertyValue;             /**< Property value owned by the citizen. */
     double commuteTime;               /**< Commute time for the citizen. */
@@ -28,12 +28,7 @@ private:
     Transport* chosenTransport;       /**< Pointer to the chosen transport mode. */
     int cargo;                        /**< Size of cargo the citizen wants to transport. */
     bool hasPaid;                     /**< Flag indicating if the citizen has paid their taxes. */
-	string name;
-	int income;
-	double propertyValue;
-	double commuteTime;
 	int isSatisfiedTrans;
-	bool hasPaid;
 	double satisfaction;
 	bool wasNotified;
 
@@ -41,7 +36,8 @@ public:
 
 	Citizen(const std::string& name, int income, double propertyValue);
 
-Citizen(const std::string& name, int income,int cargo);
+	Citizen(const std::string& name, int income,int cargo);
+
 	void get();
 
 	void set();

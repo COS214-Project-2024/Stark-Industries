@@ -35,6 +35,15 @@
 
 #include "City.h"
 
+#include "RunwayFactory.h"
+#include "RoadFactory.h"
+#include "RailwayFactory.h"
+#include "Citizen.h"
+#include "Transport.h"
+#include "Public.h"
+#include "Train.h"
+#include "Air.h"
+
 using namespace std;
 
 void testFactoryUtilities() {
@@ -293,14 +302,6 @@ void testCityObserver(){
     delete bob;
     delete charlie;
 }
-#include "RunwayFactory.h"
-#include "RoadFactory.h"
-#include "RailwayFactory.h"
-#include "Citizen.h"
-#include "Transport.h"
-#include "Public.h"
-#include "Train.h"
-#include "Air.h"
 
 // Function to test transport selection based on seat availability and maintenance status
 void testTransportSelection(Citizen& citizen, Transport& transport) {
