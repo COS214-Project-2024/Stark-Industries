@@ -38,6 +38,10 @@ void Citizen::recieveMoveinDate() {
 	throw "Not yet implemented";
 }
 
+/**
+ * @brief Citizen chooses a transport if available, affordable, and meets cargo requirements.
+ * @param trans Pointer to the Transport the citizen is choosing.
+ */
 void Citizen::chooseTransport(Transport* trans) {
   if (!trans->isAvailable()) {
         cout << name << " tried to choose transport, but it is under maintenance.\n";
@@ -85,6 +89,9 @@ void Citizen::requestUtilitieService() {
 	throw "Not yet implemented";
 }
 
+/**
+ * @brief Citizen leaves feedback, decreases satisfaction if transport experience was unsatisfactory.
+ */
 void Citizen::leaveFeedback() {
     std::cout << name << " left feedback: Unsatisfied with the transportation.\n";
     satisfactionLevelTrans -= 10;
@@ -94,6 +101,9 @@ void Citizen::leaveFeedback() {
     return satisfactionLevelTrans > 50;
 }*/
 
+/**
+ * @brief Updates the citizen's satisfaction based on commute time.
+ */
 void Citizen::updateSatisfaction() {
     if (commuteTime > 60) {
         satisfactionLevelTrans -= 20;
@@ -103,6 +113,9 @@ void Citizen::updateSatisfaction() {
    // isSatisfiedTrans = (satisfactionLevelTrans > 50);
 }
 
+/**
+ * @brief Citizen disembarks from chosen transport, releases seat, and manages cargo if applicable.
+ */
 void Citizen::disembark() {
     if (chosenTransport) {
         chosenTransport->releaseSeat();  // Release the reserved seat
@@ -116,13 +129,25 @@ chosenTransport = NULL;
         
     }
 
+/**
+ * @brief Get the satisfaction level of the citizen related to transport.
+ * @return Satisfaction level as an integer.
+ */
 int Citizen::getSatisfaction(){
 	return satisfactionLevelTrans;
 }
 
+/**
+ * @brief Get the income of the citizen.
+ * @return Income as an integer.
+ */
 int Citizen::getIncome(){
     return income;
 }
 
+/**
+ * @brief Get the name of the citizen.
+ * @return Name as a string.
+ */
 std::string Citizen::getName(){
     return name;}
