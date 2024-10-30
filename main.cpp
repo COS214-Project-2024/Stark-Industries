@@ -39,7 +39,7 @@ void testSeatAvailability(Citizen& citizen, Transport& transport) {
 void testCitizenSatisfaction(Citizen& citizen) {
     std::cout << "\n=== Testing satisfaction level for " << citizen.getName() << " ===\n";
     citizen.leaveFeedback();
-    if (citizen.checkSatisfaction()) {
+    if (citizen.getSatisfaction()>60) {
         std::cout << citizen.getName() << " is satisfied with the transportation.\n";
     } else {
         std::cout << citizen.getName() << " is unsatisfied with the transportation.\n";

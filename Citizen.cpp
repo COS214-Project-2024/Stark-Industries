@@ -1,6 +1,14 @@
 #include "Citizen.h"
 #include <iostream>
 
+int Citizen::satisfactionLevelTrans = 100;
+
+Citizen::Citizen(const std::string& name, int income,int cargo)
+    : name(name), income(income), commuteTime(0) , 
+       hasPaid(false),  cargo(cargo),chosenTransport(NULL) {}
+
+
+
 void Citizen::get() {
 	// TODO - implement Citizen::get
 	throw "Not yet implemented";
