@@ -1,6 +1,8 @@
-<<<<<<< HEAD
-=======
+
 #include <iostream>
+#include "RunwayFactory.h"
+#include "RoadFactory.h"
+#include "RailwayFactory.h"
 #include "Citizen.h"
 #include "Transport.h"
 #include "Public.h"
@@ -51,12 +53,7 @@ void testDisembark(Citizen& citizen) {
     std::cout << "\n=== " << citizen.getName() << " disembarks from transport ===\n";
     citizen.disembark();
 }
->>>>>>> f85c17a (Testing strategy)
 
-#include <iostream>
-#include "RunwayFactory.h"
-#include "RoadFactory.h"
-#include "RailwayFactory.h"
 
 void testRunway() {
     RunwayFactory runwayFactory;
@@ -125,17 +122,11 @@ void testCustomInfrastructures() {
     std::cout << "Custom non-electrified Railway cost: " << customRailway.getCost() << std::endl;
 }
 int main() {
-<<<<<<< HEAD
     testRunway();
     testRoad();
     testRailway();
     testCustomInfrastructures();
-    return 0;
-}
-
-=======
-    // Create transport options
-Public bus("Bus",30,5, 20); // Bus with 5 seats and a fee of 20
+    Public bus("Bus",30,5, 20); // Bus with 5 seats and a fee of 20
     Train train("Train1",10,10, 15,3); // Train with 10 seats and a fee of 15
     Air air("Plane1",20,2, 100,4); // Air transport with 2 seats and a fee of 100
 
@@ -169,4 +160,5 @@ Public bus("Bus",30,5, 20); // Bus with 5 seats and a fee of 20
 
     return 0;
 }
->>>>>>> f85c17a (Testing strategy)
+
+   
