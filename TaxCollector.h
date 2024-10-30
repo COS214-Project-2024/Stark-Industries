@@ -1,7 +1,6 @@
 #ifndef TAXCOLLECTOR_H
 #define TAXCOLLECTOR_H
 
-#include "CitizenVisitor.h"
 #include "Citizen.h"
 #include "Visitor.h"
 #include "Citizen.h"

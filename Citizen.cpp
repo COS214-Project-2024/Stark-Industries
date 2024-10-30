@@ -232,7 +232,3 @@ void Citizen::setTaxRate() {
 void Citizen::acceptTaxCollector(Visitor * taxCollector) {
 	taxCollector->visit(this);
 }
-
-string Citizen::getName(){
-	return name;
-}
