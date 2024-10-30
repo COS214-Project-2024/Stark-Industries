@@ -4,7 +4,9 @@
 #include "CitizenPrototype.h"
 // #include "Building.h"
 #include <string>
+#include "Visitor.h"
 using namespace std;
+
 
 class Citizen : CitizenPrototype {
 
@@ -30,13 +32,14 @@ public:
 	void requestUtilitieService();
 	void getPaid(double income);
 	Citizen(string name, double baseIncome);
-
+	string getName();
 	//command functions
 	void performAction(int type);
 	//visitor functions
 	void payTax();
 	void setTaxRate();
 	double taxPaid;
+	virtual void acceptTaxCollector(Visitor * taxCollector);
 
 };
 

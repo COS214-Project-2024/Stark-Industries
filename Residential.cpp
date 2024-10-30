@@ -73,3 +73,7 @@ void Residential::payTax(float taxRate) {
 	taxPaid += pTax;
 	taxPaid += rTax;
 }
+
+void Residential::acceptTaxCollector(Visitor * taxCollector) {
+	taxCollector->visit(this);
+}

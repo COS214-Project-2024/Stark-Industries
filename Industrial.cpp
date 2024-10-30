@@ -68,3 +68,7 @@ void Industrial::payTax(float taxRate) {
 	std::cout<<"Property Tax of: " << tax << " collected"<<std::endl;
 
 }
+
+void Industrial::acceptTaxCollector(Visitor * taxCollector) {
+	taxCollector->visit(this);
+}

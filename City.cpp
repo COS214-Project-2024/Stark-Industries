@@ -1,8 +1,7 @@
 #include "City.h"
 
 void City::attach(Citizen* citizen) {
-	// TODO - implement City::attach
-	throw "Not yet implemented";
+	citizens.push_back(citizen);
 }
 
 void City::detach(Citizen* citizen) {

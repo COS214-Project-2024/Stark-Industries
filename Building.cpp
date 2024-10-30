@@ -14,3 +14,5 @@ void Building::set() {
 	// TODO - implement Building::set
 	
 }
+
+

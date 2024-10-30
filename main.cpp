@@ -5,6 +5,8 @@
 #include "Residential.h"
 #include "Commercial.h"
 #include "IncreaseTax.h"
+#include "TaxCollector.h"
+#include "City.h"
 
 void testCollectTax(){
     Citizen* citizen = new Citizen("Tony", 1000);
@@ -23,8 +25,21 @@ void testIncreaseTax(){
     incTax->execute(); 
 }
 
+void testTaxCollector(){
+    TaxCollector* taxCollector = new TaxCollector();
+    Citizen* citizen = new Citizen("Tony", 1000);
+    Citizen* citizen2 = new Citizen("Sherlock", 1000);
+    City * city = new City();
+    city->attach(citizen);
+    city->attach(citizen2);
+    for (int i = 0 ; i < city->citizens.size() ; i++){
+        taxCollector->visit(city->citizens[i]);
+    }
+}
+
 int main() {
     testCollectTax();
     testIncreaseTax();
+    testTaxCollector();
 }
 

@@ -4,6 +4,7 @@
 #include "Element.h"
 #include "Utilities.h"
 #include "Citizen.h"
+#include "Visitor.h"
 #include <string>
 #include <vector>
 using namespace std;
@@ -17,7 +18,6 @@ private:
 protected: 
 	double buildingRevenue;
 	double buildingValue;
-	double taxPaid;
 
 public:
 	Building();
@@ -46,6 +46,8 @@ public:
 	virtual void performAction(int type) = 0;
 	//visitor functions
 	virtual void payTax(float taxRate) = 0;
+	double taxPaid;
+	virtual void acceptTaxCollector(Visitor * taxCollector) = 0;
 
 	// need to do things for rent 
 };

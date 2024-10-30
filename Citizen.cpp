@@ -91,3 +91,11 @@ void Citizen::getPaid(double income) {
 void Citizen::setTaxRate() {
 	taxRate *= 1.02;
 }
+
+void Citizen::acceptTaxCollector(Visitor * taxCollector) {
+	taxCollector->visit(this);
+}
+
+string Citizen::getName(){
+	return name;
+}

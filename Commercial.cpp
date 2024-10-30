@@ -70,3 +70,7 @@ void Commercial::payTax(float taxRate) {
 	taxPaid += propertyTax + salesTax;
 	std::cout<<"Property Tax of: " << propertyTax << " and Sales Tax of: " << salesTax << " collected"<<std::endl;												
 }
+
+void Commercial::acceptTaxCollector(Visitor * taxCollector) {
+	taxCollector->visit(this);
+}
