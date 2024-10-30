@@ -92,7 +92,6 @@ public:
      * This method will notify citizens as part of the observer pattern,
      * informing them of updates related to the landmark.
      */
-    void notifyCitizens();
 	void notifyCitizens();
 
 	Building* clone() const override; // Override the clone function

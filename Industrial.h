@@ -92,7 +92,6 @@ public:
      * This function should be implemented to notify citizens in the area, potentially
      * as part of an observer pattern.
      */
-    void notifyCitizens();
 	void notifyCitizens();
 
 	Building* clone() const override; // Override the clone function
