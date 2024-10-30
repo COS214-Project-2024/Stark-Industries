@@ -100,6 +100,10 @@ public:
      * This function should implement the observer pattern to inform citizens.
      */
     void notifyCitizens();
+	void notifyCitizens();
+
+    Building* clone() const override; // Override the clone function
+
 };
 
 #endif

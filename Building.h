@@ -107,6 +107,9 @@ public:
 	void attach(Citizen* observer);
 	void detach(Citizen* observer);
 	virtual void notifyCitizens() = 0;
+
+	virtual Building* clone() const = 0;  // Pure virtual method for cloning
+
 };
 
 #endif

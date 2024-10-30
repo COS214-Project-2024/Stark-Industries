@@ -108,3 +108,7 @@ void Industrial::notifyCitizens() {
     std::cout << "Notifying citizens about changes in the industrial building: " << name << "\n";
     Building::notifyCitizens();  // Call the base class notify method
 }
+
+  Building* Industrial::clone() const {
+    return new Industrial(*this); // Create a new Commercial object using the copy constructor
+}

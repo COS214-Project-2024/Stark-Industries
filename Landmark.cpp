@@ -107,3 +107,7 @@ void Landmark::notifyCitizens() {
     std::cout << "Notifying citizens about changes to the landmark: " << name << "\n";
     Building::notifyCitizens();  // Call the base class notify method
 }
+
+Building* Landmark::clone() const {
+    return new Landmark(*this); // Create a new Commercial object using the copy constructor
+}

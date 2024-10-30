@@ -93,6 +93,10 @@ public:
      * as part of an observer pattern.
      */
     void notifyCitizens();
+	void notifyCitizens();
+
+	Building* clone() const override; // Override the clone function
+
 };
 
 #endif

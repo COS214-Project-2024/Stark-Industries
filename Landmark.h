@@ -93,6 +93,10 @@ public:
      * informing them of updates related to the landmark.
      */
     void notifyCitizens();
+	void notifyCitizens();
+
+	Building* clone() const override; // Override the clone function
+
 };
 
 #endif

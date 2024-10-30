@@ -107,3 +107,7 @@ void Residential::notifyCitizens() {
     std::cout << "Notifying citizens about changes in " << name << "...\n";
     Building::notifyCitizens();  // Call the base class notify method
 }
+
+Building* Residential::clone() const {
+    return new Residential(*this); // Create a new Commercial object using the copy constructor
+}
