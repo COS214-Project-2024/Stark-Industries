@@ -13,6 +13,10 @@ private:
 	double operationalCost;
 
 public:
+
+	 // Constructor to initialize Waste specifics
+    Waste(string name, double capacity, double operationalCost);
+		
 	void displayInfo();
 
 	void generateResources();

@@ -1,25 +1,17 @@
 #include "GrowthHandler.h"
+#include <iostream>
+using namespace std;
 
-GrowthHandler::GrowthHandler(int jobs, double growthRate) {
-	// TODO - implement GrowthHandler::GrowthHandler
-	throw "Not yet implemented";
-}
-
-GrowthHandler::GrowthHandler(int capacity, int demand) {
-	// TODO - implement GrowthHandler::GrowthHandler
-	throw "Not yet implemented";
-}
-
-GrowthHandler::GrowthHandler(int rate) {
-	// TODO - implement GrowthHandler::GrowthHandler
-	throw "Not yet implemented";
-}
+GrowthHandler::GrowthHandler() : nextHandler(nullptr) {}
 
 void GrowthHandler::setNextHandler(GrowthHandler* handler) {
-	this->nextHandler = handler;
+    nextHandler = handler;
 }
 
-void GrowthHandler::handleRequest() {
-	// TODO - implement GrowthHandler::handleRequest
-	throw "Not yet implemented";
+void GrowthHandler::handleRequest(int growthFactor) {
+    if (nextHandler && growthFactor < 100 && growthFactor > 0) {
+        nextHandler->handleRequest(growthFactor);
+    } else if (nextHandler) {
+        cout << "No handler available to process the request." << endl;
+    }
 }

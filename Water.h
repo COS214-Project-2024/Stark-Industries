@@ -13,6 +13,8 @@ private:
 	double operationalCost;
 
 public:
+	
+	Water(string name, double capacity, double operationalCost);
 	void displayInfo();
 
 	void generateResources();

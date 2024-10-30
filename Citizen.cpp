@@ -1,6 +1,19 @@
 #include "Citizen.h"
 #include <iostream>
 
+
+/**
+ * @brief Constructs a Citizen with the given attributes.
+ * 
+ * @param name Name of the citizen.
+ * @param income Income of the citizen.
+ * @param propertyValue Value of the citizen's property.
+ */
+Citizen::Citizen(const std::string& name, int income, double propertyValue)
+    : name(name), income(income), propertyValue(propertyValue), commuteTime(0),
+      isSatisfiedTrans(0), hasPaid(false) {}
+#include <iostream>
+
 int Citizen::satisfactionLevelTrans = 100;
 
 Citizen::Citizen(const std::string& name, int income,int cargo)
@@ -29,7 +42,10 @@ void Citizen::observerUpdate() {
 	throw "Not yet implemented";
 }
 
-
+int Citizen::calculateSatisfaction() {
+	// TODO - implement Citizen::calculateSatisfaction
+	throw "Not yet implemented";
+}
 
 void Citizen::taxPaid() {
 	// TODO - implement Citizen::taxPaid
@@ -92,7 +108,7 @@ if(cargo>=1){
     updateSatisfaction();
 }
 
-void Citizen::requestUtilitieService() {
+void Citizen::requestUtilitiesService() {
 	// TODO - implement Citizen::requestUtilitieService
 	throw "Not yet implemented";
 }

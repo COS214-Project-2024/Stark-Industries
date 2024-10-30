@@ -28,8 +28,19 @@ private:
     Transport* chosenTransport;       /**< Pointer to the chosen transport mode. */
     int cargo;                        /**< Size of cargo the citizen wants to transport. */
     bool hasPaid;                     /**< Flag indicating if the citizen has paid their taxes. */
+	string name;
+	int income;
+	double propertyValue;
+	double commuteTime;
+	int isSatisfiedTrans;
+	bool hasPaid;
+	double satisfaction;
+	bool wasNotified;
 
 public:
+
+	Citizen(const std::string& name, int income, double propertyValue);
+
 Citizen(const std::string& name, int income,int cargo);
 	void get();
 
@@ -39,7 +50,7 @@ Citizen(const std::string& name, int income,int cargo);
 
 	void observerUpdate();
 
-	
+	int calculateSatisfaction();
 
 	void taxPaid();
 
@@ -49,7 +60,7 @@ Citizen(const std::string& name, int income,int cargo);
 
 	
 
-	void requestUtilitieService();
+	void requestUtilitiesService();
 
 	/**
      * @brief Chooses a transport for the citizen.
@@ -91,6 +102,11 @@ Citizen(const std::string& name, int income,int cargo);
      */
      std::string getName();
 
+
+	//Observer
+	void observerUpdate(string type);
+	bool isNotified() const;
+    void resetNotification();
 };
 
 #endif

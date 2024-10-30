@@ -12,8 +12,9 @@ private:
 	double allocatedBudget;
 
 public:
-	void operate();
-
+	Budget(const std::string& name, double initialBudget);
+	void operate() override;;
+	double getAvailableBudget() const;
 	void allocateFunds(double amount);
 };
 
