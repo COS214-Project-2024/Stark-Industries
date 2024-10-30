@@ -4,6 +4,7 @@
 #include "Element.h"
 #include "Utilities.h"
 #include "Citizen.h"
+#include "Visitor.h"
 #include <string>
 #include <vector>
 using namespace std;
@@ -33,6 +34,10 @@ private:
     bool resourcesAvailable;          ///< Availability of resources for the building.
     int citizenNotificationRadius;   ///< Notification radius for citizen alerts.
 
+protected: 
+	double buildingRevenue;
+	double buildingValue;
+
 public:
     /**
      * @brief Constructor for the Building class.
@@ -50,6 +55,7 @@ public:
              bool constructionStatus, int improvementLevel, bool resourcesAvailable, 
              int notificationRadius);
 
+    Building();
     /// Default destructor.
     virtual ~Building() = default;
 
@@ -103,6 +109,7 @@ public:
      */
     virtual void doImprovements() = 0;
 
+
 	//Observer functions
 	void attach(Citizen* observer);
 	void detach(Citizen* observer);
@@ -110,6 +117,15 @@ public:
 
 	virtual Building* clone() const = 0;  // Pure virtual method for cloning
 
+
+	//command functions
+	virtual void performAction(int type) = 0;
+	//visitor functions
+	virtual void payTax(float taxRate) = 0;
+	double taxPaid;
+	virtual void acceptTaxCollector(Visitor * taxCollector) = 0;
+
+	// need to do things for rent 
 };
 
-#endif
+#endif // BUILDING_H

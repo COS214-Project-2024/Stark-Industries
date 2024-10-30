@@ -48,3 +48,15 @@ void Policies::removePolicy(const std::string& policy) {
         std::cout << "Policy not found: " << policy << "\n";
     }
 }
+
+void Policies::execute() {
+    //Do nothing
+}
+
+void Policies::addCommand(Command* command) {
+    //Do nothing
+}
+
+void Policies::removeCommand(int i) {
+    //Do nothing
+}

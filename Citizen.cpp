@@ -20,7 +20,10 @@ Citizen::Citizen(const std::string& name, int income,int cargo)
     : name(name), income(income), commuteTime(0) , 
        hasPaid(false),  cargo(cargo),chosenTransport(NULL) {}
 
-
+Citizen::Citizen(std::string name, double baseIncome) {
+	this->name = name;
+	this->income = baseIncome;
+}
 
 void Citizen::get() {
 	// TODO - implement Citizen::get
@@ -57,11 +60,6 @@ void Citizen::resetNotification() {
 
 int Citizen::calculateSatisfaction() {
 	// TODO - implement Citizen::calculateSatisfaction
-	throw "Not yet implemented";
-}
-
-void Citizen::taxPaid() {
-	// TODO - implement Citizen::taxPaid
 	throw "Not yet implemented";
 }
 
@@ -126,6 +124,7 @@ void Citizen::requestUtilitiesService() {
 	throw "Not yet implemented";
 }
 
+
 /**
  * @brief Citizen leaves feedback, decreases satisfaction if transport experience was unsatisfactory.
  */
@@ -188,3 +187,52 @@ int Citizen::getIncome(){
  */
 std::string Citizen::getName(){
     return name;}
+
+//command functions
+void Citizen::performAction(int type) {
+	if(type == 0) {
+		//collect tax
+		std::cout<<"Income Tax collected from citizens"<<std::endl;
+		payTax();
+	}
+	else if(type == 1) {
+		//increase tax
+		std::cout<<"Tax increased by 2%"<<std::endl;
+		setTaxRate();
+		// affect satisfaction??
+	}
+	else if(type == 2) {
+		//allocate tax
+		std::cout<<"Tax allocated"<<std::endl;
+		//probably deleting this
+	}
+	else {
+		std::cout<<"Invalid command"<<std::endl;
+	}
+}
+
+void Citizen::payTax() {
+	std::cout<<"Time to collect Income Tax from citizens"<<std::endl;
+	// citizens pay 15% of their income
+	double tax = this->income * taxRate;
+	income -= tax;
+	taxPaid += tax;
+	std::cout<<"Tax paid: "<<tax<<std::endl;
+	//will have to send to government
+}
+
+void Citizen::getPaid(double income) {
+	this->income += income;
+}
+
+void Citizen::setTaxRate() {
+	taxRate *= 1.02;
+}
+
+void Citizen::acceptTaxCollector(Visitor * taxCollector) {
+	taxCollector->visit(this);
+}
+
+string Citizen::getName(){
+	return name;
+}

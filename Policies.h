@@ -12,9 +12,13 @@ private:
 
 public:
 	Policies(const std::string& name);
+	std::string name = "Policies";
 	void operate() override;
 	void addPolicy(const std::string& policy);
 	void removePolicy(const std::string& policy);
+	virtual void execute();
+	virtual void addCommand(Command* command);
+	virtual void removeCommand(int i);
 };
 
 #endif

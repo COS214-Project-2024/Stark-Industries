@@ -45,6 +45,8 @@ public:
                int improvementLevel, bool resourcesAvailable, 
                int notificationRadius);
 
+    Commercial();
+
     /**
      * @brief Gets the type of building.
      *
@@ -104,6 +106,18 @@ public:
     void notifyCitizens();
 
     Building* clone() const override; // Override the clone function
+
+	void checkReasourceAvailability();
+
+	//command functions
+	void performAction(int type);
+	//visitor functions
+	void payTax(float taxRate);
+	void acceptTaxCollector(Visitor * taxCollector);
+
+private:
+	float propertyTaxRate = 0.015;
+	float salesTaxRate = 0.15;
 };
 
 #endif

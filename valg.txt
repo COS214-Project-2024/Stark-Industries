@@ -39,3 +39,232 @@
 ==798198== 
 ==798198== For lists of detected and suppressed errors, rerun with: -s
 ==798198== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 0 from 0)
+=======
+==778739== Memcheck, a memory error detector
+==778739== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==778739== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==778739== Command: ./main
+==778739== Parent PID: 778377
+==778739== 
+==778739== Conditional jump or move depends on uninitialised value(s)
+==778739==    at 0x4B06CB8: __printf_fp_l (printf_fp.c:396)
+==778739==    by 0x4B2292C: __printf_fp_spec (vfprintf-internal.c:354)
+==778739==    by 0x4B2292C: __vfprintf_internal (vfprintf-internal.c:1558)
+==778739==    by 0x4B34499: __vsnprintf_internal (vsnprintf.c:114)
+==778739==    by 0x495B4AF: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x498DCE2: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_float<double>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, char, double) const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x499DD2D: std::ostream& std::ostream::_M_insert<double>(double) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x1449F2: Industrial::payTax(float) (Industrial.cpp:141)
+==778739==    by 0x1447EA: Industrial::performAction(int) (Industrial.cpp:121)
+==778739==    by 0x13A6AA: CollectTax::execute() (CollectTax.cpp:12)
+==778739==    by 0x158A15: testCollectTax() (main.cpp:312)
+==778739==    by 0x159514: main (main.cpp:344)
+==778739==  Uninitialised value was created by a heap allocation
+==778739==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==778739==    by 0x1588C3: testCollectTax() (main.cpp:306)
+==778739==    by 0x159514: main (main.cpp:344)
+==778739== 
+==778739== Conditional jump or move depends on uninitialised value(s)
+==778739==    at 0x4B06CD2: __printf_fp_l (printf_fp.c:396)
+==778739==    by 0x4B2292C: __printf_fp_spec (vfprintf-internal.c:354)
+==778739==    by 0x4B2292C: __vfprintf_internal (vfprintf-internal.c:1558)
+==778739==    by 0x4B34499: __vsnprintf_internal (vsnprintf.c:114)
+==778739==    by 0x495B4AF: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x498DCE2: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_float<double>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, char, double) const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x499DD2D: std::ostream& std::ostream::_M_insert<double>(double) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x1449F2: Industrial::payTax(float) (Industrial.cpp:141)
+==778739==    by 0x1447EA: Industrial::performAction(int) (Industrial.cpp:121)
+==778739==    by 0x13A6AA: CollectTax::execute() (CollectTax.cpp:12)
+==778739==    by 0x158A15: testCollectTax() (main.cpp:312)
+==778739==    by 0x159514: main (main.cpp:344)
+==778739==  Uninitialised value was created by a heap allocation
+==778739==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==778739==    by 0x1588C3: testCollectTax() (main.cpp:306)
+==778739==    by 0x159514: main (main.cpp:344)
+==778739== 
+==778739== Conditional jump or move depends on uninitialised value(s)
+==778739==    at 0x4B0250A: __mpn_extract_double (dbl2mpn.c:56)
+==778739==    by 0x4B06FCE: __printf_fp_l (printf_fp.c:396)
+==778739==    by 0x4B2292C: __printf_fp_spec (vfprintf-internal.c:354)
+==778739==    by 0x4B2292C: __vfprintf_internal (vfprintf-internal.c:1558)
+==778739==    by 0x4B34499: __vsnprintf_internal (vsnprintf.c:114)
+==778739==    by 0x495B4AF: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x498DCE2: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_float<double>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, char, double) const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x499DD2D: std::ostream& std::ostream::_M_insert<double>(double) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x1449F2: Industrial::payTax(float) (Industrial.cpp:141)
+==778739==    by 0x1447EA: Industrial::performAction(int) (Industrial.cpp:121)
+==778739==    by 0x13A6AA: CollectTax::execute() (CollectTax.cpp:12)
+==778739==    by 0x158A15: testCollectTax() (main.cpp:312)
+==778739==    by 0x159514: main (main.cpp:344)
+==778739==  Uninitialised value was created by a heap allocation
+==778739==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==778739==    by 0x1588C3: testCollectTax() (main.cpp:306)
+==778739==    by 0x159514: main (main.cpp:344)
+==778739== 
+==778739== Conditional jump or move depends on uninitialised value(s)
+==778739==    at 0x4B0250F: __mpn_extract_double (dbl2mpn.c:60)
+==778739==    by 0x4B06FCE: __printf_fp_l (printf_fp.c:396)
+==778739==    by 0x4B2292C: __printf_fp_spec (vfprintf-internal.c:354)
+==778739==    by 0x4B2292C: __vfprintf_internal (vfprintf-internal.c:1558)
+==778739==    by 0x4B34499: __vsnprintf_internal (vsnprintf.c:114)
+==778739==    by 0x495B4AF: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x498DCE2: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_float<double>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, char, double) const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x499DD2D: std::ostream& std::ostream::_M_insert<double>(double) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x1449F2: Industrial::payTax(float) (Industrial.cpp:141)
+==778739==    by 0x1447EA: Industrial::performAction(int) (Industrial.cpp:121)
+==778739==    by 0x13A6AA: CollectTax::execute() (CollectTax.cpp:12)
+==778739==    by 0x158A15: testCollectTax() (main.cpp:312)
+==778739==    by 0x159514: main (main.cpp:344)
+==778739==  Uninitialised value was created by a heap allocation
+==778739==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==778739==    by 0x1588C3: testCollectTax() (main.cpp:306)
+==778739==    by 0x159514: main (main.cpp:344)
+==778739== 
+==778739== Conditional jump or move depends on uninitialised value(s)
+==778739==    at 0x4B079B0: __printf_fp_l (printf_fp.c:978)
+==778739==    by 0x4B2292C: __printf_fp_spec (vfprintf-internal.c:354)
+==778739==    by 0x4B2292C: __vfprintf_internal (vfprintf-internal.c:1558)
+==778739==    by 0x4B34499: __vsnprintf_internal (vsnprintf.c:114)
+==778739==    by 0x495B4AF: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x498DCE2: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_float<double>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, char, double) const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x499DD2D: std::ostream& std::ostream::_M_insert<double>(double) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x1449F2: Industrial::payTax(float) (Industrial.cpp:141)
+==778739==    by 0x1447EA: Industrial::performAction(int) (Industrial.cpp:121)
+==778739==    by 0x13A6AA: CollectTax::execute() (CollectTax.cpp:12)
+==778739==    by 0x158A15: testCollectTax() (main.cpp:312)
+==778739==    by 0x159514: main (main.cpp:344)
+==778739==  Uninitialised value was created by a heap allocation
+==778739==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==778739==    by 0x1588C3: testCollectTax() (main.cpp:306)
+==778739==    by 0x159514: main (main.cpp:344)
+==778739== 
+==778739== Conditional jump or move depends on uninitialised value(s)
+==778739==    at 0x4B079EA: __printf_fp_l (printf_fp.c:981)
+==778739==    by 0x4B2292C: __printf_fp_spec (vfprintf-internal.c:354)
+==778739==    by 0x4B2292C: __vfprintf_internal (vfprintf-internal.c:1558)
+==778739==    by 0x4B34499: __vsnprintf_internal (vsnprintf.c:114)
+==778739==    by 0x495B4AF: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x498DCE2: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_float<double>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, char, double) const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x499DD2D: std::ostream& std::ostream::_M_insert<double>(double) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x1449F2: Industrial::payTax(float) (Industrial.cpp:141)
+==778739==    by 0x1447EA: Industrial::performAction(int) (Industrial.cpp:121)
+==778739==    by 0x13A6AA: CollectTax::execute() (CollectTax.cpp:12)
+==778739==    by 0x158A15: testCollectTax() (main.cpp:312)
+==778739==    by 0x159514: main (main.cpp:344)
+==778739==  Uninitialised value was created by a heap allocation
+==778739==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==778739==    by 0x1588C3: testCollectTax() (main.cpp:306)
+==778739==    by 0x159514: main (main.cpp:344)
+==778739== 
+==778739== Conditional jump or move depends on uninitialised value(s)
+==778739==    at 0x4B07A24: __printf_fp_l (printf_fp.c:991)
+==778739==    by 0x4B2292C: __printf_fp_spec (vfprintf-internal.c:354)
+==778739==    by 0x4B2292C: __vfprintf_internal (vfprintf-internal.c:1558)
+==778739==    by 0x4B34499: __vsnprintf_internal (vsnprintf.c:114)
+==778739==    by 0x495B4AF: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x498DCE2: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_float<double>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, char, double) const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x499DD2D: std::ostream& std::ostream::_M_insert<double>(double) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x1449F2: Industrial::payTax(float) (Industrial.cpp:141)
+==778739==    by 0x1447EA: Industrial::performAction(int) (Industrial.cpp:121)
+==778739==    by 0x13A6AA: CollectTax::execute() (CollectTax.cpp:12)
+==778739==    by 0x158A15: testCollectTax() (main.cpp:312)
+==778739==    by 0x159514: main (main.cpp:344)
+==778739==  Uninitialised value was created by a heap allocation
+==778739==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==778739==    by 0x1588C3: testCollectTax() (main.cpp:306)
+==778739==    by 0x159514: main (main.cpp:344)
+==778739== 
+==778739== Conditional jump or move depends on uninitialised value(s)
+==778739==    at 0x4B07A58: round_away (rounding-mode.h:52)
+==778739==    by 0x4B07A58: __printf_fp_l (printf_fp.c:998)
+==778739==    by 0x4B2292C: __printf_fp_spec (vfprintf-internal.c:354)
+==778739==    by 0x4B2292C: __vfprintf_internal (vfprintf-internal.c:1558)
+==778739==    by 0x4B34499: __vsnprintf_internal (vsnprintf.c:114)
+==778739==    by 0x495B4AF: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x498DCE2: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_float<double>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, char, double) const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x499DD2D: std::ostream& std::ostream::_M_insert<double>(double) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x1449F2: Industrial::payTax(float) (Industrial.cpp:141)
+==778739==    by 0x1447EA: Industrial::performAction(int) (Industrial.cpp:121)
+==778739==    by 0x13A6AA: CollectTax::execute() (CollectTax.cpp:12)
+==778739==    by 0x158A15: testCollectTax() (main.cpp:312)
+==778739==    by 0x159514: main (main.cpp:344)
+==778739==  Uninitialised value was created by a heap allocation
+==778739==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==778739==    by 0x1588C3: testCollectTax() (main.cpp:306)
+==778739==    by 0x159514: main (main.cpp:344)
+==778739== 
+==778739== Conditional jump or move depends on uninitialised value(s)
+==778739==    at 0x4B07A91: __printf_fp_l (printf_fp.c:1097)
+==778739==    by 0x4B2292C: __printf_fp_spec (vfprintf-internal.c:354)
+==778739==    by 0x4B2292C: __vfprintf_internal (vfprintf-internal.c:1558)
+==778739==    by 0x4B34499: __vsnprintf_internal (vsnprintf.c:114)
+==778739==    by 0x495B4AF: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x498DCE2: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_float<double>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, char, double) const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x499DD2D: std::ostream& std::ostream::_M_insert<double>(double) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x1449F2: Industrial::payTax(float) (Industrial.cpp:141)
+==778739==    by 0x1447EA: Industrial::performAction(int) (Industrial.cpp:121)
+==778739==    by 0x13A6AA: CollectTax::execute() (CollectTax.cpp:12)
+==778739==    by 0x158A15: testCollectTax() (main.cpp:312)
+==778739==    by 0x159514: main (main.cpp:344)
+==778739==  Uninitialised value was created by a heap allocation
+==778739==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==778739==    by 0x1588C3: testCollectTax() (main.cpp:306)
+==778739==    by 0x159514: main (main.cpp:344)
+==778739== 
+==778739== Conditional jump or move depends on uninitialised value(s)
+==778739==    at 0x4B07CD5: __printf_fp_l (printf_fp.c:1166)
+==778739==    by 0x4B2292C: __printf_fp_spec (vfprintf-internal.c:354)
+==778739==    by 0x4B2292C: __vfprintf_internal (vfprintf-internal.c:1558)
+==778739==    by 0x4B34499: __vsnprintf_internal (vsnprintf.c:114)
+==778739==    by 0x495B4AF: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x498DCE2: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_float<double>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, char, double) const (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x499DD2D: std::ostream& std::ostream::_M_insert<double>(double) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==778739==    by 0x1449F2: Industrial::payTax(float) (Industrial.cpp:141)
+==778739==    by 0x1447EA: Industrial::performAction(int) (Industrial.cpp:121)
+==778739==    by 0x13A6AA: CollectTax::execute() (CollectTax.cpp:12)
+==778739==    by 0x158A15: testCollectTax() (main.cpp:312)
+==778739==    by 0x159514: main (main.cpp:344)
+==778739==  Uninitialised value was created by a heap allocation
+==778739==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==778739==    by 0x1588C3: testCollectTax() (main.cpp:306)
+==778739==    by 0x159514: main (main.cpp:344)
+==778739== 
+==778739== 
+==778739== HEAP SUMMARY:
+==778739==     in use at exit: 1,616 bytes in 18 blocks
+==778739==   total heap usage: 210 allocs, 192 frees, 110,199 bytes allocated
+==778739== 
+==778739== 16 bytes in 1 blocks are definitely lost in loss record 6 of 18
+==778739==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==778739==    by 0x158EBA: testTaxCollector() (main.cpp:322)
+==778739==    by 0x159542: main (main.cpp:346)
+==778739== 
+==778739== 128 (104 direct, 24 indirect) bytes in 1 blocks are definitely lost in loss record 12 of 18
+==778739==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==778739==    by 0x159127: testTaxCollector() (main.cpp:326)
+==778739==    by 0x159542: main (main.cpp:346)
+==778739== 
+==778739== 232 (120 direct, 112 indirect) bytes in 1 blocks are definitely lost in loss record 16 of 18
+==778739==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==778739==    by 0x158D09: testIncreaseTax() (main.cpp:317)
+==778739==    by 0x15952B: main (main.cpp:345)
+==778739== 
+==778739== 296 (72 direct, 224 indirect) bytes in 1 blocks are definitely lost in loss record 17 of 18
+==778739==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==778739==    by 0x1590A3: testTaxCollector() (main.cpp:325)
+==778739==    by 0x159542: main (main.cpp:346)
+==778739== 
+==778739== 944 (104 direct, 840 indirect) bytes in 1 blocks are definitely lost in loss record 18 of 18
+==778739==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==778739==    by 0x158900: testCollectTax() (main.cpp:307)
+==778739==    by 0x159514: main (main.cpp:344)
+==778739== 
+==778739== LEAK SUMMARY:
+==778739==    definitely lost: 416 bytes in 5 blocks
+==778739==    indirectly lost: 1,200 bytes in 13 blocks
+==778739==      possibly lost: 0 bytes in 0 blocks
+==778739==    still reachable: 0 bytes in 0 blocks
+==778739==         suppressed: 0 bytes in 0 blocks
+==778739== 
+==778739== For lists of detected and suppressed errors, rerun with: -s
+==778739== ERROR SUMMARY: 80 errors from 15 contexts (suppressed: 0 from 0)

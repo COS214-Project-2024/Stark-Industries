@@ -6,6 +6,7 @@
 #include "TransportSystem.h"
 // #include "Building.h"
 #include <string>
+#include "Visitor.h"
 using namespace std;
 
 /**
@@ -31,6 +32,7 @@ private:
 	int isSatisfiedTrans;
 	double satisfaction;
 	bool wasNotified;
+	double taxRate = 0.15;
 
 public:
 
@@ -39,22 +41,12 @@ public:
 	Citizen(const std::string& name, int income,int cargo);
 
 	void get();
-
 	void set();
-
 	CitizenPrototype* clone();
-
-	void observerUpdate();
-
 	int calculateSatisfaction();
-
-	void taxPaid();
-
 	void requestBuilding(int City_city, int String_buildtype);
-
 	void recieveMoveinDate();
-
-	
+	void choseTransport(int Transport_trans);
 
 	void requestUtilitiesService();
 
@@ -103,6 +95,18 @@ public:
 	void observerUpdate(string type);
 	bool isNotified() const;
     void resetNotification();
+	void requestUtilitieService();
+	void getPaid(double income);
+	Citizen(string name, double baseIncome);
+	string getName();
+	//command functions
+	void performAction(int type);
+	//visitor functions
+	void payTax();
+	void setTaxRate();
+	double taxPaid;
+	virtual void acceptTaxCollector(Visitor * taxCollector);
+
 };
 
 #endif

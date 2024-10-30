@@ -5,10 +5,12 @@
 
 void City::attach(Citizen* observer) {
     observerList.push_back(observer);
+	citizens.push_back(observer);
 }
 
 void City::detach(Citizen* observer) {
     observerList.erase(std::remove(observerList.begin(), observerList.end(), observer), observerList.end());
+	citizens.erase(std::remove(citizens.begin(), citizens.end(), observer), citizens.end());
 }
 
 void City::notify() {

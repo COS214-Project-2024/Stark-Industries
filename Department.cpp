@@ -8,6 +8,10 @@
  */
 Department::Department(const std::string& departmentName) : name(departmentName) {}
 
+Department::Department() {
+
+}
+
 /**
  * @brief Adds a child department to this department.
  * 
@@ -52,3 +56,5 @@ Department* Department::getChild(int index) {
 std::string Department::getName() const {
     return name;
 }
+
+

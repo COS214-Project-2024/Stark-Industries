@@ -26,6 +26,8 @@ public:
 	void buildingComplete(int String_buildtype, int Citizen_citizen);
 
 	bool inspectBuilding();
+
+	vector<Citizen*> citizens;
 };
 
 #endif

@@ -16,8 +16,12 @@ private:
 
 public:
  	Services(const std::string& name, int healthcare, int education, int emergencyUnits);
+	std::string name = "Services";
 	void operate() override;
  	void addServiceProgram(const std::string& program);
+	virtual void execute();
+	virtual void addCommand(Command* command);
+	virtual void removeCommand(int i);
 };
 
 #endif
