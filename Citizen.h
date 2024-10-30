@@ -98,7 +98,6 @@ public:
 	void requestUtilitieService();
 	void getPaid(double income);
 	Citizen(string name, double baseIncome);
-	string getName();
 	//command functions
 	void performAction(int type);
 	//visitor functions
