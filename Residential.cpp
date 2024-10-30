@@ -17,7 +17,10 @@ Residential::Residential(std::string name, int satisfaction, double economicImpa
                          double resourceConsumption, bool constructionStatus, 
                          int improvementLevel, bool resourcesAvailable, int notificationRadius)
     : Building(name, satisfaction, economicImpact, resourceConsumption, 
-               constructionStatus, improvementLevel, resourcesAvailable, notificationRadius) {}
+               constructionStatus, improvementLevel, resourcesAvailable, notificationRadius), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
+      resourceConsumption(resourceConsumption), constructionStatus(constructionStatus),
+      improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
+      citizenNotificationRadius(notificationRadius) {}
 
 /**
  * @brief Returns the type of the building as its name.
