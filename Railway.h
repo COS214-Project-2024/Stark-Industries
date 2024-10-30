@@ -8,15 +8,16 @@ using namespace std;
 class Railway : public TransportInfrastructure {
 
 private:
-	string railwayType;
-	int capacity;
+	double length;
+    bool isElectrified;
+    bool isUnderConstruction;
 
 public:
-	Railway();
-
+	Railway(double railLength = 1.0, bool electrified = true);
+    double getCost() override;
+    bool getConstructionStatus();
 	void build();
-
-	void updateCapacity();
+	void updateCapacity(double newLength, bool electrified);
 };
 
 #endif
