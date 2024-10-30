@@ -22,6 +22,10 @@ Residential::Residential(std::string name, int satisfaction, double economicImpa
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
       citizenNotificationRadius(notificationRadius) {}
 
+Residential::Residential() {
+
+}
+
 /**
  * @brief Returns the type of the building as its name.
  * 
@@ -110,4 +114,41 @@ void Residential::notifyCitizens() {
 
 Building* Residential::clone() const {
     return new Residential(*this); // Create a new Commercial object using the copy constructor
+}
+
+//command functions
+void Residential::performAction(int type) {
+	if(type == 0) {
+		//collect tax
+		std::cout<<"Property Tax and Rental Income Tax collected from Residential Building"<<std::endl;
+		payTax(0);
+	}
+	else if(type == 1) {
+		//allocate tax
+		std::cout<<"Tax allocated"<<std::endl;
+	}
+	else if(type == 2) {
+		//increase tax
+		std::cout<<"Tax increased"<<std::endl;
+	}
+	else {
+		std::cout<<"Invalid command"<<std::endl;
+	}
+}
+
+//visitor functions
+void Residential::payTax(float taxRate) {
+	//property and rental income tax
+	double pTax = buildingValue * propertyTaxRate;
+	double rTax = buildingRevenue * rentalTaxRate;	
+	std::cout<<"Property Tax: "<<pTax<<std::endl;
+	std::cout<<"Rental Tax: "<<rTax<<std::endl;
+	buildingRevenue -= pTax;
+	buildingRevenue -= rTax;
+	taxPaid += pTax;
+	taxPaid += rTax;
+}
+
+void Residential::acceptTaxCollector(Visitor * taxCollector) {
+	taxCollector->visit(this);
 }

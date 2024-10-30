@@ -22,6 +22,10 @@ Industrial::Industrial(std::string name, int satisfaction, double economicImpact
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
       citizenNotificationRadius(notificationRadius) {}
 
+Industrial::Industrial() {
+
+}
+
 /**
  * @brief Returns the type of the building as its name.
  * 
@@ -107,6 +111,39 @@ bool Industrial::checkResourceAvailability() {
 void Industrial::notifyCitizens() {
     std::cout << "Notifying citizens about changes in the industrial building: " << name << "\n";
     Building::notifyCitizens();  // Call the base class notify method
+}
+
+//command functions
+void Industrial::performAction(int type) {
+	if(type == 0) {
+		//collect tax
+		std::cout<<"Property Tax collected from Industrial Building"<<std::endl;
+		payTax(0);
+	}
+	else if(type == 1) {
+		//allocate tax
+		std::cout<<"Tax allocated"<<std::endl;
+	}
+	else if(type == 2) {
+		//increase tax
+		std::cout<<"Tax increased"<<std::endl;
+	}
+	else {
+		std::cout<<"Invalid command"<<std::endl;
+	}
+}
+
+//visitor functions
+void Industrial::payTax(float taxRate) {
+	double tax = this->propertyTaxRate * this->buildingValue;
+	this->buildingRevenue -= tax;
+	taxPaid += tax;
+	std::cout<<"Property Tax of: " << tax << " collected"<<std::endl;
+
+}
+
+void Industrial::acceptTaxCollector(Visitor * taxCollector) {
+	taxCollector->visit(this);
 }
 
   Building* Industrial::clone() const {

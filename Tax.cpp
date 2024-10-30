@@ -10,6 +10,12 @@
 Tax::Tax(const std::string& name, float initialTaxRate)
     : Department(name), totalRevenue(0.0), taxRate(initialTaxRate) {}
 
+Tax::Tax(double totalRevenue, float initialTaxRate, string taxType) {
+	this->taxType = taxType;
+	this->taxRate = initialTaxRate;
+	this->totalRevenue = 0;
+}
+
 /**
  * @brief Sets the tax rate for the department.
  * 
@@ -26,6 +32,11 @@ void Tax::setTaxRate(float rate) {
  */
 float Tax::getTaxRate() const {
     return taxRate;
+}
+
+string Tax::getTaxType() {
+	string r = this->taxType;
+	return r;
 }
 
 /**
@@ -47,7 +58,28 @@ void Tax::trackRevenue(double revenue) {
  * 
  * This method prints the current tax rate and total revenue to the console.
  */
+void Tax::collectTaxes(double revenue) {
+	this->totalRevenue += revenue * this->taxRate;
+    std::cout << "Collected taxes: " << revenue * this->taxRate << std::endl;
+}
+
 void Tax::operate() {
     std::cout << "Operating Tax Department: Current Tax Rate = " << taxRate 
               << ", Total Revenue = " << totalRevenue << "\n";
+}
+
+//command functions
+void Tax::execute() {
+	for (int i = 0; i < commands.size(); i++) {
+        commands[i]->execute();
+    }
+	//commands[0]->execute();
+}
+
+void Tax::addCommand(Command* command) {
+	commands.push_back(command);
+}
+
+void Tax::removeCommand(int i) {
+	commands.erase(commands.begin() + i);
 }

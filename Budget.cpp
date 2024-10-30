@@ -39,11 +39,24 @@ void Budget::operate() {
               << ", Available Budget = " << getAvailableBudget() << "\n";
 }
 
-/**
- * @brief Gets the available budget.
- * 
- * @return A double representing the unallocated budget amount.
- */
+void Budget::receiveTax(double tax) {
+	totalBudget += tax;
+	std::cout << "Budget received: " << tax << std::endl;
+	allocateFunds(totalBudget);
+}
+
 double Budget::getAvailableBudget() const {
     return totalBudget - allocatedBudget;
+}
+
+void Budget::execute() {
+    //Do nothing
+}
+
+void Budget::addCommand(Command* command) {
+    //Do nothing
+}
+
+void Budget::removeCommand(int i) {
+    //Do nothing
 }

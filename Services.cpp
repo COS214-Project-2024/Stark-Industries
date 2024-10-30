@@ -40,3 +40,15 @@ void Services::addServiceProgram(const std::string& program) {
     servicePrograms.push_back(program);
     std::cout << "Added service program: " << program << "\n";
 }
+
+void Services::execute() {
+
+}
+
+void Services::addCommand(Command* command) {
+
+}
+
+void Services::removeCommand(int i) {
+    
+}

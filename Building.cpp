@@ -27,13 +27,21 @@ Building::Building(string name, int satisfaction, double economicImpact,
  * @brief Placeholder method for getting building details (to be implemented).
  */
 void Building::get() {
+	// TODO - implement Building::get
+	
     throw "Not yet implemented";
+}
+
+Building::Building() {
+
 }
 
 /**
  * @brief Placeholder method for setting building details (to be implemented).
  */
 void Building::set() {
+	// TODO - implement Building::set
+	
     throw "Not yet implemented";
 }
 

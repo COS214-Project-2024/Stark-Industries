@@ -22,6 +22,10 @@ Commercial::Commercial(std::string name, int satisfaction, double economicImpact
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
       citizenNotificationRadius(notificationRadius) {}
 
+Commercial::Commercial() {
+
+}
+
 /**
  * @brief Returns the type of the building as its name.
  * 
@@ -110,4 +114,38 @@ void Commercial::notifyCitizens() {
 
 Building* Commercial::clone() const {
     return new Commercial(*this); // Create a new Commercial object using the copy constructor
+}
+
+//command functions
+void Commercial::performAction(int type) {
+	if(type == 0) {
+		//collect tax
+		//std::cout<<"Have to collect Property T"<<std::endl;
+		std::cout<<"Property and Sales Tax collected"<<std::endl;
+		payTax(0);
+	}
+	else if(type == 1) {
+		//allocate tax
+		std::cout<<"Tax allocated"<<std::endl;
+	}
+	else if(type == 2) {
+		//increase tax
+		std::cout<<"Tax increased"<<std::endl;
+	}
+	else {
+		std::cout<<"Invalid command"<<std::endl;
+	}
+}
+
+//visitor functions
+void Commercial::payTax(float taxRate) {
+	double propertyTax = buildingValue * propertyTaxRate;
+	double salesTax = buildingRevenue * salesTaxRate;
+	buildingRevenue -= propertyTax + salesTax;
+	taxPaid += propertyTax + salesTax;
+	std::cout<<"Property Tax of: " << propertyTax << " and Sales Tax of: " << salesTax << " collected"<<std::endl;												
+}
+
+void Commercial::acceptTaxCollector(Visitor * taxCollector) {
+	taxCollector->visit(this);
 }

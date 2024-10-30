@@ -111,3 +111,15 @@ void Landmark::notifyCitizens() {
 Building* Landmark::clone() const {
     return new Landmark(*this); // Create a new Commercial object using the copy constructor
 }
+
+void Landmark::performAction(int type) {
+    //Do nothing
+}
+
+void Landmark::payTax(float taxRate) {
+    //Do nothing
+}
+
+void Landmark::acceptTaxCollector(Visitor * taxCollector) {
+    //Do nothing
+}

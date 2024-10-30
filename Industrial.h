@@ -42,6 +42,8 @@ public:
     Industrial(string name, int satisfaction, double economicImpact, double resourceConsumption, 
                bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius);
 
+    Industrial();
+    
     /**
      * @brief Retrieves the type or name of the industrial building.
      * @return The name of the industrial building.
@@ -96,6 +98,16 @@ public:
 
 	Building* clone() const override; // Override the clone function
 
+
+	//command functions
+	void performAction(int type);
+	//visitor functions
+	void payTax(float taxRate);
+
+	void acceptTaxCollector(Visitor * taxCollector);
+
+private: 
+	float propertyTaxRate = 0.015;
 };
 
 #endif
