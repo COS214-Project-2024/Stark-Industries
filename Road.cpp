@@ -7,6 +7,8 @@
 Road::Road(int numLanes, double roadLength) 
     : lanes(numLanes), length(roadLength), isUnderConstruction(true) {}
 void Road::build() {
+
+
     std::cout << "Building a road with " << lanes << " lanes and length " 
               << length << "km" << std::endl;
     isUnderConstruction = false;
@@ -43,6 +45,7 @@ void Road::updateTraffic(int time) {
 
 double Road::getCost() {
     return length * lanes * 1000; // Cost per km per lane
+
 }
 
 bool Road::getConstructionStatus() {
