@@ -49,6 +49,9 @@ public:
 	    void disembark();
     void leaveFeedback() ;
 	int getSatisfaction();
+	int getIncome();
+     std::string getName();
+
 };
 
 #endif

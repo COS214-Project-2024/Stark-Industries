@@ -62,21 +62,21 @@ bool Public::hasCargoCapacity() const {
 }
 
 int Public::getCargoCapacity() const {
-    " Public doesnt support cargo";
+  std::cout<<  " Public doesnt support cargo";
     return 0;
 }
 
 int  Public::getAvailableCargoSpace() const {
- " Public doesnt support cargo";
+std::cout<< " Public doesnt support cargo";
     return 0;
 }
 
 bool   Public::loadCargo(int cargo) {
-    " Public doesnt support cargo";
+   std::cout<< " Public doesnt support cargo";
     return false;
 }
 
 void   Public::unloadCargo(int cargo) {
-     " Public doesnt support cargo";
+  std::cout<<   " Public doesnt support cargo";
     
 }

@@ -119,3 +119,10 @@ chosenTransport = NULL;
 int Citizen::getSatisfaction(){
 	return satisfactionLevelTrans;
 }
+
+int Citizen::getIncome(){
+    return income;
+}
+
+std::string Citizen::getName(){
+    return name;}

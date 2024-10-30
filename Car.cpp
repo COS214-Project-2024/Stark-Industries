@@ -61,21 +61,21 @@ bool Car::hasCargoCapacity() const {
 }
 
 int Car::getCargoCapacity() const {
-    "Car doesnt support cargo";
+   std::cout<< "Car doesnt support cargo";
     return 0;
 }
 
 int  Car::getAvailableCargoSpace() const {
- "Car doesnt support cargo";
+ std::cout<<"Car doesnt support cargo";
     return 0;
 }
 
 bool  Car::loadCargo(int cargo) {
-    "Car doesnt support cargo";
+   std::cout<< "Car doesnt support cargo";
     return false;
 }
 
 void  Car::unloadCargo(int cargo) {
-     "Car doesnt support cargo";
+   std::cout<<  "Car doesnt support cargo";
     
 }
