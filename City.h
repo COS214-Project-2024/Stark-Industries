@@ -11,7 +11,7 @@ using namespace std;
 class City : public Element {
 
 private:
-	Citizen* observerList;
+	//vector<Citizen*> citizens;
 	vector<TransportInfrastructure*> roads;
 
 public:
@@ -26,6 +26,8 @@ public:
 	void buildingComplete(int String_buildtype, int Citizen_citizen);
 
 	bool inspectBuilding();
+
+	vector<Citizen*> citizens;
 };
 
 #endif

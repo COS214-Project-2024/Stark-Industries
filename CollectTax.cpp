@@ -1,11 +1,26 @@
 #include "CollectTax.h"
 
-CollectTax::CollectTax(Government* gov) {
-	// TODO - implement CollectTax::CollectTax
-	throw "Not yet implemented";
+CollectTax::CollectTax(Citizen* citizenReceiver, Building* buildingReceiver) {
+	this->buildingList.push_back(buildingReceiver);
+	this->citizenList.push_back(citizenReceiver);
+	this->name = "Collect";
 }
 
 void CollectTax::execute() {
-	// TODO - implement CollectTax::execute
-	throw "Not yet implemented";
+	for (int i = 0; i < this->buildingList.size(); i++) {
+		if (this->buildingList[i] != nullptr)
+		this->buildingList[i]->performAction(0);
+	}
+	for (int i = 0; i < this->citizenList.size(); i++) {
+		if (this->citizenList[i] != nullptr)
+		this->citizenList[i]->performAction(0);
+	}
+}
+
+void CollectTax::addBuilding(Building* buildingReceiver) {
+	this->buildingList.push_back(buildingReceiver);
+}
+
+void CollectTax::addCitizen(Citizen* citizenReceiver) {
+	this->citizenList.push_back(citizenReceiver);
 }

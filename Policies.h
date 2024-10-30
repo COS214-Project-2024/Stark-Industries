@@ -10,6 +10,7 @@ class Policies : public Department {
 
 public:
 	Policies(std::string name);
+	std::string name = "Policies";
 
 	void operate();
 

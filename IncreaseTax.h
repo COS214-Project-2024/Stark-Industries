@@ -4,18 +4,18 @@
 #include "Command.h"
 #include "Government.h"
 #include <string>
+#include <vector>
 using namespace std;
 
 class IncreaseTax : public Command {
 
 private:
-	Government gov;
 	double increase;
 	string taxType;
 
 public:
-	IncreaseTax(Government gov, int increase, string type);
-
+	vector<Citizen*> citizenReceivers;
+	IncreaseTax(Citizen* citizenReceiver);
 	void execute();
 };
 
