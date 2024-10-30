@@ -5,8 +5,8 @@
 #include "Road.h"
 
 class RoadFactory : public TransportInfrastructureFactory {
-
- TransportInfrastructure* createInfrastructure() override;
+public:
+    TransportInfrastructure* createInfrastructure() override;
 };
 
 #endif
