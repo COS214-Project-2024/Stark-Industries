@@ -1,18 +1,21 @@
 #include "City.h"
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
-void City::attach(Citizen* citizen) {
-	// TODO - implement City::attach
-	throw "Not yet implemented";
+void City::attach(Citizen* observer) {
+    observerList.push_back(observer);
 }
 
-void City::detach(Citizen* citizen) {
-	// TODO - implement City::detach
-	throw "Not yet implemented";
+void City::detach(Citizen* observer) {
+    observerList.erase(std::remove(observerList.begin(), observerList.end(), observer), observerList.end());
 }
 
 void City::notify() {
-	// TODO - implement City::notify
-	throw "Not yet implemented";
+    std::cout << "Notifying citizens about changes in city.\n";
+    for (Citizen* citizen : observerList) {
+        citizen->observerUpdate("City");  // Call the observer's update method
+    }
 }
 
 void City::requestBuilding(int Citizen_cit, int String_buildtype) {

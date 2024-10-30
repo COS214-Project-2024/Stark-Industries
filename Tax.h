@@ -12,15 +12,11 @@ private:
 	float taxRate;
 
 public:
-	Tax(std:: string name, float initialTaxRate);
-
+	Tax(const std::string& name, float initialTaxRate);
 	void setTaxRate(float rate);
-
-	float getTaxRate();
-
-	void collectTaxes(double revenue);
-
-	void operate();
+	float getTaxRate() const;
+	void trackRevenue(double revenue);
+	void operate() override;
 };
 
 #endif

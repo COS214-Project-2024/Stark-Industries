@@ -1,21 +1,50 @@
 #include "Policies.h"
+#include <iostream>
+#include <algorithm>
 
-Policies::Policies(std::string name) {
-	// TODO - implement Policies::Policies
-	throw "Not yet implemented";
-}
+/**
+ * @brief Constructs a Policies department with the given name.
+ * 
+ * @param name Name of the policies department.
+ */
+Policies::Policies(const std::string& name) : Department(name) {}
 
+/**
+ * @brief Operates the policies department by displaying active policies.
+ * 
+ * This method prints all the active policies managed by the department.
+ */
 void Policies::operate() {
-	// TODO - implement Policies::operate
-	throw "Not yet implemented";
+    std::cout << "Operating Policies Department: Active Policies:\n";
+    for (const auto& policy : activePolicies) {
+        std::cout << "- " << policy << "\n";
+    }
 }
 
-void Policies::addPolicy(std::string policy) {
-	// TODO - implement Policies::addPolicy
-	throw "Not yet implemented";
+/**
+ * @brief Adds a new policy to the department's list of active policies.
+ * 
+ * @param policy The policy to be added.
+ */
+void Policies::addPolicy(const std::string& policy) {
+    activePolicies.push_back(policy);
+    std::cout << "Policy added: " << policy << "\n";
 }
 
-void Policies::removePolicy(std::string policy) {
-	// TODO - implement Policies::removePolicy
-	throw "Not yet implemented";
+/**
+ * @brief Removes a policy from the department's list of active policies.
+ * 
+ * If the policy is found, it is removed from the list. Otherwise, a message is displayed 
+ * indicating that the policy was not found.
+ * 
+ * @param policy The policy to be removed.
+ */
+void Policies::removePolicy(const std::string& policy) {
+    auto it = std::remove(activePolicies.begin(), activePolicies.end(), policy);
+    if (it != activePolicies.end()) {
+        activePolicies.erase(it, activePolicies.end());
+        std::cout << "Policy removed: " << policy << "\n";
+    } else {
+        std::cout << "Policy not found: " << policy << "\n";
+    }
 }
