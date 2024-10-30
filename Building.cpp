@@ -18,7 +18,7 @@
 Building::Building(string name, int satisfaction, double economicImpact, 
                    double resourceConsumption, bool constructionStatus, 
                    int improvementLevel, bool resourcesAvailable, int notificationRadius) 
-    : name(name), satisfaction(satisfaction), economicImpact(economicImpact),
+    : name(name), citySatisfaction(satisfaction), economicImpact(economicImpact),
       resourceConsumption(resourceConsumption), constructionStatus(constructionStatus),
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
       citizenNotificationRadius(notificationRadius) {}
@@ -71,4 +71,8 @@ void Building::notifyCitizens() {
     for (Citizen* citizen : observerList) {
         citizen->observerUpdate("Building");  // Call the observer's update method
     }
+}
+
+void Building::setRentalRate(double newRentalRate) {
+	rent = newRentalRate;
 }

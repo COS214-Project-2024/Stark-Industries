@@ -76,7 +76,7 @@ public:
      * @brief Retrieves the citizen's transport satisfaction level.
      * @return Satisfaction level as an integer.
      */
-	int getSatisfaction();
+	int getSatisfactionTransport();
 
 	/**
      * @brief Retrieves the citizen's income.
@@ -104,7 +104,13 @@ public:
 	void payTax();
 	void setTaxRate();
 	double taxPaid;
-	virtual void acceptTaxCollector(Visitor * taxCollector);
+	void acceptTaxCollector(Visitor * taxCollector);
+	int citySatisfaction = 50;
+	int buildingSatisfaction = 50;
+	void acceptTransportSatisfactionChecker(Visitor * satisfactionChecker);
+	void acceptBuildingSatisfactionChecker(Visitor* satisfactionChecker);
+	void acceptCitySatisfactionChecker(Visitor* satisfactionChecker);
+	void payRent(double rent);
 
 };
 

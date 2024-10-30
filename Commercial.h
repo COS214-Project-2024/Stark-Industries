@@ -114,6 +114,7 @@ public:
 	//visitor functions
 	void payTax(float taxRate);
 	void acceptTaxCollector(Visitor * taxCollector);
+	void acceptCitySatisfactionChecker(Visitor* satisfactionChecker);
 
 private:
 	float propertyTaxRate = 0.015;

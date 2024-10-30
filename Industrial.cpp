@@ -89,6 +89,11 @@ void Industrial::doImprovements() {
 
         // Notify citizens about the improvements
         notifyCitizens();
+
+		//update the citizens' satisfaction level for buildings 
+		for (int i = 0 ; i < observerList.size(); i++) {
+			observerList[i]->buildingSatisfaction += 5;
+		}
     } else {
         std::cout << "Resources unavailable for improvements.\n";
     }
@@ -100,6 +105,12 @@ void Industrial::doImprovements() {
  * @return True if resources are available, false otherwise.
  */
 bool Industrial::checkResourceAvailability() {
+	if (!resourcesAvailable){
+		citySatisfaction -= 10;
+	}
+	else {
+		citySatisfaction += 10;
+	}
     return resourcesAvailable;
 }
 
@@ -146,6 +157,10 @@ void Industrial::acceptTaxCollector(Visitor * taxCollector) {
 	taxCollector->visit(this);
 }
 
-  Building* Industrial::clone() const {
+Building* Industrial::clone() const {
     return new Industrial(*this); // Create a new Commercial object using the copy constructor
+}
+
+void Industrial::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){
+	satisfactionChecker->visit(this);
 }

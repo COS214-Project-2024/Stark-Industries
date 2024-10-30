@@ -88,6 +88,10 @@ void Residential::doImprovements() {
 
         // Notify citizens about the improvements (Observer pattern)
         notifyCitizens();
+
+		for (int i = 0 ; i < observerList.size(); i++) {
+			observerList[i]->buildingSatisfaction += 5;
+		}
     } else {
         std::cout << "Resources unavailable for improvements.\n";
     }
@@ -99,6 +103,12 @@ void Residential::doImprovements() {
  * @return True if resources are available, false otherwise.
  */
 bool Residential::checkResourceAvailability() {
+	if (resourcesAvailable) {
+		citySatisfaction += 10;
+	}
+	else {
+		citySatisfaction -= 10;
+	}
     return resourcesAvailable;
 }
 
@@ -151,4 +161,16 @@ void Residential::payTax(float taxRate) {
 
 void Residential::acceptTaxCollector(Visitor * taxCollector) {
 	taxCollector->visit(this);
+}
+
+void Residential::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){
+	satisfactionChecker->visit(this);
+}
+
+void Residential::collectRent(){
+	for (int i = 0 ; i < observerList.size(); i++) {
+		observerList[i]->payRent(rent);
+		buildingRevenue += rent;
+		std::cout << "Collected rent from " << observerList[i]->getName() << std::endl;
+	}
 }
