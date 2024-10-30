@@ -2,19 +2,11 @@
 #define ROADFACTORY_H
 
 #include "TransportInfrastructureFactory.h"
-#include "TransportInfrastructure.h"
-#include <string>
-using namespace std;
+#include "Road.h"
 
 class RoadFactory : public TransportInfrastructureFactory {
 
-public:
-	string roadType;
-
-	RoadFactory();
-
-protected:
-	TransportInfrastructure* createInfrastructure();
+ TransportInfrastructure* createInfrastructure() override;
 };
 
 #endif
