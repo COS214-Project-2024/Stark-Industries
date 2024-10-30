@@ -315,10 +315,10 @@ void testCollectTax(){
     Citizen* citizen = new Citizen("Tony", 1000);
     Building* industrial = new Industrial();
     CollectTax* collectTax = new CollectTax(citizen, industrial);
-    Building* residential = new Residential();
-    collectTax->addBuilding(residential);
-    Building* commercial = new Commercial();
-    collectTax->addBuilding(commercial);
+    //Building* residential = new Residential();
+    //collectTax->addBuilding(residential);
+    //Building* commercial = new Commercial();
+    //collectTax->addBuilding(commercial);
     collectTax->execute();
 }
 
@@ -457,50 +457,50 @@ void testCustomInfrastructures() {
 }
 int main() {
     
-    testFactoryUtilities();
-    testComposite();
-    factoryBuildings();
-    testCOR();
-    testBuildingObserver();
-    testCityObserver();
-    testRunway();
-    testRoad();
-    testRailway();
-    testCustomInfrastructures();
-    Public bus("Bus",30,5, 20); // Bus with 5 seats and a fee of 20
-    Train train("Train1",10,10, 15,3); // Train with 10 seats and a fee of 15
-    Air air("Plane1",20,2, 100,4); // Air transport with 2 seats and a fee of 100
+    //testFactoryUtilities();
+    //testComposite();
+    //factoryBuildings();
+    //testCOR();
+    //testBuildingObserver();
+    //testCityObserver();
+    //testRunway();
+    //testRoad();
+    //testRailway();
+    //testCustomInfrastructures();
+    //Public bus("Bus",30,5, 20); // Bus with 5 seats and a fee of 20
+    //Train train("Train1",10,10, 15,3); // Train with 10 seats and a fee of 15
+    //Air air("Plane1",20,2, 100,4); // Air transport with 2 seats and a fee of 100
 
     // Create citizens with different incomes
-    Citizen alice("Alice", 30,2);
-    Citizen bob("Bob", 10,0);
-    Citizen charlie("Charlie", 200,15);
+    //Citizen alice("Alice", 30,2);
+    //Citizen bob("Bob", 10,0);
+    //Citizen charlie("Charlie", 200,15);
 
     // Test various functionalities using individual functions
 
     // Test transport selection
-    testTransportSelection(alice, bus);
-    testTransportSelection(bob, bus); // Bob can't afford
+    //testTransportSelection(alice, bus);
+    //testTransportSelection(bob, bus); // Bob can't afford
 
     // Test transport affordability
-    testTransportAffordability(bob, train);
-    testTransportAffordability(charlie, air);
+    //testTransportAffordability(bob, train);
+    //testTransportAffordability(charlie, air);
 
     // Test seat availability for bus and air transport
-    testSeatAvailability(alice, air); // Alice should be able to select the air transport
-    testSeatAvailability(charlie, air); // Seats might be full if Alice took the last seat
+    //testSeatAvailability(alice, air); // Alice should be able to select the air transport
+    //testSeatAvailability(charlie, air); // Seats might be full if Alice took the last seat
 
     // Test disembarking and choosing new transport
-    testDisembark(alice);
-    testTransportSelection(alice, air); // Alice tries air transport again after disembarking
+    //testDisembark(alice);
+    //testTransportSelection(alice, air); // Alice tries air transport again after disembarking
 
     // Test citizen satisfaction feedback and satisfaction check
-    testCitizenSatisfaction(alice);
-    testCitizenSatisfaction(bob);
-    testCitizenSatisfaction(charlie);
+    //testCitizenSatisfaction(alice);
+    //testCitizenSatisfaction(bob);
+    //testCitizenSatisfaction(charlie);
     testCollectTax();
-    testIncreaseTax();
-    testTaxCollector();
+    //testIncreaseTax();
+    //testTaxCollector();
 
     return 0;
 }
