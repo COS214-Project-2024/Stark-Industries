@@ -32,7 +32,7 @@ public:
     double getCost() override;
     bool getConstructionStatus();
     void deteriorate(double deteriorationFactor);
-	void updateCapacity();
+	void updateCapacity(int newLanes, RoadType newType);
 	void addTrafficLight(double position);
     void removeTrafficLight(double position);
 };
