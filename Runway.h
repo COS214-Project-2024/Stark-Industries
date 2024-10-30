@@ -2,21 +2,20 @@
 #define RUNWAY_H
 
 #include "TransportInfrastructure.h"
-#include <string>
-using namespace std;
 
 class Runway : public TransportInfrastructure {
 
 private:
-	string runwayType;
-	int capacity;
+	double length;
+    double width;
+    bool isUnderConstruction;
 
 public:
-	Runway();
-
-	void build();
-
-	void updateCapacity();
+	Runway(double runwayLength=2.0, double runwayWidth=0.05);
+    void build() override;
+    double getCost() override;
+    bool getConstructionStatus();
+	void updateCapacity(double newLength, double newWidth);
 };
 
 #endif

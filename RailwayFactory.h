@@ -2,19 +2,11 @@
 #define RAILWAYFACTORY_H
 
 #include "TransportInfrastructureFactory.h"
-#include "TransportInfrastructure.h"
-#include <string>
-using namespace std;
+#include "Railway.h"
 
-class RailwayFactory : TransportInfrastructureFactory {
-
+class RailwayFactory : public TransportInfrastructureFactory {
 public:
-	string railwayType;
-
-	RailwayFactory();
-
-protected:
-	TransportInfrastructure* createInfrastructure();
+    TransportInfrastructure* createInfrastructure() override;
 };
 
-#endif
+#endif // RAILWAYFACTORY_H
