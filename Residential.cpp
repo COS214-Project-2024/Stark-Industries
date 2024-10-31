@@ -163,6 +163,10 @@ void Residential::acceptTaxCollector(Visitor * taxCollector) {
 	taxCollector->visit(this);
 }
 
+int Residential::getNumBuildings() {
+    return numBuildings;
+}
+
 void Residential::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){
 	satisfactionChecker->visit(this);
 }

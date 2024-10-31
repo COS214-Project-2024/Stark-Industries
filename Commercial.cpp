@@ -163,3 +163,11 @@ void Commercial::acceptTaxCollector(Visitor * taxCollector) {
 void Commercial::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){
 	satisfactionChecker->visit(this);
 }
+
+void Commercial::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){
+	satisfactionChecker->visit(this);
+}
+
+int Commercial::getNumBuildings() {
+    return numBuildings;
+}

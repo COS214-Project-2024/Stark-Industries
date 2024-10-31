@@ -25,7 +25,7 @@ private:
     int improvementLevel;         /**< Current improvement level of the building. */
     bool resourcesAvailable;      /**< Flag to indicate if resources are available for improvements. */
     int citizenNotificationRadius;/**< Radius for notifying citizens around the building. */
-
+    int numBuildings;
 public:
     /**
      * @brief Constructs an Industrial building with specified attributes.
@@ -107,6 +107,8 @@ public:
 	void acceptTaxCollector(Visitor * taxCollector);
 	void acceptCitySatisfactionChecker(Visitor* satisfactionChecker);
 
+
+    int getNumBuildings();
 
 private: 
 	float propertyTaxRate = 0.015;

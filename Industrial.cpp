@@ -164,3 +164,7 @@ Building* Industrial::clone() const {
 void Industrial::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){
 	satisfactionChecker->visit(this);
 }
+
+int Industrial::getNumBuildings() {
+    return numBuildings;
+}

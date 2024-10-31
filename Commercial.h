@@ -24,7 +24,7 @@ private:
     int improvementLevel;            ///< Level of improvements made to the building.
     bool resourcesAvailable;          ///< Availability of resources for the building.
     int citizenNotificationRadius;   ///< Notification radius for citizen alerts.
-
+    int numBuildings;
 public:
     /**
      * @brief Constructor for the Commercial class.
@@ -116,6 +116,7 @@ public:
 	void acceptTaxCollector(Visitor * taxCollector);
 	void acceptCitySatisfactionChecker(Visitor* satisfactionChecker);
 
+    int getNumBuildings();
 private:
 	float propertyTaxRate = 0.015;
 	float salesTaxRate = 0.15;
