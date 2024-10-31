@@ -3,6 +3,10 @@
 #include "CollectTax.h"
 #include "Citizen.h"
 #include "Industrial.h"
+#include "WaterFactory.h"
+#include "WasteFactory.h"
+#include "SewageFactory.h"
+#include "PowerPlantFactory.h"
 
 #include "Government.h"  
 #include "Tax.h"
@@ -17,6 +21,7 @@ TEST_CASE("Citizen Collect Tax"){
     ct->execute();
     //REQUIRE(ct->execute() == "Property Tax collected from Industrial Building\nProperty Tax of: 0 collected\nIncome Tax collected from citizens\nTime to collect Income Tax from citizens\nTax paid: 150");
 }
+
 
 
 //Testing Composite
@@ -84,4 +89,57 @@ TEST_CASE("Tax department sets and tracks revenue correctly") {
 
     taxDept.trackRevenue(1000.0);
     REQUIRE(taxDept.getTaxRate() == 0.2f);
+
+//Testing Utility Factories
+// Example test for WaterFactory and Water utility
+TEST_CASE("WaterFactory creates Water utility") {
+    WaterFactory waterFactory;
+    Utilities* waterUtility = waterFactory.createUtility();
+
+    REQUIRE(waterUtility != nullptr);  // Check that utility was created
+    REQUIRE_NOTHROW(waterUtility->displayInfo());  // Ensure displayInfo doesn't throw
+    REQUIRE_NOTHROW(waterUtility->generateResources());  // Ensure generateResources doesn't throw
+    REQUIRE_NOTHROW(waterUtility->requestMaintenance(101));  // Ensure requestMaintenance doesn't throw
+
+    delete waterUtility;  // Clean up dynamically allocated memory
 }
+
+// Example test for WasteFactory and Waste utility
+TEST_CASE("WasteFactory creates Waste utility") {
+    WasteFactory wasteFactory;
+    Utilities* wasteUtility = wasteFactory.createUtility();
+
+    REQUIRE(wasteUtility != nullptr);  // Check that utility was created
+    REQUIRE_NOTHROW(wasteUtility->displayInfo());  // Ensure displayInfo doesn't throw
+    REQUIRE_NOTHROW(wasteUtility->generateResources());  // Ensure generateResources doesn't throw
+    REQUIRE_NOTHROW(wasteUtility->requestMaintenance(102));  // Ensure requestMaintenance doesn't throw
+
+    delete wasteUtility;  // Clean up dynamically allocated memory
+}
+
+// Example test for SewageFactory and Sewage utility
+TEST_CASE("SewageFactory creates Sewage utility") {
+    SewageFactory sewageFactory;
+    Utilities* sewageUtility = sewageFactory.createUtility();
+
+    REQUIRE(sewageUtility != nullptr);  // Check that utility was created
+    REQUIRE_NOTHROW(sewageUtility->displayInfo());  // Ensure displayInfo doesn't throw
+    REQUIRE_NOTHROW(sewageUtility->generateResources());  // Ensure generateResources doesn't throw
+    REQUIRE_NOTHROW(sewageUtility->requestMaintenance(103));  // Ensure requestMaintenance doesn't throw
+
+    delete sewageUtility;  // Clean up dynamically allocated memory
+}
+
+// Example test for PowerPlantFactory and PowerPlant utility
+TEST_CASE("PowerPlantFactory creates PowerPlant utility") {
+    PowerPlantFactory powerPlantFactory;
+    Utilities* powerPlantUtility = powerPlantFactory.createUtility();
+
+    REQUIRE(powerPlantUtility != nullptr);  // Check that utility was created
+    REQUIRE_NOTHROW(powerPlantUtility->displayInfo());  // Ensure displayInfo doesn't throw
+    REQUIRE_NOTHROW(powerPlantUtility->generateResources());  // Ensure generateResources doesn't throw
+    REQUIRE_NOTHROW(powerPlantUtility->requestMaintenance(104));  // Ensure requestMaintenance doesn't throw
+
+    delete powerPlantUtility;  // Clean up dynamically allocated memory
+}
+
