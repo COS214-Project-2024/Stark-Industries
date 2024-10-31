@@ -3,9 +3,11 @@
 #include <iostream>
 #include <algorithm>
 
-
+int Road::roadCount = 0;
 Road::Road(int numLanes, double roadLength) 
-    : lanes(numLanes), length(roadLength), isUnderConstruction(true) {}
+    : lanes(numLanes), length(roadLength), isUnderConstruction(true) {
+        ++roadCount;
+    }
 void Road::build() {
     std::cout << "Building a road with " << lanes << " lanes and length " 
               << length << "km" << std::endl;
@@ -106,4 +108,13 @@ void Road::removeTrafficLight(double position) {
     if (it != trafficLights.end()) {
         trafficLights.erase(it); // Remove the traffic light if it exists
     }
+}
+
+// Getter for road count
+int Road::getRoadCount() {
+    return roadCount;
+}
+
+Road::~Road() {
+    roadCount--;
 }
