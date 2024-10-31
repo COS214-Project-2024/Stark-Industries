@@ -123,3 +123,11 @@ void Landmark::payTax(float taxRate) {
 void Landmark::acceptTaxCollector(Visitor * taxCollector) {
     //Do nothing
 }
+
+int Landmark::getNumBuildings() {
+    return numBuildings;
+}
+
+Landmark::Landmark() {
+    
+}
