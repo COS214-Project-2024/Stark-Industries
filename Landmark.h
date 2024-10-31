@@ -24,7 +24,7 @@ private:
     bool resourcesAvailable;        /**< Resource availability status */
     int citizenNotificationRadius;  /**< Radius for notifying citizens */
     string area;
-
+    int numBuildings;
 public:
 
     /**
@@ -103,6 +103,10 @@ public:
 	void payTax(float taxRate);
 
 	void acceptTaxCollector(Visitor * taxCollector);
+
+    Landmark();
+
+    int getNumBuildings();
 
 private: 
 	float propertyTaxRate = 0.015;

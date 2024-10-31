@@ -27,6 +27,7 @@ private:
     int citizenNotificationRadius;/**< Radius for notifying citizens around the building. */
     string area;
 
+    int numBuildings;
 public:
     /**
      * @brief Constructs an Industrial building with specified attributes.
@@ -106,6 +107,8 @@ public:
 	void payTax(float taxRate);
 
 	void acceptTaxCollector(Visitor * taxCollector);
+
+    int getNumBuildings();
 
 private: 
 	float propertyTaxRate = 0.015;

@@ -26,6 +26,7 @@ private:
     bool resourcesAvailable; ///< Indicates if resources are available for improvements.
     int citizenNotificationRadius; ///< Radius for notifying citizens about the building.
     string area;
+    int numBuildings;
 
 public:
 
@@ -113,6 +114,8 @@ public:
 	void payTax(float taxRate);
 
 	void acceptTaxCollector(Visitor * taxCollector);
+
+    int getNumBuildings();
 
 private:
 	float propertyTaxRate = 0.01;

@@ -149,3 +149,7 @@ void Industrial::acceptTaxCollector(Visitor * taxCollector) {
   Building* Industrial::clone() const {
     return new Industrial(*this); // Create a new Commercial object using the copy constructor
 }
+
+int Industrial::getNumBuildings() {
+    return numBuildings;
+}

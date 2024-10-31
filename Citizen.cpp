@@ -11,8 +11,10 @@
  */
 Citizen::Citizen(const std::string& name, int income, double propertyValue)
     : name(name), income(income), propertyValue(propertyValue), commuteTime(0),
-      isSatisfiedTrans(0), hasPaid(false) {}
-#include <iostream>
+      isSatisfiedTrans(0), hasPaid(false) 
+	{
+		numCitizens++;
+	}
 
 int Citizen::satisfactionLevelTrans = 100;
 
@@ -23,6 +25,10 @@ Citizen::Citizen(const std::string& name, int income,int cargo)
 Citizen::Citizen(std::string name, double baseIncome) {
 	this->name = name;
 	this->income = baseIncome;
+}
+
+int Citizen::getNumCitizens() {
+	return numCitizens;
 }
 
 void Citizen::get() {
@@ -231,4 +237,12 @@ void Citizen::setTaxRate() {
 
 void Citizen::acceptTaxCollector(Visitor * taxCollector) {
 	taxCollector->visit(this);
+}
+
+void Citizen::setNumCitizens(int num) {
+    numCitizens = num;
+}
+
+Citizen::Citizen() {
+	
 }
