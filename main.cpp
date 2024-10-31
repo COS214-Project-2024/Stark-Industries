@@ -192,11 +192,15 @@ void factoryBuildings() {
 
 void testCOR() {
     // Create handlers with test values
-    int growthFactor = 101;
+    Residential* apartment = new Residential("Sunset Apartments", 80, 5000, 200, true, 1, true, 5);
+    Commercial* mall = new Commercial("City Mall", 75, 10000, 500, true, 1, true, 10);
+    Industrial* factory = new Industrial("Steel Factory", 70, 15000, 1000, true, 1, true, 8);
+    Landmark* monument = new Landmark("Freedom Monument", 90, 8000, 500, true, 1, true, 10);
+    int growthFactor = 21;
     Population populationHandler(growthFactor);
-    Housing housingHandler(growthFactor * 0.5);
-    Economic economicHandler(growthFactor * 0.75);
-    Infrastructure infrastructureHandler(growthFactor * 0.3);
+    Housing housingHandler(growthFactor * 0.5, apartment);
+    Economic economicHandler(growthFactor * 0.2);
+    Infrastructure infrastructureHandler(growthFactor * 0.3, mall, factory, monument);
 
     // Set up the chain of responsibility
     populationHandler.setNextHandler(&housingHandler);
@@ -460,7 +464,7 @@ int main() {
     //testFactoryUtilities();
     //testComposite();
     //factoryBuildings();
-    //testCOR();
+    testCOR();
     //testBuildingObserver();
     //testCityObserver();
     //testRunway();
@@ -498,7 +502,7 @@ int main() {
     //testCitizenSatisfaction(alice);
     //testCitizenSatisfaction(bob);
     //testCitizenSatisfaction(charlie);
-    testCollectTax();
+    //testCollectTax();
     //testIncreaseTax();
     //testTaxCollector();
 

@@ -25,6 +25,7 @@ private:
     int improvementLevel; ///< Current level of improvements made to the building.
     bool resourcesAvailable; ///< Indicates if resources are available for improvements.
     int citizenNotificationRadius; ///< Radius for notifying citizens about the building.
+    int numBuildings;
 
 public:
 
@@ -112,6 +113,8 @@ public:
 	void payTax(float taxRate);
 
 	void acceptTaxCollector(Visitor * taxCollector);
+
+    int getNumBuildings();
 
 private:
 	float propertyTaxRate = 0.01;

@@ -60,3 +60,7 @@ void Budget::addCommand(Command* command) {
 void Budget::removeCommand(int i) {
     //Do nothing
 }
+
+Budget::Budget() {
+    
+}

@@ -7,6 +7,7 @@
 // #include "Building.h"
 #include <string>
 #include "Visitor.h"
+#include <array>
 using namespace std;
 
 /**
@@ -33,8 +34,31 @@ private:
 	double satisfaction;
 	bool wasNotified;
 	double taxRate = 0.15;
+	int numCitizens;
 
 public:
+	// Array of 200 potential citizen names
+	const std::array<std::string, 200> citizenNames = {
+		"Alex", "Jordan", "Taylor", "Casey", "Riley", "Morgan", "Jamie", "Avery", "Quinn", "Dakota",
+		"Skyler", "Reese", "Drew", "Finley", "Sawyer", "Harper", "Rowan", "Elliot", "Phoenix", "Emerson",
+		"Blake", "Kendall", "Ari", "Ainsley", "Arden", "Bellamy", "Channing", "Hayden", "Jayden", "Sasha",
+		"Peyton", "Devon", "Emery", "Keegan", "Lennon", "Logan", "Nico", "Rylan", "Spencer", "Sydney",
+		"Tatum", "Teagan", "Tyler", "River", "Parker", "Shawn", "Skylar", "Addison", "Aspen", "Bailey",
+		"Charlie", "Cameron", "Dallas", "Dylan", "Easton", "Gray", "Jesse", "Jordan", "Jules", "Karter",
+		"Lake", "Lennox", "Luca", "Maddox", "Marley", "Micah", "Payton", "Presley", "Remy", "Rory",
+		"Sam", "Shiloh", "Stevie", "Terry", "Winter", "Wren", "Zion", "Angel", "Archer", "Arlo",
+		"Atlas", "August", "Baylor", "Blaine", "Briar", "Brooks", "Callan", "Carson", "Chase", "Cruz",
+		"Dane", "Dax", "Eli", "Ezra", "Finn", "Flynn", "Gage", "Gentry", "Gio", "Grady", "Harlow",
+		"Hendrix", "Hudson", "Huxley", "Indigo", "Jacoby", "Jagger", "Jax", "Jett", "Jude", "Justice",
+		"Kasen", "Knox", "Landry", "Lennox", "Levi", "Maverick", "Max", "Monroe", "Oakley", "Orion",
+		"Phoenix", "Rocco", "Ryder", "Ryker", "Sailor", "Sloan", "Sterling", "Sullivan", "Tanner",
+		"Thatcher", "Tristan", "Vaughn", "Wilder", "Xander", "Zephyr", "Ace", "Apollo", "Bo", "Cash",
+		"Colby", "Cooper", "Dane", "Dash", "Dex", "Ford", "Hank", "Holt", "Jax", "Jed", "Kai",
+		"Kade", "Knox", "Lance", "Miles", "Nash", "Reid", "Rex", "Zane", "Zeke", "Arden", "Ash",
+		"Blake", "Corbin", "Crew", "Cruz", "Drew", "Finn", "Ford", "Graham", "Gus", "Hale",
+		"Holt", "Ike", "Jack", "Jace", "Jay", "Jett", "Joss", "Kip", "Luke", "Mark", "Nico", "Noah",
+		"Quinn", "Rhys", "Ridge", "Sam", "Scout", "Shane", "Tate", "Trey", "Wade", "Wes", "Zeke"
+	};
 
 	Citizen(const std::string& name, int income, double propertyValue);
 
@@ -47,7 +71,6 @@ public:
 	void requestBuilding(int City_city, int String_buildtype);
 	void recieveMoveinDate();
 	void choseTransport(int Transport_trans);
-
 	void requestUtilitiesService();
 
 	/**
@@ -106,6 +129,9 @@ public:
 	double taxPaid;
 	virtual void acceptTaxCollector(Visitor * taxCollector);
 
+	int getNumCitizens();
+	void setNumCitizens(int num); 
+	Citizen();
 };
 
 #endif

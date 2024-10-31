@@ -149,3 +149,7 @@ void Commercial::payTax(float taxRate) {
 void Commercial::acceptTaxCollector(Visitor * taxCollector) {
 	taxCollector->visit(this);
 }
+
+int Commercial::getNumBuildings() {
+    return numBuildings;
+}
