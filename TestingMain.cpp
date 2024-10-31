@@ -147,6 +147,7 @@ TEST_CASE("Tax department sets and tracks revenue correctly") {
 
     taxDept.trackRevenue(1000.0);
     REQUIRE(taxDept.getTaxRate() == 0.2f);
+}
 
 //Testing Utility Factories
 // Example test for WaterFactory and Water utility
