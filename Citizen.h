@@ -91,6 +91,8 @@ Citizen(const std::string& name, int income,int cargo);
      */
      std::string getName();
 
+     void transport();
+
 };
 
 #endif

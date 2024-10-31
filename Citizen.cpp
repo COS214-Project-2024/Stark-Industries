@@ -159,3 +159,15 @@ int Citizen::getIncome(){
  */
 std::string Citizen::getName(){
     return name;}
+
+    void Citizen::transport(){
+        if(chosenTransport==NULL){
+            std::cout<<"Citizen has no yet selected its preffered transport";
+        }else{
+            double time=chosenTransport->commuteTime();
+         std::cout<< name<<  " is transportting via "<<chosenTransport->getType()<<" and the total time will be "<<time<<std::endl;
+         std::cout<<time<<" minutes later..."<<std::endl;
+         disembark();
+
+        }
+    }
