@@ -25,6 +25,7 @@ private:
     int improvementLevel; ///< Current level of improvements made to the building.
     bool resourcesAvailable; ///< Indicates if resources are available for improvements.
     int citizenNotificationRadius; ///< Radius for notifying citizens about the building.
+    string area;
 
 public:
 
@@ -42,7 +43,7 @@ public:
      */
     Residential(string name, int satisfaction, double economicImpact, double resourceConsumption, 
                 bool constructionStatus, int improvementLevel, bool resourcesAvailable, 
-                int notificationRadius);
+                int notificationRadius, string area);
 
     Residential();
     

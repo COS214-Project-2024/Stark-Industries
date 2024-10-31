@@ -455,8 +455,132 @@ void testCustomInfrastructures() {
     Railway customRailway(2.0, false);
     std::cout << "Custom non-electrified Railway cost: " << customRailway.getCost() << std::endl;
 }
+
+void bigTestingMain() {
+    //Create city
+    City ourCity = new City();
+    //=======================
+
+    //Create buildings
+        // Initialize creators for each building type
+    ResidentialCreator residentialCreator;
+    LandmarkCreator landmarkCreator;
+    CommercialCreator commercialCreator;
+    IndustrialCreator industrialCreator;
+
+        // Create Residential Building
+    Building* residentialBuilding = residentialCreator.createBuilding("Residential Block", 30, 5000, 300, true, 1, true, 200);
+    cout << "Residential Building Created:" << endl;
+    cout << "Type: " << residentialBuilding->getType() << endl;
+    cout << "Satisfaction: " << residentialBuilding->calculateSatisfaction() << endl;
+    cout << "Economic Impact: " << residentialBuilding->calculateEconomicImpact() << endl;
+    cout << "Resource Consumption: " << residentialBuilding->calculateResourceConsumption() << endl;
+    residentialBuilding->doImprovements();
+    cout << "Satisfaction after improvement: " << residentialBuilding->calculateSatisfaction() << endl;
+
+        // Create Landmark Building
+    Building* landmarkBuilding = landmarkCreator.createBuilding("Statue of Liberty", 50, 100000, 500, true, 1, true, 500);
+    cout << "\nLandmark Building Created:" << endl;
+    cout << "Type: " << landmarkBuilding->getType() << endl;
+    cout << "Satisfaction: " << landmarkBuilding->calculateSatisfaction() << endl;
+    cout << "Economic Impact: " << landmarkBuilding->calculateEconomicImpact() << endl;
+    cout << "Resource Consumption: " << landmarkBuilding->calculateResourceConsumption() << endl;
+    landmarkBuilding->doImprovements();
+    cout << "Satisfaction after improvement: " << landmarkBuilding->calculateSatisfaction() << endl;
+
+        // Create Commercial Building
+    Building* commercialBuilding = commercialCreator.createBuilding("Mall", 20, 30000, 1000, true, 1, true, 300);
+    cout << "\nCommercial Building Created:" << endl;
+    cout << "Type: " << commercialBuilding->getType() << endl;
+    cout << "Satisfaction: " << commercialBuilding->calculateSatisfaction() << endl;
+    cout << "Economic Impact: " << commercialBuilding->calculateEconomicImpact() << endl;
+    cout << "Resource Consumption: " << commercialBuilding->calculateResourceConsumption() << endl;
+    commercialBuilding->doImprovements();
+    cout << "Satisfaction after improvement: " << commercialBuilding->calculateSatisfaction() << endl;
+
+        // Create Industrial Building
+    Building* industrialBuilding = industrialCreator.createBuilding("Factory", 10, 20000, 2000, true, 1, true, 400);
+    cout << "\nIndustrial Building Created:" << endl;
+    cout << "Type: " << industrialBuilding->getType() << endl;
+    cout << "Satisfaction: " << industrialBuilding->calculateSatisfaction() << endl;
+    cout << "Economic Impact: " << industrialBuilding->calculateEconomicImpact() << endl;
+    cout << "Resource Consumption: " << industrialBuilding->calculateResourceConsumption() << endl;
+    industrialBuilding->doImprovements();
+    cout << "Satisfaction after improvement: " << industrialBuilding->calculateSatisfaction() << endl;
+    //======================================
+
+    //Create utilities
+        // Water Factory
+    WaterFactory waterFactory;
+    Utilities* waterUtility = waterFactory.createUtility();
+    cout << "Water System Created:\n";
+    waterUtility->displayInfo();
+    waterUtility->generateResources();
+    waterUtility->requestMaintenance(101);
+    cout << endl;
+
+        // Waste Factory
+    WasteFactory wasteFactory;
+    Utilities* wasteUtility = wasteFactory.createUtility();
+    cout << "Waste System Created:\n";
+    wasteUtility->displayInfo();
+    wasteUtility->generateResources();
+    wasteUtility->requestMaintenance(102);
+    cout << endl;
+
+        // Sewage Factory
+    SewageFactory sewageFactory;
+    Utilities* sewageUtility = sewageFactory.createUtility();
+    cout << "Sewage System Created:\n";
+    sewageUtility->displayInfo();
+    sewageUtility->generateResources();
+    sewageUtility->requestMaintenance(103);
+    cout << endl;
+
+        // PowerPlant Factory
+    PowerPlantFactory powerPlantFactory;
+    Utilities* powerPlantUtility = powerPlantFactory.createUtility();
+    cout << "Power Plant Created:\n";
+    powerPlantUtility->displayInfo();
+    powerPlantUtility->generateResources();
+    powerPlantUtility->requestMaintenance(104);
+    cout << endl;
+    //==========================
+
+    //Build transport infrastructure
+        //Create road
+    RoadFactory roadFactory;
+    TransportInfrastructure* road = roadFactory.createInfrastructure();
+        //Create railway
+    RailwayFactory railwayFactory;
+    TransportInfrastructure* railway = railwayFactory.createInfrastructure();
+        //Create runway
+    RunwayFactory runwayFactory;
+    TransportInfrastructure* runway = runwayFactory.createInfrastructure();
+    //==========================
+
+    //Create citizens
+    for (int i = 0; i < 30) {
+        string name = c.citizenNames[std::rand() % 200];
+        int income = 30000 + std::rand() % 70000;  // Income range from 30,000 to 100,000
+        double propertyValue = 50000 + std::rand() % 950000;  // Property value from 50,000 to 1,000,000
+        Citizen* newCitizen = new Citizen(name, income, propertyValue);
+        //Add citizens to a list
+    }
+
+    // Clean up
+    delete waterUtility;
+    delete wasteUtility;
+    delete sewageUtility;
+    delete powerPlantUtility;
+    delete residentialBuilding;
+    delete landmarkBuilding;
+    delete commercialBuilding;
+    delete industrialBuilding;
+}
+
 int main() {
-    
+    bigTestingMain();
     //testFactoryUtilities();
     //testComposite();
     //factoryBuildings();
@@ -498,7 +622,7 @@ int main() {
     //testCitizenSatisfaction(alice);
     //testCitizenSatisfaction(bob);
     //testCitizenSatisfaction(charlie);
-    testCollectTax();
+    // testCollectTax();
     //testIncreaseTax();
     //testTaxCollector();
 

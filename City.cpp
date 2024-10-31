@@ -3,6 +3,10 @@
 #include <vector>
 #include <algorithm>
 
+City::City() {
+
+}
+
 void City::attach(Citizen* observer) {
     observerList.push_back(observer);
 	citizens.push_back(observer);

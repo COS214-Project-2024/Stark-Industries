@@ -25,6 +25,7 @@ private:
     int improvementLevel;         /**< Current improvement level of the building. */
     bool resourcesAvailable;      /**< Flag to indicate if resources are available for improvements. */
     int citizenNotificationRadius;/**< Radius for notifying citizens around the building. */
+    string area;
 
 public:
     /**
@@ -40,7 +41,7 @@ public:
      * @param notificationRadius Radius for citizen notifications.
      */
     Industrial(string name, int satisfaction, double economicImpact, double resourceConsumption, 
-               bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius);
+               bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius, string area);
 
     Industrial();
     

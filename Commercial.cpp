@@ -15,12 +15,12 @@
  */
 Commercial::Commercial(std::string name, int satisfaction, double economicImpact, 
                        double resourceConsumption, bool constructionStatus, 
-                       int improvementLevel, bool resourcesAvailable, int notificationRadius)
+                       int improvementLevel, bool resourcesAvailable, int notificationRadius, string area)
     : Building(name, satisfaction, economicImpact, resourceConsumption, 
                constructionStatus, improvementLevel, resourcesAvailable, notificationRadius), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
       resourceConsumption(resourceConsumption), constructionStatus(constructionStatus),
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
-      citizenNotificationRadius(notificationRadius) {}
+      citizenNotificationRadius(notificationRadius), area(area) {}
 
 Commercial::Commercial() {
 
