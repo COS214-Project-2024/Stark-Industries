@@ -33,7 +33,7 @@ private:
     int improvementLevel;            ///< Level of improvements made to the building.
     bool resourcesAvailable;          ///< Availability of resources for the building.
     int citizenNotificationRadius;   ///< Notification radius for citizen alerts.
-
+    string area;
 protected: 
 	double buildingRevenue;
 	double buildingValue;
@@ -53,7 +53,7 @@ public:
      */
     Building(string name, int satisfaction, double economicImpact, double resourceConsumption, 
              bool constructionStatus, int improvementLevel, bool resourcesAvailable, 
-             int notificationRadius);
+             int notificationRadius, string area);
 
     Building();
     /// Default destructor.

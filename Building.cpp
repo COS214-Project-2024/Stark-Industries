@@ -17,11 +17,11 @@
  */
 Building::Building(string name, int satisfaction, double economicImpact, 
                    double resourceConsumption, bool constructionStatus, 
-                   int improvementLevel, bool resourcesAvailable, int notificationRadius) 
+                   int improvementLevel, bool resourcesAvailable, int notificationRadius, string area) 
     : name(name), satisfaction(satisfaction), economicImpact(economicImpact),
       resourceConsumption(resourceConsumption), constructionStatus(constructionStatus),
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
-      citizenNotificationRadius(notificationRadius) {}
+      citizenNotificationRadius(notificationRadius), area(area) {}
 
 /**
  * @brief Placeholder method for getting building details (to be implemented).

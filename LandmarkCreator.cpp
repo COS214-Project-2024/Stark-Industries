@@ -29,9 +29,9 @@ LandmarkCreator::LandmarkCreator() {
 Building* LandmarkCreator::createBuilding(string name, int satisfaction, double economicImpact, 
                                           double resourceConsumption, bool constructionStatus, 
                                           int improvementLevel, bool resourcesAvailable, 
-                                          int notificationRadius) {
+                                          int notificationRadius, string area) {
     buildings = new Landmark(name, satisfaction, economicImpact, resourceConsumption, 
                              constructionStatus, improvementLevel, resourcesAvailable, 
-                             notificationRadius);
+                             notificationRadius, area);
     return buildings;
 }
