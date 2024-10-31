@@ -1,8 +1,12 @@
 #include "Runway.h"
 #include <iostream>
 
+
+int Runway::runwayCount = 0;
 Runway::Runway(double runwayLength, double runwayWidth) 
-    : length(runwayLength), width(runwayWidth), isUnderConstruction(true) {}
+    : length(runwayLength), width(runwayWidth), isUnderConstruction(true) {
+        ++runwayCount;
+    }
 
 void Runway::build() {
     std::cout << "Building a runway with length " << length 
@@ -24,4 +28,13 @@ void Runway::updateCapacity(double newLength, double newWidth) {
 
     std::cout << "Updated runway capacity: Length = " << length 
               << " km, Width = " << width << " km" << std::endl;
+}
+
+int Runway::getRunwayCount() {
+    return runwayCount;
+}
+
+
+Runway::~Runway() {
+    runwayCount--;
 }

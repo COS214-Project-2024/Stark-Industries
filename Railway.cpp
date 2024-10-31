@@ -1,8 +1,14 @@
 #include "Railway.h"
 #include <iostream>
 
+
+
+int Railway::railwayCount = 0;
+
 Railway::Railway(double railLength, bool electrified) 
-    : length(railLength), isElectrified(electrified), isUnderConstruction(true) {}
+    : length(railLength), isElectrified(electrified), isUnderConstruction(true) {
+        ++railwayCount;
+    }
 
 void Railway::build() {
     std::cout << "Building a " << (isElectrified ? "electrified" : "non-electrified") 
