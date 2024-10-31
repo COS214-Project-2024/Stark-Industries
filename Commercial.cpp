@@ -88,6 +88,10 @@ void Commercial::doImprovements() {
 
         // Notify citizens about the improvement
         notifyCitizens();
+
+		for (int i = 0 ; i < observerList.size(); i++) {
+			observerList[i]->buildingSatisfaction += 5;
+		}
     } else {
         std::cout << "Resources unavailable for improvements.\n";
     }
@@ -99,6 +103,12 @@ void Commercial::doImprovements() {
  * @return True if resources are available, false otherwise.
  */
 bool Commercial::checkResourceAvailability() {
+	if (resourcesAvailable) {
+		citySatisfaction += 10;
+	}
+	else {
+		citySatisfaction -= 10;
+	}
     return resourcesAvailable;
 }
 
@@ -148,6 +158,14 @@ void Commercial::payTax(float taxRate) {
 
 void Commercial::acceptTaxCollector(Visitor * taxCollector) {
 	taxCollector->visit(this);
+}
+
+void Commercial::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){
+	satisfactionChecker->visit(this);
+}
+
+void Commercial::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){
+	satisfactionChecker->visit(this);
 }
 
 int Commercial::getNumBuildings() {

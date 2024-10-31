@@ -44,6 +44,10 @@
 #include "Train.h"
 #include "Air.h"
 
+#include "CollectTax.h"
+#include "IncreaseTax.h"
+#include "SatisfactionChecker.h"
+
 using namespace std;
 
 void testFactoryUtilities() {
@@ -347,6 +351,25 @@ void testTaxCollector(){
     }
 }
 
+void testSatisfactionChecker(){
+    SatisfactionChecker* satisfactionChecker = new SatisfactionChecker();
+    Citizen* citizen = new Citizen("Tony", 1000);
+    Industrial* industrial = new Industrial();
+    satisfactionChecker->transportSatisfaction(citizen);
+    satisfactionChecker->buildingSatisfaction(citizen);
+    satisfactionChecker->citySatisfaction(citizen);
+    satisfactionChecker->citySatisfaction(industrial);
+}
+
+void testRent(){
+    Citizen* citizen = new Citizen("Tony", 1000);
+    Citizen* citizen2 = new Citizen("Sherlock", 1000);
+    Building* residential = new Residential();
+    residential->attach(citizen);
+    residential->attach(citizen2);
+    residential->collectRent();
+}
+
 // Function to test transport selection based on seat availability and maintenance status
 void testTransportSelection(Citizen& citizen, Transport& transport) {
     std::cout << "\n=== " << citizen.getName() << " tries to choose " << transport.getType() << " transport ===\n";
@@ -379,7 +402,7 @@ void testSeatAvailability(Citizen& citizen, Transport& transport) {
 void testCitizenSatisfaction(Citizen& citizen) {
     std::cout << "\n=== Testing satisfaction level for " << citizen.getName() << " ===\n";
     citizen.leaveFeedback();
-    if (citizen.getSatisfaction()>60) {
+    if (citizen.getSatisfactionTransport()>60) {
         std::cout << citizen.getName() << " is satisfied with the transportation.\n";
     } else {
         std::cout << citizen.getName() << " is unsatisfied with the transportation.\n";
@@ -636,6 +659,8 @@ int main() {
     //testCollectTax();
     //testIncreaseTax();
     //testTaxCollector();
+    //testSatisfactionChecker();
+    testRent();
 
     return 0;
 }

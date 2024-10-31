@@ -72,3 +72,7 @@ void Building::notifyCitizens() {
         citizen->observerUpdate("Building");  // Call the observer's update method
     }
 }
+
+void Building::setRentalRate(double newRentalRate) {
+	rent = newRentalRate;
+}
