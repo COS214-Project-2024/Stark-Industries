@@ -26,3 +26,12 @@ void Railway::updateCapacity(double newLength, bool electrified) {
     std::cout << "Updated railway capacity: Length = " << length 
               << " km, Electrified = " << (isElectrified ? "Yes" : "No") << std::endl;
 }
+
+int Railway::getRailwayCount() {
+    return railwayCount;
+}
+
+
+Railway::~Railway() {
+    railwayCount--;
+}
