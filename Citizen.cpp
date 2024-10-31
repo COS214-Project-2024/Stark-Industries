@@ -16,7 +16,7 @@ Citizen::Citizen(const std::string& name, int income, double propertyValue)
 		numCitizens++;
 	}
 
-int Citizen::satisfactionLevelTrans = 100;
+int Citizen::satisfactionLevelTrans = 50;
 
 Citizen::Citizen(const std::string& name, int income,int cargo)
     : name(name), income(income), commuteTime(0) , 
@@ -164,7 +164,7 @@ void Citizen::disembark() {
         std::cout << name << " has disembarked from " << chosenTransport->getType() << " transport.\n";
         if(chosenTransport->hasCargoCapacity()){
         chosenTransport->unloadCargo(cargo);}
-		if(getSatisfaction()<60){
+		if(getSatisfactionTransport()<60){
 chosenTransport->doMaintenance();}
 chosenTransport = NULL;
 		}
@@ -175,7 +175,7 @@ chosenTransport = NULL;
  * @brief Get the satisfaction level of the citizen related to transport.
  * @return Satisfaction level as an integer.
  */
-int Citizen::getSatisfaction(){
+int Citizen::getSatisfactionTransport(){
 	return satisfactionLevelTrans;
 }
 
@@ -239,6 +239,21 @@ void Citizen::acceptTaxCollector(Visitor * taxCollector) {
 	taxCollector->visit(this);
 }
 
+void Citizen::acceptTransportSatisfactionChecker(Visitor * satisfactionChecker){
+	satisfactionChecker->visit(this);
+}
+
+void Citizen::acceptBuildingSatisfactionChecker(Visitor* satisfactionChecker){
+	satisfactionChecker->visit(this);
+}
+
+void Citizen::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){
+	satisfactionChecker->visit(this);
+}
+
+void Citizen::payRent(double rent){
+	income -= rent;
+}
 void Citizen::setNumCitizens(int num) {
     numCitizens = num;
 }

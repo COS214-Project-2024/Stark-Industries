@@ -113,6 +113,8 @@ public:
 	void payTax(float taxRate);
 
 	void acceptTaxCollector(Visitor * taxCollector);
+	void acceptCitySatisfactionChecker(Visitor* satisfactionChecker);
+	void collectRent();
 
     int getNumBuildings();
 
