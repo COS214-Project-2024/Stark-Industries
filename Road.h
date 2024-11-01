@@ -24,6 +24,7 @@ private:
     std::map<int, int> hourlyTrafficVolume;
     std::vector<double> trafficLights;
     bool needsRepaving;
+    static int roadCount; //keep track of no. of roads as we create them
 
 public:
 	Road(int numLanes=2, double roadLength=1.0);
@@ -35,6 +36,8 @@ public:
 	void updateCapacity(int newLanes, RoadType newType);
 	void addTrafficLight(double position);
     void removeTrafficLight(double position);
+    static int getRoadCount();
+    ~Road();
 };
 
 #endif

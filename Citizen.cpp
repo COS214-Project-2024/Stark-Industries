@@ -1,5 +1,10 @@
 #include "Citizen.h"
 #include <iostream>
+#include "Road.h"
+#include "Railway.h"
+#include "Runway.h"
+#include "Train.h"
+#include "Air.h"
 
 
 /**
@@ -78,6 +83,19 @@ void Citizen::recieveMoveinDate() {
  * @param trans Pointer to the Transport the citizen is choosing.
  */
 void Citizen::chooseTransport(Transport* trans) {
+	if(dynamic_cast<Air*>(trans)){
+		if(Runway::getRunwayCount()<1){
+			std::cout<<"Unable to chose Air transport as runways have not yet been built"<<std::endl;
+		}
+	}else if(dynamic_cast<Train*>(trans)){
+		if(Railway::getRailwayCount()<1){
+			std::cout<<"Unable to chose Train transport as railways have not yet been built"<<std::endl;
+		}
+	}else{
+		if(Road::getRoadCount()<1){
+			std::cout<<"Unable to chose Car and Public transport as roads have not yet been built"<<std::endl;
+		}
+	}
   if (!trans->isAvailable()) {
         cout << name << " tried to choose transport, but it is under maintenance.\n";
         leaveFeedback();
