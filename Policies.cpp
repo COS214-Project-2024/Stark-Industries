@@ -15,9 +15,15 @@ Policies::Policies(const std::string& name) : Department(name) {}
  * This method prints all the active policies managed by the department.
  */
 void Policies::operate() {
-    std::cout << "Operating Policies Department: Active Policies:\n";
-    for (const auto& policy : activePolicies) {
+    std::cout << "Operating Policies Department:\n";
+    if (activePolicies.empty()) {
+        cout << "No active policies.\n";
+    }
+    else {
+        cout << "Active Policies:\n";
+        for (const auto& policy : activePolicies) {
         std::cout << "- " << policy << "\n";
+    }
     }
 }
 

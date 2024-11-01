@@ -4,16 +4,18 @@
 #include "TransportInfrastructure.h"
 
 class TransportInfrastructureFactory {
-private:
+protected:
     TransportInfrastructure* product;
 public:
-    void buildInfrastructure(){
-        product = createInfrastructure();
-    }
+    // void buildInfrastructure(){
+    //     product = createInfrastructure();
+    // }
     virtual ~TransportInfrastructureFactory()= default;
 
 protected:
-	virtual TransportInfrastructure* createInfrastructure() = 0;
+	virtual TransportInfrastructure* createInfrastructure(int, double) = 0;
+    virtual TransportInfrastructure* createInfrastructure(int, bool) = 0;
+    virtual TransportInfrastructure* createInfrastructure(double, double) = 0;
 };
 
 #endif

@@ -23,7 +23,9 @@ private:
     bool constructionStatus;         ///< Status of the construction (completed or not).
     int improvementLevel;            ///< Level of improvements made to the building.
     bool resourcesAvailable;          ///< Availability of resources for the building.
-    int citizenNotificationRadius;   ///< Notification radius for citizen alerts.
+    int capacity;   ///< Notification radius for citizen alerts.
+    static int numBuildings;    
+    string area;
 
 public:
     /**
@@ -43,7 +45,7 @@ public:
     Commercial(string name, int satisfaction, double economicImpact, 
                double resourceConsumption, bool constructionStatus, 
                int improvementLevel, bool resourcesAvailable, 
-               int notificationRadius);
+               int capacity, string area);
 
     Commercial();
 
@@ -114,7 +116,11 @@ public:
 	//visitor functions
 	void payTax(float taxRate);
 	void acceptTaxCollector(Visitor * taxCollector);
+	void acceptCitySatisfactionChecker(Visitor* satisfactionChecker);
 
+    int getNumBuildings();
+
+    bool populateBuilding();
 private:
 	float propertyTaxRate = 0.015;
 	float salesTaxRate = 0.15;

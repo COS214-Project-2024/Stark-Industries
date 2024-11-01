@@ -6,7 +6,9 @@
 
 class RoadFactory : public TransportInfrastructureFactory {
 public:
-    TransportInfrastructure* createInfrastructure() override;
+    TransportInfrastructure* createInfrastructure(int lanes, double length) override;
+    TransportInfrastructure* createInfrastructure(int, bool);
+    TransportInfrastructure* createInfrastructure(double, double);
 };
 
 #endif

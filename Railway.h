@@ -11,6 +11,7 @@ private:
 	double length;
     bool isElectrified;
     bool isUnderConstruction;
+    static int railwayCount;
 
 public:
 	Railway(double railLength = 1.0, bool electrified = true);
@@ -18,6 +19,8 @@ public:
     bool getConstructionStatus();
 	void build();
 	void updateCapacity(double newLength, bool electrified);
+    static int getRailwayCount();
+    ~Railway();
 };
 
 #endif

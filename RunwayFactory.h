@@ -6,7 +6,9 @@
 
 class RunwayFactory : public TransportInfrastructureFactory {
 public:
-    TransportInfrastructure* createInfrastructure() override;
+    TransportInfrastructure* createInfrastructure(double runwayLength, double runwayWidth) override;
+    TransportInfrastructure* createInfrastructure(int, bool);
+    TransportInfrastructure* createInfrastructure(int, double);
 };
 
 #endif

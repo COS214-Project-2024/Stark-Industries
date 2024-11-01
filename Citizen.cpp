@@ -1,5 +1,10 @@
 #include "Citizen.h"
 #include <iostream>
+#include "Road.h"
+#include "Railway.h"
+#include "Runway.h"
+#include "Train.h"
+#include "Air.h"
 
 
 /**
@@ -9,20 +14,31 @@
  * @param income Income of the citizen.
  * @param propertyValue Value of the citizen's property.
  */
-Citizen::Citizen(const std::string& name, int income, double propertyValue)
+int Citizen::numCitizens = 0;
+Citizen::Citizen(const std::string& name, int income, double propertyValue, string job)
     : name(name), income(income), propertyValue(propertyValue), commuteTime(0),
-      isSatisfiedTrans(0), hasPaid(false) {}
-#include <iostream>
+      isSatisfiedTrans(0), hasPaid(false), job(job) 
+	{
+		numCitizens++;
+	}
 
-int Citizen::satisfactionLevelTrans = 100;
+int Citizen::satisfactionLevelTrans = 50;
 
-Citizen::Citizen(const std::string& name, int income,int cargo)
+Citizen::Citizen(const std::string& name, int income, int cargo)
     : name(name), income(income), commuteTime(0) , 
-       hasPaid(false),  cargo(cargo),chosenTransport(NULL) {}
+       hasPaid(false),  cargo(cargo),chosenTransport(NULL)
+	{
+		numCitizens++;
+	}
 
 Citizen::Citizen(std::string name, double baseIncome) {
 	this->name = name;
 	this->income = baseIncome;
+	numCitizens++;
+}
+
+int Citizen::getNumCitizens() {
+	return numCitizens;
 }
 
 void Citizen::get() {
@@ -78,6 +94,22 @@ void Citizen::recieveMoveinDate() {
  * @param trans Pointer to the Transport the citizen is choosing.
  */
 void Citizen::chooseTransport(Transport* trans) {
+	if(dynamic_cast<Air*>(trans)){
+		if(Runway::getRunwayCount()<1){
+			std::cout<<"Unable to chose Air transport as runways have not yet been built"<<std::endl;
+			return;
+		}
+	}else if(dynamic_cast<Train*>(trans)){
+		if(Railway::getRailwayCount()<1){
+			std::cout<<"Unable to chose Train transport as railways have not yet been built"<<std::endl;
+			return;
+		}
+	}else{
+		if(Road::getRoadCount()<1){
+			std::cout<<"Unable to chose Car and Public transport as roads have not yet been built"<<std::endl;
+			return;
+		}
+	}
   if (!trans->isAvailable()) {
         cout << name << " tried to choose transport, but it is under maintenance.\n";
         leaveFeedback();
@@ -158,7 +190,7 @@ void Citizen::disembark() {
         std::cout << name << " has disembarked from " << chosenTransport->getType() << " transport.\n";
         if(chosenTransport->hasCargoCapacity()){
         chosenTransport->unloadCargo(cargo);}
-		if(getSatisfaction()<60){
+		if(getSatisfactionTransport()<60){
 chosenTransport->doMaintenance();}
 chosenTransport = NULL;
 		}
@@ -169,7 +201,7 @@ chosenTransport = NULL;
  * @brief Get the satisfaction level of the citizen related to transport.
  * @return Satisfaction level as an integer.
  */
-int Citizen::getSatisfaction(){
+int Citizen::getSatisfactionTransport(){
 	return satisfactionLevelTrans;
 }
 
@@ -231,4 +263,39 @@ void Citizen::setTaxRate() {
 
 void Citizen::acceptTaxCollector(Visitor * taxCollector) {
 	taxCollector->visit(this);
+}
+
+
+void Citizen::transport(){
+        if(chosenTransport==NULL){
+            std::cout<<"Citizen has no yet selected its preffered transport";
+        }else{
+            double time=chosenTransport->commuteTime();
+         std::cout<< name<<  " is transportting via "<<chosenTransport->getType()<<" and the total time will be "<<time<<std::endl;
+         std::cout<<time<<" minutes later..."<<std::endl;
+         disembark();
+		 }
+}
+
+void Citizen::acceptTransportSatisfactionChecker(Visitor * satisfactionChecker){
+	satisfactionChecker->visit(this);
+}
+
+void Citizen::acceptBuildingSatisfactionChecker(Visitor* satisfactionChecker){
+	satisfactionChecker->visit(this);
+}
+
+void Citizen::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){
+	satisfactionChecker->visit(this);
+}
+
+void Citizen::payRent(double rent){
+	income -= rent;
+}
+void Citizen::setNumCitizens(int num) {
+    numCitizens = num;
+}
+
+Citizen::Citizen() {
+	
 }
