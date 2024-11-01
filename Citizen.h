@@ -105,6 +105,7 @@ public:
 	void setTaxRate();
 	double taxPaid;
 	virtual void acceptTaxCollector(Visitor * taxCollector);
+	void transport();
 
 };
 
