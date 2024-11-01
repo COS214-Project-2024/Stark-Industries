@@ -9,6 +9,7 @@ private:
 	double length;
     double width;
     bool isUnderConstruction;
+    static int runwayCount;
 
 public:
 	Runway(double runwayLength=2.0, double runwayWidth=0.05);
@@ -16,6 +17,8 @@ public:
     double getCost() override;
     bool getConstructionStatus();
 	void updateCapacity(double newLength, double newWidth);
+    static int getRunwayCount();
+    ~Runway();
 };
 
 #endif

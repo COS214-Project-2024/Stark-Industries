@@ -171,16 +171,16 @@ public:
 	void payTax();
 	void setTaxRate();
 	double taxPaid;
-	void acceptTaxCollector(Visitor * taxCollector);
-	int citySatisfaction = 50;
-	int buildingSatisfaction = 50;
-	void acceptTransportSatisfactionChecker(Visitor * satisfactionChecker);
-	void acceptBuildingSatisfactionChecker(Visitor* satisfactionChecker);
-	void acceptCitySatisfactionChecker(Visitor* satisfactionChecker);
-	void payRent(double rent);
+	void transport();
+	virtual void acceptTaxCollector(Visitor * taxCollector);
 
 	int getNumCitizens();
-	void setNumCitizens(int num); 
+
+	void acceptTransportSatisfactionChecker(Visitor * satisfactionChecker);
+	void acceptBuildingSatisfactionChecker(Visitor* satisfactionChecker);
+	void acceptCitySatisfactionChecker(Visitor*);
+	void payRent(double);
+	void setNumCitizens(int);
 	Citizen();
 };
 
