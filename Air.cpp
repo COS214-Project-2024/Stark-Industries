@@ -133,9 +133,16 @@ bool Air::loadCargo(int cargo) {
     if (availableCargoSpace >= cargo) {
         availableCargoSpace -= cargo;
         return true;
+    
     }
-    return false;
+    else
+    {
+        std::cout<<"There isnt enough available space"<<std::endl;
+        return false;
+    }
 }
+
+
 
 /**
  * @brief Unload cargo from the air transport.
@@ -145,4 +152,9 @@ void Air::unloadCargo(int cargo) {
     if (availableCargoSpace + cargo <= cargoCapacity) {
         availableCargoSpace += cargo;
     }
+    else if(availableCargoSpace+cargo>cargoCapacity)
+    {
+        availableCargoSpace=cargoCapacity;
+    }
+
 }
