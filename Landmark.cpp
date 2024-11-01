@@ -1,6 +1,8 @@
 #include "Landmark.h"
 #include <iostream>
 
+int Landmark::numBuildings = 0;
+
 /**
  * @brief Constructs a Landmark building with the given attributes.
  * 
@@ -15,12 +17,15 @@
  */
 Landmark::Landmark(std::string name, int satisfaction, double economicImpact, 
                    double resourceConsumption, bool constructionStatus, 
-                   int improvementLevel, bool resourcesAvailable, int notificationRadius)
+                   int improvementLevel, bool resourcesAvailable, int notificationRadius, string area)
     : Building(name, satisfaction, economicImpact, resourceConsumption, 
-               constructionStatus, improvementLevel, resourcesAvailable, notificationRadius), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
+               constructionStatus, improvementLevel, resourcesAvailable, notificationRadius, area), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
       resourceConsumption(resourceConsumption), constructionStatus(constructionStatus),
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
-      citizenNotificationRadius(notificationRadius) {}
+      citizenNotificationRadius(notificationRadius), area(area) 
+    {
+        numBuildings++;
+    }
 
 /**
  * @brief Returns the type of the building as its name.

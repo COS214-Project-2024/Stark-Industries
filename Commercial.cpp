@@ -13,14 +13,19 @@
  * @param resourcesAvailable Boolean indicating if resources are available for improvements.
  * @param notificationRadius Radius within which citizens are notified of changes to the building.
  */
+
+int Commercial::numBuildings = 0;
+
 Commercial::Commercial(std::string name, int satisfaction, double economicImpact, 
                        double resourceConsumption, bool constructionStatus, 
-                       int improvementLevel, bool resourcesAvailable, int notificationRadius)
+                       int improvementLevel, bool resourcesAvailable, int notificationRadius, string area)
     : Building(name, satisfaction, economicImpact, resourceConsumption, 
-               constructionStatus, improvementLevel, resourcesAvailable, notificationRadius), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
+               constructionStatus, improvementLevel, resourcesAvailable, notificationRadius, area), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
       resourceConsumption(resourceConsumption), constructionStatus(constructionStatus),
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
-      citizenNotificationRadius(notificationRadius) {}
+      citizenNotificationRadius(notificationRadius), area(area) {
+        numBuildings++;
+      }
 
 Commercial::Commercial() {
 
@@ -158,10 +163,6 @@ void Commercial::payTax(float taxRate) {
 
 void Commercial::acceptTaxCollector(Visitor * taxCollector) {
 	taxCollector->visit(this);
-}
-
-void Commercial::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){
-	satisfactionChecker->visit(this);
 }
 
 void Commercial::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){

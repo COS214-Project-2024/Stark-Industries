@@ -140,176 +140,176 @@ void testComposite(){
     
 }
   
-void factoryBuildings() {
-    // Initialize creators for each building type
-    ResidentialCreator residentialCreator;
-    LandmarkCreator landmarkCreator;
-    CommercialCreator commercialCreator;
-    IndustrialCreator industrialCreator;
+// void factoryBuildings() {
+//     // Initialize creators for each building type
+//     ResidentialCreator residentialCreator;
+//     LandmarkCreator landmarkCreator;
+//     CommercialCreator commercialCreator;
+//     IndustrialCreator industrialCreator;
 
-    // Create Residential Building
-    Building* residentialBuilding = residentialCreator.createBuilding("Residential Block", 30, 5000, 300, true, 1, true, 200);
-    cout << "Residential Building Created:" << endl;
-    cout << "Type: " << residentialBuilding->getType() << endl;
-    cout << "Satisfaction: " << residentialBuilding->calculateSatisfaction() << endl;
-    cout << "Economic Impact: " << residentialBuilding->calculateEconomicImpact() << endl;
-    cout << "Resource Consumption: " << residentialBuilding->calculateResourceConsumption() << endl;
-    residentialBuilding->doImprovements();
-    cout << "Satisfaction after improvement: " << residentialBuilding->calculateSatisfaction() << endl;
+//     // Create Residential Building
+//     Building* residentialBuilding = residentialCreator.createBuilding("Residential Block", 30, 5000, 300, true, 1, true, 200);
+//     cout << "Residential Building Created:" << endl;
+//     cout << "Type: " << residentialBuilding->getType() << endl;
+//     cout << "Satisfaction: " << residentialBuilding->calculateSatisfaction() << endl;
+//     cout << "Economic Impact: " << residentialBuilding->calculateEconomicImpact() << endl;
+//     cout << "Resource Consumption: " << residentialBuilding->calculateResourceConsumption() << endl;
+//     residentialBuilding->doImprovements();
+//     cout << "Satisfaction after improvement: " << residentialBuilding->calculateSatisfaction() << endl;
 
-    // Create Landmark Building
-    Building* landmarkBuilding = landmarkCreator.createBuilding("Statue of Liberty", 50, 100000, 500, true, 1, true, 500);
-    cout << "\nLandmark Building Created:" << endl;
-    cout << "Type: " << landmarkBuilding->getType() << endl;
-    cout << "Satisfaction: " << landmarkBuilding->calculateSatisfaction() << endl;
-    cout << "Economic Impact: " << landmarkBuilding->calculateEconomicImpact() << endl;
-    cout << "Resource Consumption: " << landmarkBuilding->calculateResourceConsumption() << endl;
-    landmarkBuilding->doImprovements();
-    cout << "Satisfaction after improvement: " << landmarkBuilding->calculateSatisfaction() << endl;
+//     // Create Landmark Building
+//     Building* landmarkBuilding = landmarkCreator.createBuilding("Statue of Liberty", 50, 100000, 500, true, 1, true, 500);
+//     cout << "\nLandmark Building Created:" << endl;
+//     cout << "Type: " << landmarkBuilding->getType() << endl;
+//     cout << "Satisfaction: " << landmarkBuilding->calculateSatisfaction() << endl;
+//     cout << "Economic Impact: " << landmarkBuilding->calculateEconomicImpact() << endl;
+//     cout << "Resource Consumption: " << landmarkBuilding->calculateResourceConsumption() << endl;
+//     landmarkBuilding->doImprovements();
+//     cout << "Satisfaction after improvement: " << landmarkBuilding->calculateSatisfaction() << endl;
 
-    // Create Commercial Building
-    Building* commercialBuilding = commercialCreator.createBuilding("Mall", 20, 30000, 1000, true, 1, true, 300);
-    cout << "\nCommercial Building Created:" << endl;
-    cout << "Type: " << commercialBuilding->getType() << endl;
-    cout << "Satisfaction: " << commercialBuilding->calculateSatisfaction() << endl;
-    cout << "Economic Impact: " << commercialBuilding->calculateEconomicImpact() << endl;
-    cout << "Resource Consumption: " << commercialBuilding->calculateResourceConsumption() << endl;
-    commercialBuilding->doImprovements();
-    cout << "Satisfaction after improvement: " << commercialBuilding->calculateSatisfaction() << endl;
+//     // Create Commercial Building
+//     Building* commercialBuilding = commercialCreator.createBuilding("Mall", 20, 30000, 1000, true, 1, true, 300);
+//     cout << "\nCommercial Building Created:" << endl;
+//     cout << "Type: " << commercialBuilding->getType() << endl;
+//     cout << "Satisfaction: " << commercialBuilding->calculateSatisfaction() << endl;
+//     cout << "Economic Impact: " << commercialBuilding->calculateEconomicImpact() << endl;
+//     cout << "Resource Consumption: " << commercialBuilding->calculateResourceConsumption() << endl;
+//     commercialBuilding->doImprovements();
+//     cout << "Satisfaction after improvement: " << commercialBuilding->calculateSatisfaction() << endl;
 
-    // Create Industrial Building
-    Building* industrialBuilding = industrialCreator.createBuilding("Factory", 10, 20000, 2000, true, 1, true, 400);
-    cout << "\nIndustrial Building Created:" << endl;
-    cout << "Type: " << industrialBuilding->getType() << endl;
-    cout << "Satisfaction: " << industrialBuilding->calculateSatisfaction() << endl;
-    cout << "Economic Impact: " << industrialBuilding->calculateEconomicImpact() << endl;
-    cout << "Resource Consumption: " << industrialBuilding->calculateResourceConsumption() << endl;
-    industrialBuilding->doImprovements();
-    cout << "Satisfaction after improvement: " << industrialBuilding->calculateSatisfaction() << endl;
+//     // Create Industrial Building
+//     Building* industrialBuilding = industrialCreator.createBuilding("Factory", 10, 20000, 2000, true, 1, true, 400);
+//     cout << "\nIndustrial Building Created:" << endl;
+//     cout << "Type: " << industrialBuilding->getType() << endl;
+//     cout << "Satisfaction: " << industrialBuilding->calculateSatisfaction() << endl;
+//     cout << "Economic Impact: " << industrialBuilding->calculateEconomicImpact() << endl;
+//     cout << "Resource Consumption: " << industrialBuilding->calculateResourceConsumption() << endl;
+//     industrialBuilding->doImprovements();
+//     cout << "Satisfaction after improvement: " << industrialBuilding->calculateSatisfaction() << endl;
 
-    // Clean up
-    delete residentialBuilding;
-    delete landmarkBuilding;
-    delete commercialBuilding;
-    delete industrialBuilding;
-}
+//     // Clean up
+//     delete residentialBuilding;
+//     delete landmarkBuilding;
+//     delete commercialBuilding;
+//     delete industrialBuilding;
+// }
 
-void testCOR() {
-    // Create handlers with test values
-    Residential* apartment = new Residential("Sunset Apartments", 80, 5000, 200, true, 1, true, 5);
-    Commercial* mall = new Commercial("City Mall", 75, 10000, 500, true, 1, true, 10);
-    Industrial* factory = new Industrial("Steel Factory", 70, 15000, 1000, true, 1, true, 8);
-    Landmark* monument = new Landmark("Freedom Monument", 90, 8000, 500, true, 1, true, 10);
-    int growthFactor = 21;
-    Population populationHandler(growthFactor);
-    Housing housingHandler(growthFactor * 0.5, apartment);
-    Economic economicHandler(growthFactor * 0.2);
-    Infrastructure infrastructureHandler(growthFactor * 0.3, mall, factory, monument);
+// void testCOR() {
+//     // Create handlers with test values
+//     Residential* apartment = new Residential("Sunset Apartments", 80, 5000, 200, true, 1, true, 5);
+//     Commercial* mall = new Commercial("City Mall", 75, 10000, 500, true, 1, true, 10);
+//     Industrial* factory = new Industrial("Steel Factory", 70, 15000, 1000, true, 1, true, 8);
+//     Landmark* monument = new Landmark("Freedom Monument", 90, 8000, 500, true, 1, true, 10);
+//     int growthFactor = 21;
+//     Population populationHandler(growthFactor);
+//     Housing housingHandler(growthFactor * 0.5, apartment);
+//     Economic economicHandler(growthFactor * 0.2);
+//     Infrastructure infrastructureHandler(growthFactor * 0.3, mall, factory, monument);
 
-    // Set up the chain of responsibility
-    populationHandler.setNextHandler(&housingHandler);
-    housingHandler.setNextHandler(&economicHandler);
-    economicHandler.setNextHandler(&infrastructureHandler);
+//     // Set up the chain of responsibility
+//     populationHandler.setNextHandler(&housingHandler);
+//     housingHandler.setNextHandler(&economicHandler);
+//     economicHandler.setNextHandler(&infrastructureHandler);
 
-    // Test the chain with a growth factor
-    populationHandler.handleRequest(growthFactor);
-}
+//     // Test the chain with a growth factor
+//     populationHandler.handleRequest(growthFactor);
+// }
 
-void testBuildingObserver(){
-    // Create citizens
-    Citizen* alice = new Citizen("Alice", 50000, 250000);
-    Citizen* bob = new Citizen("Bob", 60000, 300000);
-    Citizen* charlie = new Citizen("Charlie", 70000, 350000);
+// void testBuildingObserver(){
+//     // Create citizens
+//     Citizen* alice = new Citizen("Alice", 50000, 250000);
+//     Citizen* bob = new Citizen("Bob", 60000, 300000);
+//     Citizen* charlie = new Citizen("Charlie", 70000, 350000);
 
-    // Create different types of buildings
-    Residential* apartment = new Residential("Sunset Apartments", 80, 5000, 200, true, 1, true, 5);
-    Commercial* mall = new Commercial("City Mall", 75, 10000, 500, true, 1, true, 10);
-    Industrial* factory = new Industrial("Steel Factory", 70, 15000, 1000, true, 1, true, 8);
-    Landmark* monument = new Landmark("Freedom Monument", 90, 8000, 500, true, 1, true, 10);
+//     // Create different types of buildings
+//     Residential* apartment = new Residential("Sunset Apartments", 80, 5000, 200, true, 1, true, 5);
+//     Commercial* mall = new Commercial("City Mall", 75, 10000, 500, true, 1, true, 10);
+//     Industrial* factory = new Industrial("Steel Factory", 70, 15000, 1000, true, 1, true, 8);
+//     Landmark* monument = new Landmark("Freedom Monument", 90, 8000, 500, true, 1, true, 10);
 
-    // Attach citizens to different buildings
-    std::cout << "\n=== Citizens Observing Different Buildings ===\n";
-    apartment->attach(alice);
-    mall->attach(alice);
-    factory->attach(bob);
-    monument->attach(charlie);
+//     // Attach citizens to different buildings
+//     std::cout << "\n=== Citizens Observing Different Buildings ===\n";
+//     apartment->attach(alice);
+//     mall->attach(alice);
+//     factory->attach(bob);
+//     monument->attach(charlie);
 
-    // Perform improvements to trigger notifications
-    std::cout << "\n=== Performing Improvements on Residential Building ===\n";
-    apartment->doImprovements();  // Alice should be notified
+//     // Perform improvements to trigger notifications
+//     std::cout << "\n=== Performing Improvements on Residential Building ===\n";
+//     apartment->doImprovements();  // Alice should be notified
 
-    std::cout << "\n=== Performing Improvements on Commercial Building ===\n";
-    mall->doImprovements();  // Alice should be notified again
+//     std::cout << "\n=== Performing Improvements on Commercial Building ===\n";
+//     mall->doImprovements();  // Alice should be notified again
 
-    std::cout << "\n=== Performing Improvements on Industrial Building ===\n";
-    factory->doImprovements();  // Bob should be notified
+//     std::cout << "\n=== Performing Improvements on Industrial Building ===\n";
+//     factory->doImprovements();  // Bob should be notified
 
-    std::cout << "\n=== Performing Improvements on Landmark ===\n";
-    monument->doImprovements();  // Charlie should be notified
+//     std::cout << "\n=== Performing Improvements on Landmark ===\n";
+//     monument->doImprovements();  // Charlie should be notified
 
-    // Detach a citizen from a building
-    std::cout << "\n=== Detaching Alice from the Commercial Building ===\n";
-    mall->detach(alice);
+//     // Detach a citizen from a building
+//     std::cout << "\n=== Detaching Alice from the Commercial Building ===\n";
+//     mall->detach(alice);
 
-    // Perform another improvement on the Commercial building
-    std::cout << "\n=== Performing Improvements on Commercial Building Again ===\n";
-    mall->doImprovements();  // Alice should not be notified this time
+//     // Perform another improvement on the Commercial building
+//     std::cout << "\n=== Performing Improvements on Commercial Building Again ===\n";
+//     mall->doImprovements();  // Alice should not be notified this time
 
-    // Clean up
-    delete alice;
-    delete bob;
-    delete charlie;
-    delete apartment;
-    delete mall;
-    delete factory;
-    delete monument;
-}
+//     // Clean up
+//     delete alice;
+//     delete bob;
+//     delete charlie;
+//     delete apartment;
+//     delete mall;
+//     delete factory;
+//     delete monument;
+// }
 
-void testCityObserver(){
-    // Create citizens
-    Citizen* alice = new Citizen("Alice", 50000, 250000);
-    Citizen* bob = new Citizen("Bob", 60000, 300000);
-    Citizen* charlie = new Citizen("Charlie", 70000, 350000);
+// void testCityObserver(){
+//     // Create citizens
+//     Citizen* alice = new Citizen("Alice", 50000, 250000);
+//     Citizen* bob = new Citizen("Bob", 60000, 300000);
+//     Citizen* charlie = new Citizen("Charlie", 70000, 350000);
 
-    // Create city
-    City city;
+//     // Create city
+//     City city;
 
-    // Attach observers
-    city.attach(alice);
-    city.attach(bob);
-    city.attach(charlie);
+//     // Attach observers
+//     city.attach(alice);
+//     city.attach(bob);
+//     city.attach(charlie);
 
-    // Notify observers and check if they receive the update
-    city.notify();
+//     // Notify observers and check if they receive the update
+//     city.notify();
     
-    // Validate notifications (this would be checked by output or in a real unit test framework)
-    if (alice->isNotified() && bob->isNotified() && charlie->isNotified()) {
-        std::cout << "All citizens received the notification.\n";
-    } else {
-        std::cout << "Test failed: Not all citizens received the notification.\n";
-    }
+//     // Validate notifications (this would be checked by output or in a real unit test framework)
+//     if (alice->isNotified() && bob->isNotified() && charlie->isNotified()) {
+//         std::cout << "All citizens received the notification.\n";
+//     } else {
+//         std::cout << "Test failed: Not all citizens received the notification.\n";
+//     }
 
-    // Reset notification status
-    alice->resetNotification();
-    bob->resetNotification();
-    charlie->resetNotification();
+//     // Reset notification status
+//     alice->resetNotification();
+//     bob->resetNotification();
+//     charlie->resetNotification();
 
-    // Detach an observer and test again
-    city.detach(bob);
+//     // Detach an observer and test again
+//     city.detach(bob);
 
-    city.notify();  // Should only notify Alice and Charlie
+//     city.notify();  // Should only notify Alice and Charlie
 
-    if (alice->isNotified() && !bob->isNotified() && charlie->isNotified()) {
-        std::cout << "Test passed for detaching citizens.\n";
-    } else {
-        std::cout << "Test failed for detaching citizens.\n";
-    }
+//     if (alice->isNotified() && !bob->isNotified() && charlie->isNotified()) {
+//         std::cout << "Test passed for detaching citizens.\n";
+//     } else {
+//         std::cout << "Test failed for detaching citizens.\n";
+//     }
 
-    // Clean up
-    delete alice;
-    delete bob;
-    delete charlie;
-}
+//     // Clean up
+//     delete alice;
+//     delete bob;
+//     delete charlie;
+// }
 #include "Citizen.h"
 #include "CollectTax.h"
 #include "Industrial.h"
@@ -482,12 +482,189 @@ void testCustomInfrastructures() {
     Railway customRailway(2.0, false);
     std::cout << "Custom non-electrified Railway cost: " << customRailway.getCost() << std::endl;
 }
+
+#include <iostream>
+#include <iomanip>
+#include <cstdlib>
+#include <ctime>
+
+// ANSI color codes for styling the output
+#define RESET "\033[0m"
+#define BOLD "\033[1m"
+#define CYAN "\033[36m"
+#define GREEN "\033[32m"
+#define YELLOW "\033[33m"
+#define RED "\033[31m"
+#define MAGENTA "\033[35m"
+#define BLUE "\033[34m"
+
+void bigTestingMain() {
+    std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed for random names
+
+    // Create city
+    City* ourCity = new City();
+    std::cout << BOLD << BLUE << "\n========== City Simulation Start ==========\n" << RESET;
+
+    // Create buildings
+    ResidentialCreator residentialCreator;
+    LandmarkCreator landmarkCreator;
+    CommercialCreator commercialCreator;
+    IndustrialCreator industrialCreator;
+
+    // Create Residential Building
+    Building* residentialBuilding = residentialCreator.createBuilding("Residential Block", 30, 5000, 300, true, 1, true, 200, "Suburb");
+    std::cout << CYAN << "\n--- Residential Building ---" << RESET << std::endl;
+    std::cout << "Type: " << residentialBuilding->getType() << std::endl;
+    std::cout << GREEN << "Satisfaction: " << residentialBuilding->calculateSatisfaction() << RESET << std::endl;
+    std::cout << YELLOW << "Economic Impact: " << residentialBuilding->calculateEconomicImpact() << RESET << std::endl;
+    std::cout << RED << "Resource Consumption: " << residentialBuilding->calculateResourceConsumption() << RESET << std::endl;
+    residentialBuilding->doImprovements();
+    std::cout << GREEN << "Satisfaction after improvement: " << residentialBuilding->calculateSatisfaction() << RESET << std::endl;
+
+    // Create Landmark Building
+    Building* landmarkBuilding = landmarkCreator.createBuilding("Statue of Liberty", 50, 100000, 500, true, 1, true, 500, "Suburb");
+    std::cout << MAGENTA << "\n--- Landmark Building ---" << RESET << std::endl;
+    std::cout << "Type: " << landmarkBuilding->getType() << std::endl;
+    std::cout << GREEN << "Satisfaction: " << landmarkBuilding->calculateSatisfaction() << RESET << std::endl;
+    std::cout << YELLOW << "Economic Impact: " << landmarkBuilding->calculateEconomicImpact() << RESET << std::endl;
+    std::cout << RED << "Resource Consumption: " << landmarkBuilding->calculateResourceConsumption() << RESET << std::endl;
+    landmarkBuilding->doImprovements();
+    std::cout << GREEN << "Satisfaction after improvement: " << landmarkBuilding->calculateSatisfaction() << RESET << std::endl;
+
+    // Create Commercial Building
+    Building* commercialBuilding = commercialCreator.createBuilding("Mall", 20, 30000, 1000, true, 1, true, 300, "Suburb");
+    std::cout << YELLOW << "\n--- Commercial Building ---" << RESET << std::endl;
+    std::cout << "Type: " << commercialBuilding->getType() << std::endl;
+    std::cout << GREEN << "Satisfaction: " << commercialBuilding->calculateSatisfaction() << RESET << std::endl;
+    std::cout << YELLOW << "Economic Impact: " << commercialBuilding->calculateEconomicImpact() << RESET << std::endl;
+    std::cout << RED << "Resource Consumption: " << commercialBuilding->calculateResourceConsumption() << RESET << std::endl;
+    commercialBuilding->doImprovements();
+    std::cout << GREEN << "Satisfaction after improvement: " << commercialBuilding->calculateSatisfaction() << RESET << std::endl;
+
+    // Create Industrial Building
+    Building* industrialBuilding = industrialCreator.createBuilding("Factory", 10, 20000, 2000, true, 1, true, 400, "Industrial");
+    std::cout << RED << "\n--- Industrial Building ---" << RESET << std::endl;
+    std::cout << "Type: " << industrialBuilding->getType() << std::endl;
+    std::cout << GREEN << "Satisfaction: " << industrialBuilding->calculateSatisfaction() << RESET << std::endl;
+    std::cout << YELLOW << "Economic Impact: " << industrialBuilding->calculateEconomicImpact() << RESET << std::endl;
+    std::cout << RED << "Resource Consumption: " << industrialBuilding->calculateResourceConsumption() << RESET << std::endl;
+    industrialBuilding->doImprovements();
+    std::cout << GREEN << "Satisfaction after improvement: " << industrialBuilding->calculateSatisfaction() << RESET << std::endl;
+
+    // Create utilities
+    WaterFactory waterFactory;
+    Utilities* waterUtility = waterFactory.createUtility();
+    std::cout << CYAN << "\n--- Water System ---" << RESET << std::endl;
+    waterUtility->displayInfo();
+    waterUtility->generateResources();
+    waterUtility->requestMaintenance(101);
+
+    WasteFactory wasteFactory;
+    Utilities* wasteUtility = wasteFactory.createUtility();
+    std::cout << MAGENTA << "\n--- Waste System ---" << RESET << std::endl;
+    wasteUtility->displayInfo();
+    wasteUtility->generateResources();
+    wasteUtility->requestMaintenance(102);
+
+    SewageFactory sewageFactory;
+    Utilities* sewageUtility = sewageFactory.createUtility();
+    std::cout << YELLOW << "\n--- Sewage System ---" << RESET << std::endl;
+    sewageUtility->displayInfo();
+    sewageUtility->generateResources();
+    sewageUtility->requestMaintenance(103);
+
+    PowerPlantFactory powerPlantFactory;
+    Utilities* powerPlantUtility = powerPlantFactory.createUtility();
+    std::cout << GREEN << "\n--- Power Plant ---" << RESET << std::endl;
+    powerPlantUtility->displayInfo();
+    powerPlantUtility->generateResources();
+    powerPlantUtility->requestMaintenance(104);
+
+    // Build transport infrastructure
+    RoadFactory roadFactory;
+    TransportInfrastructure* road = roadFactory.createInfrastructure();
+    RailwayFactory railwayFactory;
+    TransportInfrastructure* railway = railwayFactory.createInfrastructure();
+    RunwayFactory runwayFactory;
+    TransportInfrastructure* runway = runwayFactory.createInfrastructure();
+
+    // Create citizens
+    Citizen c;
+    std::cout << BOLD << BLUE << "\n--- Creating Citizens ---\n" << RESET;
+    for (int i = 0; i < 30; i++) {
+        std::string name = c.citizenNames[std::rand() % 200];
+        int income = 30000 + std::rand() % 70000; // Income range from 30,000 to 100,000
+        double propertyValue = 50000 + std::rand() % 950000; // Property value from 50,000 to 1,000,000
+        std::string job = c.jobTitles[std::rand() % 200];
+        Citizen* newCitizen = new Citizen(name, income, propertyValue, job);
+        std::cout << CYAN << "Citizen " << (i + 1) << ": " << RESET << name << " with job " << job << ", with income $" << income 
+                  << " and property value $" << std::fixed << std::setprecision(2) << propertyValue << std::endl;
+        cout << newCitizen->getNumCitizens();
+    }
+
+    //Create government
+        // Create a Government instance
+    Government government(0.15, 0.02); // 15% income tax, 2% property tax
+
+        // Create departments and add them to the government
+    Budget* budgetDept = new Budget("Budget Department", 10000.0);
+    Policies* policiesDept = new Policies("Policies Department");
+    Services* servicesDept = new Services("Services Department", 10, 5, 3);
+    Tax* taxDept = new Tax("Tax Department", 0.15);
+
+    government.add(budgetDept);
+    government.add(policiesDept);
+    government.add(servicesDept);
+    government.add(taxDept);
+
+        // Example of Government operating and managing departments
+    government.operate();
+
+        // Add policies
+    policiesDept->addPolicy("Environmental Protection");
+    policiesDept->addPolicy("Healthcare Reform");
+
+        // Add service programs
+    servicesDept->addServiceProgram("Emergency Health Services");
+    servicesDept->addServiceProgram("Education Outreach");
+
+        // Simulate tax collection and allocation
+    taxDept->collectTaxes(20000.0);  // Collecting taxes based on revenue
+    // government.collectTax();         // Government records collected taxes  //Causes seg fault
+    government.allocateTax();        // Allocate tax revenue to budget
+
+        // Display the current status of each department
+    budgetDept->operate();
+    policiesDept->operate();
+    servicesDept->operate();
+    taxDept->operate();
+
+        // Notify citizens about tax changes
+    government.notifyCitizensTaxIncreased();
+    //============================
+    // Clean up
+    delete budgetDept;
+    delete policiesDept;
+    delete servicesDept;
+    delete taxDept;
+    delete waterUtility;
+    delete wasteUtility;
+    delete sewageUtility;
+    delete powerPlantUtility;
+    delete residentialBuilding;
+    delete landmarkBuilding;
+    delete commercialBuilding;
+    delete industrialBuilding;
+
+    std::cout << BOLD << BLUE << "\n========== City Simulation End ==========\n" << RESET;
+}
+
 int main() {
-    
+    bigTestingMain();
     //testFactoryUtilities();
     //testComposite();
     //factoryBuildings();
-    testCOR();
+    // testCOR();
     //testBuildingObserver();
     //testCityObserver();
     //testRunway();
@@ -529,7 +706,7 @@ int main() {
     //testIncreaseTax();
     //testTaxCollector();
     //testSatisfactionChecker();
-    testRent();
+    // testRent();
 
     return 0;
 }

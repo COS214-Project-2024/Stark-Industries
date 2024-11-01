@@ -1,6 +1,8 @@
 #include "Residential.h"
 #include <iostream>
 
+int Residential::numBuildings = 0;
+
 /**
  * @brief Constructs a Residential building with the given attributes.
  * 
@@ -15,12 +17,15 @@
  */
 Residential::Residential(std::string name, int satisfaction, double economicImpact, 
                          double resourceConsumption, bool constructionStatus, 
-                         int improvementLevel, bool resourcesAvailable, int notificationRadius)
+                         int improvementLevel, bool resourcesAvailable, int notificationRadius, string area)
     : Building(name, satisfaction, economicImpact, resourceConsumption, 
-               constructionStatus, improvementLevel, resourcesAvailable, notificationRadius), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
+               constructionStatus, improvementLevel, resourcesAvailable, notificationRadius, area), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
       resourceConsumption(resourceConsumption), constructionStatus(constructionStatus),
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
-      citizenNotificationRadius(notificationRadius) {}
+      citizenNotificationRadius(notificationRadius), area(area) 
+    {
+        numBuildings++;
+    }
 
 Residential::Residential() {
 

@@ -26,8 +26,8 @@ void Population::handleRequest(int growthFactor) {
             std::string name = c.citizenNames[std::rand() % 200];
             int income = 30000 + std::rand() % 70000;  // Income range from 30,000 to 100,000
             double propertyValue = 50000 + std::rand() % 950000;  // Property value from 50,000 to 1,000,000
-
-            Citizen* newCitizen = new Citizen(name, income, propertyValue);
+            std::string job = c.jobTitles[std::rand() % 200];
+            Citizen* newCitizen = new Citizen(name, income, propertyValue, job);
             // citizens.push_back(newCitizen); // Assuming citizens is a collection of pointers to Citizen
         }
 

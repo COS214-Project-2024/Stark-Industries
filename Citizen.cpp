@@ -9,22 +9,27 @@
  * @param income Income of the citizen.
  * @param propertyValue Value of the citizen's property.
  */
-Citizen::Citizen(const std::string& name, int income, double propertyValue)
+int Citizen::numCitizens = 0;
+Citizen::Citizen(const std::string& name, int income, double propertyValue, string job)
     : name(name), income(income), propertyValue(propertyValue), commuteTime(0),
-      isSatisfiedTrans(0), hasPaid(false) 
+      isSatisfiedTrans(0), hasPaid(false), job(job) 
 	{
 		numCitizens++;
 	}
 
 int Citizen::satisfactionLevelTrans = 50;
 
-Citizen::Citizen(const std::string& name, int income,int cargo)
+Citizen::Citizen(const std::string& name, int income, int cargo)
     : name(name), income(income), commuteTime(0) , 
-       hasPaid(false),  cargo(cargo),chosenTransport(NULL) {}
+       hasPaid(false),  cargo(cargo),chosenTransport(NULL)
+	{
+		numCitizens++;
+	}
 
 Citizen::Citizen(std::string name, double baseIncome) {
 	this->name = name;
 	this->income = baseIncome;
+	numCitizens++;
 }
 
 int Citizen::getNumCitizens() {

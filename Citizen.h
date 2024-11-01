@@ -34,7 +34,8 @@ private:
 	double satisfaction;
 	bool wasNotified;
 	double taxRate = 0.15;
-	int numCitizens;
+	static int numCitizens;
+	string job;
 
 public:
 	// Array of 200 potential citizen names
@@ -60,7 +61,50 @@ public:
 		"Quinn", "Rhys", "Ridge", "Sam", "Scout", "Shane", "Tate", "Trey", "Wade", "Wes", "Zeke"
 	};
 
-	Citizen(const std::string& name, int income, double propertyValue);
+	const std::array<std::string, 200> jobTitles = {
+		"Software Engineer", "Data Analyst", "Project Manager", "UX Designer", "Accountant",
+		"HR Specialist", "Marketing Manager", "Sales Representative", "Electrical Engineer",
+		"Mechanical Engineer", "Civil Engineer", "Network Administrator", "Database Administrator",
+		"Cybersecurity Specialist", "Biomedical Engineer", "Teacher", "Research Scientist",
+		"Chemist", "Physicist", "Statistician", "Graphic Designer", "Architect", "Consultant",
+		"Copywriter", "Translator", "Financial Analyst", "Social Media Manager", "Supply Chain Manager",
+		"Healthcare Administrator", "Nurse", "Physical Therapist", "Dental Hygienist", "Pharmacist",
+		"Veterinarian", "Librarian", "Lawyer", "Judge", "Firefighter", "Police Officer", "Paramedic",
+		"Chef", "Baker", "Software Developer", "Web Developer", "IT Support", "Game Developer",
+		"Sound Engineer", "Animator", "Product Manager", "Operations Manager", "Economist",
+		"Biologist", "Urban Planner", "Pilot", "Flight Attendant", "Editor", "Journalist",
+		"Public Relations Specialist", "Art Director", "Musician", "Author", "Historian",
+		"Psychologist", "Therapist", "Speech Therapist", "Interpreter", "Construction Worker",
+		"Electrician", "Plumber", "Carpenter", "Mechanic", "Truck Driver", "Bartender", "Waiter",
+		"Receptionist", "Real Estate Agent", "Insurance Agent", "Financial Planner", "Loan Officer",
+		"Bank Teller", "Janitor", "Groundskeeper", "Landscaper", "Security Guard", "Laborer",
+		"Roofer", "Agricultural Worker", "Marine Biologist", "Park Ranger", "Tour Guide",
+		"Phlebotomist", "Nutritionist", "Event Planner", "HR Manager", "Advertising Specialist",
+		"Photographer", "Videographer", "Barber", "Cosmetologist", "Makeup Artist", "Personal Trainer",
+		"Fitness Instructor", "Model", "Flight Engineer", "Aerospace Engineer", "Mechanical Technician",
+		"Chemical Engineer", "Energy Engineer", "Mathematician", "Actuary", "Investment Banker",
+		"Economist", "Financial Advisor", "Business Analyst", "Operations Analyst", "Marketing Analyst",
+		"Policy Analyst", "Sports Coach", "Athletic Trainer", "Gym Manager", "Social Worker",
+		"School Counselor", "Career Counselor", "Real Estate Broker", "Property Manager", "Urban Designer",
+		"Landscape Architect", "Interior Designer", "Set Designer", "Fashion Designer", "Costume Designer",
+		"Modeling Agent", "Talent Agent", "Event Coordinator", "Wedding Planner", "Personal Assistant",
+		"Executive Assistant", "Customer Service Representative", "Technical Support", "Help Desk Technician",
+		"IT Consultant", "Data Scientist", "Machine Learning Engineer", "AI Specialist", "Robotics Engineer",
+		"Environmental Engineer", "Hydrologist", "Ecologist", "Forestry Technician", "Geologist",
+		"Marine Engineer", "Petroleum Engineer", "Mining Engineer", "Renewable Energy Specialist",
+		"Wind Turbine Technician", "Solar Panel Installer", "Biomedical Scientist", "Geneticist",
+		"Lab Technician", "Research Assistant", "Medical Assistant", "Clinical Laboratory Technician",
+		"Pharmaceutical Sales", "Biotechnologist", "Forensic Scientist", "Food Scientist", "Agronomist",
+		"Zoologist", "Wildlife Biologist", "Veterinary Technician", "Animal Trainer", "Pet Groomer",
+		"Dog Walker", "Retail Manager", "Store Supervisor", "Cashier", "Stock Clerk", "Inventory Specialist",
+		"Purchasing Manager", "Supply Chain Analyst", "Warehouse Manager", "Logistics Coordinator",
+		"Shipping Manager", "Dispatcher", "Freight Forwarder", "Customs Broker", "Export Coordinator",
+		"Import Specialist", "Courier", "Delivery Driver", "Truck Loader", "Pilot", "Air Traffic Controller",
+		"Flight Instructor", "Ground Crew", "Aircraft Mechanic", "Travel Agent", "Tour Guide", "Concierge"
+	};
+
+
+	Citizen(const std::string& name, int income, double propertyValue, string job);
 
 	Citizen(const std::string& name, int income,int cargo);
 

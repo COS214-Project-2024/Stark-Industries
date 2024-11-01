@@ -15,6 +15,8 @@ private:
 	vector<TransportInfrastructure*> roads;
 
 public:
+	City();
+	
 	void attach(Citizen* citizen);
 
 	void detach(Citizen* citizen);

@@ -26,14 +26,14 @@ private:
     
 
     string name;                     ///< Name of the building.
-    
+    int satisfaction;
     double economicImpact;           ///< Economic impact of the building.
     double resourceConsumption;      ///< Resource consumption by the building.
     bool constructionStatus;         ///< Status of the construction (completed or not).
     int improvementLevel;            ///< Level of improvements made to the building.
     bool resourcesAvailable;          ///< Availability of resources for the building.
     int citizenNotificationRadius;   ///< Notification radius for citizen alerts.
-
+    string area;
 protected: 
 	double buildingRevenue;
 	double buildingValue;
@@ -54,7 +54,7 @@ public:
      */
     Building(string name, int satisfaction, double economicImpact, double resourceConsumption, 
              bool constructionStatus, int improvementLevel, bool resourcesAvailable, 
-             int notificationRadius);
+             int notificationRadius, string area);
 
     Building();
     /// Default destructor.
