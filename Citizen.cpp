@@ -86,14 +86,17 @@ void Citizen::chooseTransport(Transport* trans) {
 	if(dynamic_cast<Air*>(trans)){
 		if(Runway::getRunwayCount()<1){
 			std::cout<<"Unable to chose Air transport as runways have not yet been built"<<std::endl;
+			return;
 		}
 	}else if(dynamic_cast<Train*>(trans)){
 		if(Railway::getRailwayCount()<1){
 			std::cout<<"Unable to chose Train transport as railways have not yet been built"<<std::endl;
+			return;
 		}
 	}else{
 		if(Road::getRoadCount()<1){
 			std::cout<<"Unable to chose Car and Public transport as roads have not yet been built"<<std::endl;
+			return;
 		}
 	}
   if (!trans->isAvailable()) {
