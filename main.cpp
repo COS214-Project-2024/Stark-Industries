@@ -499,7 +499,7 @@ void testCustomInfrastructures() {
 #define BLUE "\033[34m"
 
 void bigTestingMain() {
-    std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed for random names
+    std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed for random names and jobs
 
     // Create city
     City* ourCity = new City();
@@ -630,7 +630,7 @@ void bigTestingMain() {
 
         // Simulate tax collection and allocation
     taxDept->collectTaxes(20000.0);  // Collecting taxes based on revenue
-    // government.collectTax();         // Government records collected taxes  //Causes seg fault
+    government.collectTax();         // Government records collected taxes  //Causes seg fault
     government.allocateTax();        // Allocate tax revenue to budget
 
         // Display the current status of each department
