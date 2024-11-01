@@ -42,7 +42,7 @@ public:
     Building* createBuilding(string name, int satisfaction, double economicImpact, 
                              double resourceConsumption, bool constructionStatus, 
                              int improvementLevel, bool resourcesAvailable, 
-                             int notificationRadius, string area);
+                             int capacity, string area);
 };
 
 #endif

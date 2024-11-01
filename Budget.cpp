@@ -35,8 +35,8 @@ void Budget::allocateFunds(double amount) {
  */
 void Budget::operate() {
     std::cout << "Operating Budget Department: Total Budget = " << totalBudget
-              << ", Allocated Budget = " << allocatedBudget
-              << ", Available Budget = " << getAvailableBudget() << "\n";
+              << "\nAllocated Budget = " << allocatedBudget
+              << "\nAvailable Budget = " << getAvailableBudget() << "\n";
 }
 
 void Budget::receiveTax(double tax) {

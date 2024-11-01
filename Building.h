@@ -32,7 +32,7 @@ private:
     bool constructionStatus;         ///< Status of the construction (completed or not).
     int improvementLevel;            ///< Level of improvements made to the building.
     bool resourcesAvailable;          ///< Availability of resources for the building.
-    int citizenNotificationRadius;   ///< Notification radius for citizen alerts.
+    int capacity;   ///< Notification radius for citizen alerts.
     string area;
 protected: 
 	double buildingRevenue;
@@ -54,7 +54,7 @@ public:
      */
     Building(string name, int satisfaction, double economicImpact, double resourceConsumption, 
              bool constructionStatus, int improvementLevel, bool resourcesAvailable, 
-             int notificationRadius, string area);
+             int capacity, string area);
 
     Building();
     /// Default destructor.
@@ -132,5 +132,7 @@ public:
 	virtual void collectRent() {}; 
 	double rent;
 	void setRentalRate(double newRent);
+
+    virtual bool populateBuilding() = 0;
 };
 #endif // BUILDING_H

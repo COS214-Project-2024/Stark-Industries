@@ -29,9 +29,9 @@ IndustrialCreator::IndustrialCreator() {
 Building* IndustrialCreator::createBuilding(string name, int satisfaction, double economicImpact, 
                                             double resourceConsumption, bool constructionStatus, 
                                             int improvementLevel, bool resourcesAvailable, 
-                                            int notificationRadius, string area) {
+                                            int capacity, string area) {
     buildings = new Industrial(name, satisfaction, economicImpact, resourceConsumption, 
                                constructionStatus, improvementLevel, resourcesAvailable, 
-                               notificationRadius, area);
+                               capacity, area);
     return buildings;
 }

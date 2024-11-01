@@ -24,7 +24,7 @@ private:
     bool constructionStatus;      /**< Indicates whether construction is complete. */
     int improvementLevel;         /**< Current improvement level of the building. */
     bool resourcesAvailable;      /**< Flag to indicate if resources are available for improvements. */
-    int citizenNotificationRadius;/**< Radius for notifying citizens around the building. */
+    int capacity;/**< Radius for notifying citizens around the building. */
     string area;
 
     static int numBuildings;
@@ -42,7 +42,7 @@ public:
      * @param notificationRadius Radius for citizen notifications.
      */
     Industrial(string name, int satisfaction, double economicImpact, double resourceConsumption, 
-               bool constructionStatus, int improvementLevel, bool resourcesAvailable, int notificationRadius, string area);
+               bool constructionStatus, int improvementLevel, bool resourcesAvailable, int capacity, string area);
 
     Industrial();
     
@@ -111,6 +111,8 @@ public:
 
 
     int getNumBuildings();
+
+    bool populateBuilding();
 
 private: 
 	float propertyTaxRate = 0.015;

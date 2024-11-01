@@ -24,7 +24,7 @@ private:
     bool constructionStatus; ///< Indicates if the building is under construction.
     int improvementLevel; ///< Current level of improvements made to the building.
     bool resourcesAvailable; ///< Indicates if resources are available for improvements.
-    int citizenNotificationRadius; ///< Radius for notifying citizens about the building.
+    int capacity; ///< Radius for notifying citizens about the building.
     string area;
     static int numBuildings;
 
@@ -44,7 +44,7 @@ public:
      */
     Residential(string name, int satisfaction, double economicImpact, double resourceConsumption, 
                 bool constructionStatus, int improvementLevel, bool resourcesAvailable, 
-                int notificationRadius, string area);
+                int capacity, string area);
 
     Residential();
     
@@ -118,6 +118,8 @@ public:
 	void collectRent();
 
     int getNumBuildings();
+
+    bool populateBuilding();
 
 private:
 	float propertyTaxRate = 0.01;

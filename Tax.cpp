@@ -64,8 +64,8 @@ void Tax::collectTaxes(double revenue) {
 }
 
 void Tax::operate() {
-    std::cout << "Operating Tax Department: Current Tax Rate = " << taxRate 
-              << ", Total Revenue = " << totalRevenue << "\n";
+    std::cout << "Operating Tax Department:\nCurrent Tax Rate = " << taxRate 
+              << "\nTotal Revenue = " << totalRevenue << "\n";
 }
 
 //command functions

@@ -17,12 +17,12 @@ int Residential::numBuildings = 0;
  */
 Residential::Residential(std::string name, int satisfaction, double economicImpact, 
                          double resourceConsumption, bool constructionStatus, 
-                         int improvementLevel, bool resourcesAvailable, int notificationRadius, string area)
+                         int improvementLevel, bool resourcesAvailable, int capacity, string area)
     : Building(name, satisfaction, economicImpact, resourceConsumption, 
-               constructionStatus, improvementLevel, resourcesAvailable, notificationRadius, area), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
+               constructionStatus, improvementLevel, resourcesAvailable, capacity, area), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
       resourceConsumption(resourceConsumption), constructionStatus(constructionStatus),
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
-      citizenNotificationRadius(notificationRadius), area(area) 
+      capacity(capacity), area(area) 
     {
         numBuildings++;
     }
@@ -88,14 +88,14 @@ void Residential::doImprovements() {
         satisfaction += 5;  // Increase satisfaction
         economicImpact *= 1.1;  // Boost economic impact
 
-        std::cout << "Residential building improved! New Improvement Level: " 
+        std::cout << "Residential building improved!\nNew Improvement Level: " 
                   << improvementLevel << "\n";
 
         // Notify citizens about the improvements (Observer pattern)
         notifyCitizens();
 
 		for (int i = 0 ; i < observerList.size(); i++) {
-			observerList[i]->buildingSatisfaction += 5;
+			// observerList[i]->buildingSatisfaction += 5;
 		}
     } else {
         std::cout << "Resources unavailable for improvements.\n";
@@ -123,7 +123,7 @@ bool Residential::checkResourceAvailability() {
  * Uses the base class implementation to notify all observers (citizens) about changes.
  */
 void Residential::notifyCitizens() {
-    std::cout << "Notifying citizens about changes in " << name << "...\n";
+    std::cout << "NOTIFICATION: New changes to " << name << "\n";
     Building::notifyCitizens();  // Call the base class notify method
 }
 
@@ -182,4 +182,15 @@ void Residential::collectRent(){
 		buildingRevenue += rent;
 		std::cout << "Collected rent from " << observerList[i]->getName() << std::endl;
 	}
+}
+
+bool Residential::populateBuilding() {
+    if (capacity > 0) {
+        capacity--;  // Decrease capacity by one
+        std::cout << "Citizen added to the building. Remaining capacity: " << capacity << std::endl;
+        return true;
+    } else {
+        std::cout << "Building is at full capacity. Cannot add more citizens." << std::endl;
+        return false;
+    }
 }

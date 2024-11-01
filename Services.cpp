@@ -24,10 +24,15 @@ void Services::operate() {
     std::cout << "Operating Services Department:\n"
               << "- Healthcare Facilities: " << healthcareFacilities << "\n"
               << "- Educational Institutions: " << educationalInstitutions << "\n"
-              << "- Emergency Response Units: " << emergencyResponseUnits << "\n"
-              << "Service Programs:\n";
-    for (const auto& program : servicePrograms) {
+              << "- Emergency Response Units: " << emergencyResponseUnits << "\n";
+    cout << "Service Programs:\n";
+    if (servicePrograms.empty()) {
+        cout << "No available service programs.\n";
+    }
+    else {
+        for (const auto& program : servicePrograms) {
         std::cout << "  - " << program << "\n";
+    }
     }
 }
 

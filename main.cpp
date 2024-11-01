@@ -319,169 +319,169 @@ void testComposite(){
 #include "TaxCollector.h"
 #include "City.h"
 
-void testCollectTax(){
-    Citizen* citizen = new Citizen("Tony", 1000);
-    Building* industrial = new Industrial();
-    CollectTax* collectTax = new CollectTax(citizen, industrial);
-    //Building* residential = new Residential();
-    //collectTax->addBuilding(residential);
-    //Building* commercial = new Commercial();
-    //collectTax->addBuilding(commercial);
-    collectTax->execute();
-}
+// void testCollectTax(){
+//     Citizen* citizen = new Citizen("Tony", 1000);
+//     Building* industrial = new Industrial();
+//     CollectTax* collectTax = new CollectTax(citizen, industrial);
+//     //Building* residential = new Residential();
+//     //collectTax->addBuilding(residential);
+//     //Building* commercial = new Commercial();
+//     //collectTax->addBuilding(commercial);
+//     collectTax->execute();
+// }
 
-void testIncreaseTax(){
-    Citizen* citizen = new Citizen("Tony", 10000);
-    Command * incTax = new IncreaseTax(citizen);
-    incTax->execute(); 
-}
+// void testIncreaseTax(){
+//     Citizen* citizen = new Citizen("Tony", 10000);
+//     Command * incTax = new IncreaseTax(citizen);
+//     incTax->execute(); 
+// }
 
-void testTaxCollector(){
-    TaxCollector* taxCollector = new TaxCollector();
-    Citizen* citizen = new Citizen("Tony", 1000);
-    Citizen* citizen2 = new Citizen("Sherlock", 1000);
-    City * city = new City();
-    CollectTax* collectTax = new CollectTax(citizen, nullptr);
-    collectTax->addCitizen(citizen2);
-    collectTax->execute();
-    city->attach(citizen);
-    city->attach(citizen2);
-    for (int i = 0 ; i < city->citizens.size() ; i++){
-        taxCollector->visit(city->citizens[i]);
-    }
-}
+// void testTaxCollector(){
+//     TaxCollector* taxCollector = new TaxCollector();
+//     Citizen* citizen = new Citizen("Tony", 1000);
+//     Citizen* citizen2 = new Citizen("Sherlock", 1000);
+//     City * city = new City();
+//     CollectTax* collectTax = new CollectTax(citizen, nullptr);
+//     collectTax->addCitizen(citizen2);
+//     collectTax->execute();
+//     city->attach(citizen);
+//     city->attach(citizen2);
+//     for (int i = 0 ; i < city->citizens.size() ; i++){
+//         taxCollector->visit(city->citizens[i]);
+//     }
+// }
 
-void testSatisfactionChecker(){
-    SatisfactionChecker* satisfactionChecker = new SatisfactionChecker();
-    Citizen* citizen = new Citizen("Tony", 1000);
-    Industrial* industrial = new Industrial();
-    satisfactionChecker->transportSatisfaction(citizen);
-    satisfactionChecker->buildingSatisfaction(citizen);
-    satisfactionChecker->citySatisfaction(citizen);
-    satisfactionChecker->citySatisfaction(industrial);
-}
+// void testSatisfactionChecker(){
+//     SatisfactionChecker* satisfactionChecker = new SatisfactionChecker();
+//     Citizen* citizen = new Citizen("Tony", 1000);
+//     Industrial* industrial = new Industrial();
+//     satisfactionChecker->transportSatisfaction(citizen);
+//     satisfactionChecker->buildingSatisfaction(citizen);
+//     satisfactionChecker->citySatisfaction(citizen);
+//     satisfactionChecker->citySatisfaction(industrial);
+// }
 
-void testRent(){
-    Citizen* citizen = new Citizen("Tony", 1000);
-    Citizen* citizen2 = new Citizen("Sherlock", 1000);
-    Building* residential = new Residential();
-    residential->attach(citizen);
-    residential->attach(citizen2);
-    residential->collectRent();
-}
+// void testRent(){
+//     Citizen* citizen = new Citizen("Tony", 1000);
+//     Citizen* citizen2 = new Citizen("Sherlock", 1000);
+//     Building* residential = new Residential();
+//     residential->attach(citizen);
+//     residential->attach(citizen2);
+//     residential->collectRent();
+// }
 
-// Function to test transport selection based on seat availability and maintenance status
-void testTransportSelection(Citizen& citizen, Transport& transport) {
-    std::cout << "\n=== " << citizen.getName() << " tries to choose " << transport.getType() << " transport ===\n";
-    citizen.chooseTransport(&transport);
-}
+// // Function to test transport selection based on seat availability and maintenance status
+// void testTransportSelection(Citizen& citizen, Transport& transport) {
+//     std::cout << "\n=== " << citizen.getName() << " tries to choose " << transport.getType() << " transport ===\n";
+//     citizen.chooseTransport(&transport);
+// }
 
-// Function to test if citizens can afford the transport fee
-void testTransportAffordability(Citizen& citizen, Transport& transport) {
-    std::cout << "\n=== Testing affordability for " << citizen.getName() << " with income " << citizen.getIncome() << " ===\n";
-    if (citizen.getIncome() < transport.getFee()) {
-        std::cout << citizen.getName() << " cannot afford " << transport.getType() << " transport.\n";
-    } else {
-        std::cout << citizen.getName() << " can afford " << transport.getType() << " transport.\n";
-        citizen.chooseTransport(&transport);
-    }
-}
+// // Function to test if citizens can afford the transport fee
+// void testTransportAffordability(Citizen& citizen, Transport& transport) {
+//     std::cout << "\n=== Testing affordability for " << citizen.getName() << " with income " << citizen.getIncome() << " ===\n";
+//     if (citizen.getIncome() < transport.getFee()) {
+//         std::cout << citizen.getName() << " cannot afford " << transport.getType() << " transport.\n";
+//     } else {
+//         std::cout << citizen.getName() << " can afford " << transport.getType() << " transport.\n";
+//         citizen.chooseTransport(&transport);
+//     }
+// }
 
-// Function to test seat availability for a given transport
-void testSeatAvailability(Citizen& citizen, Transport& transport) {
-    std::cout << "\n=== Testing seat availability for " << citizen.getName() << " on " << transport.getType() << " ===\n";
-    if (transport.getAvailableSeats()>=1) {
-        std::cout << "Seats are available on " << transport.getType() << ".\n";
-        citizen.chooseTransport(&transport);
-    } else {
-        std::cout << "No seats available on " << transport.getType() << ".\n";
-    }
-}
+// // Function to test seat availability for a given transport
+// void testSeatAvailability(Citizen& citizen, Transport& transport) {
+//     std::cout << "\n=== Testing seat availability for " << citizen.getName() << " on " << transport.getType() << " ===\n";
+//     if (transport.getAvailableSeats()>=1) {
+//         std::cout << "Seats are available on " << transport.getType() << ".\n";
+//         citizen.chooseTransport(&transport);
+//     } else {
+//         std::cout << "No seats available on " << transport.getType() << ".\n";
+//     }
+// }
 
-// Function to test citizen feedback and satisfaction level
-void testCitizenSatisfaction(Citizen& citizen) {
-    std::cout << "\n=== Testing satisfaction level for " << citizen.getName() << " ===\n";
-    citizen.leaveFeedback();
-    if (citizen.getSatisfactionTransport()>60) {
-        std::cout << citizen.getName() << " is satisfied with the transportation.\n";
-    } else {
-        std::cout << citizen.getName() << " is unsatisfied with the transportation.\n";
-    }
-}
+// // Function to test citizen feedback and satisfaction level
+// void testCitizenSatisfaction(Citizen& citizen) {
+//     std::cout << "\n=== Testing satisfaction level for " << citizen.getName() << " ===\n";
+//     citizen.leaveFeedback();
+//     if (citizen.getSatisfactionTransport()>60) {
+//         std::cout << citizen.getName() << " is satisfied with the transportation.\n";
+//     } else {
+//         std::cout << citizen.getName() << " is unsatisfied with the transportation.\n";
+//     }
+// }
 
-// Function to simulate citizen disembarking from transport
-void testDisembark(Citizen& citizen) {
-    std::cout << "\n=== " << citizen.getName() << " disembarks from transport ===\n";
-    citizen.disembark();
-}
-
-
-void testRunway() {
-    RunwayFactory runwayFactory;
-    runwayFactory.buildInfrastructure();
-    TransportInfrastructure* runway = runwayFactory.createInfrastructure();
-
-    std::cout << "Runway construction status: " 
-              << (static_cast<Runway*>(runway)->getConstructionStatus() ? "Under construction" : "Completed") << std::endl;
-
-    runway->build();
-
-    std::cout << "Runway construction status after building: " 
-              << (static_cast<Runway*>(runway)->getConstructionStatus() ? "Under construction" : "Completed") << std::endl;
-
-    std::cout << "Runway cost: " << runway->getCost() << std::endl;
-
-    delete runway;
-}
-
-void testRoad() {
-    RoadFactory roadFactory;
-    roadFactory.buildInfrastructure();
-    TransportInfrastructure* road = roadFactory.createInfrastructure();
-
-    std::cout << "Road construction status: " 
-              << (static_cast<Road*>(road)->getConstructionStatus() ? "Under construction" : "Completed") << std::endl;
-
-    // Build the road
-    road->build();
-
-    std::cout << "Road construction status after building: " 
-              << (static_cast<Road*>(road)->getConstructionStatus() ? "Under construction" : "Completed") << std::endl;
-
-    std::cout << "Road cost: " << road->getCost() << std::endl;
-
-    delete road;
-}
-
-void testRailway() {
-    RailwayFactory railwayFactory;
-    railwayFactory.buildInfrastructure();
-    TransportInfrastructure* railway = railwayFactory.createInfrastructure();
-
-    std::cout << "Railway construction status: " 
-              << (static_cast<Railway*>(railway)->getConstructionStatus() ? "Under construction" : "Completed") << std::endl;
-
-    railway->build();
-
-    std::cout << "Railway construction status after building: " 
-              << (static_cast<Railway*>(railway)->getConstructionStatus() ? "Under construction" : "Completed") << std::endl;
+// // Function to simulate citizen disembarking from transport
+// void testDisembark(Citizen& citizen) {
+//     std::cout << "\n=== " << citizen.getName() << " disembarks from transport ===\n";
+//     citizen.disembark();
+// }
 
 
-    std::cout << "Railway cost: " << railway->getCost() << std::endl;
+// void testRunway() {
+//     RunwayFactory runwayFactory;
+//     runwayFactory.buildInfrastructure();
+//     TransportInfrastructure* runway = runwayFactory.createInfrastructure();
 
-    delete railway;
-}
+//     std::cout << "Runway construction status: " 
+//               << (static_cast<Runway*>(runway)->getConstructionStatus() ? "Under construction" : "Completed") << std::endl;
 
-void testCustomInfrastructures() {
-    Runway customRunway(3.0, 0.1);
-    std::cout << "Custom Runway cost: " << customRunway.getCost() << std::endl;
+//     runway->build();
 
-    Road customRoad(4, 2.0);
-    std::cout << "Custom Road cost: " << customRoad.getCost() << std::endl;
+//     std::cout << "Runway construction status after building: " 
+//               << (static_cast<Runway*>(runway)->getConstructionStatus() ? "Under construction" : "Completed") << std::endl;
 
-    Railway customRailway(2.0, false);
-    std::cout << "Custom non-electrified Railway cost: " << customRailway.getCost() << std::endl;
-}
+//     std::cout << "Runway cost: " << runway->getCost() << std::endl;
+
+//     delete runway;
+// }
+
+// void testRoad() {
+//     RoadFactory roadFactory;
+//     roadFactory.buildInfrastructure();
+//     TransportInfrastructure* road = roadFactory.createInfrastructure();
+
+//     std::cout << "Road construction status: " 
+//               << (static_cast<Road*>(road)->getConstructionStatus() ? "Under construction" : "Completed") << std::endl;
+
+//     // Build the road
+//     road->build();
+
+//     std::cout << "Road construction status after building: " 
+//               << (static_cast<Road*>(road)->getConstructionStatus() ? "Under construction" : "Completed") << std::endl;
+
+//     std::cout << "Road cost: " << road->getCost() << std::endl;
+
+//     delete road;
+// }
+
+// void testRailway() {
+//     RailwayFactory railwayFactory;
+//     railwayFactory.buildInfrastructure();
+//     TransportInfrastructure* railway = railwayFactory.createInfrastructure();
+
+//     std::cout << "Railway construction status: " 
+//               << (static_cast<Railway*>(railway)->getConstructionStatus() ? "Under construction" : "Completed") << std::endl;
+
+//     railway->build();
+
+//     std::cout << "Railway construction status after building: " 
+//               << (static_cast<Railway*>(railway)->getConstructionStatus() ? "Under construction" : "Completed") << std::endl;
+
+
+//     std::cout << "Railway cost: " << railway->getCost() << std::endl;
+
+//     delete railway;
+// }
+
+// void testCustomInfrastructures() {
+//     Runway customRunway(3.0, 0.1);
+//     std::cout << "Custom Runway cost: " << customRunway.getCost() << std::endl;
+
+//     Road customRoad(4, 2.0);
+//     std::cout << "Custom Road cost: " << customRoad.getCost() << std::endl;
+
+//     Railway customRailway(2.0, false);
+//     std::cout << "Custom non-electrified Railway cost: " << customRailway.getCost() << std::endl;
+// }
 
 #include <iostream>
 #include <iomanip>
@@ -512,7 +512,9 @@ void bigTestingMain() {
     IndustrialCreator industrialCreator;
 
     // Create Residential Building
-    Building* residentialBuilding = residentialCreator.createBuilding("Residential Block", 30, 5000, 300, true, 1, true, 200, "Suburb");
+    Building* residentialBuilding = residentialCreator.createBuilding(
+        "Residential Block", 30, 5000, 300, true, 1, true, 200, "Suburb"
+    );
     std::cout << CYAN << "\n--- Residential Building ---" << RESET << std::endl;
     std::cout << "Type: " << residentialBuilding->getType() << std::endl;
     std::cout << GREEN << "Satisfaction: " << residentialBuilding->calculateSatisfaction() << RESET << std::endl;
@@ -521,8 +523,21 @@ void bigTestingMain() {
     residentialBuilding->doImprovements();
     std::cout << GREEN << "Satisfaction after improvement: " << residentialBuilding->calculateSatisfaction() << RESET << std::endl;
 
+    Building* residentialBuilding2 = residentialCreator.createBuilding(
+        "Apartments", 30, 5000, 300, true, 1, true, 100, "Suburb"
+    );
+    std::cout << CYAN << "\n--- Residential Building ---" << RESET << std::endl;
+    std::cout << "Type: " << residentialBuilding2->getType() << std::endl;
+    std::cout << GREEN << "Satisfaction: " << residentialBuilding2->calculateSatisfaction() << RESET << std::endl;
+    std::cout << YELLOW << "Economic Impact: " << residentialBuilding2->calculateEconomicImpact() << RESET << std::endl;
+    std::cout << RED << "Resource Consumption: " << residentialBuilding2->calculateResourceConsumption() << RESET << std::endl;
+    residentialBuilding2->doImprovements();
+    std::cout << GREEN << "Satisfaction after improvement: " << residentialBuilding2->calculateSatisfaction() << RESET << std::endl;
+
     // Create Landmark Building
-    Building* landmarkBuilding = landmarkCreator.createBuilding("Statue of Liberty", 50, 100000, 500, true, 1, true, 500, "Suburb");
+    Building* landmarkBuilding = landmarkCreator.createBuilding(
+        "Statue of Liberty", 50, 100000, 500, true, 1, true, 50, "Suburb"
+    );
     std::cout << MAGENTA << "\n--- Landmark Building ---" << RESET << std::endl;
     std::cout << "Type: " << landmarkBuilding->getType() << std::endl;
     std::cout << GREEN << "Satisfaction: " << landmarkBuilding->calculateSatisfaction() << RESET << std::endl;
@@ -531,8 +546,21 @@ void bigTestingMain() {
     landmarkBuilding->doImprovements();
     std::cout << GREEN << "Satisfaction after improvement: " << landmarkBuilding->calculateSatisfaction() << RESET << std::endl;
 
+    Building* landmarkBuilding2 = landmarkCreator.createBuilding(
+        "Museum", 50, 100000, 500, true, 1, true, 150, "Suburb"
+    );
+    std::cout << MAGENTA << "\n--- Landmark Building ---" << RESET << std::endl;
+    std::cout << "Type: " << landmarkBuilding2->getType() << std::endl;
+    std::cout << GREEN << "Satisfaction: " << landmarkBuilding2->calculateSatisfaction() << RESET << std::endl;
+    std::cout << YELLOW << "Economic Impact: " << landmarkBuilding2->calculateEconomicImpact() << RESET << std::endl;
+    std::cout << RED << "Resource Consumption: " << landmarkBuilding2->calculateResourceConsumption() << RESET << std::endl;
+    landmarkBuilding2->doImprovements();
+    std::cout << GREEN << "Satisfaction after improvement: " << landmarkBuilding2->calculateSatisfaction() << RESET << std::endl;
+
     // Create Commercial Building
-    Building* commercialBuilding = commercialCreator.createBuilding("Mall", 20, 30000, 1000, true, 1, true, 300, "Suburb");
+    Building* commercialBuilding = commercialCreator.createBuilding(
+        "Mall", 20, 30000, 1000, true, 1, true, 1000, "Suburb"
+    );
     std::cout << YELLOW << "\n--- Commercial Building ---" << RESET << std::endl;
     std::cout << "Type: " << commercialBuilding->getType() << std::endl;
     std::cout << GREEN << "Satisfaction: " << commercialBuilding->calculateSatisfaction() << RESET << std::endl;
@@ -541,8 +569,21 @@ void bigTestingMain() {
     commercialBuilding->doImprovements();
     std::cout << GREEN << "Satisfaction after improvement: " << commercialBuilding->calculateSatisfaction() << RESET << std::endl;
 
+    Building* commercialBuilding2 = commercialCreator.createBuilding(
+        "Hardware Store", 20, 30000, 1000, true, 1, true, 100, "Suburb"
+    );
+    std::cout << YELLOW << "\n--- Commercial Building ---" << RESET << std::endl;
+    std::cout << "Type: " << commercialBuilding2->getType() << std::endl;
+    std::cout << GREEN << "Satisfaction: " << commercialBuilding2->calculateSatisfaction() << RESET << std::endl;
+    std::cout << YELLOW << "Economic Impact: " << commercialBuilding2->calculateEconomicImpact() << RESET << std::endl;
+    std::cout << RED << "Resource Consumption: " << commercialBuilding2->calculateResourceConsumption() << RESET << std::endl;
+    commercialBuilding2->doImprovements();
+    std::cout << GREEN << "Satisfaction after improvement: " << commercialBuilding2->calculateSatisfaction() << RESET << std::endl;
+
     // Create Industrial Building
-    Building* industrialBuilding = industrialCreator.createBuilding("Factory", 10, 20000, 2000, true, 1, true, 400, "Industrial");
+    Building* industrialBuilding = industrialCreator.createBuilding(
+        "Hardware Factory", 10, 20000, 2000, true, 1, true, 400, "Industrial"
+    );
     std::cout << RED << "\n--- Industrial Building ---" << RESET << std::endl;
     std::cout << "Type: " << industrialBuilding->getType() << std::endl;
     std::cout << GREEN << "Satisfaction: " << industrialBuilding->calculateSatisfaction() << RESET << std::endl;
@@ -550,6 +591,17 @@ void bigTestingMain() {
     std::cout << RED << "Resource Consumption: " << industrialBuilding->calculateResourceConsumption() << RESET << std::endl;
     industrialBuilding->doImprovements();
     std::cout << GREEN << "Satisfaction after improvement: " << industrialBuilding->calculateSatisfaction() << RESET << std::endl;
+
+    Building* industrialBuilding2 = industrialCreator.createBuilding(
+        "Coca-Cola Factory", 10, 20000, 2000, true, 1, true, 400, "Industrial"
+    );
+    std::cout << RED << "\n--- Industrial Building ---" << RESET << std::endl;
+    std::cout << "Type: " << industrialBuilding2->getType() << std::endl;
+    std::cout << GREEN << "Satisfaction: " << industrialBuilding2->calculateSatisfaction() << RESET << std::endl;
+    std::cout << YELLOW << "Economic Impact: " << industrialBuilding2->calculateEconomicImpact() << RESET << std::endl;
+    std::cout << RED << "Resource Consumption: " << industrialBuilding2->calculateResourceConsumption() << RESET << std::endl;
+    industrialBuilding2->doImprovements();
+    std::cout << GREEN << "Satisfaction after improvement: " << industrialBuilding2->calculateSatisfaction() << RESET << std::endl;
 
     // Create utilities
     WaterFactory waterFactory;
@@ -559,12 +611,24 @@ void bigTestingMain() {
     waterUtility->generateResources();
     waterUtility->requestMaintenance(101);
 
+    Utilities* waterUtility2 = waterFactory.createUtility();
+    std::cout << CYAN << "\n--- Water System 2 ---" << RESET << std::endl;
+    waterUtility2->displayInfo();
+    waterUtility2->generateResources();
+    waterUtility2->requestMaintenance(150);
+
     WasteFactory wasteFactory;
     Utilities* wasteUtility = wasteFactory.createUtility();
     std::cout << MAGENTA << "\n--- Waste System ---" << RESET << std::endl;
     wasteUtility->displayInfo();
     wasteUtility->generateResources();
     wasteUtility->requestMaintenance(102);
+
+    Utilities* wasteUtility2 = wasteFactory.createUtility();
+    std::cout << MAGENTA << "\n--- Waste System 2 ---" << RESET << std::endl;
+    wasteUtility2->displayInfo();
+    wasteUtility2->generateResources();
+    wasteUtility2->requestMaintenance(151);
 
     SewageFactory sewageFactory;
     Utilities* sewageUtility = sewageFactory.createUtility();
@@ -573,6 +637,12 @@ void bigTestingMain() {
     sewageUtility->generateResources();
     sewageUtility->requestMaintenance(103);
 
+    Utilities* sewageUtility2 = sewageFactory.createUtility();
+    std::cout << YELLOW << "\n--- Sewage System 2 ---" << RESET << std::endl;
+    sewageUtility2->displayInfo();
+    sewageUtility2->generateResources();
+    sewageUtility2->requestMaintenance(152);
+
     PowerPlantFactory powerPlantFactory;
     Utilities* powerPlantUtility = powerPlantFactory.createUtility();
     std::cout << GREEN << "\n--- Power Plant ---" << RESET << std::endl;
@@ -580,13 +650,35 @@ void bigTestingMain() {
     powerPlantUtility->generateResources();
     powerPlantUtility->requestMaintenance(104);
 
+    Utilities* powerPlantUtility2 = powerPlantFactory.createUtility();
+    std::cout << GREEN << "\n--- Power Plant 2 ---" << RESET << std::endl;
+    powerPlantUtility2->displayInfo();
+    powerPlantUtility2->generateResources();
+    powerPlantUtility2->requestMaintenance(153);
+
     // Build transport infrastructure
+    std::cout << BOLD << BLUE << "\n--- Creating Transport Infrastructure ---\n" << RESET;
     RoadFactory roadFactory;
-    TransportInfrastructure* road = roadFactory.createInfrastructure();
     RailwayFactory railwayFactory;
-    TransportInfrastructure* railway = railwayFactory.createInfrastructure();
     RunwayFactory runwayFactory;
-    TransportInfrastructure* runway = runwayFactory.createInfrastructure();
+    TransportInfrastructure* road = roadFactory.createInfrastructure(2, 10.0);
+    road->build();
+    TransportInfrastructure* railway = railwayFactory.createInfrastructure(20, true);
+    railway->build();
+    TransportInfrastructure* runway = runwayFactory.createInfrastructure(1.0, 0.5);
+    runway->build();
+    TransportInfrastructure* road2 = roadFactory.createInfrastructure(4, 100.0);
+    road2->build();
+    TransportInfrastructure* railway2 = railwayFactory.createInfrastructure(30, false);
+    railway2->build();
+    TransportInfrastructure* runway2 = runwayFactory.createInfrastructure(2.0, 1);
+    runway2->build();
+    TransportInfrastructure* road3 = roadFactory.createInfrastructure(1, 15.0);
+    road3->build();
+    TransportInfrastructure* railway3 = railwayFactory.createInfrastructure(45, true);
+    railway3->build();
+    TransportInfrastructure* runway3 = runwayFactory.createInfrastructure(1.0, 0.7);
+    runway3->build();
 
     // Create citizens
     Citizen c;
@@ -597,51 +689,63 @@ void bigTestingMain() {
         double propertyValue = 50000 + std::rand() % 950000; // Property value from 50,000 to 1,000,000
         std::string job = c.jobTitles[std::rand() % 200];
         Citizen* newCitizen = new Citizen(name, income, propertyValue, job);
-        std::cout << CYAN << "Citizen " << (i + 1) << ": " << RESET << name << " with job " << job << ", with income $" << income 
+        std::cout << CYAN << "Citizen " << (i + 1) << ": " << RESET 
+                  << name << " with job " << job << ", with income $" << income 
                   << " and property value $" << std::fixed << std::setprecision(2) << propertyValue << std::endl;
-        cout << newCitizen->getNumCitizens();
+        residentialBuilding->populateBuilding();
     }
 
-    //Create government
-        // Create a Government instance
+    // Create government
     Government government(0.15, 0.02); // 15% income tax, 2% property tax
 
-        // Create departments and add them to the government
+    // Create departments and add them to the government
     Budget* budgetDept = new Budget("Budget Department", 10000.0);
     Policies* policiesDept = new Policies("Policies Department");
     Services* servicesDept = new Services("Services Department", 10, 5, 3);
     Tax* taxDept = new Tax("Tax Department", 0.15);
 
+    std::cout << CYAN << "\n--- Budget Department Created ---" << RESET << std::endl;
     government.add(budgetDept);
+    budgetDept->operate();
+    std::cout << MAGENTA << "\n--- Policies Department Created ---" << RESET << std::endl;
     government.add(policiesDept);
+    policiesDept->operate();
+    std::cout << YELLOW << "\n--- Services Department Created ---" << RESET << std::endl;
     government.add(servicesDept);
+    servicesDept->operate();
+    std::cout << RED << "\n--- Tax Department Created ---" << RESET << std::endl;
     government.add(taxDept);
+    taxDept->operate();
 
-        // Example of Government operating and managing departments
-    government.operate();
-
-        // Add policies
+    // Add policies
+    std::cout << CYAN << "\n--- Add Policies ---" << RESET << std::endl;
     policiesDept->addPolicy("Environmental Protection");
     policiesDept->addPolicy("Healthcare Reform");
 
-        // Add service programs
+    // Add service programs
+    std::cout << CYAN << "\n--- Add Services ---" << RESET << std::endl;
     servicesDept->addServiceProgram("Emergency Health Services");
     servicesDept->addServiceProgram("Education Outreach");
 
-        // Simulate tax collection and allocation
-    taxDept->collectTaxes(20000.0);  // Collecting taxes based on revenue
-    government.collectTax();         // Government records collected taxes  //Causes seg fault
-    government.allocateTax();        // Allocate tax revenue to budget
+    // Example of Government operating and managing departments
+    std::cout << MAGENTA << "\n--- Government operates ---" << RESET << std::endl;
+    government.operate();
 
-        // Display the current status of each department
-    budgetDept->operate();
-    policiesDept->operate();
-    servicesDept->operate();
-    taxDept->operate();
+    //Below can be used later on
+    // // Simulate tax collection and allocation
+    // taxDept->collectTaxes(20000.0);  // Collecting taxes based on revenue
+    // government.collectTax();           // Government records collected taxes
+    // government.allocateTax();          // Allocate tax revenue to budget
 
-        // Notify citizens about tax changes
-    government.notifyCitizensTaxIncreased();
-    //============================
+    // // Display the current status of each department
+    // budgetDept->operate();
+    // policiesDept->operate();
+    // servicesDept->operate();
+    // taxDept->operate();
+
+    // // Notify citizens about tax changes
+    // government.notifyCitizensTaxIncreased();
+
     // Clean up
     delete budgetDept;
     delete policiesDept;

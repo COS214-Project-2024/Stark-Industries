@@ -21,7 +21,7 @@ Building::Building(string name, int satisfaction, double economicImpact,
     : name(name), satisfaction(satisfaction), economicImpact(economicImpact),
       resourceConsumption(resourceConsumption), constructionStatus(constructionStatus),
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
-      citizenNotificationRadius(notificationRadius), area(area) {}
+      capacity(capacity), area(area) {}
 
 /**
  * @brief Placeholder method for getting building details (to be implemented).
@@ -67,7 +67,7 @@ void Building::detach(Citizen* observer) {
  * @brief Notifies all attached citizen observers about changes in the building.
  */
 void Building::notifyCitizens() {
-    std::cout << "Notifying citizens about changes in " << name << "...\n";
+    // std::cout << "Notifying citizens about changes in " << name << "...\n";
     for (Citizen* citizen : observerList) {
         citizen->observerUpdate("Building");  // Call the observer's update method
     }
