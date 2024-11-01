@@ -1,6 +1,8 @@
 #include "Industrial.h"
 #include <iostream>
 
+int Industrial::numBuildings = 0;
+
 /**
  * @brief Constructs an Industrial building with the given attributes.
  * 
@@ -13,6 +15,7 @@
  * @param resourcesAvailable Boolean indicating if resources are available for improvements.
  * @param notificationRadius Radius within which citizens are notified of changes to the building.
  */
+
 Industrial::Industrial(std::string name, int satisfaction, double economicImpact, 
                        double resourceConsumption, bool constructionStatus, 
                        int improvementLevel, bool resourcesAvailable, int notificationRadius, string area)
@@ -20,7 +23,10 @@ Industrial::Industrial(std::string name, int satisfaction, double economicImpact
                constructionStatus, improvementLevel, resourcesAvailable, notificationRadius, area), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
       resourceConsumption(resourceConsumption), constructionStatus(constructionStatus),
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
-      citizenNotificationRadius(notificationRadius), area(area) {}
+      citizenNotificationRadius(notificationRadius), area(area) 
+    {
+        numBuildings;
+    }
 
 Industrial::Industrial() {
 

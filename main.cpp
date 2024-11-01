@@ -595,12 +595,58 @@ void bigTestingMain() {
         std::string name = c.citizenNames[std::rand() % 200];
         int income = 30000 + std::rand() % 70000; // Income range from 30,000 to 100,000
         double propertyValue = 50000 + std::rand() % 950000; // Property value from 50,000 to 1,000,000
-        Citizen* newCitizen = new Citizen(name, income, propertyValue);
-        std::cout << CYAN << "Citizen " << (i + 1) << ": " << RESET << name << " with income $" << income 
+        std::string job = c.jobTitles[std::rand() % 200];
+        Citizen* newCitizen = new Citizen(name, income, propertyValue, job);
+        std::cout << CYAN << "Citizen " << (i + 1) << ": " << RESET << name << " with job " << job << ", with income $" << income 
                   << " and property value $" << std::fixed << std::setprecision(2) << propertyValue << std::endl;
+        cout << newCitizen->getNumCitizens();
     }
 
+    //Create government
+        // Create a Government instance
+    Government government(0.15, 0.02); // 15% income tax, 2% property tax
+
+        // Create departments and add them to the government
+    Budget* budgetDept = new Budget("Budget Department", 10000.0);
+    Policies* policiesDept = new Policies("Policies Department");
+    Services* servicesDept = new Services("Services Department", 10, 5, 3);
+    Tax* taxDept = new Tax("Tax Department", 0.15);
+
+    government.add(budgetDept);
+    government.add(policiesDept);
+    government.add(servicesDept);
+    government.add(taxDept);
+
+        // Example of Government operating and managing departments
+    government.operate();
+
+        // Add policies
+    policiesDept->addPolicy("Environmental Protection");
+    policiesDept->addPolicy("Healthcare Reform");
+
+        // Add service programs
+    servicesDept->addServiceProgram("Emergency Health Services");
+    servicesDept->addServiceProgram("Education Outreach");
+
+        // Simulate tax collection and allocation
+    taxDept->collectTaxes(20000.0);  // Collecting taxes based on revenue
+    // government.collectTax();         // Government records collected taxes  //Causes seg fault
+    government.allocateTax();        // Allocate tax revenue to budget
+
+        // Display the current status of each department
+    budgetDept->operate();
+    policiesDept->operate();
+    servicesDept->operate();
+    taxDept->operate();
+
+        // Notify citizens about tax changes
+    government.notifyCitizensTaxIncreased();
+    //============================
     // Clean up
+    delete budgetDept;
+    delete policiesDept;
+    delete servicesDept;
+    delete taxDept;
     delete waterUtility;
     delete wasteUtility;
     delete sewageUtility;
@@ -660,7 +706,7 @@ int main() {
     //testIncreaseTax();
     //testTaxCollector();
     //testSatisfactionChecker();
-    testRent();
+    // testRent();
 
     return 0;
 }

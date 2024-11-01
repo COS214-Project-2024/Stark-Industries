@@ -26,7 +26,7 @@ private:
     
 
     string name;                     ///< Name of the building.
-    
+    int satisfaction;
     double economicImpact;           ///< Economic impact of the building.
     double resourceConsumption;      ///< Resource consumption by the building.
     bool constructionStatus;         ///< Status of the construction (completed or not).

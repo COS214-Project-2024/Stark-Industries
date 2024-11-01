@@ -24,7 +24,7 @@ private:
     bool resourcesAvailable;        /**< Resource availability status */
     int citizenNotificationRadius;  /**< Radius for notifying citizens */
     string area;
-    int numBuildings;
+    static int numBuildings;
 public:
 
     /**

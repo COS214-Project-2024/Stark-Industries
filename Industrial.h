@@ -27,7 +27,7 @@ private:
     int citizenNotificationRadius;/**< Radius for notifying citizens around the building. */
     string area;
 
-    int numBuildings;
+    static int numBuildings;
 public:
     /**
      * @brief Constructs an Industrial building with specified attributes.

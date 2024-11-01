@@ -26,7 +26,7 @@ private:
     bool resourcesAvailable; ///< Indicates if resources are available for improvements.
     int citizenNotificationRadius; ///< Radius for notifying citizens about the building.
     string area;
-    int numBuildings;
+    static int numBuildings;
 
 public:
 
