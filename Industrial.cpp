@@ -1,6 +1,8 @@
 #include "Industrial.h"
 #include <iostream>
 
+int Industrial::numBuildings = 0;
+
 /**
  * @brief Constructs an Industrial building with the given attributes.
  * 
@@ -13,14 +15,18 @@
  * @param resourcesAvailable Boolean indicating if resources are available for improvements.
  * @param notificationRadius Radius within which citizens are notified of changes to the building.
  */
+
 Industrial::Industrial(std::string name, int satisfaction, double economicImpact, 
                        double resourceConsumption, bool constructionStatus, 
-                       int improvementLevel, bool resourcesAvailable, int notificationRadius)
+                       int improvementLevel, bool resourcesAvailable, int notificationRadius, string area)
     : Building(name, satisfaction, economicImpact, resourceConsumption, 
-               constructionStatus, improvementLevel, resourcesAvailable, notificationRadius), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
+               constructionStatus, improvementLevel, resourcesAvailable, notificationRadius, area), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
       resourceConsumption(resourceConsumption), constructionStatus(constructionStatus),
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
-      citizenNotificationRadius(notificationRadius) {}
+      citizenNotificationRadius(notificationRadius), area(area) 
+    {
+        numBuildings;
+    }
 
 Industrial::Industrial() {
 
@@ -89,6 +95,11 @@ void Industrial::doImprovements() {
 
         // Notify citizens about the improvements
         notifyCitizens();
+
+		//update the citizens' satisfaction level for buildings 
+		for (int i = 0 ; i < observerList.size(); i++) {
+			observerList[i]->buildingSatisfaction += 5;
+		}
     } else {
         std::cout << "Resources unavailable for improvements.\n";
     }
@@ -100,6 +111,12 @@ void Industrial::doImprovements() {
  * @return True if resources are available, false otherwise.
  */
 bool Industrial::checkResourceAvailability() {
+	if (!resourcesAvailable){
+		citySatisfaction -= 10;
+	}
+	else {
+		citySatisfaction += 10;
+	}
     return resourcesAvailable;
 }
 
@@ -146,6 +163,14 @@ void Industrial::acceptTaxCollector(Visitor * taxCollector) {
 	taxCollector->visit(this);
 }
 
-  Building* Industrial::clone() const {
+Building* Industrial::clone() const {
     return new Industrial(*this); // Create a new Commercial object using the copy constructor
+}
+
+void Industrial::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){
+	satisfactionChecker->visit(this);
+}
+
+int Industrial::getNumBuildings() {
+    return numBuildings;
 }

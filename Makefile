@@ -1,5 +1,5 @@
 # Define a variable to hold all .cpp files except TestingMain.cpp
-CPP_FILES := $(shell find . -name '*.cpp' ! -name 'main.cpp')
+CPP_FILES := $(shell find . -name '*.cpp' ! -name 'TestingMain.cpp')
 
 run: main
 	./main

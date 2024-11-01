@@ -23,20 +23,21 @@ private:
     vector<Utilities*> utilities;
     
     /// List of citizens observing this building.
-    std::vector<Citizen*> observerList; // vector so that multiple citizens can be attached
+    
 
     string name;                     ///< Name of the building.
-    int satisfaction;                ///< Satisfaction rating of the building.
+    int satisfaction;
     double economicImpact;           ///< Economic impact of the building.
     double resourceConsumption;      ///< Resource consumption by the building.
     bool constructionStatus;         ///< Status of the construction (completed or not).
     int improvementLevel;            ///< Level of improvements made to the building.
     bool resourcesAvailable;          ///< Availability of resources for the building.
     int citizenNotificationRadius;   ///< Notification radius for citizen alerts.
-
+    string area;
 protected: 
 	double buildingRevenue;
 	double buildingValue;
+	std::vector<Citizen*> observerList; // vector so that multiple citizens can be attached
 
 public:
     /**
@@ -53,7 +54,7 @@ public:
      */
     Building(string name, int satisfaction, double economicImpact, double resourceConsumption, 
              bool constructionStatus, int improvementLevel, bool resourcesAvailable, 
-             int notificationRadius);
+             int notificationRadius, string area);
 
     Building();
     /// Default destructor.
@@ -124,8 +125,12 @@ public:
 	virtual void payTax(float taxRate) = 0;
 	double taxPaid;
 	virtual void acceptTaxCollector(Visitor * taxCollector) = 0;
+	virtual void acceptCitySatisfactionChecker(Visitor* satisfactionChecker) {};
+	int citySatisfaction = 50;
 
 	// need to do things for rent 
+	virtual void collectRent() {}; 
+	double rent;
+	void setRentalRate(double newRent);
 };
-
 #endif // BUILDING_H

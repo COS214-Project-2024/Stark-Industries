@@ -25,6 +25,8 @@ private:
     int improvementLevel; ///< Current level of improvements made to the building.
     bool resourcesAvailable; ///< Indicates if resources are available for improvements.
     int citizenNotificationRadius; ///< Radius for notifying citizens about the building.
+    string area;
+    static int numBuildings;
 
 public:
 
@@ -42,7 +44,7 @@ public:
      */
     Residential(string name, int satisfaction, double economicImpact, double resourceConsumption, 
                 bool constructionStatus, int improvementLevel, bool resourcesAvailable, 
-                int notificationRadius);
+                int notificationRadius, string area);
 
     Residential();
     
@@ -112,6 +114,10 @@ public:
 	void payTax(float taxRate);
 
 	void acceptTaxCollector(Visitor * taxCollector);
+	void acceptCitySatisfactionChecker(Visitor* satisfactionChecker);
+	void collectRent();
+
+    int getNumBuildings();
 
 private:
 	float propertyTaxRate = 0.01;

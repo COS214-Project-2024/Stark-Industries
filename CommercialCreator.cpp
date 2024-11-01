@@ -33,10 +33,10 @@ Building* CommercialCreator::createBuilding(string name, int satisfaction,
                                             bool constructionStatus, 
                                             int improvementLevel, 
                                             bool resourcesAvailable, 
-                                            int notificationRadius) {
+                                            int notificationRadius, string area) {
     buildings = new Commercial(name, satisfaction, economicImpact, 
                                resourceConsumption, constructionStatus, 
                                improvementLevel, resourcesAvailable, 
-                               notificationRadius);
+                               notificationRadius, area);
     return buildings;
 }

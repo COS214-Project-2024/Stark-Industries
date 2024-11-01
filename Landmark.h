@@ -23,7 +23,8 @@ private:
     int improvementLevel;           /**< Improvement level of the landmark */
     bool resourcesAvailable;        /**< Resource availability status */
     int citizenNotificationRadius;  /**< Radius for notifying citizens */
-
+    string area;
+    static int numBuildings;
 public:
 
     /**
@@ -40,7 +41,7 @@ public:
      */
     Landmark(string name, int satisfaction, double economicImpact, double resourceConsumption, 
              bool constructionStatus, int improvementLevel, bool resourcesAvailable, 
-             int notificationRadius);
+             int notificationRadius, string area);
 
     /**
      * @brief Retrieves the type or name of the landmark.
@@ -102,6 +103,10 @@ public:
 	void payTax(float taxRate);
 
 	void acceptTaxCollector(Visitor * taxCollector);
+
+    Landmark();
+
+    int getNumBuildings();
 
 private: 
 	float propertyTaxRate = 0.015;

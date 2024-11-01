@@ -1,6 +1,8 @@
 #include "Residential.h"
 #include <iostream>
 
+int Residential::numBuildings = 0;
+
 /**
  * @brief Constructs a Residential building with the given attributes.
  * 
@@ -15,12 +17,15 @@
  */
 Residential::Residential(std::string name, int satisfaction, double economicImpact, 
                          double resourceConsumption, bool constructionStatus, 
-                         int improvementLevel, bool resourcesAvailable, int notificationRadius)
+                         int improvementLevel, bool resourcesAvailable, int notificationRadius, string area)
     : Building(name, satisfaction, economicImpact, resourceConsumption, 
-               constructionStatus, improvementLevel, resourcesAvailable, notificationRadius), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
+               constructionStatus, improvementLevel, resourcesAvailable, notificationRadius, area), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
       resourceConsumption(resourceConsumption), constructionStatus(constructionStatus),
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
-      citizenNotificationRadius(notificationRadius) {}
+      citizenNotificationRadius(notificationRadius), area(area) 
+    {
+        numBuildings++;
+    }
 
 Residential::Residential() {
 
@@ -88,6 +93,10 @@ void Residential::doImprovements() {
 
         // Notify citizens about the improvements (Observer pattern)
         notifyCitizens();
+
+		for (int i = 0 ; i < observerList.size(); i++) {
+			observerList[i]->buildingSatisfaction += 5;
+		}
     } else {
         std::cout << "Resources unavailable for improvements.\n";
     }
@@ -99,6 +108,12 @@ void Residential::doImprovements() {
  * @return True if resources are available, false otherwise.
  */
 bool Residential::checkResourceAvailability() {
+	if (resourcesAvailable) {
+		citySatisfaction += 10;
+	}
+	else {
+		citySatisfaction -= 10;
+	}
     return resourcesAvailable;
 }
 
@@ -151,4 +166,20 @@ void Residential::payTax(float taxRate) {
 
 void Residential::acceptTaxCollector(Visitor * taxCollector) {
 	taxCollector->visit(this);
+}
+
+int Residential::getNumBuildings() {
+    return numBuildings;
+}
+
+void Residential::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){
+	satisfactionChecker->visit(this);
+}
+
+void Residential::collectRent(){
+	for (int i = 0 ; i < observerList.size(); i++) {
+		observerList[i]->payRent(rent);
+		buildingRevenue += rent;
+		std::cout << "Collected rent from " << observerList[i]->getName() << std::endl;
+	}
 }
