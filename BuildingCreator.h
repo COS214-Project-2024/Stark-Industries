@@ -36,7 +36,7 @@ protected:
     virtual Building* createBuilding(string name, int satisfaction, double economicImpact, 
                                       double resourceConsumption, bool constructionStatus, 
                                       int improvementLevel, bool resourcesAvailable, 
-                                      int notificationRadius, string area) = 0;
+                                      int capacity, string area) = 0;
 
 public:
     /// Default destructor.

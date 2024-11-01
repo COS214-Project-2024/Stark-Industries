@@ -17,12 +17,12 @@ int Landmark::numBuildings = 0;
  */
 Landmark::Landmark(std::string name, int satisfaction, double economicImpact, 
                    double resourceConsumption, bool constructionStatus, 
-                   int improvementLevel, bool resourcesAvailable, int notificationRadius, string area)
+                   int improvementLevel, bool resourcesAvailable, int capacity, string area)
     : Building(name, satisfaction, economicImpact, resourceConsumption, 
-               constructionStatus, improvementLevel, resourcesAvailable, notificationRadius, area), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
+               constructionStatus, improvementLevel, resourcesAvailable, capacity, area), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
       resourceConsumption(resourceConsumption), constructionStatus(constructionStatus),
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
-      citizenNotificationRadius(notificationRadius), area(area) 
+      capacity(capacity), area(area) 
     {
         numBuildings++;
     }
@@ -84,7 +84,7 @@ void Landmark::doImprovements() {
         satisfaction += 10;  // Increase satisfaction for landmarks
         economicImpact *= 1.2;  // Boost economic impact significantly
 
-        std::cout << "Landmark improved! New Improvement Level: " 
+        std::cout << "Landmark improved!\nNew Improvement Level: " 
                   << improvementLevel << "\n";
 
         // Notify citizens about the improvement
@@ -109,7 +109,7 @@ bool Landmark::checkResourceAvailability() {
  * Uses the base class implementation to notify all observers (citizens) about changes.
  */
 void Landmark::notifyCitizens() {
-    std::cout << "Notifying citizens about changes to the landmark: " << name << "\n";
+    std::cout << "NOTIFICATION: New changes to " << name << "\n";
     Building::notifyCitizens();  // Call the base class notify method
 }
 
@@ -135,4 +135,15 @@ int Landmark::getNumBuildings() {
 
 Landmark::Landmark() {
     
+}
+
+bool Landmark::populateBuilding() {
+    if (capacity > 0) {
+        capacity--;  // Decrease capacity by one
+        std::cout << "Citizen added to the building. Remaining capacity: " << capacity << std::endl;
+        return true;
+    } else {
+        std::cout << "Building is at full capacity. Cannot add more citizens." << std::endl;
+        return false;
+    }
 }

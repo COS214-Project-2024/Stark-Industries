@@ -26,7 +26,10 @@ void Government::allocateTax() {
 }
 
 void Government::collectTax() {
-	taxCollected = visitor->taxCollected;
+    if (visitor != NULL)
+    {
+        taxCollected = visitor->taxCollected;
+    }
 }
 
 void Government::get() {

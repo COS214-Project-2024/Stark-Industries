@@ -18,12 +18,12 @@ int Commercial::numBuildings = 0;
 
 Commercial::Commercial(std::string name, int satisfaction, double economicImpact, 
                        double resourceConsumption, bool constructionStatus, 
-                       int improvementLevel, bool resourcesAvailable, int notificationRadius, string area)
+                       int improvementLevel, bool resourcesAvailable, int capacity, string area)
     : Building(name, satisfaction, economicImpact, resourceConsumption, 
-               constructionStatus, improvementLevel, resourcesAvailable, notificationRadius, area), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
+               constructionStatus, improvementLevel, resourcesAvailable, capacity, area), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
       resourceConsumption(resourceConsumption), constructionStatus(constructionStatus),
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
-      citizenNotificationRadius(notificationRadius), area(area) {
+      capacity(capacity), area(area) {
         numBuildings++;
       }
 
@@ -88,14 +88,14 @@ void Commercial::doImprovements() {
         satisfaction += 5;  // Increase satisfaction
         economicImpact *= 1.1;  // Boost economic impact slightly
 
-        std::cout << "Commercial building improved! New Improvement Level: " 
+        std::cout << "Commercial building improved!\nNew Improvement Level: " 
                   << improvementLevel << "\n";
 
         // Notify citizens about the improvement
         notifyCitizens();
 
 		for (int i = 0 ; i < observerList.size(); i++) {
-			observerList[i]->buildingSatisfaction += 5;
+			//observerList[i]->buildingSatisfaction += 5; //Fix this
 		}
     } else {
         std::cout << "Resources unavailable for improvements.\n";
@@ -123,7 +123,7 @@ bool Commercial::checkResourceAvailability() {
  * Uses the base class implementation to notify all observers (citizens) about changes.
  */
 void Commercial::notifyCitizens() {
-    std::cout << "Notifying citizens about changes in the commercial building: " << name << "\n";
+    std::cout << "NOTIFICATION: New changes to " << name << "\n";
     Building::notifyCitizens();  // Call the base class notify method
 }
 
@@ -171,4 +171,15 @@ void Commercial::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){
 
 int Commercial::getNumBuildings() {
     return numBuildings;
+}
+
+bool Commercial::populateBuilding() {
+    if (capacity > 0) {
+        capacity--;  // Decrease capacity by one
+        std::cout << "Citizen added to the building. Remaining capacity: " << capacity << std::endl;
+        return true;
+    } else {
+        std::cout << "Building is at full capacity. Cannot add more citizens." << std::endl;
+        return false;
+    }
 }
