@@ -174,6 +174,14 @@ public:
 	void transport();
 	virtual void acceptTaxCollector(Visitor * taxCollector);
 
+	int getNumCitizens();
+
+	void acceptTransportSatisfactionChecker(Visitor * satisfactionChecker);
+	void acceptBuildingSatisfactionChecker(Visitor* satisfactionChecker);
+	void acceptCitySatisfactionChecker(Visitor*);
+	void payRent(double);
+	void setNumCitizens(int);
+	Citizen();
 };
 
 #endif
