@@ -136,5 +136,6 @@ public:
 	
     virtual bool populateBuilding() = 0;
 	virtual void setBuildingValue(double value);
+	virtual void generateRevenue(){};
 };
 #endif // BUILDING_H

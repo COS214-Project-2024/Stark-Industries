@@ -24,3 +24,11 @@ void CollectTax::addBuilding(Building* buildingReceiver) {
 void CollectTax::addCitizen(Citizen* citizenReceiver) {
 	this->citizenList.push_back(citizenReceiver);
 }
+
+void CollectTax::addBuildingVector(vector<Building*> buildingList) {
+	this->buildingList = buildingList;
+}
+
+void CollectTax::addCitizenVector(vector<Citizen*> citizenList) {
+	this->citizenList = citizenList;
+}

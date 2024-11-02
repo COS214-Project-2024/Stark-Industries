@@ -59,8 +59,8 @@ void Tax::trackRevenue(double revenue) {
  * This method prints the current tax rate and total revenue to the console.
  */
 void Tax::collectTaxes(double revenue) {
-	this->totalRevenue += revenue * this->taxRate;
-    std::cout << "Collected taxes: " << revenue * this->taxRate << std::endl;
+	totalRevenue += revenue;
+    std::cout << "Collected taxes: " << revenue << std::endl;
 }
 
 void Tax::operate() {
