@@ -483,6 +483,25 @@ void testComposite(){
 //     std::cout << "Custom non-electrified Railway cost: " << customRailway.getCost() << std::endl;
 // }
 
+void testSatisfactionChecker(){
+    Citizen* citizen = new Citizen("Tony", 1000);
+    Citizen* citizen2 = new Citizen("Sherlock", 1000);
+    Commercial* commercial = new Commercial("Mall", 20, 30000, 1000, true, 1, true, 300, "Downtown");
+    commercial->attach(citizen);
+    commercial->attach(citizen2);
+    commercial->getCitizenSatisfactionForBuilding();
+    commercial->doImprovements();
+    commercial->getCitizenSatisfactionForBuilding();
+    SatisfactionChecker* satisfactionChecker = new SatisfactionChecker(); 
+    std::cout << "City satisfaction for " << commercial->getType() << ": \n";
+    commercial->acceptCitySatisfactionChecker(satisfactionChecker);
+    citizen->acceptCitySatisfactionChecker(satisfactionChecker);
+    commercial->setBuildingValue(100000);
+    // alternatively can actually cout the "satisfaction for [building name]:" and then create
+    // a satisfactionChecker object and call buildingSatisfaction but i don't think it scales well
+    // don't use visit for satisfactionChecker. 
+}
+
 #include <iostream>
 #include <iomanip>
 #include <cstdlib>
@@ -764,7 +783,7 @@ void bigTestingMain() {
 }
 
 int main() {
-    bigTestingMain();
+    //bigTestingMain();
     //testFactoryUtilities();
     //testComposite();
     //factoryBuildings();
@@ -809,7 +828,7 @@ int main() {
     //testCollectTax();
     //testIncreaseTax();
     //testTaxCollector();
-    //testSatisfactionChecker();
+    testSatisfactionChecker();
     // testRent();
 
     return 0;

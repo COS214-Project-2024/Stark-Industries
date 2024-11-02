@@ -76,3 +76,7 @@ void Building::notifyCitizens() {
 void Building::setRentalRate(double newRentalRate) {
 	rent = newRentalRate;
 }
+
+void Building::setBuildingValue(double value){
+	buildingValue = value;
+}

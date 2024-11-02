@@ -7,4 +7,5 @@ void TaxCollector::visit(Citizen* citizen) {
 
 void TaxCollector::visit(Building* building) {
     this->taxCollected += building->taxPaid;
+    std::cout << "Tax collected from " << building->getType() << " of " << building->taxPaid << std::endl;
 }
