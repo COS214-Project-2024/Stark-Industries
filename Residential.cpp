@@ -194,3 +194,7 @@ bool Residential::populateBuilding() {
         return false;
     }
 }
+
+void Residential::addUtility(Utilities* utility) {
+    utilities.push_back(utility);
+}

@@ -2,9 +2,18 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <string>
 
-City::City() {
+City::City(const std::string& cityName) : name(cityName) {
+}
 
+string City::getName() {
+	return name;
+}
+
+void City::setGovernment(Government* government) {
+	this->government = government;
+	
 }
 
 void City::attach(Citizen* observer) {
@@ -37,4 +46,28 @@ void City::buildingComplete(int String_buildtype, int Citizen_citizen) {
 bool City::inspectBuilding() {
 	// TODO - implement City::inspectBuilding
 	throw "Not yet implemented";
+}
+
+
+void City::addBuilding(Building* building) {
+    buildings.push_back(building);
+    std::cout << "Building added to the city: " << building->getType() << "\n";
+}
+
+const std::vector<Building*>& City::listBuildings() const {
+        return buildings;
+    }
+
+void City::addUtility(Utilities* utility) {
+    utilities.push_back(utility);
+
+}
+
+void City::addInfrastructure(TransportInfrastructure* infrastructure) {
+    roads.push_back(infrastructure);
+    std::cout << "Infrastructure added to the city.\n";
+}
+
+const std::vector<TransportInfrastructure*>& City::listInfrastructures() const {
+    return roads;
 }

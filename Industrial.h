@@ -114,6 +114,8 @@ public:
 
     bool populateBuilding();
 
+    void addUtility(Utilities* utility);
+
 private: 
 	float propertyTaxRate = 0.015;
 };

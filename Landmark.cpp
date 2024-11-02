@@ -147,3 +147,7 @@ bool Landmark::populateBuilding() {
         return false;
     }
 }
+
+void Landmark::addUtility(Utilities* utility) {
+    utilities.push_back(utility);
+}

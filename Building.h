@@ -18,9 +18,12 @@ using namespace std;
  * handling of citizen notifications.
  */
 class Building : public Element {
+
+protected:
+    vector<Utilities*> utilities;
 private:
     /// List of utilities associated with the building.
-    vector<Utilities*> utilities;
+    
     
     /// List of citizens observing this building.
     
@@ -134,5 +137,7 @@ public:
 	void setRentalRate(double newRent);
 
     virtual bool populateBuilding() = 0;
+
+    virtual void addUtility(Utilities* utility);
 };
 #endif // BUILDING_H

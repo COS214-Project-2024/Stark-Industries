@@ -185,3 +185,7 @@ bool Industrial::populateBuilding() {
         return false;
     }
 }
+
+void Industrial::addUtility(Utilities* utility) {
+    utilities.push_back(utility);
+}

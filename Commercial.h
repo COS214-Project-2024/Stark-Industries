@@ -2,6 +2,7 @@
 #define COMMERCIAL_H
 
 #include "Building.h"
+#include "Utilities.h"
 #include <string>
 using namespace std;
 
@@ -121,6 +122,8 @@ public:
     int getNumBuildings();
 
     bool populateBuilding();
+
+    void addUtility(Utilities* utility);
 private:
 	float propertyTaxRate = 0.015;
 	float salesTaxRate = 0.15;

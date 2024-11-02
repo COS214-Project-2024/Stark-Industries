@@ -183,3 +183,7 @@ bool Commercial::populateBuilding() {
         return false;
     }
 }
+
+void Commercial::addUtility(Utilities* utility) {
+    utilities.push_back(utility);
+}
