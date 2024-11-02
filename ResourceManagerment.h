@@ -44,6 +44,8 @@ public:
 
     // Methods for resource operations
     bool allocateBudget(double amount);
+
+    void resetResources();
 };
 
 #endif // RESOURCEMANAGEMENT_H

@@ -204,12 +204,11 @@ TEST_CASE("PowerPlantFactory creates PowerPlant utility") {
 }
 
 
-// Test case for resource initialization (createResources)
 TEST_CASE("ResourceManagement: createResources initializes resources correctly", "[ResourceManagement]") {
     ResourceManagement& resources = ResourceManagement::getInstance();
+    resources.resetResources(); // Reset state before test
     resources.createResources();
 
-    // Capture the output from displayResourceStatus for comparison
     std::ostringstream output;
     std::streambuf* oldCoutBuf = std::cout.rdbuf();
     std::cout.rdbuf(output.rdbuf());
@@ -223,14 +222,13 @@ TEST_CASE("ResourceManagement: createResources initializes resources correctly",
     REQUIRE(output.str() == expectedOutput);
 }
 
-// Test case for supplying resources (supplyResources) when resources are sufficient
 TEST_CASE("ResourceManagement: supplyResources deducts resources when sufficient", "[ResourceManagement]") {
     ResourceManagement& resources = ResourceManagement::getInstance();
-    resources.createResources(); // Reset resources to initial values
+    resources.resetResources();
+    resources.createResources();
 
-    resources.supplyResources(); // First supply attempt should be successful
+    resources.supplyResources();
 
-    // Capture the output from displayResourceStatus for comparison
     std::ostringstream output;
     std::streambuf* oldCoutBuf = std::cout.rdbuf();
     std::cout.rdbuf(output.rdbuf());
@@ -244,20 +242,18 @@ TEST_CASE("ResourceManagement: supplyResources deducts resources when sufficient
     REQUIRE(output.str() == expectedOutput);
 }
 
-// Test case for supplying resources when resources are insufficient
 TEST_CASE("ResourceManagement: supplyResources does not alter resources when insufficient", "[ResourceManagement]") {
     ResourceManagement& resources = ResourceManagement::getInstance();
-    
-    // Manually set resource quantities to simulate insufficient resources
-    resources.updateMaterials(-800, -450, -270);
-    resources.updateEnergy(-1600);
-    resources.updateWater(-1200);
-    resources.updateBudget(-9000.0);
+    resources.resetResources();
+    resources.createResources();
 
-    // Attempt to supply with insufficient resources
+    resources.updateMaterials(-900, -500, -300);
+    resources.updateEnergy(-1800);
+    resources.updateWater(-1350);
+    resources.updateBudget(-9500);
+
     resources.supplyResources();
 
-    // Capture the output from displayResourceStatus for comparison
     std::ostringstream output;
     std::streambuf* oldCoutBuf = std::cout.rdbuf();
     std::cout.rdbuf(output.rdbuf());
@@ -266,8 +262,7 @@ TEST_CASE("ResourceManagement: supplyResources does not alter resources when ins
     std::cout.rdbuf(oldCoutBuf);
 
     std::string expectedOutput = "Current Resource Status:\nWood: 100\nSteel: 0\nConcrete: 0\n"
-                                 "Energy: 200\nWater: 300\nBudget: 1000\n";
+                                 "Energy: 200\nWater: 150\nBudget: 500\n";
 
     REQUIRE(output.str() == expectedOutput);
 }
-

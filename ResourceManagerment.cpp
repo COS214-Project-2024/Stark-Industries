@@ -79,3 +79,12 @@ bool ResourceManagement::allocateBudget(double amount) {
         return false;
     }
 }
+
+void ResourceManagement::resetResources() {
+     wood = 0;
+    steel = 0;
+    concrete = 0;
+    energy = 0;
+    water = 0;
+    budget = 0.0;
+}
