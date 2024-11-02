@@ -542,25 +542,25 @@ void buildNewBuilding(City* city) {
     switch (buildingType) {
         case 1: {
             ResidentialCreator residentialCreator;
-            buildingCost = 5000;  // Example cost for a residential building
+            buildingCost = 50;  // Example cost for a residential building
             newBuilding = residentialCreator.createBuilding(buildingName, 50, 10000, 500, true, 1, true, 10, "Residential District");
             break;
         }
         case 2: {
             CommercialCreator commercialCreator;
-            buildingCost = 10000;  // Example cost for a commercial building
+            buildingCost = 100;  // Example cost for a commercial building
             newBuilding = commercialCreator.createBuilding(buildingName, 40, 30000, 1000, true, 1, true, 15, "Commercial District");
             break;
         }
         case 3: {
             IndustrialCreator industrialCreator;
-            buildingCost = 15000;  // Example cost for an industrial building
+            buildingCost = 150;  // Example cost for an industrial building
             newBuilding = industrialCreator.createBuilding(buildingName, 30, 20000, 2000, true, 1, true, 20, "Industrial Zone");
             break;
         }
         case 4: {
             LandmarkCreator landmarkCreator;
-            buildingCost = 20000;  // Example cost for a landmark building
+            buildingCost = 200;  // Example cost for a landmark building
             newBuilding = landmarkCreator.createBuilding(buildingName, 80, 50000, 100, true, 1, true, 0, "City Center");
             break;
         }

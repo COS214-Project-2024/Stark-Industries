@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Saalihah Sacoor/Desktop/CS 2024/COS 214/214 Project/Stark-Industries",
-      "program": "c:/Users/Saalihah Sacoor/Desktop/CS 2024/COS 214/214 Project/Stark-Industries/build/Debug/outDebug",
+      "cwd": "c:/Users/thuwa/Desktop/COS 214/Project/Stark-Industries",
+      "program": "c:/Users/thuwa/Desktop/COS 214/Project/Stark-Industries/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
