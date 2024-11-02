@@ -783,7 +783,7 @@ void bigTestingMain() {
 }
 
 int main() {
-    //bigTestingMain();
+    bigTestingMain();
     //testFactoryUtilities();
     //testComposite();
     //factoryBuildings();
@@ -828,7 +828,7 @@ int main() {
     //testCollectTax();
     //testIncreaseTax();
     //testTaxCollector();
-    testSatisfactionChecker();
+    //testSatisfactionChecker();
     // testRent();
 
     return 0;
