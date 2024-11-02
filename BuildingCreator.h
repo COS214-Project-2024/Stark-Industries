@@ -33,12 +33,13 @@ protected:
      * @param notificationRadius Radius for citizen notifications.
      * @return A pointer to the created Building instance.
      */
+    
+
+public:
     virtual Building* createBuilding(string name, int satisfaction, double economicImpact, 
                                       double resourceConsumption, bool constructionStatus, 
                                       int improvementLevel, bool resourcesAvailable, 
                                       int capacity, string area) = 0;
-
-public:
     /// Default destructor.
     virtual ~BuildingCreator() = default;
 };

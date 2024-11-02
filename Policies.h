@@ -16,6 +16,7 @@ public:
 	void operate() override;
 	void addPolicy(const std::string& policy);
 	void removePolicy(const std::string& policy);
+	size_t getActivePoliciesCount();
 	virtual void execute();
 	virtual void addCommand(Command* command);
 	virtual void removeCommand(int i);

@@ -49,6 +49,10 @@ double Budget::getAvailableBudget() const {
     return totalBudget - allocatedBudget;
 }
 
+double Budget::getTotalBudget() const {
+    return totalBudget;
+}
+
 void Budget::execute() {
     //Do nothing
 }

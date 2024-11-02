@@ -22,6 +22,7 @@ public:
 	virtual void addCommand(Command* command);
 	virtual void removeCommand(int i);
 	double getAvailableBudget() const;
+	double getTotalBudget() const;
 	Budget();
 };
 

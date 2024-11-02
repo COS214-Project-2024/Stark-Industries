@@ -6,6 +6,10 @@
 #include "TransportInfrastructure.h"
 #include "Building.h"
 #include "Government.h"
+#include "ResidentialCreator.h"
+#include "CommercialCreator.h"
+#include "IndustrialCreator.h"
+#include "LandmarkCreator.h"
 #include <string>
 #include <vector>
 using namespace std;
@@ -19,6 +23,11 @@ private:
 	std::vector<Utilities*> utilities;
 	vector<TransportInfrastructure*> roads;
 	Government* government;
+
+	ResidentialCreator residentialCreator;
+    CommercialCreator commercialCreator;
+    IndustrialCreator industrialCreator;
+    LandmarkCreator landmarkCreator;
 
 public:
 	City(const std::string& cityName);
@@ -43,10 +52,16 @@ public:
 
 	void addInfrastructure(TransportInfrastructure* infrastructure);
 	const std::vector<TransportInfrastructure*>& listInfrastructures() const;
+	const std::vector<Utilities*>& listUtilities() const;
+	std::vector<Building*>& listBuildings();
 
 	vector<Citizen*> citizens;
 
 	Government* getGovernment();
+
+	BuildingCreator* getBuildingCreator(const std::string& buildingType);
+
+
 };
 
 #endif

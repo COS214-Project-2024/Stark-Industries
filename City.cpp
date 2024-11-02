@@ -7,6 +7,23 @@
 City::City(const std::string& cityName) : name(cityName) {
 }
 
+
+BuildingCreator* City::getBuildingCreator(const std::string& buildingType) {
+    if (buildingType == "Residential") {
+        return &residentialCreator;
+    } else if (buildingType == "Commercial") {
+        return &commercialCreator;
+    } else if (buildingType == "Industrial") {
+        return &industrialCreator;
+    } else if (buildingType == "Landmark") {
+        return &landmarkCreator;
+    } else {
+        std::cout << "Invalid building type: " << buildingType << "\n";
+        return nullptr;
+    }
+}
+
+
 string City::getName() {
 	return name;
 }
@@ -72,6 +89,16 @@ const std::vector<TransportInfrastructure*>& City::listInfrastructures() const {
     return roads;
 }
 
+const std::vector<Utilities*>& City::listUtilities() const {
+    return utilities;
+}
+
 Government* City::getGovernment() {
     return government;
 }
+
+std::vector<Building*>& City::listBuildings() {
+    return buildings;
+}
+
+

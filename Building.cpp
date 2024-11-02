@@ -17,7 +17,7 @@
  */
 Building::Building(string name, int satisfaction, double economicImpact, 
                    double resourceConsumption, bool constructionStatus, 
-                   int improvementLevel, bool resourcesAvailable, int notificationRadius, string area) 
+                   int improvementLevel, bool resourcesAvailable, int capacity, string area) 
     : name(name), satisfaction(satisfaction), economicImpact(economicImpact),
       resourceConsumption(resourceConsumption), constructionStatus(constructionStatus),
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
@@ -26,11 +26,16 @@ Building::Building(string name, int satisfaction, double economicImpact,
 /**
  * @brief Placeholder method for getting building details (to be implemented).
  */
+
 void Building::get() {
-	// TODO - implement Building::get
-	
-    throw "Not yet implemented";
+    std::cout << "Building Details:\n";
+    std::cout << "Name: " << name << "\n";
+    std::cout << "Satisfaction: " << satisfaction << "\n";
+    std::cout << "Economic Impact: " << economicImpact << "\n";
+    std::cout << "Capacity: " << capacity << "\n";
+    std::cout << "Area: " << area << "\n";
 }
+
 
 Building::Building() {
 

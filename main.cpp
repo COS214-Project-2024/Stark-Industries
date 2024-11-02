@@ -830,6 +830,7 @@ void testComposite(){
 #include <cstdlib>
 #include <limits>
 #include <ctime>
+#include <algorithm>
 #include "City.h"
 
 // ANSI color codes for styling the output
@@ -843,7 +844,228 @@ void testComposite(){
 #define BLUE "\033[34m"
 
 
+//**********INITIAL SETUP**********/
+void pauseForUser() {
+    std::cout << BOLD << BLUE << "\nPress enter to continue..." << RESET;
+    std::cin.get();
+}
 
+void createInitialBuildings(City* city) {
+    std::cout << CYAN << "\nThe wizard raises their hands to the sky, channeling the powers of creation...\n" << RESET;
+    
+    // Create Residential Building
+    Residential* residentialBuilding = new Residential(
+        "Wizard’s Haven", 30, 5000, 300, true, 1, true, 10, "Residential District"
+    );
+    city->addBuilding(residentialBuilding);
+    std::cout << GREEN << "A Residential Building rises: " << residentialBuilding->getType() << "\n"
+              << "Located in: Residential District\n" << RESET;
+    pauseForUser();
+
+    // Create Commercial Building
+    Commercial* commercialBuilding = new Commercial(
+        "Potion Emporium", 20, 30000, 1000, true, 1, true, 5, "Market Square"
+    );
+    city->addBuilding(commercialBuilding);
+    std::cout << YELLOW << "A Commercial Building appears: " << commercialBuilding->getType() << "\n"
+              << "Located in: Market Square\n" << RESET;
+    pauseForUser();
+
+    // Create Industrial Building
+    Industrial* industrialBuilding = new Industrial(
+        "Alchemy Workshop", 10, 20000, 2000, true, 1, true, 3, "Industrial Zone"
+    );
+    city->addBuilding(industrialBuilding);
+    std::cout << RED << "An Industrial Building is forged: " << industrialBuilding->getType() << "\n"
+              << "Located in: Industrial Zone\n" << RESET;
+    pauseForUser();
+
+    // Create Landmark Building
+    Landmark* landmarkBuilding = new Landmark(
+        "Mystic Fountain", 50, 100000, 500, true, 1, true, 100, "Central Plaza"
+    );
+    city->addBuilding(landmarkBuilding);
+    std::cout << MAGENTA << "A Landmark springs forth: " << landmarkBuilding->getType() << "\n"
+              << "Located in: Central Plaza\n" << RESET;
+    pauseForUser();
+}
+
+void createAndAssignUtilities(City* city) {
+    std::cout << CYAN << "\nWith a wave of the wizard's hand, the city's essential utilities begin to materialize...\n" << RESET;
+
+    // Create Water Utility
+    WaterFactory waterFactory;
+    Utilities* waterUtility = waterFactory.createUtility();
+    city->addUtility(waterUtility);
+    std::cout << GREEN << "\nWater Utility Created:\n" << RESET;
+    waterUtility->displayInfo();
+    pauseForUser();
+
+    // Create Waste Management Utility
+    WasteFactory wasteFactory;
+    Utilities* wasteUtility = wasteFactory.createUtility();
+    city->addUtility(wasteUtility);
+    std::cout << MAGENTA << "\nWaste Management Utility Created:\n" << RESET;
+    wasteUtility->displayInfo();
+    pauseForUser();
+
+    // Create Sewage Utility
+    SewageFactory sewageFactory;
+    Utilities* sewageUtility = sewageFactory.createUtility();
+    city->addUtility(sewageUtility);
+    std::cout << YELLOW << "\nSewage Utility Created:\n" << RESET;
+    sewageUtility->displayInfo();
+    pauseForUser();
+
+    // Create Power Plant Utility
+    PowerPlantFactory powerPlantFactory;
+    Utilities* powerPlantUtility = powerPlantFactory.createUtility();
+    city->addUtility(powerPlantUtility);
+    std::cout << BLUE << "\nPower Plant Utility Created:\n" << RESET;
+    powerPlantUtility->displayInfo();
+    pauseForUser();
+
+    // Assign utilities to buildings
+    std::cout << CYAN << "\nThe wizard channels the utilities to serve each building in the city...\n" << RESET;
+    for (Building* building : city->listBuildings()) {
+        building->addUtility(waterUtility);
+        building->addUtility(wasteUtility);
+        building->addUtility(sewageUtility);
+        building->addUtility(powerPlantUtility);
+
+        std::cout << GREEN << "Utilities have been assigned to " << building->getType() << "\n" << RESET;
+        pauseForUser();
+    }
+}
+
+void createAndAssignTransport(City* city) {
+    std::cout << CYAN << BOLD << "\nThe wizard conjures essential transport infrastructure for the city...\n" << RESET;
+
+    RoadFactory roadFactory;
+    RailwayFactory railwayFactory;
+    RunwayFactory runwayFactory;
+
+    // Create a road
+    TransportInfrastructure* road = roadFactory.createInfrastructure(4, 20.0);
+    road->build();
+    city->addInfrastructure(road);
+    std::cout << GREEN << "Road created with 4 lanes and length 20km.\n" << RESET;
+    pauseForUser();
+
+    // Create a railway
+    TransportInfrastructure* railway = railwayFactory.createInfrastructure(15, true);
+    railway->build();
+    city->addInfrastructure(railway);
+    std::cout << YELLOW << "Electrified railway created with length 15km.\n" << RESET;
+    pauseForUser();
+
+    // Create a runway
+    TransportInfrastructure* runway = runwayFactory.createInfrastructure(3.0, 0.75);
+    runway->build();
+    city->addInfrastructure(runway);
+    std::cout << BLUE << "Runway created with length 3.0km and width 0.75km.\n" << RESET;
+    pauseForUser();
+}
+
+void setupGovernment(City* city) {
+    std::cout << MAGENTA << BOLD << "\nThe wizard forms a government to lead the city...\n" << RESET;
+
+    Government* government = new Government(0.15, 0.02);  // 15% income tax, 2% property tax
+
+    // Create departments
+    Budget* budgetDept = new Budget("Budget Department", 10000.0);
+    Policies* policiesDept = new Policies("Policies Department");
+    Services* servicesDept = new Services("Services Department", 10, 5, 3);
+    Tax* taxDept = new Tax("Tax Department", 0.15);
+
+    // Add departments to government
+    government->add(budgetDept);
+    std::cout << GREEN << "Budget Department created and added to the government.\n" << RESET;
+    pauseForUser();
+
+    government->add(policiesDept);
+    std::cout << YELLOW << "Policies Department created and added to the government.\n" << RESET;
+    pauseForUser();
+
+    government->add(servicesDept);
+    std::cout << CYAN << "Services Department created and added to the government.\n" << RESET;
+    pauseForUser();
+
+    government->add(taxDept);
+    std::cout << RED << "Tax Department created and added to the government.\n" << RESET;
+    pauseForUser();
+
+    // Assign the government to the city
+    city->setGovernment(government);
+    std::cout << MAGENTA << BOLD << "\nGovernment and departments successfully established for the city.\n" << RESET;
+    pauseForUser();
+}
+
+void createAndAssignCitizens(City* city) {
+    std::cout << CYAN << "\nThe wizard decides to populate the city with its first citizens...\n" << RESET;
+
+    // Look for an existing residential building in the city
+    Residential* residentialBuilding = nullptr;
+    for (Building* building : city->listBuildings()) {
+        residentialBuilding = dynamic_cast<Residential*>(building);
+        if (residentialBuilding) {
+            break;  // Found a residential building, so break out of the loop
+        }
+    }
+
+    if (!residentialBuilding) {
+        std::cout << RED << "No residential building found. Citizens cannot be assigned.\n" << RESET;
+        return;
+    }
+
+    Citizen prototypeCitizen; // To use predefined names and job titles
+    std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed for randomness
+
+    // Create and assign 3 citizens to the residential building
+    for (int i = 0; i < 3; ++i) {
+        std::string name = prototypeCitizen.citizenNames[std::rand() % prototypeCitizen.citizenNames.size()];
+        int income = 30000 + std::rand() % 70000; // Random income between 30,000 and 100,000
+        double propertyValue = 50000 + std::rand() % 950000; // Property value between 50,000 and 1,000,000
+        std::string job = prototypeCitizen.jobTitles[std::rand() % prototypeCitizen.jobTitles.size()];
+
+        Citizen* newCitizen = new Citizen(name, income, propertyValue, job);
+
+        std::cout << GREEN << "Citizen created: " << RESET << name 
+                  << ", Job: " << job << ", Income: $" << income 
+                  << ", Property Value: $" << std::fixed << std::setprecision(2) << propertyValue << "\n";
+
+        // Try to assign the citizen to the residential building
+        if (residentialBuilding->populateBuilding()) {
+            city->attach(newCitizen); // Add citizen to city’s observer list
+            std::cout << BLUE << name << " has moved into " << residentialBuilding->getType() << "\n" << RESET;
+        } else {
+            std::cout << RED << "No more space in the residential building for " << name << ".\n" << RESET;
+            delete newCitizen; // Delete citizen if not assigned
+        }
+
+        pauseForUser(); // Pause for user to proceed to next citizen
+    }
+}
+//**********INITIAL SETUP**********/
+
+
+//**********MAIN MENU**********/
+void showMainMenu() {
+    std::cout << BOLD << BLUE << "\n========== Main Menu ==========\n" << RESET;
+    std::cout << GREEN << "1. Manage Government\n";
+    std::cout << "2. Build and Manage Buildings\n";
+    std::cout << "3. Manage Citizens\n";
+    std::cout << "4. Provide Utilities\n";
+    std::cout << "5. Manage Transport\n";
+    std::cout << "6. Show City Status\n";
+    std::cout << "7. Exit Simulation\n" << RESET;
+    std::cout << "Please select an option: ";
+}
+//**********MAIN MENU**********/
+
+
+
+//**********1. MANAGE GOVERNMENT OPTION**********/
 void manageTaxDepartment(Tax* taxDept) {
     bool managingTax = true;
     while (managingTax) {
@@ -1061,257 +1283,334 @@ void manageGovernment(City* city) {
         }
     }
 }
+//**********1. MANAGE GOVERNMENT OPTION**********/
 
+
+//**********2. MANAGE BUILDINGS OPTION**********/
+void buildNewBuilding(City* city) {
+    int buildingType;
+    std::string buildingName;
+    double buildingCost = 0;  // Track the cost of the building
+
+    std::cout << "Select the type of building to construct:\n";
+    std::cout << "1. Residential\n";
+    std::cout << "2. Commercial\n";
+    std::cout << "3. Industrial\n";
+    std::cout << "4. Landmark\n";
+    std::cout << "Select an option: ";
+    std::cin >> buildingType;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
+
+    // Prompt for the building name
+    std::cout << "Enter the name of the new building: ";
+    std::getline(std::cin, buildingName);
+
+    Building* newBuilding = nullptr;
+
+    // Use the appropriate creator based on the building type selected
+    switch (buildingType) {
+        case 1: {
+            ResidentialCreator residentialCreator;
+            buildingCost = 5000;  // Example cost for a residential building
+            newBuilding = residentialCreator.createBuilding(buildingName, 50, 10000, 500, true, 1, true, 10, "Residential District");
+            break;
+        }
+        case 2: {
+            CommercialCreator commercialCreator;
+            buildingCost = 10000;  // Example cost for a commercial building
+            newBuilding = commercialCreator.createBuilding(buildingName, 40, 30000, 1000, true, 1, true, 15, "Commercial District");
+            break;
+        }
+        case 3: {
+            IndustrialCreator industrialCreator;
+            buildingCost = 15000;  // Example cost for an industrial building
+            newBuilding = industrialCreator.createBuilding(buildingName, 30, 20000, 2000, true, 1, true, 20, "Industrial Zone");
+            break;
+        }
+        case 4: {
+            LandmarkCreator landmarkCreator;
+            buildingCost = 20000;  // Example cost for a landmark building
+            newBuilding = landmarkCreator.createBuilding(buildingName, 80, 50000, 100, true, 1, true, 0, "City Center");
+            break;
+        }
+        default:
+            std::cout << "Invalid option. Returning to main menu.\n";
+            return;
+    }
+
+    // Check if budget can cover the cost
+    Budget* budgetDept = dynamic_cast<Budget*>(city->getGovernment()->getBudgetDepartment());
+    if (budgetDept && budgetDept->getAvailableBudget() >= buildingCost) {
+        budgetDept->allocateFunds(buildingCost);  // Deduct cost from the budget
+
+        if (newBuilding) {
+            city->addBuilding(newBuilding);
+            std::cout << "Building added to the city: " << buildingName << "\n";
+            std::cout << "Building constructed: " << newBuilding->getType() << "\n";
+        }
+    } else {
+        std::cout << "Insufficient budget to construct this building.\n";
+        delete newBuilding;  // Clean up the allocated memory
+    }
+}
+
+
+
+void inspectBuilding(City* city) {
+    int buildingIndex;
+    const auto& buildings = city->listBuildings();
+
+    if (buildings.empty()) {
+        std::cout << RED << "No buildings in the city.\n" << RESET;
+        return;
+    }
+
+    std::cout << "Select a building to inspect:\n";
+    for (size_t i = 0; i < buildings.size(); ++i) {
+        std::cout << i + 1 << ". " << buildings[i]->getType() << "\n";
+    }
+    std::cin >> buildingIndex;
+
+    if (buildingIndex < 1 || buildingIndex > buildings.size()) {
+        std::cout << RED << "Invalid selection.\n" << RESET;
+        return;
+    }
+
+    buildings[buildingIndex - 1]->get();  // Display details of selected building
+}
+
+
+void improveBuilding(City* city) {
+    int buildingIndex;
+    const auto& buildings = city->listBuildings();
+
+    if (buildings.empty()) {
+        std::cout << RED << "No buildings in the city.\n" << RESET;
+        return;
+    }
+
+    std::cout << "Select a building to improve:\n";
+    for (size_t i = 0; i < buildings.size(); ++i) {
+        std::cout << i + 1 << ". " << buildings[i]->getType() << "\n";
+    }
+    std::cin >> buildingIndex;
+
+    if (buildingIndex < 1 || buildingIndex > buildings.size()) {
+        std::cout << RED << "Invalid selection.\n" << RESET;
+        return;
+    }
+
+    buildings[buildingIndex - 1]->doImprovements();
+}
+
+
+void removeBuilding(City* city) {
+    int buildingIndex;
+    auto& buildings = city->listBuildings();  // Non-const to allow modifications
+
+    if (buildings.empty()) {
+        std::cout << RED << "No buildings to remove.\n" << RESET;
+        return;
+    }
+
+    std::cout << "Select a building to remove:\n";
+    for (size_t i = 0; i < buildings.size(); ++i) {
+        std::cout << i + 1 << ". " << buildings[i]->getType() << "\n";
+    }
+    std::cin >> buildingIndex;
+
+    if (buildingIndex < 1 || buildingIndex > buildings.size()) {
+        std::cout << RED << "Invalid selection.\n" << RESET;
+        return;
+    }
+
+    delete buildings[buildingIndex - 1];  // Free memory
+    buildings.erase(buildings.begin() + buildingIndex - 1);
+    std::cout << GREEN << "Building removed from the city.\n" << RESET;
+}
+
+
+void viewAllBuildings(City* city) {
+    const auto& buildings = city->listBuildings();
+
+    if (buildings.empty()) {
+        std::cout << RED << "No buildings in the city.\n" << RESET;
+        return;
+    }
+
+    std::cout << CYAN << "\n=== All Buildings in the City ===\n" << RESET;
+    for (const auto& building : buildings) {
+        std::cout << "Building: " << building->getType()
+                  << ", Satisfaction: " << building->calculateSatisfaction()
+                  << ", Economic Impact: " << building->calculateEconomicImpact() << "\n";
+    }
+    std::cout << MAGENTA << "=============================\n" << RESET;
+}
 
 
 
 void manageBuildings(City* city) {
-    std::cout << "TODO: Implement building management functions here.\n";
-    // Here, you would add options to build or inspect buildings, manage rent, etc.
-}
+    bool buildingManagement = true;
+    while (buildingManagement) {
+        std::cout << "\n" << CYAN << "Manage Buildings\n" << RESET;
+        std::cout << "1. Build New Building\n";
+        std::cout << "2. Inspect Building\n";
+        std::cout << "3. Improve Building\n";
+        std::cout << "4. Remove Building\n";
+        std::cout << "5. View All Buildings\n";
+        std::cout << "6. Back to Main Menu\n";
+        std::cout << "Select an option: ";
 
+        int choice;
+        std::cin >> choice;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
+
+        switch (choice) {
+            case 1:
+                buildNewBuilding(city);
+                break;
+            case 2:
+                inspectBuilding(city);
+                break;
+            case 3:
+                improveBuilding(city);
+                break;
+            case 4:
+                removeBuilding(city);
+                break;
+            case 5:
+                viewAllBuildings(city);
+                break;
+            case 6:
+                buildingManagement = false;
+                break;
+            default:
+                std::cout << RED << "Invalid option. Please select again.\n" << RESET;
+        }
+    }
+}
+//**********2. MANAGE BUILDINGS OPTION**********/
+
+
+
+//**********3. MANAGE CITIZENS OPTION**********/
 void manageCitizens(City* city) {
     std::cout << "TODO: Implement citizen management functions here.\n";
     // Here, you would add options to create citizens, manage satisfaction, and more.
 }
+//**********3. MANAGE CITIZENS OPTION**********/
 
+
+
+
+//**********4. MANAGE UTILITIES OPTION**********/
 void manageUtilities(City* city) {
     std::cout << "TODO: Implement utility management functions here.\n";
     // Here, you would add options to manage utilities for the citizens.
 }
+//**********4. MANAGE UTILITIES OPTION**********/
 
 
-void showMainMenu() {
-    std::cout << BOLD << BLUE << "\n========== Main Menu ==========\n" << RESET;
-    std::cout << GREEN << "1. Manage Government\n";
-    std::cout << "2. Build and Manage Buildings\n";
-    std::cout << "3. Manage Citizens\n";
-    std::cout << "4. Provide Utilities\n";
-    std::cout << "5. Show City Status\n";
-    std::cout << "6. Exit Simulation\n" << RESET;
-    std::cout << "Please select an option: ";
-}
 
-void pauseForUser() {
-    std::cout << BOLD << BLUE << "\nPress enter to continue..." << RESET;
-    std::cin.get();
-}
 
-void createInitialBuildings(City* city) {
-    std::cout << CYAN << "\nThe wizard raises their hands to the sky, channeling the powers of creation...\n" << RESET;
+//**********5. MANAGE TRANSPORT OPTION**********/
+void manageTransport(City* city) {
     
-    // Create Residential Building
-    Residential* residentialBuilding = new Residential(
-        "Wizard’s Haven", 30, 5000, 300, true, 1, true, 10, "Residential District"
-    );
-    city->addBuilding(residentialBuilding);
-    std::cout << GREEN << "A Residential Building rises: " << residentialBuilding->getType() << "\n"
-              << "Located in: Residential District\n" << RESET;
-    pauseForUser();
-
-    // Create Commercial Building
-    Commercial* commercialBuilding = new Commercial(
-        "Potion Emporium", 20, 30000, 1000, true, 1, true, 5, "Market Square"
-    );
-    city->addBuilding(commercialBuilding);
-    std::cout << YELLOW << "A Commercial Building appears: " << commercialBuilding->getType() << "\n"
-              << "Located in: Market Square\n" << RESET;
-    pauseForUser();
-
-    // Create Industrial Building
-    Industrial* industrialBuilding = new Industrial(
-        "Alchemy Workshop", 10, 20000, 2000, true, 1, true, 3, "Industrial Zone"
-    );
-    city->addBuilding(industrialBuilding);
-    std::cout << RED << "An Industrial Building is forged: " << industrialBuilding->getType() << "\n"
-              << "Located in: Industrial Zone\n" << RESET;
-    pauseForUser();
-
-    // Create Landmark Building
-    Landmark* landmarkBuilding = new Landmark(
-        "Mystic Fountain", 50, 100000, 500, true, 1, true, 100, "Central Plaza"
-    );
-    city->addBuilding(landmarkBuilding);
-    std::cout << MAGENTA << "A Landmark springs forth: " << landmarkBuilding->getType() << "\n"
-              << "Located in: Central Plaza\n" << RESET;
-    pauseForUser();
 }
+//**********5. MANAGE TRANSPORT OPTION**********/
 
-void createAndAssignUtilities(City* city) {
-    std::cout << CYAN << "\nWith a wave of the wizard's hand, the city's essential utilities begin to materialize...\n" << RESET;
 
-    // Create Water Utility
-    WaterFactory waterFactory;
-    Utilities* waterUtility = waterFactory.createUtility();
-    city->addUtility(waterUtility);
-    std::cout << GREEN << "\nWater Utility Created:\n" << RESET;
-    waterUtility->displayInfo();
-    pauseForUser();
 
-    // Create Waste Management Utility
-    WasteFactory wasteFactory;
-    Utilities* wasteUtility = wasteFactory.createUtility();
-    city->addUtility(wasteUtility);
-    std::cout << MAGENTA << "\nWaste Management Utility Created:\n" << RESET;
-    wasteUtility->displayInfo();
-    pauseForUser();
 
-    // Create Sewage Utility
-    SewageFactory sewageFactory;
-    Utilities* sewageUtility = sewageFactory.createUtility();
-    city->addUtility(sewageUtility);
-    std::cout << YELLOW << "\nSewage Utility Created:\n" << RESET;
-    sewageUtility->displayInfo();
-    pauseForUser();
 
-    // Create Power Plant Utility
-    PowerPlantFactory powerPlantFactory;
-    Utilities* powerPlantUtility = powerPlantFactory.createUtility();
-    city->addUtility(powerPlantUtility);
-    std::cout << BLUE << "\nPower Plant Utility Created:\n" << RESET;
-    powerPlantUtility->displayInfo();
-    pauseForUser();
-
-    // Assign utilities to buildings
-    std::cout << CYAN << "\nThe wizard channels the utilities to serve each building in the city...\n" << RESET;
-    for (Building* building : city->listBuildings()) {
-        building->addUtility(waterUtility);
-        building->addUtility(wasteUtility);
-        building->addUtility(sewageUtility);
-        building->addUtility(powerPlantUtility);
-
-        std::cout << GREEN << "Utilities have been assigned to " << building->getType() << "\n" << RESET;
-        pauseForUser();
-    }
-}
-
-void createAndAssignTransport(City* city) {
-    std::cout << CYAN << BOLD << "\nThe wizard conjures essential transport infrastructure for the city...\n" << RESET;
-
-    RoadFactory roadFactory;
-    RailwayFactory railwayFactory;
-    RunwayFactory runwayFactory;
-
-    // Create a road
-    TransportInfrastructure* road = roadFactory.createInfrastructure(4, 20.0);
-    road->build();
-    city->addInfrastructure(road);
-    std::cout << GREEN << "Road created with 4 lanes and length 20km.\n" << RESET;
-    pauseForUser();
-
-    // Create a railway
-    TransportInfrastructure* railway = railwayFactory.createInfrastructure(15, true);
-    railway->build();
-    city->addInfrastructure(railway);
-    std::cout << YELLOW << "Electrified railway created with length 15km.\n" << RESET;
-    pauseForUser();
-
-    // Create a runway
-    TransportInfrastructure* runway = runwayFactory.createInfrastructure(3.0, 0.75);
-    runway->build();
-    city->addInfrastructure(runway);
-    std::cout << BLUE << "Runway created with length 3.0km and width 0.75km.\n" << RESET;
-    pauseForUser();
-}
-
-void setupGovernment(City* city) {
-    std::cout << MAGENTA << BOLD << "\nThe wizard forms a government to lead the city...\n" << RESET;
-
-    Government* government = new Government(0.15, 0.02);  // 15% income tax, 2% property tax
-
-    // Create departments
-    Budget* budgetDept = new Budget("Budget Department", 10000.0);
-    Policies* policiesDept = new Policies("Policies Department");
-    Services* servicesDept = new Services("Services Department", 10, 5, 3);
-    Tax* taxDept = new Tax("Tax Department", 0.15);
-
-    // Add departments to government
-    government->add(budgetDept);
-    std::cout << GREEN << "Budget Department created and added to the government.\n" << RESET;
-    pauseForUser();
-
-    government->add(policiesDept);
-    std::cout << YELLOW << "Policies Department created and added to the government.\n" << RESET;
-    pauseForUser();
-
-    government->add(servicesDept);
-    std::cout << CYAN << "Services Department created and added to the government.\n" << RESET;
-    pauseForUser();
-
-    government->add(taxDept);
-    std::cout << RED << "Tax Department created and added to the government.\n" << RESET;
-    pauseForUser();
-
-    // Assign the government to the city
-    city->setGovernment(government);
-    std::cout << MAGENTA << BOLD << "\nGovernment and departments successfully established for the city.\n" << RESET;
-    pauseForUser();
-}
-
-void createAndAssignCitizens(City* city) {
-    std::cout << CYAN << "\nThe wizard decides to populate the city with its first citizens...\n" << RESET;
-
-    // Look for an existing residential building in the city
-    Residential* residentialBuilding = nullptr;
-    for (Building* building : city->listBuildings()) {
-        residentialBuilding = dynamic_cast<Residential*>(building);
-        if (residentialBuilding) {
-            break;  // Found a residential building, so break out of the loop
-        }
-    }
-
-    if (!residentialBuilding) {
-        std::cout << RED << "No residential building found. Citizens cannot be assigned.\n" << RESET;
-        return;
-    }
-
-    Citizen prototypeCitizen; // To use predefined names and job titles
-    std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed for randomness
-
-    // Create and assign 3 citizens to the residential building
-    for (int i = 0; i < 3; ++i) {
-        std::string name = prototypeCitizen.citizenNames[std::rand() % prototypeCitizen.citizenNames.size()];
-        int income = 30000 + std::rand() % 70000; // Random income between 30,000 and 100,000
-        double propertyValue = 50000 + std::rand() % 950000; // Property value between 50,000 and 1,000,000
-        std::string job = prototypeCitizen.jobTitles[std::rand() % prototypeCitizen.jobTitles.size()];
-
-        Citizen* newCitizen = new Citizen(name, income, propertyValue, job);
-
-        std::cout << GREEN << "Citizen created: " << RESET << name 
-                  << ", Job: " << job << ", Income: $" << income 
-                  << ", Property Value: $" << std::fixed << std::setprecision(2) << propertyValue << "\n";
-
-        // Try to assign the citizen to the residential building
-        if (residentialBuilding->populateBuilding()) {
-            city->attach(newCitizen); // Add citizen to city’s observer list
-            std::cout << BLUE << name << " has moved into " << residentialBuilding->getType() << "\n" << RESET;
-        } else {
-            std::cout << RED << "No more space in the residential building for " << name << ".\n" << RESET;
-            delete newCitizen; // Delete citizen if not assigned
-        }
-
-        pauseForUser(); // Pause for user to proceed to next citizen
-    }
-}
-
+//**********6. SHOW STATS OPTION**********/
 void displayCityStats(City* city) {
     std::cout << CYAN << "\n=== City Statistics ===\n" << RESET;
 
+    // Population and Citizen Stats
     std::cout << "Population: " << city->citizens.size() << " citizens\n";
-    std::cout << "Number of Buildings: " << city->listBuildings().size() << "\n";
-
-    // for (Citizen* citizen : city->citizens) {
-    //     std::cout << "Citizen: " << citizen->getName() << ", Satisfaction: " << citizen->getOverallSatisfaction() << "%\n";
-    // }
 
     // int totalSatisfaction = 0;
     // for (Citizen* citizen : city->citizens) {
-    //     totalSatisfaction += citizen->getOverallSatisfaction();
+    //     totalSatisfaction += citizen->getOverallSatisfaction();  // Add in once implemented
     // }
     // int averageSatisfaction = city->citizens.size() > 0 ? totalSatisfaction / city->citizens.size() : 0;
     // std::cout << "Average Citizen Satisfaction: " << averageSatisfaction << "%\n";
-    // std::cout << MAGENTA << "=============================\n" << RESET;  Add in once satisfaction is implemented
+
+    // Building Stats
+    std::cout << "Number of Buildings: " << city->listBuildings().size() << "\n";
+    int residentialCount = 0, commercialCount = 0, industrialCount = 0, landmarkCount = 0;
+    for (Building* building : city->listBuildings()) {
+        if (dynamic_cast<Residential*>(building)) ++residentialCount;
+        else if (dynamic_cast<Commercial*>(building)) ++commercialCount;
+        else if (dynamic_cast<Industrial*>(building)) ++industrialCount;
+        else if (dynamic_cast<Landmark*>(building)) ++landmarkCount;
+    }
+    std::cout << " - Residential Buildings: " << residentialCount << "\n";
+    std::cout << " - Commercial Buildings: " << commercialCount << "\n";
+    std::cout << " - Industrial Buildings: " << industrialCount << "\n";
+    std::cout << " - Landmarks: " << landmarkCount << "\n";
+
+    // Utility Stats
+    std::cout << "Utility Capacity and Usage:\n";
+    for (Utilities* utility : city->listUtilities()) {
+        utility->displayInfo();  // Assuming displayInfo shows capacity and usage
+    }
+
+    // Transport Infrastructure
+    std::cout << "Transport Infrastructure:\n";
+    int roadCount = 0, railwayCount = 0, runwayCount = 0;
+    for (TransportInfrastructure* infrastructure : city->listInfrastructures()) {
+        if (dynamic_cast<Road*>(infrastructure)) ++roadCount;
+        else if (dynamic_cast<Railway*>(infrastructure)) ++railwayCount;
+        else if (dynamic_cast<Runway*>(infrastructure)) ++runwayCount;
+    }
+    std::cout << " - Roads: " << roadCount << "\n";
+    std::cout << " - Railways: " << railwayCount << "\n";
+    std::cout << " - Runways: " << runwayCount << "\n";
+
+    // Economic and Financial Stats
+    Government* government = city->getGovernment();
+    if (government) {
+        Tax* taxDept = government->getTaxDepartment();
+        Budget* budgetDept = government->getBudgetDepartment();
+        
+        if (taxDept) {
+            std::cout << "Total Revenue (from taxes): $" << taxDept->getTotalRevenue() << "\n";
+            std::cout << "Current Tax Rate: " << taxDept->getTaxRate() * 100 << "%\n";
+        }
+        if (budgetDept) {
+            std::cout << "Total Budget: $" << budgetDept->getTotalBudget() << "\n";
+            std::cout << "Available Budget: $" << budgetDept->getAvailableBudget() << "\n";
+        }
+    }
+
+    // Policies and Services
+    Policies* policiesDept = government->getPoliciesDepartment();
+    Services* servicesDept = government->getServicesDepartment();
+    
+    if (policiesDept) {
+        std::cout << "Active Policies: " << policiesDept->getActivePoliciesCount() << "\n";  // Assuming this method exists
+    }
+    if (servicesDept) {
+        std::cout << "Healthcare Facilities: " << servicesDept->getHealthcareFacilities() << "\n";  // Assuming getter exists
+        std::cout << "Educational Institutions: " << servicesDept->getEducationalInstitutions() << "\n";
+    }
+
+    std::cout << MAGENTA << "=============================\n" << RESET;
 }
+//**********6. SHOW STATS OPTION**********/
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1392,14 +1691,19 @@ void bigTestingMain() {
                 break;
 
             case 5:
+                // Manage Transport
+                manageTransport(ourCity);  
+                break;
+
+            case 6:
                 // Show City Status
                 std::cout << BLUE << "\nCurrent status of " << ourCity->getName() << ":\n" << RESET;
                 displayCityStats(ourCity);
                 break;
-
-            case 6:
-                // Exit Simulation
-                std::cout << BOLD << RED << "\nThank you for guiding the city of " << cityName << ". Farewell, wizard.\n" << RESET;
+           
+            case 7:
+                //Exit Simulation
+                std::cout << BOLD << RED << "\nThank you for guiding the city. Farewell, wizard.\n" << RESET;
                 running = false;
                 break;
 
