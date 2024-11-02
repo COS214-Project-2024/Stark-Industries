@@ -35,12 +35,14 @@ public:
     void updateWater(int waterChange);
     void updateBudget(double budgetChange);
 
+    // New methods for creation and supply
+    void createResources();       // Initializes the resources for the first time
+    void supplyResources();       // Supplies resources to utilities
+
     // Display current resource status
     void displayResourceStatus() const;
 
     // Methods for resource operations
-    void createResources();
-    void supplyResources();
     bool allocateBudget(double amount);
 };
 
