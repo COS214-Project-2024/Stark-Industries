@@ -38,10 +38,10 @@ TEST_CASE("Building Observer Notifications", "[ObserverPattern]") {
     Citizen charlie("Charlie", 70000, 350000);
 
     // Create different types of buildings
-    Residential apartment("Sunset Apartments", 80, 5000, 200, true, 1, true, 5);
-    Commercial mall("City Mall", 75, 10000, 500, true, 1, true, 10);
-    Industrial factory("Steel Factory", 70, 15000, 1000, true, 1, true, 8);
-    Landmark monument("Freedom Monument", 90, 8000, 500, true, 1, true, 10);
+    Residential apartment("Sunset Apartments", 80, 5000, 200, true, 1, true, 150, "Suburb");
+    Commercial mall("City Mall", 75, 10000, 500, true, 1, true, 1000, "Suburb");
+    Industrial factory("Steel Factory", 70, 15000, 1000, true, 1, true, 300, "Industrial");
+    Landmark monument("Freedom Monument", 90, 8000, 500, true, 1, true, 70, "Suburb");
 
     // Attach citizens to different buildings
     apartment.attach(&alice);
