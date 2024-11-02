@@ -2,7 +2,9 @@
 #define RESIDENTIAL_H
 
 #include "Building.h"
+#include "Citizen.h"
 #include <string>
+#include <vector>
 using namespace std;
 
 /**
@@ -27,6 +29,7 @@ private:
     int capacity; ///< Radius for notifying citizens about the building.
     string area;
     static int numBuildings;
+    std::vector<Citizen*> occupants; 
 
 public:
 
@@ -124,6 +127,8 @@ public:
     void addUtility(Utilities* utility);
 
     int getAvailableCapacity() const;
+
+    int getOccupantCount() const;
 
 private:
 	float propertyTaxRate = 0.01;

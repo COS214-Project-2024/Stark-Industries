@@ -24,6 +24,8 @@ public:
 	double getAvailableBudget() const;
 	double getTotalBudget() const;
 	Budget();
+
+	void addCollectedTaxes(double amount);
 };
 
 #endif

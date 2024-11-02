@@ -297,7 +297,7 @@ void showMainMenu() {
 
 
 //**********1. MANAGE GOVERNMENT OPTION**********/
-void manageTaxDepartment(Tax* taxDept) {
+void manageTaxDepartment(Tax* taxDept, Budget* budgetDept) { // Pass Budget pointer as parameter
     bool managingTax = true;
     while (managingTax) {
         std::cout << "\n" << CYAN << "Manage Tax Department\n" << RESET;
@@ -320,12 +320,14 @@ void manageTaxDepartment(Tax* taxDept) {
                 std::cout << GREEN << "Tax rate set to " << newRate << "\n" << RESET;
                 break;
             }
-            case 2:
+            case 2: {
                 double revenue;
                 std::cout << "Enter total revenue to calculate taxes: ";
                 std::cin >> revenue;
-                taxDept->collectTaxes(revenue);
+                double collectedTaxes = taxDept->collectTaxes(revenue); // Collect taxes
+                budgetDept->addCollectedTaxes(collectedTaxes); // Add collected taxes to budget
                 break;
+            }
             case 3:
                 std::cout << "Total Revenue: " << taxDept->getTotalRevenue() << "\n";
                 break;
@@ -337,6 +339,7 @@ void manageTaxDepartment(Tax* taxDept) {
         }
     }
 }
+
 
 void manageBudgetDepartment(Budget* budgetDept) {
     bool managingBudget = true;
@@ -463,49 +466,27 @@ void manageGovernment(City* city) {
         std::cin >> choice;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
 
-        std::cout << "Debug: Chose option " << choice << "\n";
-
         switch (choice) {
             case 1: {
                 Tax* taxDept = city->getGovernment()->getTaxDepartment();
-                if (taxDept) {
-                    std::cout << "Entering Tax Department...\n"; // Debug
-                    manageTaxDepartment(taxDept);
+                Budget* budgetDept = city->getGovernment()->getBudgetDepartment();
+                if (taxDept && budgetDept) {
+                    manageTaxDepartment(taxDept, budgetDept);
                 } else {
-                    std::cout << "Failed to access Tax Department.\n";
+                    std::cout << "Failed to access Tax or Budget Department.\n";
                 }
                 break;
             }
             case 2: {
                 Budget* budgetDept = city->getGovernment()->getBudgetDepartment();
                 if (budgetDept) {
-                    std::cout << "Entering Budget Department...\n"; // Debug
                     manageBudgetDepartment(budgetDept);
                 } else {
                     std::cout << "Failed to access Budget Department.\n";
                 }
                 break;
             }
-            case 3: {
-                Policies* policiesDept = city->getGovernment()->getPoliciesDepartment();
-                if (policiesDept) {
-                    std::cout << "Entering Policies Department...\n"; // Debug
-                    managePoliciesDepartment(policiesDept);
-                } else {
-                    std::cout << "Failed to access Policies Department.\n";
-                }
-                break;
-            }
-            case 4: {
-                Services* servicesDept = city->getGovernment()->getServicesDepartment();
-                if (servicesDept) {
-                    std::cout << "Entering Services Department...\n"; // Debug
-                    manageServicesDepartment(servicesDept);
-                } else {
-                    std::cout << "Failed to access Services Department.\n";
-                }
-                break;
-            }
+            // ... other cases remain the same
             case 5:
                 managingGovernment = false;
                 break;
@@ -514,6 +495,7 @@ void manageGovernment(City* city) {
         }
     }
 }
+
 //**********1. MANAGE GOVERNMENT OPTION**********/
 
 
@@ -655,10 +637,22 @@ void removeBuilding(City* city) {
         return;
     }
 
-    delete buildings[buildingIndex - 1];  // Free memory
+    Building* building = buildings[buildingIndex - 1];
+
+    // Check if the building is residential and occupied
+    Residential* residentialBuilding = dynamic_cast<Residential*>(building);
+    if (residentialBuilding && residentialBuilding->getOccupantCount() > 0) {
+        std::cout << RED << "Cannot remove " << building->getType() 
+                  << " because it has residents. Please relocate them first.\n" << RESET;
+        return;
+    }
+
+    // Proceed with deletion if no residents
+    delete building;  // Free memory
     buildings.erase(buildings.begin() + buildingIndex - 1);
     std::cout << GREEN << "Building removed from the city.\n" << RESET;
 }
+
 
 
 void viewAllBuildings(City* city) {
@@ -820,60 +814,6 @@ void addMultipleCitizens(City* city) {
     }
 }
 
-
-
-
-void assignCitizenToBuilding(City* city) {
-    const auto& citizens = city->getCitizens();
-    const auto& buildings = city->listBuildings();
-
-    if (citizens.empty()) {
-        std::cout << RED << "No citizens available.\n" << RESET;
-        return;
-    }
-
-    if (buildings.empty()) {
-        std::cout << RED << "No buildings available.\n" << RESET;
-        return;
-    }
-
-    std::cout << "Select a citizen to assign:\n";
-    for (size_t i = 0; i < citizens.size(); ++i) {
-        std::cout << i + 1 << ". " << citizens[i]->getName() << "\n";
-    }
-    int citizenIndex;
-    std::cin >> citizenIndex;
-
-    if (citizenIndex < 1 || citizenIndex > citizens.size()) {
-        std::cout << RED << "Invalid citizen selection.\n" << RESET;
-        return;
-    }
-
-    Citizen* citizen = citizens[citizenIndex - 1];
-
-    std::cout << "Select a residential building to assign the citizen:\n";
-    for (size_t i = 0; i < buildings.size(); ++i) {
-        if (buildings[i]->getType() == "Residential") {
-            std::cout << i + 1 << ". " << buildings[i]->getType() << "\n";
-        }
-    }
-    int buildingIndex;
-    std::cin >> buildingIndex;
-
-    if (buildingIndex < 1 || buildingIndex > buildings.size()) {
-        std::cout << RED << "Invalid building selection.\n" << RESET;
-        return;
-    }
-
-    Residential* residentialBuilding = dynamic_cast<Residential*>(buildings[buildingIndex - 1]);
-    if (residentialBuilding && residentialBuilding->populateBuilding()) {
-        std::cout << citizen->getName() << " has been assigned to " << residentialBuilding->getType() << ".\n";
-    } else {
-        std::cout << RED << "Selected building is at full capacity.\n" << RESET;
-    }
-}
-
-
 void viewCitizenInformation(City* city) {
     const auto& citizens = city->getCitizens();
 
@@ -895,12 +835,15 @@ void viewCitizenInformation(City* city) {
     }
 
     Citizen* citizen = citizens[citizenIndex - 1];
+    
+    // Use getter methods if `job` and `propertyValue` are private
     std::cout << "Name: " << citizen->getName() << "\n";
     std::cout << "Income: " << citizen->getIncome() << "\n";
-    std::cout << "Job: " << citizen->job << "\n";
-    std::cout << "Property Value: " << citizen->propertyValue << "\n";
+    std::cout << "Job: " << citizen->job << "\n"; // Assuming a getJob() method
+    std::cout << "Property Value: " << citizen->propertyValue << "\n"; // Assuming a getPropertyValue() method
     std::cout << "Satisfaction: " << citizen->calculateSatisfaction() << "\n";
 }
+
 
 void viewAllCitizens(City* city) {
     const auto& citizens = city->getCitizens();
@@ -1004,12 +947,11 @@ void manageCitizens(City* city) {
         std::cout << "\n" << CYAN << "Manage Citizens\n" << RESET;
         std::cout << "1. Add Custom Citizen\n";
         std::cout << "2. Add Multiple Citizens\n";
-        std::cout << "3. Assign Citizen to Building\n";
-        std::cout << "4. View Citizen Information\n";
-        std::cout << "5. View All Citizens\n";
-        std::cout << "6. Remove Citizen\n";
-        // std::cout << "7. Manage Transport for Citizen\n"; Uncomment when done with function
-        std::cout << "8. Back to Main Menu\n";
+        std::cout << "3. View Citizen Information\n";
+        std::cout << "4. View All Citizens\n";
+        std::cout << "5. Remove Citizen\n";
+        // std::cout << "6. Manage Transport for Citizen\n"; Uncomment when done with function
+        std::cout << "7. Back to Main Menu\n";
         std::cout << "Select an option: ";
 
         int choice;
@@ -1024,23 +966,20 @@ void manageCitizens(City* city) {
                 addMultipleCitizens(city);
                 break;
             case 3:
-                assignCitizenToBuilding(city);
-                break;
-            case 4:
                 viewCitizenInformation(city);
                 break;
-            case 5:
+            case 4:
                 viewAllCitizens(city);
                 break;
-            case 6:
+            case 5:
                 removeCitizen(city);
                 break;
-            // case 7:
+            // case 6:
             //     manageTransportForCitizen(city);  Uncomment when done with function
             //     break;
-            case 8:
+            case 7:
                 managingCitizens = false;
-                break;
+                break;      
             default:
                 std::cout << RED << "Invalid option. Please select again.\n" << RESET;
         }

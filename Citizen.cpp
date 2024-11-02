@@ -75,8 +75,7 @@ void Citizen::resetNotification() {
 } 
 
 int Citizen::calculateSatisfaction() {
-	// TODO - implement Citizen::calculateSatisfaction
-	throw "Not yet implemented";
+	return satisfaction; //Mock implementation for testing
 }
 
 void Citizen::requestBuilding(int City_city, int String_buildtype) {

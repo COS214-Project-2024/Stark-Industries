@@ -202,3 +202,7 @@ void Residential::addUtility(Utilities* utility) {
 int Residential::getAvailableCapacity() const {
     return capacity;
 }
+
+int Residential::getOccupantCount() const{
+	return occupants.size();
+}

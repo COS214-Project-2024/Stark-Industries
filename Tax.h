@@ -18,7 +18,7 @@ public:
 	void setTaxRate(float rate);
 	float getTaxRate() const;
 	void trackRevenue(double revenue);
-	void collectTaxes(double revenue);
+	double collectTaxes(double revenue);
 	void operate();
 	double getTotalRevenue();
 	//getaxType

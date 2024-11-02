@@ -68,3 +68,8 @@ void Budget::removeCommand(int i) {
 Budget::Budget() {
     
 }
+
+void Budget::addCollectedTaxes(double amount) {
+    totalBudget += amount;
+    std::cout << "Budget updated with collected taxes. New total budget: " << totalBudget << "\n";
+}
