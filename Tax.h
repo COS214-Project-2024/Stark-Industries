@@ -20,6 +20,7 @@ public:
 	void trackRevenue(double revenue);
 	void collectTaxes(double revenue);
 	void operate();
+	double getTotalRevenue();
 	//getaxType
 	string getTaxType();
 

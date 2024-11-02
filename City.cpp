@@ -71,3 +71,7 @@ void City::addInfrastructure(TransportInfrastructure* infrastructure) {
 const std::vector<TransportInfrastructure*>& City::listInfrastructures() const {
     return roads;
 }
+
+Government* City::getGovernment() {
+    return government;
+}

@@ -83,3 +83,7 @@ void Tax::addCommand(Command* command) {
 void Tax::removeCommand(int i) {
 	commands.erase(commands.begin() + i);
 }
+
+double Tax::getTotalRevenue() {
+    return totalRevenue;
+}

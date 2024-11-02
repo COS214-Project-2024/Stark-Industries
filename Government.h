@@ -4,6 +4,10 @@
 #include "Department.h"
 #include "Citizen.h"
 #include "Visitor.h"
+#include "Tax.h"
+#include "Budget.h"
+#include "Policies.h"
+#include "Services.h"
 #include <string>
 #include <vector>
 #include <vector>
@@ -16,6 +20,10 @@ private:
 	double propertyTaxRate;
 	Government* subjectState;
 	std::vector<Department*> departments;
+	Tax* taxDepartment = nullptr;
+    Budget* budgetDepartment = nullptr;
+    Policies* policiesDepartment = nullptr;
+    Services* servicesDepartment = nullptr;
 	Visitor* visitor;
 	double taxCollected;
 
@@ -26,6 +34,11 @@ public:
     void remove(Department* department) override;
     Department* getChild(int index) override;
 	Government();
+
+	Tax* getTaxDepartment() const { return taxDepartment; }
+    Budget* getBudgetDepartment() const { return budgetDepartment; }
+    Policies* getPoliciesDepartment() const { return policiesDepartment; }
+    Services* getServicesDepartment() const { return servicesDepartment; }
 	
 	void increaseTax(int amount);
 

@@ -45,6 +45,8 @@ public:
 	const std::vector<TransportInfrastructure*>& listInfrastructures() const;
 
 	vector<Citizen*> citizens;
+
+	Government* getGovernment();
 };
 
 #endif

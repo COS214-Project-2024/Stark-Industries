@@ -37,6 +37,7 @@ private:
 	static int numCitizens;
 	string job;
 
+
 public:
 	// Array of 200 potential citizen names
 	const std::array<std::string, 200> citizenNames = {
@@ -182,6 +183,9 @@ public:
 	void payRent(double);
 	void setNumCitizens(int);
 	Citizen();
+
+
+
 };
 
 #endif

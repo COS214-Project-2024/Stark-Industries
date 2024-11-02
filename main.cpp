@@ -828,6 +828,7 @@ void testComposite(){
 #include <string>
 #include <iomanip>
 #include <cstdlib>
+#include <limits>
 #include <ctime>
 #include "City.h"
 
@@ -841,10 +842,228 @@ void testComposite(){
 #define MAGENTA "\033[35m"
 #define BLUE "\033[34m"
 
-void manageGovernment(City* city) {
-    std::cout << "TODO: Implement government management functions here.\n";
-    // Here, you would add options to manage policies, taxes, services, etc.
+
+
+void manageTaxDepartment(Tax* taxDept) {
+    bool managingTax = true;
+    while (managingTax) {
+        std::cout << "\n" << CYAN << "Manage Tax Department\n" << RESET;
+        std::cout << "1. Set Tax Rate\n";
+        std::cout << "2. Collect Taxes\n";
+        std::cout << "3. View Total Revenue\n";
+        std::cout << "4. Back to Government Menu\n";
+        std::cout << "Select an option: ";
+
+        int choice;
+        std::cin >> choice;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
+
+        switch (choice) {
+            case 1: {
+                float newRate;
+                std::cout << "Enter new tax rate (as a decimal, e.g., 0.15 for 15%): ";
+                std::cin >> newRate;
+                taxDept->setTaxRate(newRate);
+                std::cout << GREEN << "Tax rate set to " << newRate << "\n" << RESET;
+                break;
+            }
+            case 2:
+                double revenue;
+                std::cout << "Enter total revenue to calculate taxes: ";
+                std::cin >> revenue;
+                taxDept->collectTaxes(revenue);
+                break;
+            case 3:
+                std::cout << "Total Revenue: " << taxDept->getTotalRevenue() << "\n";
+                break;
+            case 4:
+                managingTax = false;
+                break;
+            default:
+                std::cout << RED << "Invalid option.\n" << RESET;
+        }
+    }
 }
+
+void manageBudgetDepartment(Budget* budgetDept) {
+    bool managingBudget = true;
+    while (managingBudget) {
+        std::cout << "\n" << CYAN << "Manage Budget Department\n" << RESET;
+        std::cout << "1. Allocate Funds\n";
+        std::cout << "2. View Budget Details\n";
+        std::cout << "3. Back to Government Menu\n";
+        std::cout << "Select an option: ";
+
+        int choice;
+        std::cin >> choice;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
+
+        switch (choice) {
+            case 1: {
+                double amount;
+                std::cout << "Enter amount to allocate: ";
+                std::cin >> amount;
+                budgetDept->allocateFunds(amount);
+                break;
+            }
+            case 2:
+                budgetDept->operate();  // Displays budget details
+                break;
+            case 3:
+                managingBudget = false;
+                break;
+            default:
+                std::cout << RED << "Invalid option.\n" << RESET;
+        }
+    }
+}
+
+
+void managePoliciesDepartment(Policies* policiesDept) {
+    bool managingPolicies = true;
+    while (managingPolicies) {
+        std::cout << "\n" << CYAN << "Manage Policies Department\n" << RESET;
+        std::cout << "1. Add Policy\n";
+        std::cout << "2. Remove Policy\n";
+        std::cout << "3. View Active Policies\n";
+        std::cout << "4. Back to Government Menu\n";
+        std::cout << "Select an option: ";
+
+        int choice;
+        std::cin >> choice;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
+
+        switch (choice) {
+            case 1: {
+                std::string policy;
+                std::cout << "Enter policy to add: ";
+                std::getline(std::cin, policy);
+                policiesDept->addPolicy(policy);
+                break;
+            }
+            case 2: {
+                std::string policy;
+                std::cout << "Enter policy to remove: ";
+                std::getline(std::cin, policy);
+                policiesDept->removePolicy(policy);
+                break;
+            }
+            case 3:
+                policiesDept->operate();  // Displays active policies
+                break;
+            case 4:
+                managingPolicies = false;
+                break;
+            default:
+                std::cout << RED << "Invalid option.\n" << RESET;
+        }
+    }
+}
+
+
+void manageServicesDepartment(Services* servicesDept) {
+    bool managingServices = true;
+    while (managingServices) {
+        std::cout << "\n" << CYAN << "Manage Services Department\n" << RESET;
+        std::cout << "1. Add Service Program\n";
+        std::cout << "2. View Services\n";
+        std::cout << "3. Back to Government Menu\n";
+        std::cout << "Select an option: ";
+
+        int choice;
+        std::cin >> choice;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
+
+        switch (choice) {
+            case 1: {
+                std::string program;
+                std::cout << "Enter service program to add: ";
+                std::getline(std::cin, program);
+                servicesDept->addServiceProgram(program);
+                break;
+            }
+            case 2:
+                servicesDept->operate();  // Displays service details
+                break;
+            case 3:
+                managingServices = false;
+                break;
+            default:
+                std::cout << RED << "Invalid option.\n" << RESET;
+        }
+    }
+}
+
+// Function to handle the government management menu
+void manageGovernment(City* city) {
+    bool managingGovernment = true;
+    while (managingGovernment) {
+        std::cout << "\n" << CYAN << "Manage Government\n" << RESET;
+        std::cout << "1. Tax Department\n";
+        std::cout << "2. Budget Department\n";
+        std::cout << "3. Policies Department\n";
+        std::cout << "4. Services Department\n";
+        std::cout << "5. Return to Main Menu\n";
+        std::cout << "Select an option: ";
+
+        int choice;
+        std::cin >> choice;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
+
+        std::cout << "Debug: Chose option " << choice << "\n";
+
+        switch (choice) {
+            case 1: {
+                Tax* taxDept = city->getGovernment()->getTaxDepartment();
+                if (taxDept) {
+                    std::cout << "Entering Tax Department...\n"; // Debug
+                    manageTaxDepartment(taxDept);
+                } else {
+                    std::cout << "Failed to access Tax Department.\n";
+                }
+                break;
+            }
+            case 2: {
+                Budget* budgetDept = city->getGovernment()->getBudgetDepartment();
+                if (budgetDept) {
+                    std::cout << "Entering Budget Department...\n"; // Debug
+                    manageBudgetDepartment(budgetDept);
+                } else {
+                    std::cout << "Failed to access Budget Department.\n";
+                }
+                break;
+            }
+            case 3: {
+                Policies* policiesDept = city->getGovernment()->getPoliciesDepartment();
+                if (policiesDept) {
+                    std::cout << "Entering Policies Department...\n"; // Debug
+                    managePoliciesDepartment(policiesDept);
+                } else {
+                    std::cout << "Failed to access Policies Department.\n";
+                }
+                break;
+            }
+            case 4: {
+                Services* servicesDept = city->getGovernment()->getServicesDepartment();
+                if (servicesDept) {
+                    std::cout << "Entering Services Department...\n"; // Debug
+                    manageServicesDepartment(servicesDept);
+                } else {
+                    std::cout << "Failed to access Services Department.\n";
+                }
+                break;
+            }
+            case 5:
+                managingGovernment = false;
+                break;
+            default:
+                std::cout << RED << "Invalid option. Please select again.\n" << RESET;
+        }
+    }
+}
+
+
+
 
 void manageBuildings(City* city) {
     std::cout << "TODO: Implement building management functions here.\n";
@@ -861,11 +1080,6 @@ void manageUtilities(City* city) {
     // Here, you would add options to manage utilities for the citizens.
 }
 
-void showCityStatus(City* city) {
-    std::cout << "City: " << city->getName() << "\n";
-    city->listBuildings();
-    std::cout << "TODO: Display additional status details, such as population and resources.\n";
-}
 
 void showMainMenu() {
     std::cout << BOLD << BLUE << "\n========== Main Menu ==========\n" << RESET;
@@ -1080,6 +1294,25 @@ void createAndAssignCitizens(City* city) {
     }
 }
 
+void displayCityStats(City* city) {
+    std::cout << CYAN << "\n=== City Statistics ===\n" << RESET;
+
+    std::cout << "Population: " << city->citizens.size() << " citizens\n";
+    std::cout << "Number of Buildings: " << city->listBuildings().size() << "\n";
+
+    // for (Citizen* citizen : city->citizens) {
+    //     std::cout << "Citizen: " << citizen->getName() << ", Satisfaction: " << citizen->getOverallSatisfaction() << "%\n";
+    // }
+
+    // int totalSatisfaction = 0;
+    // for (Citizen* citizen : city->citizens) {
+    //     totalSatisfaction += citizen->getOverallSatisfaction();
+    // }
+    // int averageSatisfaction = city->citizens.size() > 0 ? totalSatisfaction / city->citizens.size() : 0;
+    // std::cout << "Average Citizen Satisfaction: " << averageSatisfaction << "%\n";
+    // std::cout << MAGENTA << "=============================\n" << RESET;  Add in once satisfaction is implemented
+}
+
 
 
 
@@ -1110,6 +1343,7 @@ void bigTestingMain() {
     createAndAssignTransport(ourCity);
     setupGovernment(ourCity);
     createAndAssignCitizens(ourCity);
+    displayCityStats(ourCity);
 
     bool running = true;
     while (running) {
@@ -1117,7 +1351,16 @@ void bigTestingMain() {
         
         int choice;
         std::cin >> choice;
-        std::cin.ignore(); // To handle newline character after entering a number
+        
+        // Check for invalid input
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
+            std::cout << RED << "Invalid input. Please enter a number between 1 and 6.\n" << RESET;
+            continue; // Restart the loop
+        }
+
+        std::cin.ignore();
 
         switch (choice) {
             case 1:
@@ -1151,7 +1394,7 @@ void bigTestingMain() {
             case 5:
                 // Show City Status
                 std::cout << BLUE << "\nCurrent status of " << ourCity->getName() << ":\n" << RESET;
-                showCityStatus(ourCity);
+                displayCityStats(ourCity);
                 break;
 
             case 6:
