@@ -61,6 +61,13 @@ public:
 
 	BuildingCreator* getBuildingCreator(const std::string& buildingType);
 
+	int getTotalPopulation() const;
+
+	int getAvailableHousingCapacity() const;
+
+	vector<Citizen*>& getCitizens();
+     
+
 
 };
 

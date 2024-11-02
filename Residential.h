@@ -123,6 +123,8 @@ public:
 
     void addUtility(Utilities* utility);
 
+    int getAvailableCapacity() const;
+
 private:
 	float propertyTaxRate = 0.01;
 	float rentalTaxRate = 0.20;

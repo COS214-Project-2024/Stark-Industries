@@ -43,12 +43,12 @@ int Citizen::getNumCitizens() {
 
 void Citizen::get() {
 	// TODO - implement Citizen::get
-	throw "Not yet implemented";
+	// throw "Not yet implemented";
 }
 
 void Citizen::set() {
-	// TODO - implement Citizen::set
-	throw "Not yet implemented";
+	// // TODO - implement Citizen::set
+	// throw "Not yet implemented";
 }
 
 CitizenPrototype* Citizen::clone() {
@@ -268,7 +268,7 @@ void Citizen::acceptTaxCollector(Visitor * taxCollector) {
 
 void Citizen::transport(){
         if(chosenTransport==NULL){
-            std::cout<<"Citizen has no yet selected its preffered transport";
+            std::cout<<"Citizen has not yet selected their preferred transport";
         }else{
             double time=chosenTransport->commuteTime();
          std::cout<< name<<  " is transportting via "<<chosenTransport->getType()<<" and the total time will be "<<time<<std::endl;
@@ -299,3 +299,4 @@ void Citizen::setNumCitizens(int num) {
 Citizen::Citizen() {
 	
 }
+

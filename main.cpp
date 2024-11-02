@@ -1494,10 +1494,329 @@ void manageBuildings(City* city) {
 
 
 //**********3. MANAGE CITIZENS OPTION**********/
-void manageCitizens(City* city) {
-    std::cout << "TODO: Implement citizen management functions here.\n";
-    // Here, you would add options to create citizens, manage satisfaction, and more.
+void addCustomCitizen(City* city) {
+    if (city->getTotalPopulation() >= 200) {
+        std::cout << RED << "Maximum population reached. Cannot add more citizens.\n" << RESET;
+        return;
+    }
+
+    std::string name, job;
+    int income;
+    double propertyValue;
+
+    std::cout << "Enter the name of the new citizen: ";
+    std::getline(std::cin, name);
+
+    std::cout << "Enter the job of the new citizen: ";
+    std::getline(std::cin, job);
+
+    std::cout << "Enter the income of the new citizen: ";
+    std::cin >> income;
+
+    std::cout << "Enter the property value owned by the new citizen: ";
+    std::cin >> propertyValue;
+
+    Citizen* newCitizen = new Citizen(name, income, propertyValue, job);
+
+    // Check if there's space in a residential building
+    Residential* residentialBuilding = nullptr;
+    for (Building* building : city->listBuildings()) {
+        residentialBuilding = dynamic_cast<Residential*>(building);
+        if (residentialBuilding && residentialBuilding->populateBuilding()) {
+            city->attach(newCitizen);
+            std::cout << GREEN << "Citizen " << name << " has moved into " 
+                      << residentialBuilding->getType() << "\n" << RESET;
+            return;
+        }
+    }
+
+    std::cout << RED << "No residential building with available capacity. Consider building more housing.\n" << RESET;
+    delete newCitizen; // Delete citizen if not assigned
 }
+
+
+void addMultipleCitizens(City* city) {
+    int numberOfCitizens;
+    std::cout << "Enter the number of citizens to add (1 to 10): ";
+    std::cin >> numberOfCitizens;
+
+    if (numberOfCitizens < 1 || numberOfCitizens > 10) {
+        std::cout << RED << "Invalid number. Please enter a value between 1 and 10.\n" << RESET;
+        return;
+    }
+
+    int currentPopulation = city->getTotalPopulation();
+    if (currentPopulation + numberOfCitizens > 200) {
+        std::cout << RED << "Adding " << numberOfCitizens << " citizens would exceed the maximum population limit of 200.\n" << RESET;
+        return;
+    }
+
+    // Check available capacity across residential buildings
+    int availableCapacity = city->getAvailableHousingCapacity();
+    if (numberOfCitizens > availableCapacity) {
+        std::cout << RED << "Not enough housing capacity for " << numberOfCitizens 
+                  << " citizens. Consider building more buildings before creating more citizens.\n" << RESET;
+        return;
+    }
+
+    Citizen prototypeCitizen; // To use predefined names and job titles
+    std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed for randomness
+
+    for (int i = 0; i < numberOfCitizens; ++i) {
+        std::string name = prototypeCitizen.citizenNames[std::rand() % prototypeCitizen.citizenNames.size()];
+        int income = 30000 + std::rand() % 70000; // Random income between 30,000 and 100,000
+        double propertyValue = 50000 + std::rand() % 950000; // Property value between 50,000 and 1,000,000
+        std::string job = prototypeCitizen.jobTitles[std::rand() % prototypeCitizen.jobTitles.size()];
+
+        Citizen* newCitizen = new Citizen(name, income, propertyValue, job);
+
+        // Try to assign the citizen to a residential building
+        bool assigned = false;
+        for (Building* building : city->listBuildings()) {
+            Residential* residentialBuilding = dynamic_cast<Residential*>(building);
+            if (residentialBuilding && residentialBuilding->populateBuilding()) {
+                city->attach(newCitizen); // Add citizen to city’s observer list
+                std::cout << BLUE << name << " has moved into " << residentialBuilding->getType() << "\n" << RESET;
+                assigned = true;
+                break;
+            }
+        }
+
+        if (!assigned) {
+            std::cout << RED << "No more space in available residential buildings for " << name << ".\n" << RESET;
+            delete newCitizen; // Delete citizen if not assigned
+        }
+    }
+}
+
+
+
+
+void assignCitizenToBuilding(City* city) {
+    const auto& citizens = city->getCitizens();
+    const auto& buildings = city->listBuildings();
+
+    if (citizens.empty()) {
+        std::cout << RED << "No citizens available.\n" << RESET;
+        return;
+    }
+
+    if (buildings.empty()) {
+        std::cout << RED << "No buildings available.\n" << RESET;
+        return;
+    }
+
+    std::cout << "Select a citizen to assign:\n";
+    for (size_t i = 0; i < citizens.size(); ++i) {
+        std::cout << i + 1 << ". " << citizens[i]->getName() << "\n";
+    }
+    int citizenIndex;
+    std::cin >> citizenIndex;
+
+    if (citizenIndex < 1 || citizenIndex > citizens.size()) {
+        std::cout << RED << "Invalid citizen selection.\n" << RESET;
+        return;
+    }
+
+    Citizen* citizen = citizens[citizenIndex - 1];
+
+    std::cout << "Select a residential building to assign the citizen:\n";
+    for (size_t i = 0; i < buildings.size(); ++i) {
+        if (buildings[i]->getType() == "Residential") {
+            std::cout << i + 1 << ". " << buildings[i]->getType() << "\n";
+        }
+    }
+    int buildingIndex;
+    std::cin >> buildingIndex;
+
+    if (buildingIndex < 1 || buildingIndex > buildings.size()) {
+        std::cout << RED << "Invalid building selection.\n" << RESET;
+        return;
+    }
+
+    Residential* residentialBuilding = dynamic_cast<Residential*>(buildings[buildingIndex - 1]);
+    if (residentialBuilding && residentialBuilding->populateBuilding()) {
+        std::cout << citizen->getName() << " has been assigned to " << residentialBuilding->getType() << ".\n";
+    } else {
+        std::cout << RED << "Selected building is at full capacity.\n" << RESET;
+    }
+}
+
+
+void viewCitizenInformation(City* city) {
+    const auto& citizens = city->getCitizens();
+
+    if (citizens.empty()) {
+        std::cout << RED << "No citizens available.\n" << RESET;
+        return;
+    }
+
+    std::cout << "Select a citizen to view details:\n";
+    for (size_t i = 0; i < citizens.size(); ++i) {
+        std::cout << i + 1 << ". " << citizens[i]->getName() << "\n";
+    }
+    int citizenIndex;
+    std::cin >> citizenIndex;
+
+    if (citizenIndex < 1 || citizenIndex > citizens.size()) {
+        std::cout << RED << "Invalid selection.\n" << RESET;
+        return;
+    }
+
+    Citizen* citizen = citizens[citizenIndex - 1];
+    std::cout << "Name: " << citizen->getName() << "\n";
+    std::cout << "Income: " << citizen->getIncome() << "\n";
+    std::cout << "Job: " << citizen->job << "\n";
+    std::cout << "Property Value: " << citizen->propertyValue << "\n";
+    std::cout << "Satisfaction: " << citizen->calculateSatisfaction() << "\n";
+}
+
+void viewAllCitizens(City* city) {
+    const auto& citizens = city->getCitizens();
+
+    if (citizens.empty()) {
+        std::cout << RED << "No citizens available.\n" << RESET;
+        return;
+    }
+
+    std::cout << CYAN << "\n=== All Citizens ===\n" << RESET;
+    for (const auto& citizen : citizens) {
+        std::cout << "Name: " << citizen->getName()
+                  << ", Income: " << citizen->getIncome()
+                  << ", Job: " << citizen->job << "\n";
+    }
+    std::cout << MAGENTA << "=====================\n" << RESET;
+}
+
+void removeCitizen(City* city) {
+    auto& citizens = city->getCitizens();  // Non-const to allow modifications
+
+    if (citizens.empty()) {
+        std::cout << RED << "No citizens available.\n" << RESET;
+        return;
+    }
+
+    std::cout << "Select a citizen to remove:\n";
+    for (size_t i = 0; i < citizens.size(); ++i) {
+        std::cout << i + 1 << ". " << citizens[i]->getName() << "\n";
+    }
+    int citizenIndex;
+    std::cin >> citizenIndex;
+
+    if (citizenIndex < 1 || citizenIndex > citizens.size()) {
+        std::cout << RED << "Invalid selection.\n" << RESET;
+        return;
+    }
+
+    delete citizens[citizenIndex - 1];  // Free memory
+    citizens.erase(citizens.begin() + citizenIndex - 1);  // Remove from vector
+    std::cout << GREEN << "Citizen removed from the city.\n" << RESET;
+}
+
+
+// void manageTransportForCitizen(City* city) {                 //Please fix
+//      const auto& citizens = city->getCitizens();
+
+//     if (citizens.empty()) {
+//         std::cout << RED << "No citizens available.\n" << RESET;
+//         return;
+//     }
+
+//     std::cout << "Select a citizen to manage transport:\n";
+//     for (size_t i = 0; i < citizens.size(); ++i) {
+//         std::cout << i + 1 << ". " << citizens[i]->getName() << "\n";
+//     }
+//     int citizenIndex;
+//     std::cin >> citizenIndex;
+
+//     if (citizenIndex < 1 || citizenIndex > citizens.size()) {
+//         std::cout << RED << "Invalid citizen selection.\n" << RESET;
+//         return;
+//     }
+
+//     Citizen* citizen = citizens[citizenIndex - 1];
+
+//     // Present transport options to the user
+//     std::cout << "Select a transport type:\n";
+//     std::cout << "1. Road\n";
+//     std::cout << "2. Railway\n";
+//     std::cout << "3. Air\n";
+//     int transportType;
+//     std::cin >> transportType;
+
+//     // Create or retrieve the selected transport type
+//     Transport* chosenTransport = nullptr;
+//     switch (transportType) {
+//         case 1:
+//             chosenTransport = new Road();  // Assuming Road is derived from Transport
+//             break;
+//         case 2:
+//             chosenTransport = new Railway();  // Assuming Railway is derived from Transport
+//             break;
+//         case 3:
+//             chosenTransport = new Air();  // Assuming Air is derived from Transport
+//             break;
+//         default:
+//             std::cout << RED << "Invalid transport selection.\n" << RESET;
+//             return;
+//     }
+
+//     // Assign the chosen transport to the citizen
+//     citizen->chooseTransport(chosenTransport);
+// }
+
+
+
+void manageCitizens(City* city) {
+    bool managingCitizens = true;
+    while (managingCitizens) {
+        std::cout << "\n" << CYAN << "Manage Citizens\n" << RESET;
+        std::cout << "1. Add Custom Citizen\n";
+        std::cout << "2. Add Multiple Citizens\n";
+        std::cout << "3. Assign Citizen to Building\n";
+        std::cout << "4. View Citizen Information\n";
+        std::cout << "5. View All Citizens\n";
+        std::cout << "6. Remove Citizen\n";
+        // std::cout << "7. Manage Transport for Citizen\n"; Uncomment when done with function
+        std::cout << "8. Back to Main Menu\n";
+        std::cout << "Select an option: ";
+
+        int choice;
+        std::cin >> choice;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
+
+        switch (choice) {
+            case 1:
+                addCustomCitizen(city);
+                break;
+            case 2:
+                addMultipleCitizens(city);
+                break;
+            case 3:
+                assignCitizenToBuilding(city);
+                break;
+            case 4:
+                viewCitizenInformation(city);
+                break;
+            case 5:
+                viewAllCitizens(city);
+                break;
+            case 6:
+                removeCitizen(city);
+                break;
+            // case 7:
+            //     manageTransportForCitizen(city);  Uncomment when done with function
+            //     break;
+            case 8:
+                managingCitizens = false;
+                break;
+            default:
+                std::cout << RED << "Invalid option. Please select again.\n" << RESET;
+        }
+    }
+}
+
+
 //**********3. MANAGE CITIZENS OPTION**********/
 
 

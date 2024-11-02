@@ -198,3 +198,7 @@ bool Residential::populateBuilding() {
 void Residential::addUtility(Utilities* utility) {
     utilities.push_back(utility);
 }
+
+int Residential::getAvailableCapacity() const {
+    return capacity;
+}

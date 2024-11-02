@@ -1,4 +1,5 @@
 #include "City.h"
+#include "Residential.h"
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -101,4 +102,21 @@ std::vector<Building*>& City::listBuildings() {
     return buildings;
 }
 
+int City::getTotalPopulation() const {
+    return citizens.size();
+}
 
+int City::getAvailableHousingCapacity() const {
+    int totalCapacity = 0;
+    for (const auto& building : buildings) {
+        Residential* residentialBuilding = dynamic_cast<Residential*>(building);
+        if (residentialBuilding) {
+            totalCapacity += residentialBuilding->getAvailableCapacity();
+        }
+    }
+    return totalCapacity;
+}
+
+vector<Citizen*>& City::getCitizens() {
+        return observerList;
+    }
