@@ -1093,7 +1093,7 @@ void showMainMenu() {
 }
 
 void pauseForUser() {
-    std::cout << BOLD << BLUE << "\nPress any key to continue..." << RESET;
+    std::cout << BOLD << BLUE << "\nPress enter to continue..." << RESET;
     std::cin.get();
 }
 
