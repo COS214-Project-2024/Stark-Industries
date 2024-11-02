@@ -23,6 +23,7 @@ public:
     void increaseCommercial(int growthFactor, Commercial* prototypeC);
     void increaseIndustrial(int growthFactor, Industrial* prototypeI);
     void increaseLandmark(int growthFactor, Landmark* prototypeL);
+    double getGrowthFactor();
 };
 
 #endif // INFRASTRUCTURE_H

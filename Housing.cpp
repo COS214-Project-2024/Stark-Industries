@@ -35,3 +35,7 @@ void Housing::handleRequest(int growthFactor) {
     //     std::cout << "Housing handler passes growth factor.\n";
     // }
 }
+
+double Housing::getGrowthFactor() {
+    return rate;
+}

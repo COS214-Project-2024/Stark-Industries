@@ -28,3 +28,7 @@ void Economic::handleRequest(int growthFactor) {
     //     std::cout << "Economy handler passes growth factor.\n";
     // }
 }
+
+double Economic::getGrowthFactor() {
+    return economicGrowthRate;
+}

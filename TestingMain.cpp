@@ -20,6 +20,15 @@
 #include "Commercial.h"
 #include "Industrial.h"
 #include "Landmark.h"
+#include "ResidentialCreator.h"
+#include "CommercialCreator.h"
+#include "IndustrialCreator.h"
+#include "LandmarkCreator.h"
+
+#include "Population.h"
+#include "Housing.h"
+#include "Economic.h"
+#include "Infrastructure.h"
 
 TEST_CASE("Citizen Collect Tax"){
     Citizen* citizen = new Citizen("Tony", 1000);
@@ -38,10 +47,10 @@ TEST_CASE("Building Observer Notifications", "[ObserverPattern]") {
     Citizen charlie("Charlie", 70000, 350000);
 
     // Create different types of buildings
-    Residential apartment("Sunset Apartments", 80, 5000, 200, true, 1, true, 5);
-    Commercial mall("City Mall", 75, 10000, 500, true, 1, true, 10);
-    Industrial factory("Steel Factory", 70, 15000, 1000, true, 1, true, 8);
-    Landmark monument("Freedom Monument", 90, 8000, 500, true, 1, true, 10);
+    Residential apartment("Sunset Apartments", 80, 5000, 200, true, 1, true, 150, "Suburb");
+    Commercial mall("City Mall", 75, 10000, 500, true, 1, true, 1000, "Suburb");
+    Industrial factory("Steel Factory", 70, 15000, 1000, true, 1, true, 300, "Industrial");
+    Landmark monument("Freedom Monument", 90, 8000, 500, true, 1, true, 70, "Suburb");
 
     // Attach citizens to different buildings
     apartment.attach(&alice);
@@ -202,4 +211,100 @@ TEST_CASE("PowerPlantFactory creates PowerPlant utility") {
     delete powerPlantUtility;  // Clean up dynamically allocated memory
 }
 
+TEST_CASE("Building Factory Creation and Properties") {
+    ResidentialCreator residentialCreator;
+    LandmarkCreator landmarkCreator;
+    CommercialCreator commercialCreator;
+    IndustrialCreator industrialCreator;
 
+    SECTION("Residential Building Creation") {
+        Building* residentialBuilding = residentialCreator.createBuilding("Residential Block", 30, 5000, 300, true, 1, true, 200, "Suburb");
+        
+        REQUIRE(residentialBuilding != nullptr);
+        REQUIRE(residentialBuilding->getType() == "Residential Block");
+        REQUIRE(residentialBuilding->calculateSatisfaction() >= 0);
+        REQUIRE(residentialBuilding->calculateEconomicImpact() >= 0);
+        REQUIRE(residentialBuilding->calculateResourceConsumption() >= 0);
+        
+        residentialBuilding->doImprovements();
+        REQUIRE(residentialBuilding->calculateSatisfaction() > 0);  // Expect increased satisfaction
+        
+        delete residentialBuilding;
+    }
+
+    SECTION("Landmark Building Creation") {
+        Building* landmarkBuilding = landmarkCreator.createBuilding("Statue of Liberty", 50, 100000, 500, true, 1, true, 500, "Suburb");
+        
+        REQUIRE(landmarkBuilding != nullptr);
+        REQUIRE(landmarkBuilding->getType() == "Statue of Liberty");
+        REQUIRE(landmarkBuilding->calculateSatisfaction() >= 0);
+        REQUIRE(landmarkBuilding->calculateEconomicImpact() >= 0);
+        REQUIRE(landmarkBuilding->calculateResourceConsumption() >= 0);
+        
+        landmarkBuilding->doImprovements();
+        REQUIRE(landmarkBuilding->calculateSatisfaction() > 0);  // Expect increased satisfaction
+        
+        delete landmarkBuilding;
+    }
+
+    SECTION("Commercial Building Creation") {
+        Building* commercialBuilding = commercialCreator.createBuilding("Mall", 20, 30000, 1000, true, 1, true, 300, "Suburb");
+        
+        REQUIRE(commercialBuilding != nullptr);
+        REQUIRE(commercialBuilding->getType() == "Mall");
+        REQUIRE(commercialBuilding->calculateSatisfaction() >= 0);
+        REQUIRE(commercialBuilding->calculateEconomicImpact() >= 0);
+        REQUIRE(commercialBuilding->calculateResourceConsumption() >= 0);
+        
+        commercialBuilding->doImprovements();
+        REQUIRE(commercialBuilding->calculateSatisfaction() > 0);  // Expect increased satisfaction
+        
+        delete commercialBuilding;
+    }
+
+    SECTION("Industrial Building Creation") {
+        Building* industrialBuilding = industrialCreator.createBuilding("Factory", 10, 20000, 2000, true, 1, true, 400, "Industrial");
+        
+        REQUIRE(industrialBuilding != nullptr);
+        REQUIRE(industrialBuilding->getType() == "Factory");
+        REQUIRE(industrialBuilding->calculateSatisfaction() >= 0);
+        REQUIRE(industrialBuilding->calculateEconomicImpact() >= 0);
+        REQUIRE(industrialBuilding->calculateResourceConsumption() >= 0);
+        
+        industrialBuilding->doImprovements();
+        REQUIRE(industrialBuilding->calculateSatisfaction() > 0);  // Expect increased satisfaction
+        
+        delete industrialBuilding;
+    }
+}
+
+TEST_CASE("Chain of Responsibility with Growth Factor") {
+    // Create handlers with test values
+    Residential apartment("Sunset Apartments", 80, 5000, 200, true, 1, true, 150, "Suburb");
+    Commercial mall("City Mall", 75, 10000, 500, true, 1, true, 1000, "Suburb");
+    Industrial factory("Steel Factory", 70, 15000, 1000, true, 1, true, 300, "Industrial");
+    Landmark monument("Freedom Monument", 90, 8000, 500, true, 1, true, 70, "Suburb");
+    int growthFactor = 21;
+
+    Population populationHandler(growthFactor);
+    Housing housingHandler(growthFactor * 0.5, &apartment);
+    Economic economicHandler(growthFactor * 0.2);
+    Infrastructure infrastructureHandler(growthFactor * 0.3, &mall, &factory, &monument);
+
+    // Set up the chain of responsibility
+    populationHandler.setNextHandler(&housingHandler);
+    housingHandler.setNextHandler(&economicHandler);
+    economicHandler.setNextHandler(&infrastructureHandler);
+
+    SECTION("Chain Execution with Growth Factor") {
+        // Execute the chain with a growth factor
+        REQUIRE_NOTHROW(populationHandler.handleRequest(growthFactor));
+
+        // You can add checks to validate state changes or expected outcomes.
+        // For example:
+        REQUIRE(populationHandler.getGrowthFactor() == growthFactor);
+        REQUIRE(housingHandler.getGrowthFactor() == Approx(growthFactor * 0.5));
+        REQUIRE(economicHandler.getGrowthFactor() == Approx(growthFactor * 0.2));
+        REQUIRE(infrastructureHandler.getGrowthFactor() == Approx(growthFactor * 0.3));
+    }
+}

@@ -17,6 +17,8 @@ public:
 	Housing(double growthRate, Residential* prototypeBuilding);
 
 	void handleRequest(int growthFactor);
+
+	double getGrowthFactor();
 };
 
 #endif
