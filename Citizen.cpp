@@ -175,8 +175,10 @@ void Citizen::leaveFeedback() {
 void Citizen::updateSatisfaction() {
     if (commuteTime > 60) {
         satisfactionLevelTrans -= 20;
+		citySatisfaction -= 10;
     } else {
         satisfactionLevelTrans += 5;
+		citySatisfaction += 10;
     }
    // isSatisfiedTrans = (satisfactionLevelTrans > 50);
 }

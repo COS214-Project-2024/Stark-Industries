@@ -111,9 +111,17 @@ void Commercial::doImprovements() {
 bool Commercial::checkResourceAvailability() {
 	if (resourcesAvailable) {
 		citySatisfaction += 10;
+		for (int i = 0 ; i < observerList.size(); i++) {
+			observerList[i]->buildingSatisfaction += 10;
+			observerList[i]->citySatisfaction += 8;
+		}
 	}
 	else {
 		citySatisfaction -= 10;
+			for (int i = 0 ; i < observerList.size(); i++) {
+			observerList[i]->buildingSatisfaction -= 10;
+			observerList[i]->citySatisfaction -= 8;
+		}
 	}
     return resourcesAvailable;
 }

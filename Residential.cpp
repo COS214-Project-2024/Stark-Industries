@@ -109,11 +109,19 @@ void Residential::doImprovements() {
  * @return True if resources are available, false otherwise.
  */
 bool Residential::checkResourceAvailability() {
-	if (resourcesAvailable) {
-		citySatisfaction += 10;
+	if (!resourcesAvailable){
+		citySatisfaction -= 10;
+			for (int i = 0 ; i < observerList.size(); i++) {
+			observerList[i]->buildingSatisfaction -= 10;
+			observerList[i]->citySatisfaction -= 8;
+		}
 	}
 	else {
-		citySatisfaction -= 10;
+		citySatisfaction += 10;
+		for (int i = 0 ; i < observerList.size(); i++) {
+			observerList[i]->buildingSatisfaction += 10;
+			observerList[i]->citySatisfaction += 8;
+		}
 	}
     return resourcesAvailable;
 }
