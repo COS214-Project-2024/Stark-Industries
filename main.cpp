@@ -535,6 +535,57 @@ void testSatisfactionChecker(){
     // don't use visit for satisfactionChecker. 
 }
 
+void testPrototype() {
+    ResidentialCreator residentialCreator;
+    LandmarkCreator landmarkCreator;
+    CommercialCreator commercialCreator;
+    IndustrialCreator industrialCreator;
+
+    // Residential Building Clone Test
+    Building* residentialBuilding = residentialCreator.createBuilding("Residential Block", 30, 5000, 300, true, 1, true, 200, "Suburb");
+    Building* clonedResidentialBuilding = residentialBuilding->clone();
+
+    std::cout << "Testing Residential Building Clone:" << std::endl;
+    std::cout << "Original Type: " << residentialBuilding->getType() << ", Cloned Type: " << clonedResidentialBuilding->getType() << std::endl;
+    std::cout << "Original Satisfaction: " << residentialBuilding->calculateSatisfaction() << ", Cloned Satisfaction: " << clonedResidentialBuilding->calculateSatisfaction() << std::endl;
+
+    delete residentialBuilding;
+    delete clonedResidentialBuilding;
+
+    // Landmark Building Clone Test
+    Building* landmarkBuilding = landmarkCreator.createBuilding("Statue of Liberty", 50, 100000, 500, true, 1, true, 500, "Suburb");
+    Building* clonedLandmarkBuilding = landmarkBuilding->clone();
+
+    std::cout << "Testing Landmark Building Clone:" << std::endl;
+    std::cout << "Original Type: " << landmarkBuilding->getType() << ", Cloned Type: " << clonedLandmarkBuilding->getType() << std::endl;
+    std::cout << "Original Satisfaction: " << landmarkBuilding->calculateSatisfaction() << ", Cloned Satisfaction: " << clonedLandmarkBuilding->calculateSatisfaction() << std::endl;
+
+    delete landmarkBuilding;
+    delete clonedLandmarkBuilding;
+
+    // Commercial Building Clone Test
+    Building* commercialBuilding = commercialCreator.createBuilding("Mall", 20, 30000, 1000, true, 1, true, 300, "Suburb");
+    Building* clonedCommercialBuilding = commercialBuilding->clone();
+
+    std::cout << "Testing Commercial Building Clone:" << std::endl;
+    std::cout << "Original Type: " << commercialBuilding->getType() << ", Cloned Type: " << clonedCommercialBuilding->getType() << std::endl;
+    std::cout << "Original Satisfaction: " << commercialBuilding->calculateSatisfaction() << ", Cloned Satisfaction: " << clonedCommercialBuilding->calculateSatisfaction() << std::endl;
+
+    delete commercialBuilding;
+    delete clonedCommercialBuilding;
+
+    // Industrial Building Clone Test
+    Building* industrialBuilding = industrialCreator.createBuilding("Factory", 10, 20000, 2000, true, 1, true, 400, "Industrial");
+    Building* clonedIndustrialBuilding = industrialBuilding->clone();
+
+    std::cout << "Testing Industrial Building Clone:" << std::endl;
+    std::cout << "Original Type: " << industrialBuilding->getType() << ", Cloned Type: " << clonedIndustrialBuilding->getType() << std::endl;
+    std::cout << "Original Satisfaction: " << industrialBuilding->calculateSatisfaction() << ", Cloned Satisfaction: " << clonedIndustrialBuilding->calculateSatisfaction() << std::endl;
+
+    delete industrialBuilding;
+    delete clonedIndustrialBuilding;
+}
+
 void taxCollection(){
     Tax* taxDept = new Tax("Tax Department", 0.15);
     City* city = new City();
@@ -845,6 +896,8 @@ void bigTestingMain() {
 }
 
 int main() {
+                testPrototype();
+
     bigTestingMain();
         testSingleton();
 

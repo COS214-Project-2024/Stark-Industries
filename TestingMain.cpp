@@ -766,64 +766,101 @@ TEST_CASE("Building Factory Creation and Properties") {
 
     SECTION("Residential Building Creation") {
         Building* residentialBuilding = residentialCreator.createBuilding("Residential Block", 30, 5000, 300, true, 1, true, 200, "Suburb");
-        
+
         REQUIRE(residentialBuilding != nullptr);
         REQUIRE(residentialBuilding->getType() == "Residential Block");
         REQUIRE(residentialBuilding->calculateSatisfaction() >= 0);
         REQUIRE(residentialBuilding->calculateEconomicImpact() >= 0);
         REQUIRE(residentialBuilding->calculateResourceConsumption() >= 0);
-        
+
         residentialBuilding->doImprovements();
         REQUIRE(residentialBuilding->calculateSatisfaction() > 0);  // Expect increased satisfaction
-        
+
+        // Test cloning
+        Building* clonedResidentialBuilding = residentialBuilding->clone();
+        REQUIRE(clonedResidentialBuilding != nullptr);
+        REQUIRE(clonedResidentialBuilding->getType() == residentialBuilding->getType());
+        REQUIRE(clonedResidentialBuilding->calculateSatisfaction() == residentialBuilding->calculateSatisfaction());
+        REQUIRE(clonedResidentialBuilding->calculateEconomicImpact() == residentialBuilding->calculateEconomicImpact());
+        REQUIRE(clonedResidentialBuilding->calculateResourceConsumption() == residentialBuilding->calculateResourceConsumption());
+
         delete residentialBuilding;
+        delete clonedResidentialBuilding;
     }
 
     SECTION("Landmark Building Creation") {
         Building* landmarkBuilding = landmarkCreator.createBuilding("Statue of Liberty", 50, 100000, 500, true, 1, true, 500, "Suburb");
-        
+
         REQUIRE(landmarkBuilding != nullptr);
         REQUIRE(landmarkBuilding->getType() == "Statue of Liberty");
         REQUIRE(landmarkBuilding->calculateSatisfaction() >= 0);
         REQUIRE(landmarkBuilding->calculateEconomicImpact() >= 0);
         REQUIRE(landmarkBuilding->calculateResourceConsumption() >= 0);
-        
+
         landmarkBuilding->doImprovements();
         REQUIRE(landmarkBuilding->calculateSatisfaction() > 0);  // Expect increased satisfaction
-        
+
+        // Test cloning
+        Building* clonedLandmarkBuilding = landmarkBuilding->clone();
+        REQUIRE(clonedLandmarkBuilding != nullptr);
+        REQUIRE(clonedLandmarkBuilding->getType() == landmarkBuilding->getType());
+        REQUIRE(clonedLandmarkBuilding->calculateSatisfaction() == landmarkBuilding->calculateSatisfaction());
+        REQUIRE(clonedLandmarkBuilding->calculateEconomicImpact() == landmarkBuilding->calculateEconomicImpact());
+        REQUIRE(clonedLandmarkBuilding->calculateResourceConsumption() == landmarkBuilding->calculateResourceConsumption());
+
         delete landmarkBuilding;
+        delete clonedLandmarkBuilding;
     }
 
     SECTION("Commercial Building Creation") {
         Building* commercialBuilding = commercialCreator.createBuilding("Mall", 20, 30000, 1000, true, 1, true, 300, "Suburb");
-        
+
         REQUIRE(commercialBuilding != nullptr);
         REQUIRE(commercialBuilding->getType() == "Mall");
         REQUIRE(commercialBuilding->calculateSatisfaction() >= 0);
         REQUIRE(commercialBuilding->calculateEconomicImpact() >= 0);
         REQUIRE(commercialBuilding->calculateResourceConsumption() >= 0);
-        
+
         commercialBuilding->doImprovements();
         REQUIRE(commercialBuilding->calculateSatisfaction() > 0);  // Expect increased satisfaction
-        
+
+        // Test cloning
+        Building* clonedCommercialBuilding = commercialBuilding->clone();
+        REQUIRE(clonedCommercialBuilding != nullptr);
+        REQUIRE(clonedCommercialBuilding->getType() == commercialBuilding->getType());
+        REQUIRE(clonedCommercialBuilding->calculateSatisfaction() == commercialBuilding->calculateSatisfaction());
+        REQUIRE(clonedCommercialBuilding->calculateEconomicImpact() == commercialBuilding->calculateEconomicImpact());
+        REQUIRE(clonedCommercialBuilding->calculateResourceConsumption() == commercialBuilding->calculateResourceConsumption());
+
         delete commercialBuilding;
+        delete clonedCommercialBuilding;
     }
 
     SECTION("Industrial Building Creation") {
         Building* industrialBuilding = industrialCreator.createBuilding("Factory", 10, 20000, 2000, true, 1, true, 400, "Industrial");
-        
+
         REQUIRE(industrialBuilding != nullptr);
         REQUIRE(industrialBuilding->getType() == "Factory");
         REQUIRE(industrialBuilding->calculateSatisfaction() >= 0);
         REQUIRE(industrialBuilding->calculateEconomicImpact() >= 0);
         REQUIRE(industrialBuilding->calculateResourceConsumption() >= 0);
-        
+
         industrialBuilding->doImprovements();
         REQUIRE(industrialBuilding->calculateSatisfaction() > 0);  // Expect increased satisfaction
-        
+
+        // Test cloning
+        Building* clonedIndustrialBuilding = industrialBuilding->clone();
+        REQUIRE(clonedIndustrialBuilding != nullptr);
+        REQUIRE(clonedIndustrialBuilding->getType() == industrialBuilding->getType());
+        REQUIRE(clonedIndustrialBuilding->calculateSatisfaction() == industrialBuilding->calculateSatisfaction());
+        REQUIRE(clonedIndustrialBuilding->calculateEconomicImpact() == industrialBuilding->calculateEconomicImpact());
+        REQUIRE(clonedIndustrialBuilding->calculateResourceConsumption() == industrialBuilding->calculateResourceConsumption());
+
         delete industrialBuilding;
+        delete clonedIndustrialBuilding;
     }
 }
+
 
 TEST_CASE("Chain of Responsibility with Growth Factor") {
     // Create handlers with test values
