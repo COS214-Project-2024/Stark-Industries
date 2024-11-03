@@ -319,4 +319,19 @@ TEST_CASE("Tax Collector Execution") {
     delete city;
 }
 
+TEST_CASE("Satisfaction Checker Execution") {
+    SatisfactionChecker* satisfactionChecker = new SatisfactionChecker();
+    Citizen* citizen = new Citizen("Tony", 1000);
+    Industrial* industrial = new Industrial();
+    satisfactionChecker->transportSatisfaction(citizen);
+    satisfactionChecker->buildingSatisfaction(citizen);
+    satisfactionChecker->citySatisfaction(citizen);
+    satisfactionChecker->citySatisfaction(industrial);
+    REQUIRE(citizen->getSatisfactionTransport() >= 0);
+    REQUIRE(citizen->buildingSatisfaction >= 0);
+    REQUIRE(citizen->citySatisfaction >= 0);
+    delete satisfactionChecker;
+    delete citizen;
+    delete industrial;
+}
 
