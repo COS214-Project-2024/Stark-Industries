@@ -817,6 +817,7 @@ void addCustomCitizen(City* city) {
         residentialBuilding = dynamic_cast<Residential*>(building);
         if (residentialBuilding && residentialBuilding->populateBuilding()) {
             city->attach(newCitizen);
+            residentialBuilding->attach(newCitizen);
             std::cout << GREEN << "Citizen " << name << " has moved into " 
                       << residentialBuilding->getType() << "\n" << RESET;
             return;
@@ -869,6 +870,7 @@ void addMultipleCitizens(City* city) {
             Residential* residentialBuilding = dynamic_cast<Residential*>(building);
             if (residentialBuilding && residentialBuilding->populateBuilding()) {
                 city->attach(newCitizen); // Add citizen to city’s observer list
+                residentialBuilding->attach(newCitizen); // Add citizen as an observer to the building
                 std::cout << BLUE << name << " has moved into " << residentialBuilding->getType() << "\n" << RESET;
                 assigned = true;
                 break;
@@ -1007,6 +1009,19 @@ void removeCitizen(City* city) {
 //     citizen->chooseTransport(chosenTransport);
 // }
 
+double citySatisfactionChecker(City* city){
+    SatisfactionChecker* satisfactionChecker = new SatisfactionChecker();
+    for (int i = 0; i < city->citizens.size(); i++) {
+        city->citizens[i]->acceptCitySatisfactionChecker(satisfactionChecker);
+    }
+    for (int i = 0 ; i < city->buildings.size() ; i++){
+        city->buildings[i]->acceptCitySatisfactionChecker(satisfactionChecker);
+    }
+    double citySatisfaction = satisfactionChecker->citySatisfactionTotal;
+    delete satisfactionChecker;
+    return citySatisfaction;
+}
+
 
 
 void manageCitizens(City* city) {
@@ -1087,12 +1102,9 @@ void displayCityStats(City* city) {
     // Population and Citizen Stats
     std::cout << "Population: " << city->citizens.size() << " citizens\n";
 
-    // int totalSatisfaction = 0;
-    // for (Citizen* citizen : city->citizens) {
-    //     totalSatisfaction += citizen->getOverallSatisfaction();  // Add in once implemented
-    // }
-    // int averageSatisfaction = city->citizens.size() > 0 ? totalSatisfaction / city->citizens.size() : 0;
-    // std::cout << "Average Citizen Satisfaction: " << averageSatisfaction << "%\n";
+    double citySatisfaction = citySatisfactionChecker(city);
+    double averageSatisfaction = citySatisfaction/(city->citizens.size() + city->buildings.size());
+    std::cout << "Average City Satisfaction Across Buildings and Citizens: " << averageSatisfaction << "%\n";
 
     // Building Stats
     std::cout << "Number of Buildings: " << city->listBuildings().size() << "\n";
