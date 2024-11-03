@@ -38,3 +38,11 @@ bool City::inspectBuilding() {
 	// TODO - implement City::inspectBuilding
 	throw "Not yet implemented";
 }
+
+void City::attach(Building* building) {
+	buildings.push_back(building);
+}
+
+void City::detach(Building* building) {
+	buildings.erase(std::remove(buildings.begin(), buildings.end(), building), buildings.end());
+}

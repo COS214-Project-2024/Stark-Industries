@@ -502,6 +502,34 @@ void testSatisfactionChecker(){
     // don't use visit for satisfactionChecker. 
 }
 
+void taxCollection(){
+    Tax* taxDept = new Tax("Tax Department", 0.15);
+    City* city = new City();
+    Building* industrial = new Industrial();
+    Building* commercial = new Commercial();
+    industrial->setBuildingValue(100000);
+    commercial->setBuildingValue(85000);
+    commercial->generateRevenue();
+    city->attach(industrial);
+    city->attach(commercial);
+    Citizen* c1 = new Citizen("Tony", 10000);
+    Citizen * c2 = new Citizen("Sherlock", 8000);
+    city->attach(c1);
+    city->attach(c2);
+    CollectTax* collectTax = new CollectTax();
+    collectTax->addBuildingVector(city->buildings);
+    collectTax->addCitizenVector(city->citizens);
+    collectTax->execute();
+    TaxCollector* taxCollector = new TaxCollector();
+    for (int i = 0 ; i < city->citizens.size() ; i++){
+        taxCollector->visit(city->citizens[i]);
+    }
+    for (int i = 0 ; i < city->buildings.size() ; i++){
+        taxCollector->visit(city->buildings[i]);
+    }
+    taxDept->collectTaxes(taxCollector->taxCollected);
+}
+
 #include <iostream>
 #include <iomanip>
 #include <cstdlib>
@@ -712,6 +740,7 @@ void bigTestingMain() {
                   << name << " with job " << job << ", with income $" << income 
                   << " and property value $" << std::fixed << std::setprecision(2) << propertyValue << std::endl;
         residentialBuilding->populateBuilding();
+        ourCity->attach(newCitizen);
     }
 
     // Create government
@@ -783,7 +812,7 @@ void bigTestingMain() {
 }
 
 int main() {
-    bigTestingMain();
+    //bigTestingMain();
     //testFactoryUtilities();
     //testComposite();
     //factoryBuildings();
@@ -830,6 +859,7 @@ int main() {
     //testTaxCollector();
     //testSatisfactionChecker();
     // testRent();
+    taxCollection();
 
     return 0;
 }
