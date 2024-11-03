@@ -408,3 +408,91 @@ TEST_CASE("Tax Collection Execution") {
     delete collectTax;
     delete taxCollector;
 }
+
+TEST_CASE("City Satisfaction Checker") {
+
+    City* city = new City("Stark City");
+    Citizen* citizen1 = new Citizen("Tony", 1000);
+    Citizen* citizen2 = new Citizen("Sherlock", 1000);
+    city->attach(citizen1);
+    city->attach(citizen2);
+
+    Building* commercial = new Commercial("Mall", 20, 30000, 1000, true, 1, true, 300, "Downtown");
+    Building* industrial = new Industrial("Factory", 50, 50000, 2000, true, 1, true, 500, "Industrial Area");
+    city->attach(commercial);
+    city->attach(industrial);
+
+    SatisfactionChecker* satisfactionChecker = new SatisfactionChecker();
+    for (int i = 0; i < city->citizens.size(); i++) {
+        city->citizens[i]->acceptCitySatisfactionChecker(satisfactionChecker);
+    }
+    for (int i = 0; i < city->buildings.size(); i++) {
+        city->buildings[i]->acceptCitySatisfactionChecker(satisfactionChecker);
+    }
+    double citySatisfaction = satisfactionChecker->citySatisfactionTotal;
+    delete satisfactionChecker;
+
+    REQUIRE(citySatisfaction >= 0); // Ensure city satisfaction is non-negative
+
+    delete city;
+    delete citizen1;
+    delete citizen2;
+    delete commercial;
+    delete industrial;
+}
+
+TEST_CASE("Average Citizen Transport Satisfaction Checker") {
+
+    City* city = new City("Stark City");
+    Citizen* citizen1 = new Citizen("Tony", 1000);
+    Citizen* citizen2 = new Citizen("Sherlock", 1000);
+    city->attach(citizen1);
+    city->attach(citizen2);
+
+    SatisfactionChecker* satisfactionChecker = new SatisfactionChecker();
+    for (int i = 0; i < city->citizens.size(); i++) {
+        city->citizens[i]->acceptTransportSatisfactionChecker(satisfactionChecker);
+    }
+    double satisfaction = satisfactionChecker->transportSatisfactionTotal;
+    delete satisfactionChecker;
+
+    double avgSatisfaction = satisfaction / city->citizens.size();
+
+    REQUIRE(avgSatisfaction >= 0); // Ensure average satisfaction is non-negative
+
+    delete city;
+    delete citizen1;
+    delete citizen2;
+}
+TEST_CASE("Building City Satisfaction Checker") {
+    Building* commercial = new Commercial("Mall", 20, 30000, 1000, true, 1, true, 300, "Downtown");
+
+    SatisfactionChecker* satisfactionChecker = new SatisfactionChecker();
+    commercial->acceptCitySatisfactionChecker(satisfactionChecker);
+    double satisfaction = satisfactionChecker->citySatisfactionTotal;
+    delete satisfactionChecker;
+
+    REQUIRE(satisfaction >= 0); // Ensure satisfaction is non-negative
+    delete commercial;
+}
+
+TEST_CASE("Citizen Satisfaction for Building Checker") {
+    Citizen* citizen1 = new Citizen("Tony", 1000);
+    Citizen* citizen2 = new Citizen("Sherlock", 1000);
+    Building* commercial = new Commercial("Mall", 20, 30000, 1000, true, 1, true, 300, "Downtown");
+    commercial->attach(citizen1);
+    commercial->attach(citizen2);
+    SatisfactionChecker* satisfactionChecker = new SatisfactionChecker();
+    for (int i = 0; i < commercial->observerList.size(); i++) {
+        commercial->observerList[i]->acceptBuildingSatisfactionChecker(satisfactionChecker);
+    }
+    double satisfaction = satisfactionChecker->buildingSatisfactionTotal;
+    double avgSatisfaction = satisfaction / commercial->observerList.size();
+    delete satisfactionChecker;
+
+    REQUIRE(avgSatisfaction >= 0); // Ensure average satisfaction is non-negative
+
+    delete citizen1;
+    delete citizen2;
+    delete commercial;
+}
