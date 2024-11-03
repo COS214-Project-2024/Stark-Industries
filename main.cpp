@@ -124,7 +124,7 @@ void createInitialBuildings(City* city) {
     city->addBuilding(residentialBuilding);
     std::cout << GREEN << "A Residential Building rises: " << residentialBuilding->getType() << "\n"
               << "Located in: Residential District\n" << RESET;
-    pauseForUser();
+    
 
     // Create Commercial Building
     Commercial* commercialBuilding = new Commercial(
@@ -133,7 +133,7 @@ void createInitialBuildings(City* city) {
     city->addBuilding(commercialBuilding);
     std::cout << YELLOW << "A Commercial Building appears: " << commercialBuilding->getType() << "\n"
               << "Located in: Market Square\n" << RESET;
-    pauseForUser();
+   
 
     // Create Industrial Building
     Industrial* industrialBuilding = new Industrial(
@@ -142,7 +142,6 @@ void createInitialBuildings(City* city) {
     city->addBuilding(industrialBuilding);
     std::cout << RED << "An Industrial Building is forged: " << industrialBuilding->getType() << "\n"
               << "Located in: Industrial Zone\n" << RESET;
-    pauseForUser();
 
     // Create Landmark Building
     Landmark* landmarkBuilding = new Landmark(
@@ -163,7 +162,7 @@ void createAndAssignUtilities(City* city) {
     city->addUtility(waterUtility);
     std::cout << GREEN << "\nWater Utility Created:\n" << RESET;
     waterUtility->displayInfo();
-    pauseForUser();
+    
 
     // Create Waste Management Utility
     WasteFactory wasteFactory;
@@ -171,7 +170,7 @@ void createAndAssignUtilities(City* city) {
     city->addUtility(wasteUtility);
     std::cout << MAGENTA << "\nWaste Management Utility Created:\n" << RESET;
     wasteUtility->displayInfo();
-    pauseForUser();
+    
 
     // Create Sewage Utility
     SewageFactory sewageFactory;
@@ -179,7 +178,7 @@ void createAndAssignUtilities(City* city) {
     city->addUtility(sewageUtility);
     std::cout << YELLOW << "\nSewage Utility Created:\n" << RESET;
     sewageUtility->displayInfo();
-    pauseForUser();
+    
 
     // Create Power Plant Utility
     PowerPlantFactory powerPlantFactory;
@@ -198,8 +197,9 @@ void createAndAssignUtilities(City* city) {
         building->addUtility(powerPlantUtility);
 
         std::cout << GREEN << "Utilities have been assigned to " << building->getType() << "\n" << RESET;
-        pauseForUser();
+        
     }
+    pauseForUser();
 }
 
 void createAndAssignTransport(City* city) {
@@ -214,14 +214,14 @@ void createAndAssignTransport(City* city) {
     road->build();
     city->addInfrastructure(road);
     std::cout << GREEN << "Road created with 4 lanes and length 20km.\n" << RESET;
-    pauseForUser();
+    
 
     // Create a railway
     TransportInfrastructure* railway = railwayFactory.createInfrastructure(15, true);
     railway->build();
     city->addInfrastructure(railway);
     std::cout << YELLOW << "Electrified railway created with length 15km.\n" << RESET;
-    pauseForUser();
+    
 
     // Create a runway
     TransportInfrastructure* runway = runwayFactory.createInfrastructure(3.0, 0.75);
@@ -245,19 +245,19 @@ void setupGovernment(City* city) {
     // Add departments to government
     government->add(budgetDept);
     std::cout << GREEN << "Budget Department created and added to the government.\n" << RESET;
-    pauseForUser();
+    
 
     government->add(policiesDept);
     std::cout << YELLOW << "Policies Department created and added to the government.\n" << RESET;
-    pauseForUser();
+    
 
     government->add(servicesDept);
     std::cout << CYAN << "Services Department created and added to the government.\n" << RESET;
-    pauseForUser();
+   
 
     government->add(taxDept);
     std::cout << RED << "Tax Department created and added to the government.\n" << RESET;
-    pauseForUser();
+    
 
     // Assign the government to the city
     city->setGovernment(government);
@@ -307,8 +307,9 @@ void createAndAssignCitizens(City* city) {
             delete newCitizen; // Delete citizen if not assigned
         }
 
-        pauseForUser(); // Pause for user to proceed to next citizen
+         // Pause for user to proceed to next citizen
     }
+    pauseForUser();
 }
 //**********INITIAL SETUP**********/
 
