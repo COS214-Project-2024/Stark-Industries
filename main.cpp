@@ -47,6 +47,7 @@
 #include "Public.h"
 #include "Train.h"
 #include "Air.h"
+#include "Car.h"
 
 #include "CollectTax.h"
 #include "IncreaseTax.h"
@@ -922,56 +923,78 @@ void removeCitizen(City* city) {
 }
 
 
-// void manageTransportForCitizen(City* city) {                 //Please fix
-//      const auto& citizens = city->getCitizens();
+ void manageTransportForCitizen(City* city) {                 //Please fix
+      const auto& citizens = city->getCitizens();
 
-//     if (citizens.empty()) {
-//         std::cout << RED << "No citizens available.\n" << RESET;
-//         return;
-//     }
+     if (citizens.empty()) {
+         std::cout << RED << "No citizens available.\n" << RESET;
+         return;
+     }
 
-//     std::cout << "Select a citizen to manage transport:\n";
-//     for (size_t i = 0; i < citizens.size(); ++i) {
-//         std::cout << i + 1 << ". " << citizens[i]->getName() << "\n";
-//     }
-//     int citizenIndex;
-//     std::cin >> citizenIndex;
+     std::cout << "Select a citizen to manage transport:\n";
+     for (size_t i = 0; i < citizens.size(); ++i) {
+         std::cout << i + 1 << ". " << citizens[i]->getName() << "\n";
+     }
+     int citizenIndex;
+     std::cin >> citizenIndex;
+     if (citizenIndex < 1 || citizenIndex > citizens.size()) {
+         std::cout << RED << "Invalid citizen selection.\n" << RESET;
+         return;
+     }
 
-//     if (citizenIndex < 1 || citizenIndex > citizens.size()) {
-//         std::cout << RED << "Invalid citizen selection.\n" << RESET;
-//         return;
-//     }
-
-//     Citizen* citizen = citizens[citizenIndex - 1];
-
-//     // Present transport options to the user
-//     std::cout << "Select a transport type:\n";
-//     std::cout << "1. Road\n";
-//     std::cout << "2. Railway\n";
-//     std::cout << "3. Air\n";
-//     int transportType;
-//     std::cin >> transportType;
+     Citizen* citizen = citizens[citizenIndex - 1];
+ // Present transport options to the user
+     std::cout << "Select your preferred transport type:\n";
+     std::cout << "1. City Car\n";
+      std::cout << "2. Public Transport : City Bus\n";
+     std::cout << "3.City Plane\n";
+     std::cout << "4. City Train\n";
+     int transportType;
+     std::cin >> transportType;
 
 //     // Create or retrieve the selected transport type
-//     Transport* chosenTransport = nullptr;
-//     switch (transportType) {
-//         case 1:
-//             chosenTransport = new Road();  // Assuming Road is derived from Transport
-//             break;
-//         case 2:
-//             chosenTransport = new Railway();  // Assuming Railway is derived from Transport
-//             break;
-//         case 3:
-//             chosenTransport = new Air();  // Assuming Air is derived from Transport
-//             break;
-//         default:
-//             std::cout << RED << "Invalid transport selection.\n" << RESET;
-//             return;
-//     }
+     Transport* chosenTransport = nullptr;
+     switch (transportType) {
+         case 1:
+             chosenTransport = new Car("City Car", 20, 5);  // Assuming Road is derived from Transport
+             break;
+         case 2:
+             chosenTransport =  new Public("City Bus", 30,10, 30); // Assuming Railway is derived from Transport
+             break;
+         case 3:
+             chosenTransport = new Air("City Plane",60,40,80,50);  // Assuming Air is derived from Transport
+             break;
+              case 4:
+             chosenTransport = new Train("City Train",45,30,90,30);  // Assuming Air is derived from Transport
+             break;
+         default:
+             std::cout << RED << "Invalid transport selection.\n" << RESET;
+             return;
+     }
 
-//     // Assign the chosen transport to the citizen
-//     citizen->chooseTransport(chosenTransport);
-// }
+     // Assign the chosen transport to the citizen
+     citizen->chooseTransport(chosenTransport);
+
+     if(chosenTransport!=NULL){
+        std::cout<<"Would you like to transport now? (Please select an option from below)"<<std::endl;
+         std::cout << "1. Yes\n";
+      std::cout << "2. No\n";
+        int ans;
+        std::cin>>ans;
+         switch (ans) {
+         case 1:
+             citizen->transport();
+             break;
+
+         case 2:
+             break;
+
+        default:
+             std::cout << RED << "Invalid selection.\n" << RESET;
+             return;
+
+     }
+ }
 
 
 
