@@ -120,3 +120,11 @@ int City::getAvailableHousingCapacity() const {
 vector<Citizen*>& City::getCitizens() {
         return observerList;
     }
+
+void City::attach(Building* building) {
+	buildings.push_back(building);
+}
+
+void City::detach(Building* building) {
+	buildings.erase(std::remove(buildings.begin(), buildings.end(), building), buildings.end());
+}

@@ -10,6 +10,7 @@
 #include "CommercialCreator.h"
 #include "IndustrialCreator.h"
 #include "LandmarkCreator.h"
+#include "Building.h"
 #include <string>
 #include <vector>
 using namespace std;
@@ -66,9 +67,10 @@ public:
 	int getAvailableHousingCapacity() const;
 
 	vector<Citizen*>& getCitizens();
-     
 
+	void attach(Building* building);
 
+	void detach(Building* building);
 };
 
 #endif

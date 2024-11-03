@@ -124,6 +124,8 @@ public:
 
     bool populateBuilding();
 
+	void getCitizenSatisfactionForBuilding();
+
     void addUtility(Utilities* utility);
 
     int getAvailableCapacity() const;

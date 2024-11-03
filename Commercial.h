@@ -119,6 +119,9 @@ public:
 	void acceptTaxCollector(Visitor * taxCollector);
 	void acceptCitySatisfactionChecker(Visitor* satisfactionChecker);
 
+	void getCitizenSatisfactionForBuilding();
+	void generateRevenue();
+
     int getNumBuildings();
 
     bool populateBuilding();

@@ -7,6 +7,7 @@
 #include "Visitor.h"
 #include <string>
 #include <vector>
+class SatisfactionChecker;
 using namespace std;
 
 /**
@@ -134,9 +135,11 @@ public:
 	// need to do things for rent 
 	virtual void collectRent() {}; 
 	double rent;
-	void setRentalRate(double newRent);
-
+	virtual void setRentalRate(double newRent);
+	
     virtual bool populateBuilding() = 0;
+	virtual void setBuildingValue(double value);
+	virtual void generateRevenue(){};
 
     virtual void addUtility(Utilities* utility);
 };

@@ -1,12 +1,14 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 #include "CollectTax.h"
+#include "SatisfactionChecker.h"
 #include "Citizen.h"
 #include "Industrial.h"
 #include "WaterFactory.h"
 #include "WasteFactory.h"
 #include "SewageFactory.h"
 #include "PowerPlantFactory.h"
+#include "ResourceManagerment.h"
 
 #include "Government.h"  
 #include "Tax.h"
@@ -20,6 +22,7 @@
 #include "Commercial.h"
 #include "Industrial.h"
 #include "Landmark.h"
+
 
 TEST_CASE("Citizen Collect Tax"){
     Citizen* citizen = new Citizen("Tony", 1000);
@@ -38,10 +41,10 @@ TEST_CASE("Building Observer Notifications", "[ObserverPattern]") {
     Citizen charlie("Charlie", 70000, 350000);
 
     // Create different types of buildings
-    Residential apartment("Sunset Apartments", 80, 5000, 200, true, 1, true, 5);
-    Commercial mall("City Mall", 75, 10000, 500, true, 1, true, 10);
-    Industrial factory("Steel Factory", 70, 15000, 1000, true, 1, true, 8);
-    Landmark monument("Freedom Monument", 90, 8000, 500, true, 1, true, 10);
+    Residential apartment("Sunset Apartments", 80, 5000, 200, true, 1, true, 150, "Suburb");
+    Commercial mall("City Mall", 75, 10000, 500, true, 1, true, 1000, "Suburb");
+    Industrial factory("Steel Factory", 70, 15000, 1000, true, 1, true, 300, "Industrial");
+    Landmark monument("Freedom Monument", 90, 8000, 500, true, 1, true, 70, "Suburb");
 
     // Attach citizens to different buildings
     apartment.attach(&alice);
@@ -202,4 +205,78 @@ TEST_CASE("PowerPlantFactory creates PowerPlant utility") {
     delete powerPlantUtility;  // Clean up dynamically allocated memory
 }
 
+TEST_CASE("Building improvement and satisfaction"){
+    Citizen* citizen = new Citizen("Tony", 1000);
+    Commercial* commercial = new Commercial("Mall", 20, 30000, 1000, true, 1, true, 300, "Downtown");
+    commercial->attach(citizen);
+    SatisfactionChecker* satisfactionChecker = new SatisfactionChecker();
+    satisfactionChecker->buildingSatisfaction(citizen);
+    commercial->doImprovements();
+    satisfactionChecker->buildingSatisfaction(citizen);
+    
+    //REQUIRE(ct->execute() == "Property Tax collected from Industrial Building\nProperty Tax of: 0 collected\nIncome Tax collected from citizens\nTime to collect Income Tax from citizens\nTax paid: 150");
+}
 
+
+TEST_CASE("ResourceManagement: createResources initializes resources correctly", "[ResourceManagement]") {
+    ResourceManagement& resources = ResourceManagement::getInstance();
+    resources.resetResources(); // Reset state before test
+    resources.createResources();
+
+    std::ostringstream output;
+    std::streambuf* oldCoutBuf = std::cout.rdbuf();
+    std::cout.rdbuf(output.rdbuf());
+
+    resources.displayResourceStatus();
+    std::cout.rdbuf(oldCoutBuf);
+
+    std::string expectedOutput = "Current Resource Status:\nWood: 1000\nSteel: 500\nConcrete: 300\n"
+                                 "Energy: 2000\nWater: 1500\nBudget: 10000\n";
+
+    REQUIRE(output.str() == expectedOutput);
+}
+
+TEST_CASE("ResourceManagement: supplyResources deducts resources when sufficient", "[ResourceManagement]") {
+    ResourceManagement& resources = ResourceManagement::getInstance();
+    resources.resetResources();
+    resources.createResources();
+
+    resources.supplyResources();
+
+    std::ostringstream output;
+    std::streambuf* oldCoutBuf = std::cout.rdbuf();
+    std::cout.rdbuf(output.rdbuf());
+
+    resources.displayResourceStatus();
+    std::cout.rdbuf(oldCoutBuf);
+
+    std::string expectedOutput = "Current Resource Status:\nWood: 900\nSteel: 450\nConcrete: 270\n"
+                                 "Energy: 1800\nWater: 1350\nBudget: 9500\n";
+
+    REQUIRE(output.str() == expectedOutput);
+}
+
+TEST_CASE("ResourceManagement: supplyResources does not alter resources when insufficient", "[ResourceManagement]") {
+    ResourceManagement& resources = ResourceManagement::getInstance();
+    resources.resetResources();
+    resources.createResources();
+
+    resources.updateMaterials(-900, -500, -300);
+    resources.updateEnergy(-1800);
+    resources.updateWater(-1350);
+    resources.updateBudget(-9500);
+
+    resources.supplyResources();
+
+    std::ostringstream output;
+    std::streambuf* oldCoutBuf = std::cout.rdbuf();
+    std::cout.rdbuf(output.rdbuf());
+
+    resources.displayResourceStatus();
+    std::cout.rdbuf(oldCoutBuf);
+
+    std::string expectedOutput = "Current Resource Status:\nWood: 100\nSteel: 0\nConcrete: 0\n"
+                                 "Energy: 200\nWater: 150\nBudget: 500\n";
+
+    REQUIRE(output.str() == expectedOutput);
+}

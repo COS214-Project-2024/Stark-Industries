@@ -60,9 +60,42 @@
 #include "IncreaseTax.h"
 #include "TaxCollector.h"
 #include "City.h"
+#include "ResourceManagerment.h"
 
 using namespace std;
 
+void testSingleton() {
+    // Get the singleton instance
+    ResourceManagement& resourceManager = ResourceManagement::getInstance();
+
+    // Step 1: Create initial resources
+    resourceManager.createResources();
+
+    // Step 2: Update materials, energy, water, and budget
+    resourceManager.updateMaterials(200, 100, 50);   // Adding resources
+    resourceManager.updateEnergy(300);               // Increase energy
+    resourceManager.updateWater(200);                // Increase water
+    resourceManager.updateBudget(1500.0);            // Increase budget
+
+    // Step 3: Display resource status after updates
+    std::cout << "\nAfter updates:" << std::endl;
+    resourceManager.displayResourceStatus();
+
+    // Step 4: Supply resources to utilities
+    resourceManager.supplyResources();
+
+    // Step 5: Attempt to allocate some budget
+    double allocationAmount = 800.0;
+    if (resourceManager.allocateBudget(allocationAmount)) {
+        std::cout << "\nBudget allocated successfully: " << allocationAmount << std::endl;
+    } else {
+        std::cout << "\nFailed to allocate budget: " << allocationAmount << std::endl;
+    }
+
+    // Step 6: Final display of resource status
+    std::cout << "\nFinal Resource Status:" << std::endl;
+    resourceManager.displayResourceStatus();
+}
 
 // ANSI color codes for styling the output
 #define RESET "\033[0m"
@@ -1631,6 +1664,100 @@ int main(){
 //     std::cout << "Custom non-electrified Railway cost: " << customRailway.getCost() << std::endl;
 // }
 
+void testSatisfactionChecker(){
+    Citizen* citizen = new Citizen("Tony", 1000);
+    Citizen* citizen2 = new Citizen("Sherlock", 1000);
+    Commercial* commercial = new Commercial("Mall", 20, 30000, 1000, true, 1, true, 300, "Downtown");
+    commercial->attach(citizen);
+    commercial->attach(citizen2);
+    commercial->getCitizenSatisfactionForBuilding();
+    commercial->doImprovements();
+    commercial->getCitizenSatisfactionForBuilding();
+    SatisfactionChecker* satisfactionChecker = new SatisfactionChecker(); 
+    std::cout << "City satisfaction for " << commercial->getType() << ": \n";
+    commercial->acceptCitySatisfactionChecker(satisfactionChecker);
+    citizen->acceptCitySatisfactionChecker(satisfactionChecker);
+    commercial->setBuildingValue(100000);
+    // alternatively can actually cout the "satisfaction for [building name]:" and then create
+    // a satisfactionChecker object and call buildingSatisfaction but i don't think it scales well
+    // don't use visit for satisfactionChecker. 
+}
+
+void taxCollection(){
+    Tax* taxDept = new Tax("Tax Department", 0.15);
+    City* city = new City();
+    Building* industrial = new Industrial();
+    Building* commercial = new Commercial();
+    industrial->setBuildingValue(100000);
+    commercial->setBuildingValue(85000);
+    commercial->generateRevenue();
+    city->attach(industrial);
+    city->attach(commercial);
+    Citizen* c1 = new Citizen("Tony", 10000);
+    Citizen * c2 = new Citizen("Sherlock", 8000);
+    city->attach(c1);
+    city->attach(c2);
+    CollectTax* collectTax = new CollectTax();
+    collectTax->addBuildingVector(city->buildings);
+    collectTax->addCitizenVector(city->citizens);
+    collectTax->execute();
+    TaxCollector* taxCollector = new TaxCollector();
+    for (int i = 0 ; i < city->citizens.size() ; i++){
+        taxCollector->visit(city->citizens[i]);
+    }
+    for (int i = 0 ; i < city->buildings.size() ; i++){
+        taxCollector->visit(city->buildings[i]);
+    }
+    taxDept->collectTaxes(taxCollector->taxCollected);
+}
+
+void testSatisfactionChecker(){
+    Citizen* citizen = new Citizen("Tony", 1000);
+    Citizen* citizen2 = new Citizen("Sherlock", 1000);
+    Commercial* commercial = new Commercial("Mall", 20, 30000, 1000, true, 1, true, 300, "Downtown");
+    commercial->attach(citizen);
+    commercial->attach(citizen2);
+    commercial->getCitizenSatisfactionForBuilding();
+    commercial->doImprovements();
+    commercial->getCitizenSatisfactionForBuilding();
+    SatisfactionChecker* satisfactionChecker = new SatisfactionChecker(); 
+    std::cout << "City satisfaction for " << commercial->getType() << ": \n";
+    commercial->acceptCitySatisfactionChecker(satisfactionChecker);
+    citizen->acceptCitySatisfactionChecker(satisfactionChecker);
+    commercial->setBuildingValue(100000);
+    // alternatively can actually cout the "satisfaction for [building name]:" and then create
+    // a satisfactionChecker object and call buildingSatisfaction but i don't think it scales well
+    // don't use visit for satisfactionChecker. 
+}
+
+void taxCollection(){
+    Tax* taxDept = new Tax("Tax Department", 0.15);
+    City* city = new City();
+    Building* industrial = new Industrial();
+    Building* commercial = new Commercial();
+    industrial->setBuildingValue(100000);
+    commercial->setBuildingValue(85000);
+    commercial->generateRevenue();
+    city->attach(industrial);
+    city->attach(commercial);
+    Citizen* c1 = new Citizen("Tony", 10000);
+    Citizen * c2 = new Citizen("Sherlock", 8000);
+    city->attach(c1);
+    city->attach(c2);
+    CollectTax* collectTax = new CollectTax();
+    collectTax->addBuildingVector(city->buildings);
+    collectTax->addCitizenVector(city->citizens);
+    collectTax->execute();
+    TaxCollector* taxCollector = new TaxCollector();
+    for (int i = 0 ; i < city->citizens.size() ; i++){
+        taxCollector->visit(city->citizens[i]);
+    }
+    for (int i = 0 ; i < city->buildings.size() ; i++){
+        taxCollector->visit(city->buildings[i]);
+    }
+    taxDept->collectTaxes(taxCollector->taxCollected);
+}
+
 
 
 
@@ -1834,20 +1961,21 @@ int main(){
             //     TransportInfrastructure* runway3 = runwayFactory.createInfrastructure(1.0, 0.7);
             //     runway3->build();
 
-            //     // Create citizens
-            //     Citizen c;
-            //     std::cout << BOLD << BLUE << "\n--- Creating Citizens ---\n" << RESET;
-            //     for (int i = 0; i < 30; i++) {
-            //         std::string name = c.citizenNames[std::rand() % 200];
-            //         int income = 30000 + std::rand() % 70000; // Income range from 30,000 to 100,000
-            //         double propertyValue = 50000 + std::rand() % 950000; // Property value from 50,000 to 1,000,000
-            //         std::string job = c.jobTitles[std::rand() % 200];
-            //         Citizen* newCitizen = new Citizen(name, income, propertyValue, job);
-            //         std::cout << CYAN << "Citizen " << (i + 1) << ": " << RESET 
-            //                   << name << " with job " << job << ", with income $" << income 
-            //                   << " and property value $" << std::fixed << std::setprecision(2) << propertyValue << std::endl;
-            //         residentialBuilding->populateBuilding();
-            //     }
+    // Create citizens
+    Citizen c;
+    std::cout << BOLD << BLUE << "\n--- Creating Citizens ---\n" << RESET;
+    for (int i = 0; i < 30; i++) {
+        std::string name = c.citizenNames[std::rand() % 200];
+        int income = 30000 + std::rand() % 70000; // Income range from 30,000 to 100,000
+        double propertyValue = 50000 + std::rand() % 950000; // Property value from 50,000 to 1,000,000
+        std::string job = c.jobTitles[std::rand() % 200];
+        Citizen* newCitizen = new Citizen(name, income, propertyValue, job);
+        std::cout << CYAN << "Citizen " << (i + 1) << ": " << RESET 
+                  << name << " with job " << job << ", with income $" << income 
+                  << " and property value $" << std::fixed << std::setprecision(2) << propertyValue << std::endl;
+        residentialBuilding->populateBuilding();
+        ourCity->attach(newCitizen);
+    }
 
             //     // Create government
             //     Government government(0.15, 0.02); // 15% income tax, 2% property tax
@@ -1917,21 +2045,23 @@ int main(){
             //     std::cout << BOLD << BLUE << "\n========== City Simulation End ==========\n" << RESET;
             // }
 
-            // int main() {
-            //     bigTestingMain();
-            //     //testFactoryUtilities();
-            //     //testComposite();
-            //     //factoryBuildings();
-            //     // testCOR();
-            //     //testBuildingObserver();
-            //     //testCityObserver();
-            //     //testRunway();
-            //     //testRoad();
-            //     //testRailway();
-            //     //testCustomInfrastructures();
-            //     //Public bus("Bus",30,5, 20); // Bus with 5 seats and a fee of 20
-            //     //Train train("Train1",10,10, 15,3); // Train with 10 seats and a fee of 15
-            //     //Air air("Plane1",20,2, 100,4); // Air transport with 2 seats and a fee of 100
+int main() {
+    bigTestingMain();
+        testSingleton();
+
+    //testFactoryUtilities();
+    //testComposite();
+    //factoryBuildings();
+    // testCOR();
+    //testBuildingObserver();
+    //testCityObserver();
+    //testRunway();
+    //testRoad();
+    //testRailway();
+    //testCustomInfrastructures();
+    //Public bus("Bus",30,5, 20); // Bus with 5 seats and a fee of 20
+    //Train train("Train1",10,10, 15,3); // Train with 10 seats and a fee of 15
+    //Air air("Plane1",20,2, 100,4); // Air transport with 2 seats and a fee of 100
 
             //     // Create citizens with different incomes
             //     //Citizen alice("Alice", 30,2);
@@ -1956,15 +2086,16 @@ int main(){
             //     //testDisembark(alice);
             //     //testTransportSelection(alice, air); // Alice tries air transport again after disembarking
 
-            //     // Test citizen satisfaction feedback and satisfaction check
-            //     //testCitizenSatisfaction(alice);
-            //     //testCitizenSatisfaction(bob);
-            //     //testCitizenSatisfaction(charlie);
-            //     //testCollectTax();
-            //     //testIncreaseTax();
-            //     //testTaxCollector();
-            //     //testSatisfactionChecker();
-            //     // testRent();
+    // Test citizen satisfaction feedback and satisfaction check
+    //testCitizenSatisfaction(alice);
+    //testCitizenSatisfaction(bob);
+    //testCitizenSatisfaction(charlie);
+    //testCollectTax();
+    //testIncreaseTax();
+    //testTaxCollector();
+    //testSatisfactionChecker();
+    // testRent();
+    taxCollection();
 
             //     return 0;
             // }
