@@ -94,7 +94,7 @@ void createInitialBuildings(City* city) {
     
     // Create Residential Building
     Residential* residentialBuilding = new Residential(
-        "Wizard’s Haven", 30, 5000, 300, true, 1, true, 10, "Residential District"
+        "Wizard’s Haven", 30, 5000, 300, true, 1, true, 100, "Residential District"
     );
     city->addBuilding(residentialBuilding);
     std::cout << GREEN << "A Residential Building rises: " << residentialBuilding->getType() << "\n"
@@ -301,7 +301,8 @@ void showMainMenu() {
     std::cout << "4. Provide Utilities\n";
     std::cout << "5. Manage Transport\n";
     std::cout << "6. Show City Status\n";
-    std::cout << "7. Exit Simulation\n" << RESET;
+    std::cout << "7. Change city population\n";
+    std::cout << "8. Exit Simulation\n" << RESET;
     std::cout << "Please select an option: ";
 }
 //**********MAIN MENU**********/
@@ -1123,6 +1124,51 @@ void displayCityStats(City* city) {
 }
 //**********6. SHOW STATS OPTION**********/
 
+//**********7. INCREASE POPULATION OPTION**********/
+void increasePopulation(City* city) {
+    cout << MAGENTA << "You want to have more people in your city.\nBy how much do you want to increase the population (between 0 and 100): " << RESET;
+    double increase;
+    cin >> increase;
+    // Create Residential Building
+    Residential* residentialBuilding = new Residential(
+        "Wizard’s Haven", 30, 5000, 300, true, 1, true, 300, "Residential District"
+    );
+
+    // Create Commercial Building
+    Commercial* commercialBuilding = new Commercial(
+        "Potion Emporium", 20, 30000, 1000, true, 1, true, 50, "Market Square"
+    );
+
+    // Create Industrial Building
+    Industrial* industrialBuilding = new Industrial(
+        "Alchemy Workshop", 10, 20000, 2000, true, 1, true, 350, "Industrial Zone"
+    );
+
+    // Create Landmark Building
+    Landmark* landmarkBuilding = new Landmark(
+        "Mystic Fountain", 50, 100000, 500, true, 1, true, 100, "Central Plaza"
+    );
+
+    // Set up the chain of responsibility
+    Population populationHandler(increase);
+    Housing housingHandler(increase * 0.5, residentialBuilding);
+    Economic economicHandler(increase * 0.2);
+    Infrastructure infrastructureHandler(increase * 0.3, commercialBuilding, industrialBuilding, landmarkBuilding);
+
+    populationHandler.setNextHandler(&housingHandler);
+    housingHandler.setNextHandler(&economicHandler);
+    economicHandler.setNextHandler(&infrastructureHandler);
+
+    // Start the chain
+    populationHandler.handleRequest(increase, city);
+
+    // Clean up
+    delete residentialBuilding;
+    delete commercialBuilding;
+    delete industrialBuilding;
+    delete landmarkBuilding;
+}
+//**********7. INCREASE POPULATION OPTION**********/
 
 void bigTestingMain() {
     std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed for random events
@@ -1164,7 +1210,7 @@ void bigTestingMain() {
         if (std::cin.fail()) {
             std::cin.clear(); // Clear the error flag
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
-            std::cout << RED << "Invalid input. Please enter a number between 1 and 6.\n" << RESET;
+            std::cout << RED << "Invalid input. Please enter a number between 1 and 8.\n" << RESET;
             continue; // Restart the loop
         }
 
@@ -1211,6 +1257,12 @@ void bigTestingMain() {
                 break;
            
             case 7:
+                // Grow population
+                std::cout << BLUE << "\nCurrent population " << ourCity->citizens.size() << ":\n" << RESET;
+                increasePopulation(ourCity);
+                break;
+
+            case 8:
                 //Exit Simulation
                 std::cout << BOLD << RED << "\nThank you for guiding the city. Farewell, wizard.\n" << RESET;
                 running = false;

@@ -165,3 +165,8 @@ bool Landmark::populateBuilding() {
 void Landmark::addUtility(Utilities* utility) {
     utilities.push_back(utility);
 }
+
+void Landmark::setNumBuildings(int count) 
+{ 
+    numBuildings = count; 
+}

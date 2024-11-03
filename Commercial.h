@@ -127,6 +127,8 @@ public:
     bool populateBuilding();
 
     void addUtility(Utilities* utility);
+
+    void setNumBuildings(int count);
 private:
 	float propertyTaxRate = 0.015;
 	float salesTaxRate = 0.15;
