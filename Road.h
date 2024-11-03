@@ -35,6 +35,7 @@ public:
 	void updateCapacity(int newLanes, RoadType newType);
 	void addTrafficLight(double position);
     void removeTrafficLight(double position);
+    std::vector<double> getTrafficLights();
 };
 
 #endif
