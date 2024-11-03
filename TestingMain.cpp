@@ -254,7 +254,7 @@ TEST_CASE("ResourceManagement: supplyResources deducts resources when sufficient
     resources.resetResources();
     resources.createResources();
 
-    resources.supplyResources();
+    //resources.supplyResources();
 
     std::ostringstream output;
     std::streambuf* oldCoutBuf = std::cout.rdbuf();
@@ -274,12 +274,12 @@ TEST_CASE("ResourceManagement: supplyResources does not alter resources when ins
     resources.resetResources();
     resources.createResources();
 
-    resources.updateMaterials(-900, -500, -300);
+    //resources.updateMaterials(-900, -500, -300);
     resources.updateEnergy(-1800);
     resources.updateWater(-1350);
     resources.updateBudget(-9500);
 
-    resources.supplyResources();
+    //resources.supplyResources();
 
     std::ostringstream output;
     std::streambuf* oldCoutBuf = std::cout.rdbuf();

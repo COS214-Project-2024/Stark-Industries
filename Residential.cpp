@@ -229,6 +229,9 @@ std::string Residential::getBuildingType(){
 
 void Residential::setRentalRate(double newRent){
 	rent = newRent;
+	for (int i = 0 ; i < observerList.size(); i++){
+		observerList[i]->buildingSatisfaction -= 10;
+	}
 }
 
 double Residential::getRent(){
