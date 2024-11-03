@@ -31,6 +31,7 @@
 #include "Housing.h"
 #include "Economic.h"
 #include "Infrastructure.h"
+#include "City.h"
 
 TEST_CASE("Citizen Collect Tax"){
     Citizen* citizen = new Citizen("Tony", 1000);
@@ -383,5 +384,51 @@ TEST_CASE("Chain of Responsibility with Growth Factor") {
         REQUIRE(housingHandler.getGrowthFactor() == Approx(growthFactor * 0.5));
         REQUIRE(economicHandler.getGrowthFactor() == Approx(growthFactor * 0.2));
         REQUIRE(infrastructureHandler.getGrowthFactor() == Approx(growthFactor * 0.3));
+    }
+}
+
+TEST_CASE("City Observer Pattern - Notifying Citizens") {
+    // Create a City object
+    City city;
+
+    // Create Citizen objects
+    Citizen citizen1("Alice", 5000, 200000, "Engineer");
+    Citizen citizen2("Bob", 4500, 150000, "Teacher");
+    Citizen citizen3("Charlie", 3000, 100000, "Artist");
+
+    // Attach citizens to the city as observers
+    city.attach(&citizen1);
+    city.attach(&citizen2);
+    city.attach(&citizen3);
+
+    // Verify initial state
+    REQUIRE_FALSE(citizen1.isNotified());
+    REQUIRE_FALSE(citizen2.isNotified());
+    REQUIRE_FALSE(citizen3.isNotified());
+
+    SECTION("Notifying Observers") {
+        // Notify citizens about a change in the city
+        city.notify();
+
+        // Check if each citizen received the notification
+        REQUIRE(citizen1.isNotified());
+        REQUIRE(citizen2.isNotified());
+        REQUIRE(citizen3.isNotified());
+    }
+
+    SECTION("Detach Citizen from Observer List") {
+        // Detach a citizen and notify again
+        city.detach(&citizen2);
+        citizen1.resetNotification();
+        citizen2.resetNotification();
+        citizen3.resetNotification();
+
+        // Notify remaining citizens
+        city.notify();
+
+        // Verify that only attached citizens received the notification
+        REQUIRE(citizen1.isNotified());
+        REQUIRE_FALSE(citizen2.isNotified());  // Citizen2 should not be notified
+        REQUIRE(citizen3.isNotified());
     }
 }

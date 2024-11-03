@@ -31,7 +31,7 @@ private:
     bool hasPaid;                     /**< Flag indicating if the citizen has paid their taxes. */
 	int isSatisfiedTrans;
 	double satisfaction;
-	bool wasNotified;
+	bool wasNotified = false;
 	double taxRate = 0.15;
 	static int numCitizens;
 	string job;
