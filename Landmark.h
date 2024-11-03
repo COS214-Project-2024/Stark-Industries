@@ -118,6 +118,8 @@ public:
 
     void acceptCitySatisfactionChecker(Visitor* satisfactionChecker);
 
+    void setNumBuildings(int count);
+
 private: 
 	float propertyTaxRate = 0.10;
 };

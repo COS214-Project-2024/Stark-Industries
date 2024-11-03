@@ -177,3 +177,8 @@ std::string Landmark::getBuildingType(){
 void Landmark::setBuildingValue(double value){
     buildingValue = value;
 }
+
+void Landmark::setNumBuildings(int count) 
+{ 
+    numBuildings = count; 
+}

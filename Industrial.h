@@ -119,6 +119,8 @@ public:
 
 	std::string getBuildingType();
 
+    void setNumBuildings(int count);
+
 private: 
 	float propertyTaxRate = 0.10;
 };

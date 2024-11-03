@@ -26,7 +26,7 @@ Industrial::Industrial(std::string name, int satisfaction, double economicImpact
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
       capacity(capacity), area(area) 
     {
-        numBuildings;
+        numBuildings++;
     }
 
 Industrial::Industrial() {
@@ -209,4 +209,9 @@ void Industrial::addUtility(Utilities* utility) {
 
 std::string Industrial::getBuildingType() {
 	return "Industrial";
+}
+
+void Industrial::setNumBuildings(int count) 
+{ 
+    numBuildings = count; 
 }
