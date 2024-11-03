@@ -85,3 +85,7 @@ void Building::setRentalRate(double newRentalRate) {
 void Building::addUtility(Utilities* utility) {
     //virtual
 }
+
+void Building::setBuildingValue(double value) {
+	buildingValue = value;
+}
