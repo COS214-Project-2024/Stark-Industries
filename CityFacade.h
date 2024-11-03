@@ -6,7 +6,7 @@
 #include <string>
 using namespace std;
 
-class CityFacade : public ResourceManagerment, public Building {
+class CityFacade : public ResourceManagement, public Building {
 
 
 public:
