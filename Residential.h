@@ -121,6 +121,8 @@ public:
 
     bool populateBuilding();
 
+	void getCitizenSatisfactionForBuilding();
+
 private:
 	float propertyTaxRate = 0.01;
 	float rentalTaxRate = 0.20;

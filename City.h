@@ -4,6 +4,7 @@
 #include "Element.h"
 #include "Citizen.h"
 #include "TransportInfrastructure.h"
+#include "Building.h"
 #include <string>
 #include <vector>
 using namespace std;
@@ -30,6 +31,11 @@ public:
 	bool inspectBuilding();
 
 	vector<Citizen*> citizens;
+	std::vector<Building*> buildings;
+
+	void attach(Building* building);
+
+	void detach(Building* building);
 };
 
 #endif

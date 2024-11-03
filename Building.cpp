@@ -75,4 +75,11 @@ void Building::notifyCitizens() {
 
 void Building::setRentalRate(double newRentalRate) {
 	rent = newRentalRate;
+	for (int i = 0 ; i < observerList.size(); i++) {
+		observerList[i]->buildingSatisfaction -= 10;
+	}
+}
+
+void Building::setBuildingValue(double value){
+	buildingValue = value;
 }

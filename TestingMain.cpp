@@ -1,6 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 #include "CollectTax.h"
+#include "SatisfactionChecker.h"
 #include "Citizen.h"
 #include "Industrial.h"
 #include "WaterFactory.h"
@@ -21,6 +22,7 @@
 #include "Commercial.h"
 #include "Industrial.h"
 #include "Landmark.h"
+
 
 TEST_CASE("Citizen Collect Tax"){
     Citizen* citizen = new Citizen("Tony", 1000);
@@ -201,6 +203,18 @@ TEST_CASE("PowerPlantFactory creates PowerPlant utility") {
     REQUIRE_NOTHROW(powerPlantUtility->requestMaintenance(104));  // Ensure requestMaintenance doesn't throw
 
     delete powerPlantUtility;  // Clean up dynamically allocated memory
+}
+
+TEST_CASE("Building improvement and satisfaction"){
+    Citizen* citizen = new Citizen("Tony", 1000);
+    Commercial* commercial = new Commercial("Mall", 20, 30000, 1000, true, 1, true, 300, "Downtown");
+    commercial->attach(citizen);
+    SatisfactionChecker* satisfactionChecker = new SatisfactionChecker();
+    satisfactionChecker->buildingSatisfaction(citizen);
+    commercial->doImprovements();
+    satisfactionChecker->buildingSatisfaction(citizen);
+    
+    //REQUIRE(ct->execute() == "Property Tax collected from Industrial Building\nProperty Tax of: 0 collected\nIncome Tax collected from citizens\nTime to collect Income Tax from citizens\nTax paid: 150");
 }
 
 

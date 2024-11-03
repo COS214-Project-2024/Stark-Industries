@@ -1,4 +1,5 @@
 #include "Residential.h"
+#include "SatisfactionChecker.h"
 #include <iostream>
 
 int Residential::numBuildings = 0;
@@ -95,7 +96,7 @@ void Residential::doImprovements() {
         notifyCitizens();
 
 		for (int i = 0 ; i < observerList.size(); i++) {
-			// observerList[i]->buildingSatisfaction += 5;
+			observerList[i]->buildingSatisfaction += 5;
 		}
     } else {
         std::cout << "Resources unavailable for improvements.\n";
@@ -108,11 +109,19 @@ void Residential::doImprovements() {
  * @return True if resources are available, false otherwise.
  */
 bool Residential::checkResourceAvailability() {
-	if (resourcesAvailable) {
-		citySatisfaction += 10;
+	if (!resourcesAvailable){
+		citySatisfaction -= 10;
+			for (int i = 0 ; i < observerList.size(); i++) {
+			observerList[i]->buildingSatisfaction -= 10;
+			observerList[i]->citySatisfaction -= 8;
+		}
 	}
 	else {
-		citySatisfaction -= 10;
+		citySatisfaction += 10;
+		for (int i = 0 ; i < observerList.size(); i++) {
+			observerList[i]->buildingSatisfaction += 10;
+			observerList[i]->citySatisfaction += 8;
+		}
 	}
     return resourcesAvailable;
 }
@@ -193,4 +202,12 @@ bool Residential::populateBuilding() {
         std::cout << "Building is at full capacity. Cannot add more citizens." << std::endl;
         return false;
     }
+}
+
+void Residential::getCitizenSatisfactionForBuilding(){
+	std::cout << "--Satisfaction of the citizens in the '" << this->name << "' building-- \n";
+	SatisfactionChecker satisfactionChecker;
+	for (int i = 0; i < observerList.size(); i++) {
+		observerList[i]->acceptBuildingSatisfactionChecker(&satisfactionChecker);
+	}
 }

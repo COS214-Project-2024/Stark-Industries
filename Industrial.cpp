@@ -1,4 +1,5 @@
 #include "Industrial.h"
+#include "SatisfactionChecker.h"
 #include <iostream>
 
 int Industrial::numBuildings = 0;
@@ -98,7 +99,7 @@ void Industrial::doImprovements() {
 
 		//update the citizens' satisfaction level for buildings 
 		for (int i = 0 ; i < observerList.size(); i++) {
-			// observerList[i]->buildingSatisfaction += 5;
+			observerList[i]->buildingSatisfaction += 5;
 		}
     } else {
         std::cout << "Resources unavailable for improvements.\n";
@@ -113,9 +114,17 @@ void Industrial::doImprovements() {
 bool Industrial::checkResourceAvailability() {
 	if (!resourcesAvailable){
 		citySatisfaction -= 10;
+			for (int i = 0 ; i < observerList.size(); i++) {
+			observerList[i]->buildingSatisfaction -= 10;
+			observerList[i]->citySatisfaction -= 8;
+		}
 	}
 	else {
 		citySatisfaction += 10;
+		for (int i = 0 ; i < observerList.size(); i++) {
+			observerList[i]->buildingSatisfaction += 10;
+			observerList[i]->citySatisfaction += 8;
+		}
 	}
     return resourcesAvailable;
 }
@@ -168,7 +177,7 @@ Building* Industrial::clone() const {
 }
 
 void Industrial::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){
-	satisfactionChecker->visit(this);
+	satisfactionChecker->citySatisfaction(this);
 }
 
 int Industrial::getNumBuildings() {
@@ -184,4 +193,12 @@ bool Industrial::populateBuilding() {
         std::cout << "Building is at full capacity. Cannot add more citizens." << std::endl;
         return false;
     }
+}
+
+void Industrial::getCitizenSatisfactionForBuilding(){
+	std::cout << "--Satisfaction of the citizens in the '" << this->name << "' building-- \n";
+	SatisfactionChecker satisfactionChecker;
+	for (int i = 0; i < observerList.size(); i++) {
+		observerList[i]->acceptBuildingSatisfactionChecker(&satisfactionChecker);
+	}
 }

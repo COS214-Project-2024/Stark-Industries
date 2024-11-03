@@ -26,7 +26,6 @@ private:
     double propertyValue;             /**< Property value owned by the citizen. */
     double commuteTime;               /**< Commute time for the citizen. */
 	//bool isSatisfiedTrans;
-	static int satisfactionLevelTrans;       /**< Satisfaction level related to transport. */
     Transport* chosenTransport;       /**< Pointer to the chosen transport mode. */
     int cargo;                        /**< Size of cargo the citizen wants to transport. */
     bool hasPaid;                     /**< Flag indicating if the citizen has paid their taxes. */
@@ -176,6 +175,10 @@ public:
 
 	int getNumCitizens();
 
+
+	static int satisfactionLevelTrans;       /**< Satisfaction level related to transport. */
+	int buildingSatisfaction = 50;
+	int citySatisfaction = 50;
 	void acceptTransportSatisfactionChecker(Visitor * satisfactionChecker);
 	void acceptBuildingSatisfactionChecker(Visitor* satisfactionChecker);
 	void acceptCitySatisfactionChecker(Visitor*);
