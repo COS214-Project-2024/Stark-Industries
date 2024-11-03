@@ -225,12 +225,12 @@ std::string Citizen::getName(){
 void Citizen::performAction(int type) {
 	if(type == 0) {
 		//collect tax
-		std::cout<<"Income Tax collected from citizens"<<std::endl;
+		//std::cout<<"Income Tax collected from citizens"<<std::endl;
 		payTax();
 	}
 	else if(type == 1) {
 		//increase tax
-		std::cout<<"Tax increased by 2%"<<std::endl;
+		//std::cout<<"Tax increased by 2%"<<std::endl;
 		setTaxRate();
 		citySatisfaction -= 10;
 	}
@@ -245,12 +245,12 @@ void Citizen::performAction(int type) {
 }
 
 void Citizen::payTax() {
-	std::cout<<"Time to collect Income Tax from citizens"<<std::endl;
+	//std::cout<<"Time to collect Income Tax from citizens"<<std::endl;
 	// citizens pay 15% of their income
 	double tax = this->income * taxRate;
 	income -= tax;
 	taxPaid += tax;
-	std::cout<<"Tax paid: "<<tax<<std::endl;
+	std::cout<<"Income Tax paid: "<<tax << " by " << this->name <<std::endl;
 	//will have to send to government
 }
 
@@ -258,8 +258,9 @@ void Citizen::getPaid(double income) {
 	this->income += income;
 }
 
-void Citizen::setTaxRate() {
-	taxRate *= 1.02;
+double Citizen::setTaxRate() {
+	taxRate += 0.02;
+	return taxRate;
 }
 
 void Citizen::acceptTaxCollector(Visitor * taxCollector) {
@@ -299,5 +300,9 @@ void Citizen::setNumCitizens(int num) {
 
 Citizen::Citizen() {
 	
+}
+
+double Citizen::getTaxRate(){
+	return taxRate;
 }
 

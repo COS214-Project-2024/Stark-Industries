@@ -65,7 +65,38 @@
 
 using namespace std;
 
+// void testSingleton() {
+//     // Get the singleton instance
+//     ResourceManagement& resourceManager = ResourceManagement::getInstance();
 
+//     // Step 1: Create initial resources
+//     resourceManager.createResources();
+
+//     // Step 2: Update materials, energy, water, and budget
+//     resourceManager.updateMaterials(200, 100, 50);   // Adding resources
+//     resourceManager.updateEnergy(300);               // Increase energy
+//     resourceManager.updateWater(200);                // Increase water
+//     resourceManager.updateBudget(1500.0);            // Increase budget
+
+//     // Step 3: Display resource status after updates
+//     std::cout << "\nAfter updates:" << std::endl;
+//     resourceManager.displayResourceStatus();
+
+//     // Step 4: Supply resources to utilities
+//     resourceManager.supplyResources();
+
+//     // Step 5: Attempt to allocate some budget
+//     double allocationAmount = 800.0;
+//     if (resourceManager.allocateBudget(allocationAmount)) {
+//         std::cout << "\nBudget allocated successfully: " << allocationAmount << std::endl;
+//     } else {
+//         std::cout << "\nFailed to allocate budget: " << allocationAmount << std::endl;
+//     }
+
+//     // Step 6: Final display of resource status
+//     std::cout << "\nFinal Resource Status:" << std::endl;
+//     resourceManager.displayResourceStatus();
+// }
 
 // ANSI color codes for styling the output
 #define RESET "\033[0m"
@@ -175,11 +206,10 @@ void createAndAssignUtilities(City* city) {
         building->addUtility(powerPlantUtility);
 
         std::cout << GREEN << "Utilities have been assigned to " << building->getType() << "\n" << RESET;
+        
     }
     pauseForUser();
 }
-
-
 
 void createAndAssignTransport(City* city) {
     std::cout << CYAN << BOLD << "\nThe wizard conjures essential transport infrastructure for the city...\n" << RESET;
@@ -348,11 +378,11 @@ double taxCollectorVisitor(Tax* taxDept, City* city){
 }
 
 //**********1. MANAGE GOVERNMENT OPTION**********/
-void manageTaxDepartment(Tax* taxDept, Budget* budgetDept) { // Pass Budget pointer as parameter
+void manageTaxDepartment(Tax* taxDept, Budget* budgetDept, City* city) { // Pass Budget pointer as parameter
     bool managingTax = true;
     while (managingTax) {
         std::cout << "\n" << CYAN << "Manage Tax Department\n" << RESET;
-        std::cout << "1. Set Tax Rate\n";
+        std::cout << "1. Increase Tax\n";
         std::cout << "2. Collect Taxes\n";
         std::cout << "3. View Total Revenue\n";
         std::cout << "4. Back to Government Menu\n";
@@ -364,19 +394,16 @@ void manageTaxDepartment(Tax* taxDept, Budget* budgetDept) { // Pass Budget poin
 
         switch (choice) {
             case 1: {
-                float newRate;
-                std::cout << "Enter new tax rate (as a decimal, e.g., 0.15 for 15%): ";
-                std::cin >> newRate;
-                taxDept->setTaxRate(newRate);
+                addCommandsToTaxDepartment(taxDept, city);
+                taxDept->increaseTax();
+                double newRate = city->citizens[0]->getTaxRate();
                 std::cout << GREEN << "Tax rate set to " << newRate << "\n" << RESET;
                 break;
             }
             case 2: {
-                double revenue;
-                std::cout << "Enter total revenue to calculate taxes: ";
-                std::cin >> revenue;
-                double collectedTaxes = taxDept->collectTaxes(revenue); // Collect taxes
-                budgetDept->addCollectedTaxes(collectedTaxes); // Add collected taxes to budget
+                double tax = taxCollectorVisitor(taxDept, city);
+                std::cout << GREEN << "Total Tax Collected: " << tax << "\n" << RESET;
+                budgetDept->addCollectedTaxes(tax);
                 break;
             }
             case 3:
@@ -522,7 +549,7 @@ void manageGovernment(City* city) {
                 Tax* taxDept = city->getGovernment()->getTaxDepartment();
                 Budget* budgetDept = city->getGovernment()->getBudgetDepartment();
                 if (taxDept && budgetDept) {
-                    manageTaxDepartment(taxDept, budgetDept);
+                    manageTaxDepartment(taxDept, budgetDept, city);
                 } else {
                     std::cout << "Failed to access Tax or Budget Department.\n";
                 }
@@ -725,7 +752,24 @@ void removeBuilding(City* city) {
     std::cout << GREEN << "Building removed from the city.\n" << RESET;
 }
 
+double buildingCitySatisfaction(Building* building){
+    SatisfactionChecker* satisfactionChecker = new SatisfactionChecker();
+    building->acceptCitySatisfactionChecker(satisfactionChecker);
+    double satisfaction = satisfactionChecker->citySatisfactionTotal;
+    delete satisfactionChecker;
+    return satisfaction;
+}
 
+double citizenSatisfactionForBuilding(Building* building){
+    SatisfactionChecker* satisfactionChecker = new SatisfactionChecker();
+    for (int i = 0 ; i < building->observerList.size() ; i++){
+        building->observerList[i]->acceptBuildingSatisfactionChecker(satisfactionChecker);
+    }
+    double satisfaction = satisfactionChecker->buildingSatisfactionTotal;
+    double avg = satisfaction / building->observerList.size();
+    delete satisfactionChecker;
+    return avg;
+}
 
 void viewAllBuildings(City* city) {
     const auto& buildings = city->listBuildings();
@@ -738,10 +782,42 @@ void viewAllBuildings(City* city) {
     std::cout << CYAN << "\n=== All Buildings in the City ===\n" << RESET;
     for (const auto& building : buildings) {
         std::cout << "Building: " << building->getType()
-                  << ", Satisfaction: " << building->calculateSatisfaction()
-                  << ", Economic Impact: " << building->calculateEconomicImpact() << "\n";
+                  << ", City Satisfaction: " << buildingCitySatisfaction(building)
+                  << ", Economic Impact: " << building->calculateEconomicImpact();
+        if (building->getBuildingType() == "Residential"){
+            double avgSatisfaction = citizenSatisfactionForBuilding(building);
+            std::cout << ", Average Citizen Satisfaction In Building: " << avgSatisfaction;
+        }
+        std::cout << "\n";
     }
     std::cout << MAGENTA << "=============================\n" << RESET;
+}
+
+void increaseRent(City* city){
+    int buildingIndex;
+    const auto& buildings = city->listBuildings();
+
+    if (buildings.empty()) {
+        std::cout << RED << "No buildings in the city.\n" << RESET;
+        return;
+    }
+
+    std::cout << "Select a residential building to increase rent:\n";
+    for (size_t i = 0; i < buildings.size(); ++i) {
+        if (buildings[i]->getBuildingType() == "Residential"){
+            std::cout << i + 1 << ". " << buildings[i]->getType() << "\n";
+        }
+    }
+    std::cin >> buildingIndex;
+    
+    double newRent = 0.0;
+    while (newRent <= buildings[buildingIndex - 1]->getRent()){
+        std::cout << "Enter rental rate greater than: " << buildings[buildingIndex - 1]->getRent() << "\n";
+        std::cin >> newRent;
+    }
+    buildings[buildingIndex - 1]->setRentalRate(newRent);
+    std::cout << GREEN << "Rent increased to: " << newRent << "\n" << RESET;
+
 }
 
 
@@ -755,7 +831,8 @@ void manageBuildings(City* city) {
         std::cout << "3. Improve Building\n";
         std::cout << "4. Remove Building\n";
         std::cout << "5. View All Buildings\n";
-        std::cout << "6. Back to Main Menu\n";
+        std::cout << "6. Increase Rent of Residential Building\n";
+        std::cout << "7. Back to Main Menu\n";
         std::cout << "Select an option: ";
 
         int choice;
@@ -779,6 +856,9 @@ void manageBuildings(City* city) {
                 viewAllBuildings(city);
                 break;
             case 6:
+                increaseRent(city);
+                break;
+            case 7:
                 buildingManagement = false;
                 break;
             default:
@@ -821,6 +901,7 @@ void addCustomCitizen(City* city) {
         residentialBuilding = dynamic_cast<Residential*>(building);
         if (residentialBuilding && residentialBuilding->populateBuilding()) {
             city->attach(newCitizen);
+            residentialBuilding->attach(newCitizen);
             std::cout << GREEN << "Citizen " << name << " has moved into " 
                       << residentialBuilding->getType() << "\n" << RESET;
             return;
@@ -873,6 +954,7 @@ void addMultipleCitizens(City* city) {
             Residential* residentialBuilding = dynamic_cast<Residential*>(building);
             if (residentialBuilding && residentialBuilding->populateBuilding()) {
                 city->attach(newCitizen); // Add citizen to city’s observer list
+                residentialBuilding->attach(newCitizen); // Add citizen as an observer to the building
                 std::cout << BLUE << name << " has moved into " << residentialBuilding->getType() << "\n" << RESET;
                 assigned = true;
                 break;
@@ -885,6 +967,7 @@ void addMultipleCitizens(City* city) {
         }
     }
 }
+
 
 void viewCitizenInformation(City* city) {
     const auto& citizens = city->getCitizens();
@@ -913,7 +996,7 @@ void viewCitizenInformation(City* city) {
     std::cout << "Income: " << citizen->getIncome() << "\n";
     std::cout << "Job: " << citizen->job << "\n"; // Assuming a getJob() method
     std::cout << "Property Value: " << citizen->propertyValue << "\n"; // Assuming a getPropertyValue() method
-    std::cout << "Satisfaction: " << citizen->calculateSatisfaction() << "\n";
+    std::cout << "Satisfaction: " << citizen->citySatisfaction << "\n";
 }
 
 
@@ -959,37 +1042,50 @@ void removeCitizen(City* city) {
     std::cout << GREEN << "Citizen removed from the city.\n" << RESET;
 }
 
+double averageCitizenTransportSatisfaction(City * city){
+    SatisfactionChecker* satisfactionChecker = new SatisfactionChecker;
+    for (int i = 0 ; i < city->citizens.size() ; i ++){
+        city->citizens[i]->acceptTransportSatisfactionChecker(satisfactionChecker);
+    }
+    double satisfaction = satisfactionChecker->transportSatisfactionTotal;
+    delete satisfactionChecker;
+    return satisfaction/city->citizens.size();
+}
 
- void manageTransportForCitizen(City* city) {                 //Please fix
-      const auto& citizens = city->getCitizens();
 
-     if (citizens.empty()) {
-         std::cout << RED << "No citizens available.\n" << RESET;
-         return;
-     }
+void manageTransportForCitizen(City* city) {                 
+     const auto& citizens = city->getCitizens();
 
-     std::cout << "Select a citizen to manage transport:\n";
-     for (size_t i = 0; i < citizens.size(); ++i) {
-         std::cout << i + 1 << ". " << citizens[i]->getName() << "\n";
-     }
-     int citizenIndex;
-     std::cin >> citizenIndex;
-     if (citizenIndex < 1 || citizenIndex > citizens.size()) {
-         std::cout << RED << "Invalid citizen selection.\n" << RESET;
-         return;
-     }
+    if (citizens.empty()) {
+        std::cout << RED << "No citizens available.\n" << RESET;
+        return;
+    }
 
-     Citizen* citizen = citizens[citizenIndex - 1];
- // Present transport options to the user
-     std::cout << "Select your preferred transport type:\n";
-     std::cout << "1. City Car\n";
-      std::cout << "2. Public Transport : City Bus\n";
-     std::cout << "3.City Plane\n";
-     std::cout << "4. City Train\n";
-     int transportType;
-     std::cin >> transportType;
+    std::cout << "Select a citizen to manage transport:\n";
+    for (size_t i = 0; i < citizens.size(); ++i) {
+        std::cout << i + 1 << ". " << citizens[i]->getName() << "\n";
+    }
+    int citizenIndex;
+    std::cin >> citizenIndex;
 
-//     // Create or retrieve the selected transport type
+    if (citizenIndex < 1 || citizenIndex > citizens.size()) {
+        std::cout << RED << "Invalid citizen selection.\n" << RESET;
+        return;
+    }
+
+    Citizen* citizen = citizens[citizenIndex - 1];
+
+    // Present transport options to the user
+    std::cout << "Select a transport type:\n";
+    std::cout << "1. Road\n";
+    std::cout << "2. Railway\n";
+    std::cout << "3. Air\n";
+    std::cout << "3.City Plane\n";
+    std::cout << "4. City Train\n";
+    int transportType;
+    std::cin >> transportType;
+
+    // Create or retrieve the selected transport type
      Transport* chosenTransport = nullptr;
      switch (transportType) {
          case 1:
@@ -1009,10 +1105,10 @@ void removeCitizen(City* city) {
              return;
      }
 
-     // Assign the chosen transport to the citizen
-     citizen->chooseTransport(chosenTransport);
+    // Assign the chosen transport to the citizen
+    citizen->chooseTransport(chosenTransport);
 
-     if(chosenTransport!=NULL){
+         if(chosenTransport!=NULL){
         std::cout<<"Would you like to transport now? (Please select an option from below)"<<std::endl;
          std::cout << "1. Yes\n";
       std::cout << "2. No\n";
@@ -1032,7 +1128,20 @@ void removeCitizen(City* city) {
 
      }
  }
- }
+}
+
+double citySatisfactionChecker(City* city){
+    SatisfactionChecker* satisfactionChecker = new SatisfactionChecker();
+    for (int i = 0; i < city->citizens.size(); i++) {
+        city->citizens[i]->acceptCitySatisfactionChecker(satisfactionChecker);
+    }
+    for (int i = 0 ; i < city->buildings.size() ; i++){
+        city->buildings[i]->acceptCitySatisfactionChecker(satisfactionChecker);
+    }
+    double citySatisfaction = satisfactionChecker->citySatisfactionTotal;
+    delete satisfactionChecker;
+    return citySatisfaction;
+}
 
 
 void manageCitizens(City* city) {
@@ -1044,7 +1153,7 @@ void manageCitizens(City* city) {
         std::cout << "3. View Citizen Information\n";
         std::cout << "4. View All Citizens\n";
         std::cout << "5. Remove Citizen\n";
-         std::cout << "6. Manage Transport for Citizen\n";// Uncomment when done with function
+        std::cout << "6. Manage Transport for Citizen\n"; 
         std::cout << "7. Back to Main Menu\n";
         std::cout << "Select an option: ";
 
@@ -1068,9 +1177,9 @@ void manageCitizens(City* city) {
             case 5:
                 removeCitizen(city);
                 break;
-             case 6:
-                 manageTransportForCitizen(city); // Uncomment when done with function
-                 break;
+            case 6:
+                manageTransportForCitizen(city);  
+                break;
             case 7:
                 managingCitizens = false;
                 break;      
@@ -1203,12 +1312,9 @@ void displayCityStats(City* city) {
     // Population and Citizen Stats
     std::cout << "Population: " << city->citizens.size() << " citizens\n";
 
-    // int totalSatisfaction = 0;
-    // for (Citizen* citizen : city->citizens) {
-    //     totalSatisfaction += citizen->getOverallSatisfaction();  // Add in once implemented
-    // }
-    // int averageSatisfaction = city->citizens.size() > 0 ? totalSatisfaction / city->citizens.size() : 0;
-    // std::cout << "Average Citizen Satisfaction: " << averageSatisfaction << "%\n";
+    double citySatisfaction = citySatisfactionChecker(city);
+    double averageSatisfaction = citySatisfaction/(city->citizens.size() + city->buildings.size());
+    std::cout << "Average City Satisfaction Across Buildings and Citizens: " << averageSatisfaction << "%\n";
 
     // Building Stats
     std::cout << "Number of Buildings: " << city->listBuildings().size() << "\n";
@@ -1440,43 +1546,6 @@ int main(){
 
 
 //TESTING INDIVIDUAL PATTERNS - IGNORE
-
-
-
-// void testSingleton() {
-//     // Get the singleton instance
-//     ResourceManagement& resourceManager = ResourceManagement::getInstance();
-
-//     // Step 1: Create initial resources
-//     resourceManager.createResources();
-
-//     // Step 2: Update materials, energy, water, and budget
-//     resourceManager.updateMaterials(200, 100, 50);   // Adding resources
-//     resourceManager.updateEnergy(300);               // Increase energy
-//     resourceManager.updateWater(200);                // Increase water
-//     resourceManager.updateBudget(1500.0);            // Increase budget
-
-//     // Step 3: Display resource status after updates
-//     std::cout << "\nAfter updates:" << std::endl;
-//     resourceManager.displayResourceStatus();
-
-//     // Step 4: Supply resources to utilities
-//     resourceManager.supplyResources();
-
-//     // Step 5: Attempt to allocate some budget
-//     double allocationAmount = 800.0;
-//     if (resourceManager.allocateBudget(allocationAmount)) {
-//         std::cout << "\nBudget allocated successfully: " << allocationAmount << std::endl;
-//     } else {
-//         std::cout << "\nFailed to allocate budget: " << allocationAmount << std::endl;
-//     }
-
-//     // Step 6: Final display of resource status
-//     std::cout << "\nFinal Resource Status:" << std::endl;
-//     resourceManager.displayResourceStatus();
-// }
-
-
 // void testFactoryUtilities() {
 //     // Water Factory
 //     WaterFactory waterFactory;

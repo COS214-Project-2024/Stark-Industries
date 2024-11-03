@@ -89,3 +89,7 @@ void Building::addUtility(Utilities* utility) {
 void Building::setBuildingValue(double value) {
 	buildingValue = value;
 }
+
+double Building::getRent(){
+    return rent;
+}
