@@ -49,7 +49,7 @@ void Infrastructure::increaseCommercial(int growthFactor, Commercial* prototypeC
         double increase = currentBuildings * (growthRate / 100.0) * growthFactor;
         int newBuildings = static_cast<int>(std::ceil(increase));
 
-        std::cout << "Handling Commercial Growth: Adding " << newBuildings << " new commercial buildings.\n";
+        std::cout << "Adding " << newBuildings << " new commercial buildings.\n";
 
         // Create new Commercial buildings by cloning
         for (int i = 0; i < newBuildings; i++) {
