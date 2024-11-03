@@ -117,6 +117,8 @@ public:
 
     void addUtility(Utilities* utility);
 
+	std::string getBuildingType();
+
 private: 
 	float propertyTaxRate = 0.015;
 };

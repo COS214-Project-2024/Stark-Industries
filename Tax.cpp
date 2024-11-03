@@ -60,7 +60,7 @@ void Tax::trackRevenue(double revenue) {
  */
 double Tax::collectTaxes(double revenue) {
     totalRevenue += revenue;
-    std::cout << "Collected taxes: " << revenue << std::endl;
+    //std::cout << "Collected taxes: " << revenue << std::endl;
 }
 
 void Tax::operate() {
@@ -94,4 +94,10 @@ void Tax::increaseTax(){
 
 void Tax::collectTaxes() {
     commands[0]->execute();
+}
+
+Tax::~Tax() {
+    for (Command* command : commands) {
+        delete command;
+    }
 }

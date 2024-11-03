@@ -165,3 +165,11 @@ bool Landmark::populateBuilding() {
 void Landmark::addUtility(Utilities* utility) {
     utilities.push_back(utility);
 }
+
+std::string Landmark::getBuildingType(){
+    return "Landmark";
+}
+
+void Landmark::setBuildingValue(double value){
+    buildingValue = value;
+}

@@ -134,7 +134,7 @@ public:
 
 	// need to do things for rent 
 	virtual void collectRent() {}; 
-	double rent;
+	//double rent;
 	virtual void setRentalRate(double newRent);
 	
     virtual bool populateBuilding() = 0;
@@ -142,5 +142,7 @@ public:
 	virtual void generateRevenue(){};
 
     virtual void addUtility(Utilities* utility);
+
+	virtual std::string getBuildingType() = 0;
 };
 #endif // BUILDING_H

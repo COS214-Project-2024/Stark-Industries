@@ -32,6 +32,8 @@ public:
 
 	void increaseTax();
 	void collectTaxes();
+
+	~Tax();
 };
 
 //order of commands is 0: Collect, 1: Increase

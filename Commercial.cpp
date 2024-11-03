@@ -147,7 +147,7 @@ void Commercial::performAction(int type) {
 	if(type == 0) {
 		//collect tax
 		//std::cout<<"Have to collect Property T"<<std::endl;
-		std::cout<<"Property and Sales Tax collected"<<std::endl;
+		//std::cout<<"Property and Sales Tax collected"<<std::endl;
 		payTax(0);
 	}
 	else if(type == 1) {
@@ -169,7 +169,7 @@ void Commercial::payTax(float taxRate) {
 	double salesTax = buildingRevenue * salesTaxRate;
 	buildingRevenue -= propertyTax + salesTax;
 	taxPaid += propertyTax + salesTax;
-	std::cout<<"Property Tax of: " << propertyTax << " and Sales Tax of: " << salesTax << " collected"<<std::endl;												
+	std::cout<<"Property Tax of: " << propertyTax << " and Sales Tax of: " << salesTax << " collected from " << this->name <<std::endl;												
 }
 
 void Commercial::acceptTaxCollector(Visitor * taxCollector) {
@@ -209,4 +209,8 @@ void Commercial::generateRevenue() {
 
 void Commercial::addUtility(Utilities* utility) {
     utilities.push_back(utility);
+}
+
+std::string Commercial::getBuildingType() {
+	return "Commercial";
 }

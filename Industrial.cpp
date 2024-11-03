@@ -164,7 +164,7 @@ void Industrial::payTax(float taxRate) {
 	double tax = this->propertyTaxRate * this->buildingValue;
 	this->buildingRevenue -= tax;
 	taxPaid += tax;
-	std::cout<<"Property Tax of: " << tax << " collected"<<std::endl;
+	std::cout<<"Property Tax of: " << tax << " collected from " << this->name <<std::endl;
 
 }
 
@@ -205,4 +205,8 @@ void Industrial::getCitizenSatisfactionForBuilding(){
 
 void Industrial::addUtility(Utilities* utility) {
     utilities.push_back(utility);
+}
+
+std::string Industrial::getBuildingType() {
+	return "Industrial";
 }

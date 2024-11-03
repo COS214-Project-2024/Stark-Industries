@@ -30,6 +30,7 @@ private:
     string area;
     static int numBuildings;
     std::vector<Citizen*> occupants; 
+	double rent = 7000.0;
 
 public:
 
@@ -131,6 +132,10 @@ public:
     int getAvailableCapacity() const;
 
     int getOccupantCount() const;
+
+	std::string getBuildingType();
+
+	void setBuildingValue(double value);
 
 private:
 	float propertyTaxRate = 0.01;

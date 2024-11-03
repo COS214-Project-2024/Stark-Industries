@@ -301,6 +301,7 @@ void createAndAssignCitizens(City* city) {
         // Try to assign the citizen to the residential building
         if (residentialBuilding->populateBuilding()) {
             city->attach(newCitizen); // Add citizen to city’s observer list
+            residentialBuilding->attach(newCitizen); // Add citizen as an observer to the building
             std::cout << BLUE << name << " has moved into " << residentialBuilding->getType() << "\n" << RESET;
         } else {
             std::cout << RED << "No more space in the residential building for " << name << ".\n" << RESET;
@@ -343,6 +344,29 @@ void addCommandsToTaxDepartment(Tax* taxDept, City* city){
     taxDept->addCommand(increaseTax);
 }
 
+double taxCollectorVisitor(Tax* taxDept, City* city){
+    for (int i = 0 ; i < city->buildings.size() ; i++){
+        city->buildings[i]->setBuildingValue(i*10000);
+        if (city->buildings[i]->getBuildingType() == "Residential"){
+            city->buildings[i]->collectRent();
+        }
+        else if (city->buildings[i]->getBuildingType() == "Commercial"){
+            city->buildings[i]->generateRevenue();
+        }
+    }
+    addCommandsToTaxDepartment(taxDept, city);
+    taxDept->collectTaxes();
+    TaxCollector taxCollector;
+    for (int i = 0; i < city->citizens.size(); i++) {
+        city->citizens[i]->acceptTaxCollector(&taxCollector);
+    }
+    for (int i = 0; i < city->buildings.size(); i++) {
+        city->buildings[i]->acceptTaxCollector(&taxCollector);
+    }
+    taxDept->collectTaxes(taxCollector.taxCollected);
+    return taxCollector.taxCollected;
+}
+
 //**********1. MANAGE GOVERNMENT OPTION**********/
 void manageTaxDepartment(Tax* taxDept, Budget* budgetDept, City* city) { // Pass Budget pointer as parameter
     bool managingTax = true;
@@ -354,25 +378,22 @@ void manageTaxDepartment(Tax* taxDept, Budget* budgetDept, City* city) { // Pass
         std::cout << "4. Back to Government Menu\n";
         std::cout << "Select an option: ";
 
-        addCommandsToTaxDepartment(taxDept, city);
-
         int choice;
         std::cin >> choice;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
 
         switch (choice) {
             case 1: {
+                addCommandsToTaxDepartment(taxDept, city);
                 taxDept->increaseTax();
                 double newRate = city->citizens[0]->getTaxRate();
                 std::cout << GREEN << "Tax rate set to " << newRate << "\n" << RESET;
                 break;
             }
             case 2: {
-                double revenue;
-                std::cout << "Enter total revenue to calculate taxes: ";
-                std::cin >> revenue;
-                double collectedTaxes = taxDept->collectTaxes(revenue); // Collect taxes
-                budgetDept->addCollectedTaxes(collectedTaxes); // Add collected taxes to budget
+                double tax = taxCollectorVisitor(taxDept, city);
+                std::cout << GREEN << "Total Tax Collected: " << tax << "\n" << RESET;
+                budgetDept->addCollectedTaxes(tax);
                 break;
             }
             case 3:
