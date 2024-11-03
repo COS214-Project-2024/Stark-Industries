@@ -129,6 +129,8 @@ void createInitialBuildings(City* city) {
 }
 
 void createAndAssignUtilities(City* city) {
+    ResourceManagement& resourceManager = ResourceManagement::getInstance();  // Access the resource manager
+
     std::cout << CYAN << "\nWith a wave of the wizard's hand, the city's essential utilities begin to materialize...\n" << RESET;
 
     // Create Water Utility
@@ -136,31 +138,31 @@ void createAndAssignUtilities(City* city) {
     Utilities* waterUtility = waterFactory.createUtility();
     city->addUtility(waterUtility);
     std::cout << GREEN << "\nWater Utility Created:\n" << RESET;
-    waterUtility->displayInfo();
-    
+    resourceManager.allocateResourcesToUtility("Water Utility", /*energy*/ 0, /*water*/ 300, /*budget*/ 500.0);
+    resourceManager.displayResourceStatus();
 
     // Create Waste Management Utility
     WasteFactory wasteFactory;
     Utilities* wasteUtility = wasteFactory.createUtility();
     city->addUtility(wasteUtility);
     std::cout << MAGENTA << "\nWaste Management Utility Created:\n" << RESET;
-    wasteUtility->displayInfo();
-    
+    resourceManager.allocateResourcesToUtility("Waste Management Utility", /*energy*/ 100, /*water*/ 0, /*budget*/ 300.0);
+    resourceManager.displayResourceStatus();
 
     // Create Sewage Utility
     SewageFactory sewageFactory;
     Utilities* sewageUtility = sewageFactory.createUtility();
     city->addUtility(sewageUtility);
     std::cout << YELLOW << "\nSewage Utility Created:\n" << RESET;
-    sewageUtility->displayInfo();
-    
+    resourceManager.allocateResourcesToUtility("Sewage Utility", /*energy*/ 50, /*water*/ 100, /*budget*/ 200.0);
 
     // Create Power Plant Utility
     PowerPlantFactory powerPlantFactory;
     Utilities* powerPlantUtility = powerPlantFactory.createUtility();
     city->addUtility(powerPlantUtility);
     std::cout << BLUE << "\nPower Plant Utility Created:\n" << RESET;
-    powerPlantUtility->displayInfo();
+    resourceManager.allocateResourcesToUtility("Power Plant Utility", /*energy*/ 500, /*water*/ 0, /*budget*/ 1000.0);
+    resourceManager.displayResourceStatus();
     pauseForUser();
 
     // Assign utilities to buildings
@@ -172,10 +174,11 @@ void createAndAssignUtilities(City* city) {
         building->addUtility(powerPlantUtility);
 
         std::cout << GREEN << "Utilities have been assigned to " << building->getType() << "\n" << RESET;
-        
     }
     pauseForUser();
 }
+
+
 
 void createAndAssignTransport(City* city) {
     std::cout << CYAN << BOLD << "\nThe wizard conjures essential transport infrastructure for the city...\n" << RESET;
@@ -495,7 +498,28 @@ void manageGovernment(City* city) {
                 }
                 break;
             }
-            // ... other cases remain the same
+
+            case 3: {
+                // Manage Policies Department
+                Policies* policiesDept = city->getGovernment()->getPoliciesDepartment();
+                if (policiesDept) {
+                    managePoliciesDepartment(policiesDept);
+                } else {
+                    std::cout << RED << "Failed to access Policies Department.\n" << RESET;
+                }
+                break;
+            }
+            case 4: {
+                // Manage Services Department
+                Services* servicesDept = city->getGovernment()->getServicesDepartment();
+                if (servicesDept) {
+                    manageServicesDepartment(servicesDept);
+                } else {
+                    std::cout << RED << "Failed to access Services Department.\n" << RESET;
+                }
+                break;
+            }
+
             case 5:
                 managingGovernment = false;
                 break;
