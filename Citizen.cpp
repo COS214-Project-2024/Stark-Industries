@@ -175,8 +175,10 @@ void Citizen::leaveFeedback() {
 void Citizen::updateSatisfaction() {
     if (commuteTime > 60) {
         satisfactionLevelTrans -= 20;
+		citySatisfaction -= 10;
     } else {
         satisfactionLevelTrans += 5;
+		citySatisfaction += 10;
     }
    // isSatisfiedTrans = (satisfactionLevelTrans > 50);
 }
@@ -231,7 +233,7 @@ void Citizen::performAction(int type) {
 		//increase tax
 		std::cout<<"Tax increased by 2%"<<std::endl;
 		setTaxRate();
-		// affect satisfaction??
+		citySatisfaction -= 10;
 	}
 	else if(type == 2) {
 		//allocate tax
@@ -278,15 +280,15 @@ void Citizen::transport(){
 }
 
 void Citizen::acceptTransportSatisfactionChecker(Visitor * satisfactionChecker){
-	satisfactionChecker->visit(this);
+	satisfactionChecker->transportSatisfaction(this);
 }
 
 void Citizen::acceptBuildingSatisfactionChecker(Visitor* satisfactionChecker){
-	satisfactionChecker->visit(this);
+	satisfactionChecker->buildingSatisfaction(this);
 }
 
 void Citizen::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){
-	satisfactionChecker->visit(this);
+	satisfactionChecker->citySatisfaction(this);
 }
 
 void Citizen::payRent(double rent){

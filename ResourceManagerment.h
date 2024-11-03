@@ -1,31 +1,51 @@
-#ifndef RESOURCEMANAGERMENT_H
-#define RESOURCEMANAGERMENT_H
+#ifndef RESOURCEMANAGEMENT_H
+#define RESOURCEMANAGEMENT_H
 
 #include <string>
-using namespace std;
+#include <iostream>
 
-class ResourceManagerment {
-
+class ResourceManagement {
 private:
-	ResourceManagerment* onlyInstance;
-	string resourceType;
+    // Resource quantities
+    int wood;
+    int steel;
+    int concrete;
+    int energy;
+    int water;
+    double budget;
+
+    // Private constructor for Singleton pattern
+    ResourceManagement()
+        : wood(0), steel(0), concrete(0), energy(0), water(0), budget(0.0) {}
+
+    // Delete copy constructor and assignment operator
+    ResourceManagement(const ResourceManagement&) = delete;
+    ResourceManagement& operator=(const ResourceManagement&) = delete;
 
 public:
-	ResourceManagerment* getInstance();
+    // Meyers Singleton
+    static ResourceManagement& getInstance() {
+        static ResourceManagement onlyInstance;
+        return onlyInstance;
+    }
 
-	void updateResourceData();
+    // Methods to manage resources
+    void updateMaterials(int woodChange, int steelChange, int concreteChange);
+    void updateEnergy(int energyChange);
+    void updateWater(int waterChange);
+    void updateBudget(double budgetChange);
 
-	void createResources();
+    // New methods for creation and supply
+    void createResources();       // Initializes the resources for the first time
+    void supplyResources();       // Supplies resources to utilities
 
-	void supplyResources();
+    // Display current resource status
+    void displayResourceStatus() const;
 
-protected:
-	void ResourceManagement();
+    // Methods for resource operations
+    bool allocateBudget(double amount);
 
-public:
-	string getResourceType();
-
-	void requestUtilities();
+    void resetResources();
 };
 
-#endif
+#endif // RESOURCEMANAGEMENT_H

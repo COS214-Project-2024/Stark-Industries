@@ -47,9 +47,42 @@
 #include "CollectTax.h"
 #include "IncreaseTax.h"
 #include "SatisfactionChecker.h"
+#include "ResourceManagerment.h"
 
 using namespace std;
 
+void testSingleton() {
+    // Get the singleton instance
+    ResourceManagement& resourceManager = ResourceManagement::getInstance();
+
+    // Step 1: Create initial resources
+    resourceManager.createResources();
+
+    // Step 2: Update materials, energy, water, and budget
+    resourceManager.updateMaterials(200, 100, 50);   // Adding resources
+    resourceManager.updateEnergy(300);               // Increase energy
+    resourceManager.updateWater(200);                // Increase water
+    resourceManager.updateBudget(1500.0);            // Increase budget
+
+    // Step 3: Display resource status after updates
+    std::cout << "\nAfter updates:" << std::endl;
+    resourceManager.displayResourceStatus();
+
+    // Step 4: Supply resources to utilities
+    resourceManager.supplyResources();
+
+    // Step 5: Attempt to allocate some budget
+    double allocationAmount = 800.0;
+    if (resourceManager.allocateBudget(allocationAmount)) {
+        std::cout << "\nBudget allocated successfully: " << allocationAmount << std::endl;
+    } else {
+        std::cout << "\nFailed to allocate budget: " << allocationAmount << std::endl;
+    }
+
+    // Step 6: Final display of resource status
+    std::cout << "\nFinal Resource Status:" << std::endl;
+    resourceManager.displayResourceStatus();
+}
 void testFactoryUtilities() {
     // Water Factory
     WaterFactory waterFactory;
@@ -483,6 +516,53 @@ void testComposite(){
 //     std::cout << "Custom non-electrified Railway cost: " << customRailway.getCost() << std::endl;
 // }
 
+void testSatisfactionChecker(){
+    Citizen* citizen = new Citizen("Tony", 1000);
+    Citizen* citizen2 = new Citizen("Sherlock", 1000);
+    Commercial* commercial = new Commercial("Mall", 20, 30000, 1000, true, 1, true, 300, "Downtown");
+    commercial->attach(citizen);
+    commercial->attach(citizen2);
+    commercial->getCitizenSatisfactionForBuilding();
+    commercial->doImprovements();
+    commercial->getCitizenSatisfactionForBuilding();
+    SatisfactionChecker* satisfactionChecker = new SatisfactionChecker(); 
+    std::cout << "City satisfaction for " << commercial->getType() << ": \n";
+    commercial->acceptCitySatisfactionChecker(satisfactionChecker);
+    citizen->acceptCitySatisfactionChecker(satisfactionChecker);
+    commercial->setBuildingValue(100000);
+    // alternatively can actually cout the "satisfaction for [building name]:" and then create
+    // a satisfactionChecker object and call buildingSatisfaction but i don't think it scales well
+    // don't use visit for satisfactionChecker. 
+}
+
+void taxCollection(){
+    Tax* taxDept = new Tax("Tax Department", 0.15);
+    City* city = new City();
+    Building* industrial = new Industrial();
+    Building* commercial = new Commercial();
+    industrial->setBuildingValue(100000);
+    commercial->setBuildingValue(85000);
+    commercial->generateRevenue();
+    city->attach(industrial);
+    city->attach(commercial);
+    Citizen* c1 = new Citizen("Tony", 10000);
+    Citizen * c2 = new Citizen("Sherlock", 8000);
+    city->attach(c1);
+    city->attach(c2);
+    CollectTax* collectTax = new CollectTax();
+    collectTax->addBuildingVector(city->buildings);
+    collectTax->addCitizenVector(city->citizens);
+    collectTax->execute();
+    TaxCollector* taxCollector = new TaxCollector();
+    for (int i = 0 ; i < city->citizens.size() ; i++){
+        taxCollector->visit(city->citizens[i]);
+    }
+    for (int i = 0 ; i < city->buildings.size() ; i++){
+        taxCollector->visit(city->buildings[i]);
+    }
+    taxDept->collectTaxes(taxCollector->taxCollected);
+}
+
 #include <iostream>
 #include <iomanip>
 #include <cstdlib>
@@ -693,6 +773,7 @@ void bigTestingMain() {
                   << name << " with job " << job << ", with income $" << income 
                   << " and property value $" << std::fixed << std::setprecision(2) << propertyValue << std::endl;
         residentialBuilding->populateBuilding();
+        ourCity->attach(newCitizen);
     }
 
     // Create government
@@ -765,6 +846,8 @@ void bigTestingMain() {
 
 int main() {
     bigTestingMain();
+        testSingleton();
+
     //testFactoryUtilities();
     //testComposite();
     //factoryBuildings();
@@ -811,6 +894,7 @@ int main() {
     //testTaxCollector();
     //testSatisfactionChecker();
     // testRent();
+    taxCollection();
 
     return 0;
 }

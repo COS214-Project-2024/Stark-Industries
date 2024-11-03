@@ -1,5 +1,6 @@
 #include "Commercial.h"
 #include <iostream>
+#include "SatisfactionChecker.h"
 
 /**
  * @brief Constructs a Commercial building with the given attributes.
@@ -25,10 +26,12 @@ Commercial::Commercial(std::string name, int satisfaction, double economicImpact
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
       capacity(capacity), area(area) {
         numBuildings++;
+		buildingRevenue = 1000;
       }
 
 Commercial::Commercial() {
-
+	numBuildings++;
+	buildingRevenue = 1000;
 }
 
 /**
@@ -95,7 +98,7 @@ void Commercial::doImprovements() {
         notifyCitizens();
 
 		for (int i = 0 ; i < observerList.size(); i++) {
-			//observerList[i]->buildingSatisfaction += 5; //Fix this
+			observerList[i]->buildingSatisfaction += 5; //Fix this
 		}
     } else {
         std::cout << "Resources unavailable for improvements.\n";
@@ -110,9 +113,17 @@ void Commercial::doImprovements() {
 bool Commercial::checkResourceAvailability() {
 	if (resourcesAvailable) {
 		citySatisfaction += 10;
+		for (int i = 0 ; i < observerList.size(); i++) {
+			observerList[i]->buildingSatisfaction += 10;
+			observerList[i]->citySatisfaction += 8;
+		}
 	}
 	else {
 		citySatisfaction -= 10;
+			for (int i = 0 ; i < observerList.size(); i++) {
+			observerList[i]->buildingSatisfaction -= 10;
+			observerList[i]->citySatisfaction -= 8;
+		}
 	}
     return resourcesAvailable;
 }
@@ -166,7 +177,7 @@ void Commercial::acceptTaxCollector(Visitor * taxCollector) {
 }
 
 void Commercial::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){
-	satisfactionChecker->visit(this);
+	satisfactionChecker->citySatisfaction(this);
 }
 
 int Commercial::getNumBuildings() {
@@ -182,4 +193,16 @@ bool Commercial::populateBuilding() {
         std::cout << "Building is at full capacity. Cannot add more citizens." << std::endl;
         return false;
     }
+}
+
+void Commercial::getCitizenSatisfactionForBuilding(){
+	std::cout << "--Satisfaction of the citizens in the '" << this->name << "' building-- \n";
+	SatisfactionChecker satisfactionChecker;
+	for (int i = 0; i < observerList.size(); i++) {
+		observerList[i]->acceptBuildingSatisfactionChecker(&satisfactionChecker);
+	}
+}
+
+void Commercial::generateRevenue() {
+	buildingRevenue *= 50;
 }
