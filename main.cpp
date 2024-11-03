@@ -906,6 +906,7 @@ void addMultipleCitizens(City* city) {
     }
 }
 
+
 void viewCitizenInformation(City* city) {
     const auto& citizens = city->getCitizens();
 
@@ -933,7 +934,7 @@ void viewCitizenInformation(City* city) {
     std::cout << "Income: " << citizen->getIncome() << "\n";
     std::cout << "Job: " << citizen->job << "\n"; // Assuming a getJob() method
     std::cout << "Property Value: " << citizen->propertyValue << "\n"; // Assuming a getPropertyValue() method
-    std::cout << "Satisfaction: " << citizen->calculateSatisfaction() << "\n";
+    std::cout << "Satisfaction: " << citizen->citySatisfaction << "\n";
 }
 
 
@@ -977,6 +978,16 @@ void removeCitizen(City* city) {
     delete citizens[citizenIndex - 1];  // Free memory
     citizens.erase(citizens.begin() + citizenIndex - 1);  // Remove from vector
     std::cout << GREEN << "Citizen removed from the city.\n" << RESET;
+}
+
+double averageCitizenTransportSatisfaction(City * city){
+    SatisfactionChecker* satisfactionChecker = new SatisfactionChecker;
+    for (int i = 0 ; i < city->citizens.size() ; i ++){
+        city->citizens[i]->acceptTransportSatisfactionChecker(satisfactionChecker);
+    }
+    double satisfaction = satisfactionChecker->transportSatisfactionTotal;
+    delete satisfactionChecker;
+    return satisfaction/city->citizens.size();
 }
 
 
