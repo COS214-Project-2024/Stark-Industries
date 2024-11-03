@@ -112,6 +112,8 @@ public:
 
     void addUtility(Utilities* utility);
 
+    void setNumBuildings(int count);
+
 private: 
 	float propertyTaxRate = 0.015;
 };

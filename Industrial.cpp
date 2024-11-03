@@ -206,3 +206,8 @@ void Industrial::getCitizenSatisfactionForBuilding(){
 void Industrial::addUtility(Utilities* utility) {
     utilities.push_back(utility);
 }
+
+void Industrial::setNumBuildings(int count) 
+{ 
+    numBuildings = count; 
+}

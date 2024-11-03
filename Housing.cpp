@@ -7,7 +7,7 @@
 Housing::Housing(double growthRate, Residential* prototypeBuilding) 
     : rate(growthRate), prototype(prototypeBuilding) {}
 
-void Housing::handleRequest(int growthFactor) {
+void Housing::handleRequest(int growthFactor, City* city) {
     if (growthFactor > 10) {
         // Calculate the number of new buildings to create
         int currentBuildings = prototype->getNumBuildings();
@@ -20,13 +20,14 @@ void Housing::handleRequest(int growthFactor) {
         // Create new Residential buildings by cloning
         for (int i = 0; i < newBuildings; i++) {
             Residential* newBuilding = dynamic_cast<Residential*>(prototype->clone());
+            city->addBuilding(newBuilding);
             // if (newBuilding) {
             //     addBuilding(newBuilding); // Add the clone to the buildings collection
             // }
         }
 
         // Pass the request to the next handler in the chain
-        GrowthHandler::handleRequest(growthFactor);
+        GrowthHandler::handleRequest(growthFactor, city);
     }
     // } else if (nextHandler) {
     //     // Pass the growth factor to the next handler if there is one

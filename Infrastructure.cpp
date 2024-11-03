@@ -9,7 +9,7 @@
 Infrastructure::Infrastructure(double growthRate, Commercial* prototypeC, Industrial* prototypeI, Landmark* prototypeL) 
 : growthRate(growthRate), prototypeC(prototypeC), prototypeI(prototypeI), prototypeL(prototypeL) {}
 
-void Infrastructure::handleRequest(int growthFactor) {
+void Infrastructure::handleRequest(int growthFactor, City* city) {
     if (growthFactor < 100 && growthFactor > 20) {
         std::cout << "Handling Infrastructure Growth: The infrastructure is growing at a rate of " 
                   << growthRate << "%.\n";
@@ -21,11 +21,11 @@ void Infrastructure::handleRequest(int growthFactor) {
         }
 
         // Increase commercial, industrial, and landmark areas
-        increaseCommercial(growthFactor, prototypeC);
-        increaseIndustrial(growthFactor, prototypeI);
-        increaseLandmark(growthFactor, prototypeL);
+        increaseCommercial(growthFactor, prototypeC, city);
+        increaseIndustrial(growthFactor, prototypeI, city);
+        increaseLandmark(growthFactor, prototypeL, city);
 
-        GrowthHandler::handleRequest(growthFactor);
+        GrowthHandler::handleRequest(growthFactor, city);
     }
     // } else if (nextHandler) {
     //     GrowthHandler::handleRequest(growthFactor);
@@ -41,7 +41,7 @@ void Infrastructure::increaseRoads(int numLanes, double roadLength) {
     std::cout << "New road added: " << numLanes << " lanes, " << roadLength << " km long.\n";
 }
 
-void Infrastructure::increaseCommercial(int growthFactor, Commercial* prototypeC) {
+void Infrastructure::increaseCommercial(int growthFactor, Commercial* prototypeC, City* city) {
     if (growthFactor > 10) {
         // Calculate the number of new buildings to create
         int currentBuildings = prototypeC->getNumBuildings(); // Assuming prototypeCommercial is defined
@@ -53,13 +53,15 @@ void Infrastructure::increaseCommercial(int growthFactor, Commercial* prototypeC
         // Create new Commercial buildings by cloning
         for (int i = 0; i < newBuildings; i++) {
             Commercial* newBuilding = dynamic_cast<Commercial*>(prototypeC->clone()); // Clone commercial building
+            city->addBuilding(newBuilding);
             // Add the new building to a collection
             // commercialBuildings.push_back(std::unique_ptr<Residential>(newBuilding));
         }
+        prototypeC->setNumBuildings(currentBuildings + newBuildings);
     }
 }
 
-void Infrastructure::increaseIndustrial(int growthFactor, Industrial* prototypeI) {
+void Infrastructure::increaseIndustrial(int growthFactor, Industrial* prototypeI, City* city) {
     if (growthFactor > 10) {
         // Calculate the number of new buildings to create
         int currentBuildings = prototypeI->getNumBuildings(); // Assuming prototypeIndustrial is defined
@@ -71,13 +73,15 @@ void Infrastructure::increaseIndustrial(int growthFactor, Industrial* prototypeI
         // Create new Industrial buildings by cloning
         for (int i = 0; i < newBuildings; i++) {
             Industrial* newBuilding = dynamic_cast<Industrial*>(prototypeI->clone()); // Clone industrial building
+            city->addBuilding(newBuilding);
             // Add the new building to a collection
-            // industrialBuildings.push_back(std::unique_ptr<Residential>(newBuilding));
+            // commercialBuildings.push_back(std::unique_ptr<Residential>(newBuilding));
         }
+        prototypeI->setNumBuildings(currentBuildings + newBuildings);
     }
 }
 
-void Infrastructure::increaseLandmark(int growthFactor, Landmark* prototypeL) {
+void Infrastructure::increaseLandmark(int growthFactor, Landmark* prototypeL, City* city) {
     if (growthFactor > 10) {
         // Calculate the number of new buildings to create
         int currentBuildings = prototypeL->getNumBuildings(); // Assuming prototypeLandmark is defined
@@ -89,8 +93,10 @@ void Infrastructure::increaseLandmark(int growthFactor, Landmark* prototypeL) {
         // Create new Landmark buildings by cloning
         for (int i = 0; i < newBuildings; i++) {
             Landmark* newBuilding = dynamic_cast<Landmark*>(prototypeL->clone()); // Clone landmark building
+            city->addBuilding(newBuilding);
             // Add the new building to a collection
             // landmarkBuildings.push_back(std::unique_ptr<Residential>(newBuilding));
         }
+        prototypeL->setNumBuildings(currentBuildings + newBuildings);
     }
 }
