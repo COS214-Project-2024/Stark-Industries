@@ -40,3 +40,7 @@ void Population::handleRequest(int growthFactor) {
         GrowthHandler::handleRequest(growthFactor);
     }
 }
+
+double Population::getGrowthFactor() {
+    return populationGrowthRate;
+}

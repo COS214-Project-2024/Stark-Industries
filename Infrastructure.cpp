@@ -94,3 +94,7 @@ void Infrastructure::increaseLandmark(int growthFactor, Landmark* prototypeL) {
         }
     }
 }
+
+double Infrastructure::getGrowthFactor() {
+    return growthRate;
+}
