@@ -4,8 +4,8 @@ IncreaseTax::IncreaseTax() {
 }
 
 void IncreaseTax::execute() {
-	for (int i = 0 ; i < citizenReceivers.size() ; i++){
-		citizenReceivers[i]->performAction(1);
+	for (int i = 0 ; i < citizenList.size() ; i++){
+		citizenList[i]->performAction(1);
 	}
 	//buildingReceiver->performAction(1);
 }

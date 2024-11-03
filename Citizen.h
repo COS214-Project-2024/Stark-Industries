@@ -172,7 +172,7 @@ public:
 	void performAction(int type);
 	//visitor functions
 	void payTax();
-	void setTaxRate();
+	double setTaxRate();
 	double taxPaid;
 	void transport();
 	virtual void acceptTaxCollector(Visitor * taxCollector);
@@ -188,6 +188,9 @@ public:
 	void acceptCitySatisfactionChecker(Visitor*);
 	void payRent(double);
 	void setNumCitizens(int);
+
+	double getTaxRate();
+
 	Citizen();
 
 

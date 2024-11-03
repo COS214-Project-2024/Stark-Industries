@@ -230,7 +230,7 @@ void Citizen::performAction(int type) {
 	}
 	else if(type == 1) {
 		//increase tax
-		std::cout<<"Tax increased by 2%"<<std::endl;
+		//std::cout<<"Tax increased by 2%"<<std::endl;
 		setTaxRate();
 		citySatisfaction -= 10;
 	}
@@ -258,8 +258,9 @@ void Citizen::getPaid(double income) {
 	this->income += income;
 }
 
-void Citizen::setTaxRate() {
-	taxRate *= 1.02;
+double Citizen::setTaxRate() {
+	taxRate += 0.02;
+	return taxRate;
 }
 
 void Citizen::acceptTaxCollector(Visitor * taxCollector) {
@@ -299,5 +300,9 @@ void Citizen::setNumCitizens(int num) {
 
 Citizen::Citizen() {
 	
+}
+
+double Citizen::getTaxRate(){
+	return taxRate;
 }
 

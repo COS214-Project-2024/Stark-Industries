@@ -328,7 +328,20 @@ void showMainMenu() {
 }
 //**********MAIN MENU**********/
 
+void addCommandsToTaxDepartment(Tax* taxDept, City* city){
+    // Create command objects
+    Command* collectTax = new CollectTax();
+    Command* increaseTax = new IncreaseTax();
 
+    //add vectors
+    collectTax->addCitizenVector(city->citizens);
+    collectTax->addBuildingVector(city->buildings);
+    increaseTax->addCitizenVector(city->citizens);
+
+    //add commands
+    taxDept->addCommand(collectTax);
+    taxDept->addCommand(increaseTax);
+}
 
 //**********1. MANAGE GOVERNMENT OPTION**********/
 void manageTaxDepartment(Tax* taxDept, Budget* budgetDept, City* city) { // Pass Budget pointer as parameter
@@ -349,10 +362,8 @@ void manageTaxDepartment(Tax* taxDept, Budget* budgetDept, City* city) { // Pass
 
         switch (choice) {
             case 1: {
-                float newRate;
-                std::cout << "Enter new tax rate (as a decimal, e.g., 0.15 for 15%): ";
-                std::cin >> newRate;
-                taxDept->setTaxRate(newRate);
+                taxDept->increaseTax();
+                double newRate = city->citizens[0]->getTaxRate();
                 std::cout << GREEN << "Tax rate set to " << newRate << "\n" << RESET;
                 break;
             }
@@ -376,20 +387,6 @@ void manageTaxDepartment(Tax* taxDept, Budget* budgetDept, City* city) { // Pass
     }
 }
 
-void addCommandsToTaxDepartment(Tax* taxDept, City* city){
-    // Create command objects
-    Command* collectTax = new CollectTax();
-    Command* increaseTax = new IncreaseTax();
-
-    //add vectors
-    collectTax->addCitizenVector(city->citizens);
-    collectTax->addBuildingVector(city->buildings);
-    increaseTax->addCitizenVector(city->citizens);
-
-    //add commands
-    taxDept->addCommand(collectTax);
-    taxDept->addCommand(increaseTax);
-}
 
 void manageBudgetDepartment(Budget* budgetDept) {
     bool managingBudget = true;
