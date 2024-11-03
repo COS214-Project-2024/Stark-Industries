@@ -181,7 +181,7 @@ int Residential::getNumBuildings() {
 }
 
 void Residential::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){
-	satisfactionChecker->visit(this);
+	satisfactionChecker->citySatisfaction(this);
 }
 
 void Residential::collectRent(){

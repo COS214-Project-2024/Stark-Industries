@@ -116,6 +116,8 @@ public:
 
     void setBuildingValue(double value);
 
+    void acceptCitySatisfactionChecker(Visitor* satisfactionChecker);
+
 private: 
 	float propertyTaxRate = 0.10;
 };
