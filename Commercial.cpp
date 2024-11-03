@@ -214,3 +214,8 @@ void Commercial::addUtility(Utilities* utility) {
 std::string Commercial::getBuildingType() {
 	return "Commercial";
 }
+
+void Commercial::setNumBuildings(int count) 
+{ 
+    numBuildings = count; 
+}

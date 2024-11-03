@@ -129,6 +129,8 @@ public:
     void addUtility(Utilities* utility);
 
 	std::string getBuildingType();
+
+    void setNumBuildings(int count);
 private:
 	float propertyTaxRate = 0.10;
 	float salesTaxRate = 0.15;

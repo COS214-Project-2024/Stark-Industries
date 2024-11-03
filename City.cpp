@@ -69,7 +69,6 @@ bool City::inspectBuilding() {
 
 void City::addBuilding(Building* building) {
     buildings.push_back(building);
-    std::cout << "Building added to the city: " << building->getType() << "\n";
 }
 
 const std::vector<Building*>& City::listBuildings() const {

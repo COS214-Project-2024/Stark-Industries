@@ -1,22 +1,17 @@
-#ifndef RESOURCEMANAGEMENT_H
-#define RESOURCEMANAGEMENT_H
+#ifndef RESOURCEMANAGERMENT_H
+#define RESOURCEMANAGERMENT_H
 
 #include <string>
 #include <iostream>
 
 class ResourceManagement {
 private:
-    // Resource quantities
-    int wood;
-    int steel;
-    int concrete;
-    int energy;
-    int water;
-    double budget;
+    int energy;   // Energy for power plants
+    int water;    // Water for water utilities
+    double budget; // Financial resources for utilities
 
     // Private constructor for Singleton pattern
-    ResourceManagement()
-        : wood(0), steel(0), concrete(0), energy(0), water(0), budget(0.0) {}
+    ResourceManagement() : energy(2000), water(1500), budget(10000.0) {}
 
     // Delete copy constructor and assignment operator
     ResourceManagement(const ResourceManagement&) = delete;
@@ -30,21 +25,20 @@ public:
     }
 
     // Methods to manage resources
-    void updateMaterials(int woodChange, int steelChange, int concreteChange);
     void updateEnergy(int energyChange);
     void updateWater(int waterChange);
     void updateBudget(double budgetChange);
 
-    // New methods for creation and supply
-    void createResources();       // Initializes the resources for the first time
-    void supplyResources();       // Supplies resources to utilities
+    // Initializes the resources for the first time
+    void createResources();
+
+    // Method to allocate resources to a specific utility
+    bool allocateResourcesToUtility(const std::string& utilityType, int energyRequired, int waterRequired, double budgetRequired);
 
     // Display current resource status
     void displayResourceStatus() const;
 
-    // Methods for resource operations
-    bool allocateBudget(double amount);
-
+    // Reset all resources to zero
     void resetResources();
 };
 
