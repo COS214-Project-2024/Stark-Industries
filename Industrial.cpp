@@ -26,7 +26,7 @@ Industrial::Industrial(std::string name, int satisfaction, double economicImpact
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
       capacity(capacity), area(area) 
     {
-        numBuildings;
+        numBuildings++;
     }
 
 Industrial::Industrial() {
@@ -205,4 +205,9 @@ void Industrial::getCitizenSatisfactionForBuilding(){
 
 void Industrial::addUtility(Utilities* utility) {
     utilities.push_back(utility);
+}
+
+void Industrial::setNumBuildings(int count) 
+{ 
+    numBuildings = count; 
 }

@@ -210,3 +210,8 @@ void Commercial::generateRevenue() {
 void Commercial::addUtility(Utilities* utility) {
     utilities.push_back(utility);
 }
+
+void Commercial::setNumBuildings(int count) 
+{ 
+    numBuildings = count; 
+}

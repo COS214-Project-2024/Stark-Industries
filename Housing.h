@@ -16,7 +16,7 @@ private:
 public:
 	Housing(double growthRate, Residential* prototypeBuilding);
 
-	void handleRequest(int growthFactor);
+	void handleRequest(int growthFactor, City* city);
 };
 
 #endif
