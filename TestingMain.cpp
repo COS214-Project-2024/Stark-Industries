@@ -280,3 +280,4 @@ TEST_CASE("ResourceManagement: supplyResources does not alter resources when ins
 
     REQUIRE(output.str() == expectedOutput);
 }
+
