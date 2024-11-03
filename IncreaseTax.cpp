@@ -10,6 +10,3 @@ void IncreaseTax::execute() {
 	//buildingReceiver->performAction(1);
 }
 
-void IncreaseTax::addCitizenVector(vector<Citizen*> citizenList) {
-	this->citizenReceivers = citizenList;
-}

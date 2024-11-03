@@ -29,6 +29,9 @@ public:
 	void execute();
 	void addCommand(Command* command);
 	void removeCommand(int i);
+
+	void increaseTax();
+	void collectTaxes();
 };
 
 //order of commands is 0: Collect, 1: Increase

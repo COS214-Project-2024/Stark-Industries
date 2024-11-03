@@ -331,15 +331,17 @@ void showMainMenu() {
 
 
 //**********1. MANAGE GOVERNMENT OPTION**********/
-void manageTaxDepartment(Tax* taxDept, Budget* budgetDept) { // Pass Budget pointer as parameter
+void manageTaxDepartment(Tax* taxDept, Budget* budgetDept, City* city) { // Pass Budget pointer as parameter
     bool managingTax = true;
     while (managingTax) {
         std::cout << "\n" << CYAN << "Manage Tax Department\n" << RESET;
-        std::cout << "1. Set Tax Rate\n";
+        std::cout << "1. Increase Tax\n";
         std::cout << "2. Collect Taxes\n";
         std::cout << "3. View Total Revenue\n";
         std::cout << "4. Back to Government Menu\n";
         std::cout << "Select an option: ";
+
+        addCommandsToTaxDepartment(taxDept, city);
 
         int choice;
         std::cin >> choice;
@@ -374,6 +376,20 @@ void manageTaxDepartment(Tax* taxDept, Budget* budgetDept) { // Pass Budget poin
     }
 }
 
+void addCommandsToTaxDepartment(Tax* taxDept, City* city){
+    // Create command objects
+    Command* collectTax = new CollectTax();
+    Command* increaseTax = new IncreaseTax();
+
+    //add vectors
+    collectTax->addCitizenVector(city->citizens);
+    collectTax->addBuildingVector(city->buildings);
+    increaseTax->addCitizenVector(city->citizens);
+
+    //add commands
+    taxDept->addCommand(collectTax);
+    taxDept->addCommand(increaseTax);
+}
 
 void manageBudgetDepartment(Budget* budgetDept) {
     bool managingBudget = true;
@@ -505,7 +521,7 @@ void manageGovernment(City* city) {
                 Tax* taxDept = city->getGovernment()->getTaxDepartment();
                 Budget* budgetDept = city->getGovernment()->getBudgetDepartment();
                 if (taxDept && budgetDept) {
-                    manageTaxDepartment(taxDept, budgetDept);
+                    manageTaxDepartment(taxDept, budgetDept, city);
                 } else {
                     std::cout << "Failed to access Tax or Budget Department.\n";
                 }

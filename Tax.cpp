@@ -87,3 +87,11 @@ void Tax::removeCommand(int i) {
 double Tax::getTotalRevenue() {
     return totalRevenue;
 }
+
+void Tax::increaseTax(){
+    commands[1]->execute();
+}
+
+void Tax::collectTaxes() {
+    commands[0]->execute();
+}
