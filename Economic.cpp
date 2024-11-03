@@ -8,26 +8,27 @@ Economic::Economic(double growthRate)
     {}
 
 void Economic::handleRequest(int growthFactor, City* city) {
-    Budget b;
-    if (growthFactor < 100 && growthFactor > 15) {
+    // Get the Budget instance from the city’s government
+    Budget* budgetDept = dynamic_cast<Budget*>(city->getGovernment()->getBudgetDepartment());
+
+    if (budgetDept && growthFactor < 100 && growthFactor > 15) {
         // Calculate the increase in budget based on the economic growth rate
-        double currentBudget = b.getAvailableBudget(); // Get available budget
-        cout << "CUURRRR " << currentBudget;
-        double increase = currentBudget * (economicGrowthRate / 100.0); // Calculate increase
-        cout << "INNNCCCCCC " << increase;
+        double currentBudget = budgetDept->getAvailableBudget(); // Get the current available budget
+        double increase = currentBudget * (economicGrowthRate / 100.0); // Calculate the increase
+
         std::cout << "ECONOMY GROWS:\n";
         std::cout << "The economy is growing at a rate of " 
                   << economicGrowthRate << "%, increasing budget by " 
                   << std::fixed << std::setprecision(2) << increase << " units.\n\n";
-        // Increase budget using receiveTax
-        b.allocateFunds(increase); // Allocate more budget based on growth
-        std::cout << std::endl;
+        
+        // Allocate the calculated increase to the budget
+        budgetDept->allocateFunds(increase);
+        std::cout << "New Available Budget: " << budgetDept->getAvailableBudget() << std::endl;
 
+        // Pass the growth factor to the next handler in the chain
         GrowthHandler::handleRequest(growthFactor, city);
+    } else {
+        // Optional: Pass the request if not handled, or output a message
+        std::cout << "Growth factor outside economic growth range or budget department not found.\n";
     }
-    // } else if (nextHandler) {
-    //     GrowthHandler::handleRequest(growthFactor);
-    // } else {
-    //     std::cout << "Economy handler passes growth factor.\n";
-    // }
 }
