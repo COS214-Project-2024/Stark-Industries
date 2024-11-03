@@ -995,7 +995,7 @@ void removeCitizen(City* city) {
 
      }
  }
-
+ }
 
 
 void manageCitizens(City* city) {
@@ -1007,7 +1007,7 @@ void manageCitizens(City* city) {
         std::cout << "3. View Citizen Information\n";
         std::cout << "4. View All Citizens\n";
         std::cout << "5. Remove Citizen\n";
-        // std::cout << "6. Manage Transport for Citizen\n"; Uncomment when done with function
+         std::cout << "6. Manage Transport for Citizen\n";// Uncomment when done with function
         std::cout << "7. Back to Main Menu\n";
         std::cout << "Select an option: ";
 
@@ -1031,9 +1031,9 @@ void manageCitizens(City* city) {
             case 5:
                 removeCitizen(city);
                 break;
-            // case 6:
-            //     manageTransportForCitizen(city);  Uncomment when done with function
-            //     break;
+             case 6:
+                 manageTransportForCitizen(city); // Uncomment when done with function
+                 break;
             case 7:
                 managingCitizens = false;
                 break;      
@@ -1061,7 +1061,97 @@ void manageUtilities(City* city) {
 
 //**********5. MANAGE TRANSPORT OPTION**********/
 void manageTransport(City* city) {
-    
+    std::cout << "How do you want to improve the transport system? " << std::endl;
+    std::cout << "1. Build another road\n";
+    std::cout << "2. Build another runway\n";
+    std::cout << "3. Build another railway\n";
+
+    int ans;
+    std::cin >> ans;
+
+    switch (ans) {
+        case 1: {  // Build a road
+            RoadFactory roadFactory;
+            int lanes = 0;
+            double length = 0.0;
+
+            // Ask for the number of lanes
+            do {
+                std::cout << "How many lanes would you like your road to have?\n";
+                std::cout << "1. 1 lane\n";
+                std::cout << "2. 2 lanes\n";
+                std::cout << "3. 3 lanes\n";
+                std::cout << "4. 4 lanes\n";
+                std::cin >> lanes;
+            } while (lanes < 1 || lanes > 4);
+
+            // Ask for the length of the road
+            do {
+                std::cout << "What length would you like your road to have? (Please type a value between 10 and 100 km)\n";
+                std::cin >> length;
+            } while (length < 10 || length > 100);
+
+            // Create and build the road infrastructure
+            TransportInfrastructure* road = roadFactory.createInfrastructure(lanes, length);
+            road->build();
+            city->addInfrastructure(road);
+
+            std::cout << GREEN << "Road created with " << lanes << " lanes and length " << length << " km\n" << RESET;
+            break;
+        }
+
+        case 2: {  // Build a runway
+            RunwayFactory runwayFactory;
+            double runwayLength = 0.0;
+            double width = 0.0;
+
+            // Ask for the length of the runway
+            do {
+                std::cout << "How long do you want your runway to be? (Please type a number between 3 to 7 km)\n";
+                std::cin >> runwayLength;
+            } while (runwayLength < 3 || runwayLength > 7);
+
+            // Ask for the width of the runway
+            do {
+                std::cout << "What width would you like your runway to be? (Please type a value between 0.5 to 3 km)\n";
+                std::cin >> width;
+            } while (width < 0.5 || width > 3);
+
+            // Create and build the runway infrastructure
+            TransportInfrastructure* runway = runwayFactory.createInfrastructure(runwayLength, width);
+            runway->build();
+            city->addInfrastructure(runway);
+
+            std::cout << GREEN << "Runway created with " << runwayLength << " km length and " << width << " km width\n" << RESET;
+            break;
+        }
+
+        case 3: {  // Build a railway
+            RailwayFactory railwayFactory;
+            int railwayLength = 0;
+
+            // Ask for the length of the railway
+            do {
+                std::cout << "How long do you want your railway to be? (Please type a number between 10 to 100 km)\n";
+                std::cin >> railwayLength;
+            } while (railwayLength < 10 || railwayLength > 100);
+
+            // Assume that this railway is electrified (as indicated in your initial code)
+         //   bool electrified = true;
+
+            // Create and build the railway infrastructure
+           TransportInfrastructure* railway = railwayFactory.createInfrastructure(railwayLength, true);
+            railway->build();
+            city->addInfrastructure(railway);
+
+            std::cout << GREEN << "Electrified railway created with " << railwayLength << " km in length\n" << RESET;
+            break;
+        }
+
+        default:
+            std::cout << RED << "Invalid selection.\n" << RESET;
+            return;
+    }
 }
 //**********5. MANAGE TRANSPORT OPTION**********/
 
