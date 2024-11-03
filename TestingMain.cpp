@@ -335,3 +335,16 @@ TEST_CASE("Satisfaction Checker Execution") {
     delete industrial;
 }
 
+TEST_CASE("Rent Collection") {
+    Citizen* citizen = new Citizen("Tony", 1000);
+    Citizen* citizen2 = new Citizen("Sherlock", 1000);
+    Residential* residential = new Residential();
+    residential->attach(citizen);
+    residential->attach(citizen2);
+    residential->collectRent();
+    REQUIRE(citizen->getIncome() < 1000);
+    REQUIRE(citizen2->getIncome() < 1000);
+    delete citizen;
+    delete citizen2;
+    delete residential;
+}
