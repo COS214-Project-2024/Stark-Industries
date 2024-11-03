@@ -135,6 +135,8 @@ public:
 
 	std::string getBuildingType();
 
+    double getRent();
+
 	void setRentalRate(double newRent);
 
 private:

@@ -762,6 +762,33 @@ void viewAllBuildings(City* city) {
     std::cout << MAGENTA << "=============================\n" << RESET;
 }
 
+void increaseRent(City* city){
+    int buildingIndex;
+    const auto& buildings = city->listBuildings();
+
+    if (buildings.empty()) {
+        std::cout << RED << "No buildings in the city.\n" << RESET;
+        return;
+    }
+
+    std::cout << "Select a residential building to increase rent:\n";
+    for (size_t i = 0; i < buildings.size(); ++i) {
+        if (buildings[i]->getBuildingType() == "Residential"){
+            std::cout << i + 1 << ". " << buildings[i]->getType() << "\n";
+        }
+    }
+    std::cin >> buildingIndex;
+    
+    double newRent = 0.0;
+    while (newRent <= buildings[buildingIndex - 1]->getRent()){
+        std::cout << "Enter rental rate greater than: " << buildings[buildingIndex - 1]->getRent() << "\n";
+        std::cin >> newRent;
+    }
+    buildings[buildingIndex - 1]->setRentalRate(newRent);
+    std::cout << GREEN << "Rent increased to: " << newRent << "\n" << RESET;
+
+}
+
 
 
 void manageBuildings(City* city) {
@@ -773,7 +800,8 @@ void manageBuildings(City* city) {
         std::cout << "3. Improve Building\n";
         std::cout << "4. Remove Building\n";
         std::cout << "5. View All Buildings\n";
-        std::cout << "6. Back to Main Menu\n";
+        std::cout << "6. Increase Rent of Residential Building\n";
+        std::cout << "7. Back to Main Menu\n";
         std::cout << "Select an option: ";
 
         int choice;
@@ -797,6 +825,9 @@ void manageBuildings(City* city) {
                 viewAllBuildings(city);
                 break;
             case 6:
+                increaseRent(city);
+                break;
+            case 7:
                 buildingManagement = false;
                 break;
             default:

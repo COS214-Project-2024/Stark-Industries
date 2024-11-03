@@ -230,3 +230,7 @@ std::string Residential::getBuildingType(){
 void Residential::setRentalRate(double newRent){
 	rent = newRent;
 }
+
+double Residential::getRent(){
+	return rent;
+}
