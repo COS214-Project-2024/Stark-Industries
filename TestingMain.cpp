@@ -10,6 +10,7 @@
 #include "Car.h"
 #include "Public.h"
 #include "Train.h"
+#include "TransportSystem.h"
 
 TEST_CASE("Citizen Collect Tax"){
     Citizen* citizen = new Citizen("Tony", 1000);
@@ -350,5 +351,132 @@ TEST_CASE("Public Transport Cargo Unsupported") {
 
     SECTION("Attempt to load cargo") {
         REQUIRE(publicTransport.loadCargo(15) == false);
+    }
+}
+
+TEST_CASE("TransportSystem Strategy Setting and Type Check") {
+    TransportSystem ts;
+
+    SECTION("Set Air Transport Strategy") {
+        Air* air = new Air("City Airport", 45.0, 100.0, 150, 50);
+        ts.setTransportStrategy(air);
+        REQUIRE(ts.getTransportType() == "Air Transport");
+    }
+
+    SECTION("Set Train Transport Strategy") {
+        Train* train = new Train("City Rail", 60.0, 80.0, 200, 70);
+        ts.setTransportStrategy(train);
+        REQUIRE(ts.getTransportType() == "Train Transport");
+    }
+
+    SECTION("Set Car Transport Strategy") {
+        Car* car = new Car("City Car", 20.0, 4);
+        ts.setTransportStrategy(car);
+        REQUIRE(ts.getTransportType() == "Car Transport");
+    }
+
+    SECTION("Set Public Transport Strategy") {
+        Public* publicTransport = new Public("City Bus", 25.0, 2.5, 30);
+        ts.setTransportStrategy(publicTransport);
+        REQUIRE(ts.getTransportType() == "Public Transport");
+    }
+
+    SECTION("No Transport Strategy Set") {
+        REQUIRE(ts.getTransportType() == "None");
+    }
+}
+
+TEST_CASE("TransportSystem Maintenance and Availability") {
+    TransportSystem ts;
+    Train* train = new Train("City Rail", 60.0, 80.0, 200, 70);
+    ts.setTransportStrategy(train);
+
+    SECTION("Perform maintenance on Train Transport") {
+        ts.performMaintenance();
+        REQUIRE(ts.isTransportAvailable() == true);  // Train should be available after maintenance
+    }
+
+    SECTION("No Transport Strategy Set - Maintenance") {
+        TransportSystem ts2;
+        REQUIRE_NOTHROW(ts2.performMaintenance());
+    }
+}
+
+TEST_CASE("TransportSystem Seat Reservation and Release") {
+    TransportSystem ts;
+    Public* publicTransport = new Public("City Bus", 25.0, 2.5, 30);
+    ts.setTransportStrategy(publicTransport);
+
+    SECTION("Check initial seat availability") {
+        REQUIRE(ts.checkSeatAvailability() == true);
+    }
+
+    SECTION("Reserve a seat and check availability") {
+        REQUIRE(ts.reserveSeat() == true);
+        REQUIRE(publicTransport->getAvailableSeats() == 29);
+    }
+
+    SECTION("Release a reserved seat") {
+        ts.reserveSeat();
+        ts.releaseSeat();
+        REQUIRE(publicTransport->getAvailableSeats() == 30);
+    }
+}
+
+TEST_CASE("TransportSystem Cargo Loading and Unloading") {
+    TransportSystem ts;
+    Train* train = new Train("City Rail", 60.0, 80.0, 200, 70);
+    ts.setTransportStrategy(train);
+
+    SECTION("Check initial cargo availability and load cargo") {
+        REQUIRE(ts.checkCargoAvailability(30) == true);
+        REQUIRE(ts.loadCargo(30) == true);
+        REQUIRE(train->getAvailableCargoSpace() == 40);
+    }
+
+    SECTION("Attempt to load cargo exceeding capacity") {
+        REQUIRE(ts.checkCargoAvailability(80) == false);
+        REQUIRE(ts.loadCargo(80) == false);
+    }
+
+    SECTION("Unload cargo") {
+        ts.loadCargo(30);
+        ts.unloadCargo(20);
+        REQUIRE(train->getAvailableCargoSpace() == 60);
+    }
+}
+
+TEST_CASE("TransportSystem Commute Time and Fee Retrieval") {
+    TransportSystem ts;
+    Air* air = new Air("City Airport", 45.0, 100.0, 150, 50);
+    ts.setTransportStrategy(air);
+
+    SECTION("Retrieve commute time") {
+        REQUIRE(ts.getCommuteTime() == Approx(45.0));
+    }
+
+    SECTION("Retrieve transport fee") {
+        REQUIRE(ts.getTransportFee() == Approx(100.0));
+    }
+
+    SECTION("No Strategy Set - Commute Time and Fee") {
+        TransportSystem ts2;
+        REQUIRE(ts2.getCommuteTime() == Approx(0.0));
+        REQUIRE(ts2.getTransportFee() == Approx(0.0));
+    }
+}
+
+TEST_CASE("TransportSystem Satisfaction Calculation") {
+    TransportSystem ts;
+    Car* car = new Car("City Car", 20.0, 4);
+    ts.setTransportStrategy(car);
+
+    SECTION("Calculate satisfaction for Car Transport") {
+        REQUIRE(ts.calculateSatisfaction() == 85);
+    }
+
+    SECTION("Calculate satisfaction with no strategy set") {
+        TransportSystem ts2;
+        REQUIRE(ts2.calculateSatisfaction() == 0);
     }
 }
