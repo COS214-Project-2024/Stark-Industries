@@ -14,9 +14,10 @@ private:
 	string taxType;
 
 public:
-	vector<Citizen*> citizenReceivers;
-	IncreaseTax(Citizen* citizenReceiver);
+	//vector<Citizen*> citizenReceivers;
+	IncreaseTax();
 	void execute();
+	//void addCitizenVector(vector<Citizen*> citizenList);
 };
 
 #endif

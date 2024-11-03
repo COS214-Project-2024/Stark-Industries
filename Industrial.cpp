@@ -143,7 +143,7 @@ void Industrial::notifyCitizens() {
 void Industrial::performAction(int type) {
 	if(type == 0) {
 		//collect tax
-		std::cout<<"Property Tax collected from Industrial Building"<<std::endl;
+		//std::cout<<"Property Tax collected from Industrial Building"<<std::endl;
 		payTax(0);
 	}
 	else if(type == 1) {
@@ -164,7 +164,7 @@ void Industrial::payTax(float taxRate) {
 	double tax = this->propertyTaxRate * this->buildingValue;
 	this->buildingRevenue -= tax;
 	taxPaid += tax;
-	std::cout<<"Property Tax of: " << tax << " collected"<<std::endl;
+	std::cout<<"Property Tax of: " << tax << " collected from " << this->name <<std::endl;
 
 }
 
@@ -205,6 +205,10 @@ void Industrial::getCitizenSatisfactionForBuilding(){
 
 void Industrial::addUtility(Utilities* utility) {
     utilities.push_back(utility);
+}
+
+std::string Industrial::getBuildingType() {
+	return "Industrial";
 }
 
 void Industrial::setNumBuildings(int count) 

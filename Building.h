@@ -41,7 +41,6 @@ private:
 protected: 
 	double buildingRevenue;
 	double buildingValue;
-	std::vector<Citizen*> observerList; // vector so that multiple citizens can be attached
 
 public:
     /**
@@ -136,11 +135,15 @@ public:
 	virtual void collectRent() {}; 
 	double rent;
 	virtual void setRentalRate(double newRent);
-	
+	virtual double getRent();
     virtual bool populateBuilding() = 0;
 	virtual void setBuildingValue(double value);
 	virtual void generateRevenue(){};
 
     virtual void addUtility(Utilities* utility);
+
+	virtual std::string getBuildingType() = 0;
+
+	std::vector<Citizen*> observerList; // vector so that multiple citizens can be attached
 };
 #endif // BUILDING_H
