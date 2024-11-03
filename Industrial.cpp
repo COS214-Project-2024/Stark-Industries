@@ -26,7 +26,7 @@ Industrial::Industrial(std::string name, int satisfaction, double economicImpact
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
       capacity(capacity), area(area) 
     {
-        numBuildings;
+        numBuildings++;
     }
 
 Industrial::Industrial() {

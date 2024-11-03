@@ -1127,7 +1127,7 @@ void displayCityStats(City* city) {
 
 //**********7. INCREASE POPULATION OPTION**********/
 void increasePopulation(City* city) {
-    cout << "You want to have more people in your city.\nBy how much do you want to increase the population: ";
+    cout << MAGENTA << "You want to have more people in your city.\nBy how much do you want to increase the population (between 0 and 100): " << RESET;
     double increase;
     cin >> increase;
     // Create Residential Building
@@ -1162,13 +1162,6 @@ void increasePopulation(City* city) {
 
     // Start the chain
     populationHandler.handleRequest(increase, city);
-
-    // // Output results
-    // cout << "Population increase processed through the city infrastructure." << endl;
-    // cout << "Residential Building Occupancy: " << residentialBuilding->getCurrentOccupancy() << endl;
-    // cout << "Commercial Building Visitors: " << commercialBuilding->getVisitors() << endl;
-    // cout << "Industrial Building Production Level: " << industrialBuilding->getProductionLevel() << endl;
-    // cout << "Landmark Maintenance Level: " << landmarkBuilding->getMaintenanceLevel() << endl;
 
     // Clean up
     delete residentialBuilding;
@@ -1218,7 +1211,7 @@ void bigTestingMain() {
         if (std::cin.fail()) {
             std::cin.clear(); // Clear the error flag
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
-            std::cout << RED << "Invalid input. Please enter a number between 1 and 6.\n" << RESET;
+            std::cout << RED << "Invalid input. Please enter a number between 1 and 8.\n" << RESET;
             continue; // Restart the loop
         }
 

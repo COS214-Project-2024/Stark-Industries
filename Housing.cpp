@@ -14,8 +14,9 @@ void Housing::handleRequest(int growthFactor, City* city) {
         double increase = currentBuildings * (rate / 100.0) * growthFactor;
         int newBuildings = static_cast<int>(std::ceil(increase));
 
-        std::cout << "Handling Housing Growth: The housing is growing at a rate of " << rate 
-                  << "%, adding " << newBuildings << " new residential buildings.\n";
+        std::cout << "HOUSING GROWS:\n";
+        std::cout << "The housing is growing at a rate of " << rate 
+                  << "%, adding " << newBuildings << " new residential buildings.\n\n";
 
         // Create new Residential buildings by cloning
         for (int i = 0; i < newBuildings; i++) {

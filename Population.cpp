@@ -29,7 +29,9 @@ void Population::handleRequest(int growthFactor, City* city) {
 
         // Round up to the nearest integer
         int newCitizens = static_cast<int>(std::ceil(increase));
-
+    	std::cout << "POPULATION GROWS:\n";
+        std::cout << "Population size has increased by " << populationGrowthRate
+                << "%, adding " << newCitizens << " citizens.\n\n";
         // Add new citizens
         for (int i = 0; i < newCitizens; ++i) {
             std::string name = c.citizenNames[std::rand() % 200];
@@ -46,11 +48,9 @@ void Population::handleRequest(int growthFactor, City* city) {
                 delete newCitizen; // Delete citizen if not assigned
             }
         }
+        std::cout << std::endl;
 
         c.setNumCitizens(currentPopulation + newCitizens);
-
-        std::cout << "Population size has increased by " << populationGrowthRate
-                  << "%, adding " << newCitizens << " citizens.\n";
 
         // Proceed to the next handler if applicable
         GrowthHandler::handleRequest(growthFactor, city);

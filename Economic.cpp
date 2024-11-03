@@ -13,13 +13,14 @@ void Economic::handleRequest(int growthFactor, City* city) {
         // Calculate the increase in budget based on the economic growth rate
         double currentBudget = b.getAvailableBudget(); // Get available budget
         double increase = currentBudget * (economicGrowthRate / 100.0); // Calculate increase
-
+        std::cout << "ECONOMY GROWS:\n";
+        std::cout << "The economy is growing at a rate of " 
+                  << economicGrowthRate << "%, increasing budget by " 
+                  << std::fixed << std::setprecision(2) << increase << " units.\n\n";
         // Increase budget using receiveTax
         b.receiveTax(increase); // Allocate more budget based on growth
+        std::cout << std::endl;
 
-        std::cout << "Handling Economy Growth: The economy is growing at a rate of " 
-                  << economicGrowthRate << "%, increasing budget by " 
-                  << std::fixed << std::setprecision(2) << increase << " units.\n";
         GrowthHandler::handleRequest(growthFactor, city);
     }
     // } else if (nextHandler) {

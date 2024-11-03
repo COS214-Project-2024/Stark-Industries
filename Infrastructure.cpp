@@ -11,13 +11,14 @@ Infrastructure::Infrastructure(double growthRate, Commercial* prototypeC, Indust
 
 void Infrastructure::handleRequest(int growthFactor, City* city) {
     if (growthFactor < 100 && growthFactor > 20) {
-        std::cout << "Handling Infrastructure Growth: The infrastructure is growing at a rate of " 
-                  << growthRate << "%.\n";
+        std::cout << "INFRASTRUCTURE GROWS:\n";
+        std::cout << "The infrastructure is growing at a rate of " 
+                  << growthRate << "%.\n\n";
 
         // Example of how you might calculate the number of roads to build based on the growth factor
         int numNewRoads = (growthFactor / 10); // Arbitrary example; adjust as needed
         for (int i = 0; i < numNewRoads; ++i) {
-            increaseRoads(2, 1.0); // Example: 2 lanes, 1 km long roads
+            increaseRoads(2, 1.0, city); // Example: 2 lanes, 1 km long roads
         }
 
         // Increase commercial, industrial, and landmark areas
@@ -34,15 +35,15 @@ void Infrastructure::handleRequest(int growthFactor, City* city) {
     // }
 }
 
-void Infrastructure::increaseRoads(int numLanes, double roadLength) {
-     Road* newRoad = new Road(numLanes, roadLength); // Create a new Road object
+void Infrastructure::increaseRoads(int numLanes, double roadLength, City* city) {
+    Road* newRoad = new Road(numLanes, roadLength); // Create a new Road object
     newRoad->build(); // Build the road
+    city->addInfrastructure(newRoad);
     // roads.push_back(newRoad); // Store the new road
     std::cout << "New road added: " << numLanes << " lanes, " << roadLength << " km long.\n";
 }
 
 void Infrastructure::increaseCommercial(int growthFactor, Commercial* prototypeC, City* city) {
-    if (growthFactor > 10) {
         // Calculate the number of new buildings to create
         int currentBuildings = prototypeC->getNumBuildings(); // Assuming prototypeCommercial is defined
         double increase = currentBuildings * (growthRate / 100.0) * growthFactor;
@@ -58,17 +59,15 @@ void Infrastructure::increaseCommercial(int growthFactor, Commercial* prototypeC
             // commercialBuildings.push_back(std::unique_ptr<Residential>(newBuilding));
         }
         prototypeC->setNumBuildings(currentBuildings + newBuildings);
-    }
 }
 
 void Infrastructure::increaseIndustrial(int growthFactor, Industrial* prototypeI, City* city) {
-    if (growthFactor > 10) {
         // Calculate the number of new buildings to create
         int currentBuildings = prototypeI->getNumBuildings(); // Assuming prototypeIndustrial is defined
         double increase = currentBuildings * (growthRate / 100.0) * growthFactor;
         int newBuildings = static_cast<int>(std::ceil(increase));
 
-        std::cout << "Handling Industrial Growth: Adding " << newBuildings << " new industrial buildings.\n";
+        std::cout << "Adding " << newBuildings << " new industrial buildings.\n";
 
         // Create new Industrial buildings by cloning
         for (int i = 0; i < newBuildings; i++) {
@@ -78,17 +77,15 @@ void Infrastructure::increaseIndustrial(int growthFactor, Industrial* prototypeI
             // commercialBuildings.push_back(std::unique_ptr<Residential>(newBuilding));
         }
         prototypeI->setNumBuildings(currentBuildings + newBuildings);
-    }
 }
 
 void Infrastructure::increaseLandmark(int growthFactor, Landmark* prototypeL, City* city) {
-    if (growthFactor > 10) {
         // Calculate the number of new buildings to create
         int currentBuildings = prototypeL->getNumBuildings(); // Assuming prototypeLandmark is defined
         double increase = currentBuildings * (growthRate / 100.0) * growthFactor;
         int newBuildings = static_cast<int>(std::ceil(increase));
 
-        std::cout << "Handling Landmark Growth: Adding " << newBuildings << " new landmarks.\n";
+        std::cout << "Adding " << newBuildings << " new landmarks.\n";
 
         // Create new Landmark buildings by cloning
         for (int i = 0; i < newBuildings; i++) {
@@ -98,5 +95,4 @@ void Infrastructure::increaseLandmark(int growthFactor, Landmark* prototypeL, Ci
             // landmarkBuildings.push_back(std::unique_ptr<Residential>(newBuilding));
         }
         prototypeL->setNumBuildings(currentBuildings + newBuildings);
-    }
 }
