@@ -1685,7 +1685,7 @@ void testSatisfactionChecker(){
 
 void taxCollection(){
     Tax* taxDept = new Tax("Tax Department", 0.15);
-    City* city = new City();
+    City* city = new City("Stark City");
     Building* industrial = new Industrial();
     Building* commercial = new Commercial();
     industrial->setBuildingValue(100000);
@@ -1732,7 +1732,7 @@ void testSatisfactionChecker(){
 
 void taxCollection(){
     Tax* taxDept = new Tax("Tax Department", 0.15);
-    City* city = new City();
+    City* city = new City("Stark City");
     Building* industrial = new Industrial();
     Building* commercial = new Commercial();
     industrial->setBuildingValue(100000);
@@ -1764,202 +1764,202 @@ void taxCollection(){
 
 
 
-            // #include <iostream>
-            // #include <iomanip>
-            // #include <cstdlib>
-            // #include <ctime>
+            #include <iostream>
+            #include <iomanip>
+            #include <cstdlib>
+            #include <ctime>
 
-            // // ANSI color codes for styling the output
-            // #define RESET "\033[0m"
-            // #define BOLD "\033[1m"
-            // #define CYAN "\033[36m"
-            // #define GREEN "\033[32m"
-            // #define YELLOW "\033[33m"
-            // #define RED "\033[31m"
-            // #define MAGENTA "\033[35m"
-            // #define BLUE "\033[34m"
+            // ANSI color codes for styling the output
+            #define RESET "\033[0m"
+            #define BOLD "\033[1m"
+            #define CYAN "\033[36m"
+            #define GREEN "\033[32m"
+            #define YELLOW "\033[33m"
+            #define RED "\033[31m"
+            #define MAGENTA "\033[35m"
+            #define BLUE "\033[34m"
 
-            // void bigTestingMain() {
-            //     std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed for random names and jobs
+            void bigTestingMain() {
+                std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed for random names and jobs
 
-            //     // Create city
-            //     City* ourCity = new City();
-            //     std::cout << BOLD << BLUE << "\n========== City Simulation Start ==========\n" << RESET;
+                // Create city
+                City* ourCity = new City("Stark City");
+                std::cout << BOLD << BLUE << "\n========== City Simulation Start ==========\n" << RESET;
 
-            //     // Create buildings
-            //     ResidentialCreator residentialCreator;
-            //     LandmarkCreator landmarkCreator;
-            //     CommercialCreator commercialCreator;
-            //     IndustrialCreator industrialCreator;
+                // Create buildings
+                ResidentialCreator residentialCreator;
+                LandmarkCreator landmarkCreator;
+                CommercialCreator commercialCreator;
+                IndustrialCreator industrialCreator;
 
-            //     // Create Residential Building
-            //     Building* residentialBuilding = residentialCreator.createBuilding(
-            //         "Residential Block", 30, 5000, 300, true, 1, true, 200, "Suburb"
-            //     );
-            //     std::cout << CYAN << "\n--- Residential Building ---" << RESET << std::endl;
-            //     std::cout << "Type: " << residentialBuilding->getType() << std::endl;
-            //     std::cout << GREEN << "Satisfaction: " << residentialBuilding->calculateSatisfaction() << RESET << std::endl;
-            //     std::cout << YELLOW << "Economic Impact: " << residentialBuilding->calculateEconomicImpact() << RESET << std::endl;
-            //     std::cout << RED << "Resource Consumption: " << residentialBuilding->calculateResourceConsumption() << RESET << std::endl;
-            //     residentialBuilding->doImprovements();
-            //     std::cout << GREEN << "Satisfaction after improvement: " << residentialBuilding->calculateSatisfaction() << RESET << std::endl;
+                // Create Residential Building
+                Building* residentialBuilding = residentialCreator.createBuilding(
+                    "Residential Block", 30, 5000, 300, true, 1, true, 200, "Suburb"
+                );
+                std::cout << CYAN << "\n--- Residential Building ---" << RESET << std::endl;
+                std::cout << "Type: " << residentialBuilding->getType() << std::endl;
+                std::cout << GREEN << "Satisfaction: " << residentialBuilding->calculateSatisfaction() << RESET << std::endl;
+                std::cout << YELLOW << "Economic Impact: " << residentialBuilding->calculateEconomicImpact() << RESET << std::endl;
+                std::cout << RED << "Resource Consumption: " << residentialBuilding->calculateResourceConsumption() << RESET << std::endl;
+                residentialBuilding->doImprovements();
+                std::cout << GREEN << "Satisfaction after improvement: " << residentialBuilding->calculateSatisfaction() << RESET << std::endl;
 
-            //     Building* residentialBuilding2 = residentialCreator.createBuilding(
-            //         "Apartments", 30, 5000, 300, true, 1, true, 100, "Suburb"
-            //     );
-            //     std::cout << CYAN << "\n--- Residential Building ---" << RESET << std::endl;
-            //     std::cout << "Type: " << residentialBuilding2->getType() << std::endl;
-            //     std::cout << GREEN << "Satisfaction: " << residentialBuilding2->calculateSatisfaction() << RESET << std::endl;
-            //     std::cout << YELLOW << "Economic Impact: " << residentialBuilding2->calculateEconomicImpact() << RESET << std::endl;
-            //     std::cout << RED << "Resource Consumption: " << residentialBuilding2->calculateResourceConsumption() << RESET << std::endl;
-            //     residentialBuilding2->doImprovements();
-            //     std::cout << GREEN << "Satisfaction after improvement: " << residentialBuilding2->calculateSatisfaction() << RESET << std::endl;
+                Building* residentialBuilding2 = residentialCreator.createBuilding(
+                    "Apartments", 30, 5000, 300, true, 1, true, 100, "Suburb"
+                );
+                std::cout << CYAN << "\n--- Residential Building ---" << RESET << std::endl;
+                std::cout << "Type: " << residentialBuilding2->getType() << std::endl;
+                std::cout << GREEN << "Satisfaction: " << residentialBuilding2->calculateSatisfaction() << RESET << std::endl;
+                std::cout << YELLOW << "Economic Impact: " << residentialBuilding2->calculateEconomicImpact() << RESET << std::endl;
+                std::cout << RED << "Resource Consumption: " << residentialBuilding2->calculateResourceConsumption() << RESET << std::endl;
+                residentialBuilding2->doImprovements();
+                std::cout << GREEN << "Satisfaction after improvement: " << residentialBuilding2->calculateSatisfaction() << RESET << std::endl;
 
-            //     // Create Landmark Building
-            //     Building* landmarkBuilding = landmarkCreator.createBuilding(
-            //         "Statue of Liberty", 50, 100000, 500, true, 1, true, 50, "Suburb"
-            //     );
-            //     std::cout << MAGENTA << "\n--- Landmark Building ---" << RESET << std::endl;
-            //     std::cout << "Type: " << landmarkBuilding->getType() << std::endl;
-            //     std::cout << GREEN << "Satisfaction: " << landmarkBuilding->calculateSatisfaction() << RESET << std::endl;
-            //     std::cout << YELLOW << "Economic Impact: " << landmarkBuilding->calculateEconomicImpact() << RESET << std::endl;
-            //     std::cout << RED << "Resource Consumption: " << landmarkBuilding->calculateResourceConsumption() << RESET << std::endl;
-            //     landmarkBuilding->doImprovements();
-            //     std::cout << GREEN << "Satisfaction after improvement: " << landmarkBuilding->calculateSatisfaction() << RESET << std::endl;
+                // Create Landmark Building
+                Building* landmarkBuilding = landmarkCreator.createBuilding(
+                    "Statue of Liberty", 50, 100000, 500, true, 1, true, 50, "Suburb"
+                );
+                std::cout << MAGENTA << "\n--- Landmark Building ---" << RESET << std::endl;
+                std::cout << "Type: " << landmarkBuilding->getType() << std::endl;
+                std::cout << GREEN << "Satisfaction: " << landmarkBuilding->calculateSatisfaction() << RESET << std::endl;
+                std::cout << YELLOW << "Economic Impact: " << landmarkBuilding->calculateEconomicImpact() << RESET << std::endl;
+                std::cout << RED << "Resource Consumption: " << landmarkBuilding->calculateResourceConsumption() << RESET << std::endl;
+                landmarkBuilding->doImprovements();
+                std::cout << GREEN << "Satisfaction after improvement: " << landmarkBuilding->calculateSatisfaction() << RESET << std::endl;
 
-            //     Building* landmarkBuilding2 = landmarkCreator.createBuilding(
-            //         "Museum", 50, 100000, 500, true, 1, true, 150, "Suburb"
-            //     );
-            //     std::cout << MAGENTA << "\n--- Landmark Building ---" << RESET << std::endl;
-            //     std::cout << "Type: " << landmarkBuilding2->getType() << std::endl;
-            //     std::cout << GREEN << "Satisfaction: " << landmarkBuilding2->calculateSatisfaction() << RESET << std::endl;
-            //     std::cout << YELLOW << "Economic Impact: " << landmarkBuilding2->calculateEconomicImpact() << RESET << std::endl;
-            //     std::cout << RED << "Resource Consumption: " << landmarkBuilding2->calculateResourceConsumption() << RESET << std::endl;
-            //     landmarkBuilding2->doImprovements();
-            //     std::cout << GREEN << "Satisfaction after improvement: " << landmarkBuilding2->calculateSatisfaction() << RESET << std::endl;
+                Building* landmarkBuilding2 = landmarkCreator.createBuilding(
+                    "Museum", 50, 100000, 500, true, 1, true, 150, "Suburb"
+                );
+                std::cout << MAGENTA << "\n--- Landmark Building ---" << RESET << std::endl;
+                std::cout << "Type: " << landmarkBuilding2->getType() << std::endl;
+                std::cout << GREEN << "Satisfaction: " << landmarkBuilding2->calculateSatisfaction() << RESET << std::endl;
+                std::cout << YELLOW << "Economic Impact: " << landmarkBuilding2->calculateEconomicImpact() << RESET << std::endl;
+                std::cout << RED << "Resource Consumption: " << landmarkBuilding2->calculateResourceConsumption() << RESET << std::endl;
+                landmarkBuilding2->doImprovements();
+                std::cout << GREEN << "Satisfaction after improvement: " << landmarkBuilding2->calculateSatisfaction() << RESET << std::endl;
 
-            //     // Create Commercial Building
-            //     Building* commercialBuilding = commercialCreator.createBuilding(
-            //         "Mall", 20, 30000, 1000, true, 1, true, 1000, "Suburb"
-            //     );
-            //     std::cout << YELLOW << "\n--- Commercial Building ---" << RESET << std::endl;
-            //     std::cout << "Type: " << commercialBuilding->getType() << std::endl;
-            //     std::cout << GREEN << "Satisfaction: " << commercialBuilding->calculateSatisfaction() << RESET << std::endl;
-            //     std::cout << YELLOW << "Economic Impact: " << commercialBuilding->calculateEconomicImpact() << RESET << std::endl;
-            //     std::cout << RED << "Resource Consumption: " << commercialBuilding->calculateResourceConsumption() << RESET << std::endl;
-            //     commercialBuilding->doImprovements();
-            //     std::cout << GREEN << "Satisfaction after improvement: " << commercialBuilding->calculateSatisfaction() << RESET << std::endl;
+                // Create Commercial Building
+                Building* commercialBuilding = commercialCreator.createBuilding(
+                    "Mall", 20, 30000, 1000, true, 1, true, 1000, "Suburb"
+                );
+                std::cout << YELLOW << "\n--- Commercial Building ---" << RESET << std::endl;
+                std::cout << "Type: " << commercialBuilding->getType() << std::endl;
+                std::cout << GREEN << "Satisfaction: " << commercialBuilding->calculateSatisfaction() << RESET << std::endl;
+                std::cout << YELLOW << "Economic Impact: " << commercialBuilding->calculateEconomicImpact() << RESET << std::endl;
+                std::cout << RED << "Resource Consumption: " << commercialBuilding->calculateResourceConsumption() << RESET << std::endl;
+                commercialBuilding->doImprovements();
+                std::cout << GREEN << "Satisfaction after improvement: " << commercialBuilding->calculateSatisfaction() << RESET << std::endl;
 
-            //     Building* commercialBuilding2 = commercialCreator.createBuilding(
-            //         "Hardware Store", 20, 30000, 1000, true, 1, true, 100, "Suburb"
-            //     );
-            //     std::cout << YELLOW << "\n--- Commercial Building ---" << RESET << std::endl;
-            //     std::cout << "Type: " << commercialBuilding2->getType() << std::endl;
-            //     std::cout << GREEN << "Satisfaction: " << commercialBuilding2->calculateSatisfaction() << RESET << std::endl;
-            //     std::cout << YELLOW << "Economic Impact: " << commercialBuilding2->calculateEconomicImpact() << RESET << std::endl;
-            //     std::cout << RED << "Resource Consumption: " << commercialBuilding2->calculateResourceConsumption() << RESET << std::endl;
-            //     commercialBuilding2->doImprovements();
-            //     std::cout << GREEN << "Satisfaction after improvement: " << commercialBuilding2->calculateSatisfaction() << RESET << std::endl;
+                Building* commercialBuilding2 = commercialCreator.createBuilding(
+                    "Hardware Store", 20, 30000, 1000, true, 1, true, 100, "Suburb"
+                );
+                std::cout << YELLOW << "\n--- Commercial Building ---" << RESET << std::endl;
+                std::cout << "Type: " << commercialBuilding2->getType() << std::endl;
+                std::cout << GREEN << "Satisfaction: " << commercialBuilding2->calculateSatisfaction() << RESET << std::endl;
+                std::cout << YELLOW << "Economic Impact: " << commercialBuilding2->calculateEconomicImpact() << RESET << std::endl;
+                std::cout << RED << "Resource Consumption: " << commercialBuilding2->calculateResourceConsumption() << RESET << std::endl;
+                commercialBuilding2->doImprovements();
+                std::cout << GREEN << "Satisfaction after improvement: " << commercialBuilding2->calculateSatisfaction() << RESET << std::endl;
 
-            //     // Create Industrial Building
-            //     Building* industrialBuilding = industrialCreator.createBuilding(
-            //         "Hardware Factory", 10, 20000, 2000, true, 1, true, 400, "Industrial"
-            //     );
-            //     std::cout << RED << "\n--- Industrial Building ---" << RESET << std::endl;
-            //     std::cout << "Type: " << industrialBuilding->getType() << std::endl;
-            //     std::cout << GREEN << "Satisfaction: " << industrialBuilding->calculateSatisfaction() << RESET << std::endl;
-            //     std::cout << YELLOW << "Economic Impact: " << industrialBuilding->calculateEconomicImpact() << RESET << std::endl;
-            //     std::cout << RED << "Resource Consumption: " << industrialBuilding->calculateResourceConsumption() << RESET << std::endl;
-            //     industrialBuilding->doImprovements();
-            //     std::cout << GREEN << "Satisfaction after improvement: " << industrialBuilding->calculateSatisfaction() << RESET << std::endl;
+                // Create Industrial Building
+                Building* industrialBuilding = industrialCreator.createBuilding(
+                    "Hardware Factory", 10, 20000, 2000, true, 1, true, 400, "Industrial"
+                );
+                std::cout << RED << "\n--- Industrial Building ---" << RESET << std::endl;
+                std::cout << "Type: " << industrialBuilding->getType() << std::endl;
+                std::cout << GREEN << "Satisfaction: " << industrialBuilding->calculateSatisfaction() << RESET << std::endl;
+                std::cout << YELLOW << "Economic Impact: " << industrialBuilding->calculateEconomicImpact() << RESET << std::endl;
+                std::cout << RED << "Resource Consumption: " << industrialBuilding->calculateResourceConsumption() << RESET << std::endl;
+                industrialBuilding->doImprovements();
+                std::cout << GREEN << "Satisfaction after improvement: " << industrialBuilding->calculateSatisfaction() << RESET << std::endl;
 
-            //     Building* industrialBuilding2 = industrialCreator.createBuilding(
-            //         "Coca-Cola Factory", 10, 20000, 2000, true, 1, true, 400, "Industrial"
-            //     );
-            //     std::cout << RED << "\n--- Industrial Building ---" << RESET << std::endl;
-            //     std::cout << "Type: " << industrialBuilding2->getType() << std::endl;
-            //     std::cout << GREEN << "Satisfaction: " << industrialBuilding2->calculateSatisfaction() << RESET << std::endl;
-            //     std::cout << YELLOW << "Economic Impact: " << industrialBuilding2->calculateEconomicImpact() << RESET << std::endl;
-            //     std::cout << RED << "Resource Consumption: " << industrialBuilding2->calculateResourceConsumption() << RESET << std::endl;
-            //     industrialBuilding2->doImprovements();
-            //     std::cout << GREEN << "Satisfaction after improvement: " << industrialBuilding2->calculateSatisfaction() << RESET << std::endl;
+                Building* industrialBuilding2 = industrialCreator.createBuilding(
+                    "Coca-Cola Factory", 10, 20000, 2000, true, 1, true, 400, "Industrial"
+                );
+                std::cout << RED << "\n--- Industrial Building ---" << RESET << std::endl;
+                std::cout << "Type: " << industrialBuilding2->getType() << std::endl;
+                std::cout << GREEN << "Satisfaction: " << industrialBuilding2->calculateSatisfaction() << RESET << std::endl;
+                std::cout << YELLOW << "Economic Impact: " << industrialBuilding2->calculateEconomicImpact() << RESET << std::endl;
+                std::cout << RED << "Resource Consumption: " << industrialBuilding2->calculateResourceConsumption() << RESET << std::endl;
+                industrialBuilding2->doImprovements();
+                std::cout << GREEN << "Satisfaction after improvement: " << industrialBuilding2->calculateSatisfaction() << RESET << std::endl;
 
-            //     // Create utilities
-            //     WaterFactory waterFactory;
-            //     Utilities* waterUtility = waterFactory.createUtility();
-            //     std::cout << CYAN << "\n--- Water System ---" << RESET << std::endl;
-            //     waterUtility->displayInfo();
-            //     waterUtility->generateResources();
-            //     waterUtility->requestMaintenance(101);
+                // Create utilities
+                WaterFactory waterFactory;
+                Utilities* waterUtility = waterFactory.createUtility();
+                std::cout << CYAN << "\n--- Water System ---" << RESET << std::endl;
+                waterUtility->displayInfo();
+                waterUtility->generateResources();
+                waterUtility->requestMaintenance(101);
 
-            //     Utilities* waterUtility2 = waterFactory.createUtility();
-            //     std::cout << CYAN << "\n--- Water System 2 ---" << RESET << std::endl;
-            //     waterUtility2->displayInfo();
-            //     waterUtility2->generateResources();
-            //     waterUtility2->requestMaintenance(150);
+                Utilities* waterUtility2 = waterFactory.createUtility();
+                std::cout << CYAN << "\n--- Water System 2 ---" << RESET << std::endl;
+                waterUtility2->displayInfo();
+                waterUtility2->generateResources();
+                waterUtility2->requestMaintenance(150);
 
-            //     WasteFactory wasteFactory;
-            //     Utilities* wasteUtility = wasteFactory.createUtility();
-            //     std::cout << MAGENTA << "\n--- Waste System ---" << RESET << std::endl;
-            //     wasteUtility->displayInfo();
-            //     wasteUtility->generateResources();
-            //     wasteUtility->requestMaintenance(102);
+                WasteFactory wasteFactory;
+                Utilities* wasteUtility = wasteFactory.createUtility();
+                std::cout << MAGENTA << "\n--- Waste System ---" << RESET << std::endl;
+                wasteUtility->displayInfo();
+                wasteUtility->generateResources();
+                wasteUtility->requestMaintenance(102);
 
-            //     Utilities* wasteUtility2 = wasteFactory.createUtility();
-            //     std::cout << MAGENTA << "\n--- Waste System 2 ---" << RESET << std::endl;
-            //     wasteUtility2->displayInfo();
-            //     wasteUtility2->generateResources();
-            //     wasteUtility2->requestMaintenance(151);
+                Utilities* wasteUtility2 = wasteFactory.createUtility();
+                std::cout << MAGENTA << "\n--- Waste System 2 ---" << RESET << std::endl;
+                wasteUtility2->displayInfo();
+                wasteUtility2->generateResources();
+                wasteUtility2->requestMaintenance(151);
 
-            //     SewageFactory sewageFactory;
-            //     Utilities* sewageUtility = sewageFactory.createUtility();
-            //     std::cout << YELLOW << "\n--- Sewage System ---" << RESET << std::endl;
-            //     sewageUtility->displayInfo();
-            //     sewageUtility->generateResources();
-            //     sewageUtility->requestMaintenance(103);
+                SewageFactory sewageFactory;
+                Utilities* sewageUtility = sewageFactory.createUtility();
+                std::cout << YELLOW << "\n--- Sewage System ---" << RESET << std::endl;
+                sewageUtility->displayInfo();
+                sewageUtility->generateResources();
+                sewageUtility->requestMaintenance(103);
 
-            //     Utilities* sewageUtility2 = sewageFactory.createUtility();
-            //     std::cout << YELLOW << "\n--- Sewage System 2 ---" << RESET << std::endl;
-            //     sewageUtility2->displayInfo();
-            //     sewageUtility2->generateResources();
-            //     sewageUtility2->requestMaintenance(152);
+                Utilities* sewageUtility2 = sewageFactory.createUtility();
+                std::cout << YELLOW << "\n--- Sewage System 2 ---" << RESET << std::endl;
+                sewageUtility2->displayInfo();
+                sewageUtility2->generateResources();
+                sewageUtility2->requestMaintenance(152);
 
-            //     PowerPlantFactory powerPlantFactory;
-            //     Utilities* powerPlantUtility = powerPlantFactory.createUtility();
-            //     std::cout << GREEN << "\n--- Power Plant ---" << RESET << std::endl;
-            //     powerPlantUtility->displayInfo();
-            //     powerPlantUtility->generateResources();
-            //     powerPlantUtility->requestMaintenance(104);
+                PowerPlantFactory powerPlantFactory;
+                Utilities* powerPlantUtility = powerPlantFactory.createUtility();
+                std::cout << GREEN << "\n--- Power Plant ---" << RESET << std::endl;
+                powerPlantUtility->displayInfo();
+                powerPlantUtility->generateResources();
+                powerPlantUtility->requestMaintenance(104);
 
-            //     Utilities* powerPlantUtility2 = powerPlantFactory.createUtility();
-            //     std::cout << GREEN << "\n--- Power Plant 2 ---" << RESET << std::endl;
-            //     powerPlantUtility2->displayInfo();
-            //     powerPlantUtility2->generateResources();
-            //     powerPlantUtility2->requestMaintenance(153);
+                Utilities* powerPlantUtility2 = powerPlantFactory.createUtility();
+                std::cout << GREEN << "\n--- Power Plant 2 ---" << RESET << std::endl;
+                powerPlantUtility2->displayInfo();
+                powerPlantUtility2->generateResources();
+                powerPlantUtility2->requestMaintenance(153);
 
-            //     // Build transport infrastructure
-            //     std::cout << BOLD << BLUE << "\n--- Creating Transport Infrastructure ---\n" << RESET;
-            //     RoadFactory roadFactory;
-            //     RailwayFactory railwayFactory;
-            //     RunwayFactory runwayFactory;
-            //     TransportInfrastructure* road = roadFactory.createInfrastructure(2, 10.0);
-            //     road->build();
-            //     TransportInfrastructure* railway = railwayFactory.createInfrastructure(20, true);
-            //     railway->build();
-            //     TransportInfrastructure* runway = runwayFactory.createInfrastructure(1.0, 0.5);
-            //     runway->build();
-            //     TransportInfrastructure* road2 = roadFactory.createInfrastructure(4, 100.0);
-            //     road2->build();
-            //     TransportInfrastructure* railway2 = railwayFactory.createInfrastructure(30, false);
-            //     railway2->build();
-            //     TransportInfrastructure* runway2 = runwayFactory.createInfrastructure(2.0, 1);
-            //     runway2->build();
-            //     TransportInfrastructure* road3 = roadFactory.createInfrastructure(1, 15.0);
-            //     road3->build();
-            //     TransportInfrastructure* railway3 = railwayFactory.createInfrastructure(45, true);
-            //     railway3->build();
-            //     TransportInfrastructure* runway3 = runwayFactory.createInfrastructure(1.0, 0.7);
-            //     runway3->build();
+                // Build transport infrastructure
+                std::cout << BOLD << BLUE << "\n--- Creating Transport Infrastructure ---\n" << RESET;
+                RoadFactory roadFactory;
+                RailwayFactory railwayFactory;
+                RunwayFactory runwayFactory;
+                TransportInfrastructure* road = roadFactory.createInfrastructure(2, 10.0);
+                road->build();
+                TransportInfrastructure* railway = railwayFactory.createInfrastructure(20, true);
+                railway->build();
+                TransportInfrastructure* runway = runwayFactory.createInfrastructure(1.0, 0.5);
+                runway->build();
+                TransportInfrastructure* road2 = roadFactory.createInfrastructure(4, 100.0);
+                road2->build();
+                TransportInfrastructure* railway2 = railwayFactory.createInfrastructure(30, false);
+                railway2->build();
+                TransportInfrastructure* runway2 = runwayFactory.createInfrastructure(2.0, 1);
+                runway2->build();
+                TransportInfrastructure* road3 = roadFactory.createInfrastructure(1, 15.0);
+                road3->build();
+                TransportInfrastructure* railway3 = railwayFactory.createInfrastructure(45, true);
+                railway3->build();
+                TransportInfrastructure* runway3 = runwayFactory.createInfrastructure(1.0, 0.7);
+                runway3->build();
 
     // Create citizens
     Citizen c;
@@ -1977,73 +1977,73 @@ void taxCollection(){
         ourCity->attach(newCitizen);
     }
 
-            //     // Create government
-            //     Government government(0.15, 0.02); // 15% income tax, 2% property tax
+                // Create government
+                Government government(0.15, 0.02); // 15% income tax, 2% property tax
 
-            //     // Create departments and add them to the government
-            //     Budget* budgetDept = new Budget("Budget Department", 10000.0);
-            //     Policies* policiesDept = new Policies("Policies Department");
-            //     Services* servicesDept = new Services("Services Department", 10, 5, 3);
-            //     Tax* taxDept = new Tax("Tax Department", 0.15);
+                // Create departments and add them to the government
+                Budget* budgetDept = new Budget("Budget Department", 10000.0);
+                Policies* policiesDept = new Policies("Policies Department");
+                Services* servicesDept = new Services("Services Department", 10, 5, 3);
+                Tax* taxDept = new Tax("Tax Department", 0.15);
 
-            //     std::cout << CYAN << "\n--- Budget Department Created ---" << RESET << std::endl;
-            //     government.add(budgetDept);
-            //     budgetDept->operate();
-            //     std::cout << MAGENTA << "\n--- Policies Department Created ---" << RESET << std::endl;
-            //     government.add(policiesDept);
-            //     policiesDept->operate();
-            //     std::cout << YELLOW << "\n--- Services Department Created ---" << RESET << std::endl;
-            //     government.add(servicesDept);
-            //     servicesDept->operate();
-            //     std::cout << RED << "\n--- Tax Department Created ---" << RESET << std::endl;
-            //     government.add(taxDept);
-            //     taxDept->operate();
+                std::cout << CYAN << "\n--- Budget Department Created ---" << RESET << std::endl;
+                government.add(budgetDept);
+                budgetDept->operate();
+                std::cout << MAGENTA << "\n--- Policies Department Created ---" << RESET << std::endl;
+                government.add(policiesDept);
+                policiesDept->operate();
+                std::cout << YELLOW << "\n--- Services Department Created ---" << RESET << std::endl;
+                government.add(servicesDept);
+                servicesDept->operate();
+                std::cout << RED << "\n--- Tax Department Created ---" << RESET << std::endl;
+                government.add(taxDept);
+                taxDept->operate();
 
-            //     // Add policies
-            //     std::cout << CYAN << "\n--- Add Policies ---" << RESET << std::endl;
-            //     policiesDept->addPolicy("Environmental Protection");
-            //     policiesDept->addPolicy("Healthcare Reform");
+                // Add policies
+                std::cout << CYAN << "\n--- Add Policies ---" << RESET << std::endl;
+                policiesDept->addPolicy("Environmental Protection");
+                policiesDept->addPolicy("Healthcare Reform");
 
-            //     // Add service programs
-            //     std::cout << CYAN << "\n--- Add Services ---" << RESET << std::endl;
-            //     servicesDept->addServiceProgram("Emergency Health Services");
-            //     servicesDept->addServiceProgram("Education Outreach");
+                // Add service programs
+                std::cout << CYAN << "\n--- Add Services ---" << RESET << std::endl;
+                servicesDept->addServiceProgram("Emergency Health Services");
+                servicesDept->addServiceProgram("Education Outreach");
 
-            //     // Example of Government operating and managing departments
-            //     std::cout << MAGENTA << "\n--- Government operates ---" << RESET << std::endl;
-            //     government.operate();
+                // Example of Government operating and managing departments
+                std::cout << MAGENTA << "\n--- Government operates ---" << RESET << std::endl;
+                government.operate();
 
-            //     //Below can be used later on
-            //     // // Simulate tax collection and allocation
-            //     // taxDept->collectTaxes(20000.0);  // Collecting taxes based on revenue
-            //     // government.collectTax();           // Government records collected taxes
-            //     // government.allocateTax();          // Allocate tax revenue to budget
+                //Below can be used later on
+                // // Simulate tax collection and allocation
+                // taxDept->collectTaxes(20000.0);  // Collecting taxes based on revenue
+                // government.collectTax();           // Government records collected taxes
+                // government.allocateTax();          // Allocate tax revenue to budget
 
-            //     // // Display the current status of each department
-            //     // budgetDept->operate();
-            //     // policiesDept->operate();
-            //     // servicesDept->operate();
-            //     // taxDept->operate();
+                // // Display the current status of each department
+                // budgetDept->operate();
+                // policiesDept->operate();
+                // servicesDept->operate();
+                // taxDept->operate();
 
-            //     // // Notify citizens about tax changes
-            //     // government.notifyCitizensTaxIncreased();
+                // // Notify citizens about tax changes
+                // government.notifyCitizensTaxIncreased();
 
-            //     // Clean up
-            //     delete budgetDept;
-            //     delete policiesDept;
-            //     delete servicesDept;
-            //     delete taxDept;
-            //     delete waterUtility;
-            //     delete wasteUtility;
-            //     delete sewageUtility;
-            //     delete powerPlantUtility;
-            //     delete residentialBuilding;
-            //     delete landmarkBuilding;
-            //     delete commercialBuilding;
-            //     delete industrialBuilding;
+                // Clean up
+                delete budgetDept;
+                delete policiesDept;
+                delete servicesDept;
+                delete taxDept;
+                delete waterUtility;
+                delete wasteUtility;
+                delete sewageUtility;
+                delete powerPlantUtility;
+                delete residentialBuilding;
+                delete landmarkBuilding;
+                delete commercialBuilding;
+                delete industrialBuilding;
 
-            //     std::cout << BOLD << BLUE << "\n========== City Simulation End ==========\n" << RESET;
-            // }
+                std::cout << BOLD << BLUE << "\n========== City Simulation End ==========\n" << RESET;
+            }
 
 int main() {
     bigTestingMain();
@@ -2097,8 +2097,8 @@ int main() {
     // testRent();
     taxCollection();
 
-            //     return 0;
-            // }
+    return 0;
+}
 
 
 

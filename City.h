@@ -19,7 +19,6 @@ class City : public Element {
 
 private:
 	std::string name;
-	std::vector<Building*> buildings;
 	std::vector<Citizen*> observerList;
 	std::vector<Utilities*> utilities;
 	vector<TransportInfrastructure*> roads;
@@ -57,6 +56,7 @@ public:
 	std::vector<Building*>& listBuildings();
 
 	vector<Citizen*> citizens;
+	std::vector<Building*> buildings;
 
 	Government* getGovernment();
 
