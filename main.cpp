@@ -64,38 +64,7 @@
 
 using namespace std;
 
-void testSingleton() {
-    // Get the singleton instance
-    ResourceManagement& resourceManager = ResourceManagement::getInstance();
 
-    // Step 1: Create initial resources
-    resourceManager.createResources();
-
-    // Step 2: Update materials, energy, water, and budget
-    resourceManager.updateMaterials(200, 100, 50);   // Adding resources
-    resourceManager.updateEnergy(300);               // Increase energy
-    resourceManager.updateWater(200);                // Increase water
-    resourceManager.updateBudget(1500.0);            // Increase budget
-
-    // Step 3: Display resource status after updates
-    std::cout << "\nAfter updates:" << std::endl;
-    resourceManager.displayResourceStatus();
-
-    // Step 4: Supply resources to utilities
-    resourceManager.supplyResources();
-
-    // Step 5: Attempt to allocate some budget
-    double allocationAmount = 800.0;
-    if (resourceManager.allocateBudget(allocationAmount)) {
-        std::cout << "\nBudget allocated successfully: " << allocationAmount << std::endl;
-    } else {
-        std::cout << "\nFailed to allocate budget: " << allocationAmount << std::endl;
-    }
-
-    // Step 6: Final display of resource status
-    std::cout << "\nFinal Resource Status:" << std::endl;
-    resourceManager.displayResourceStatus();
-}
 
 // ANSI color codes for styling the output
 #define RESET "\033[0m"
@@ -113,6 +82,12 @@ void pauseForUser() {
     std::cout << BOLD << BLUE << "\nPress enter to continue..." << RESET;
     std::cin.get();
 }
+
+void initializeResources() {
+    ResourceManagement& resourceManager = ResourceManagement::getInstance();
+    resourceManager.createResources();  // Initialize base resources
+}
+
 
 void createInitialBuildings(City* city) {
     std::cout << CYAN << "\nThe wizard raises their hands to the sky, channeling the powers of creation...\n" << RESET;
@@ -154,6 +129,8 @@ void createInitialBuildings(City* city) {
 }
 
 void createAndAssignUtilities(City* city) {
+    ResourceManagement& resourceManager = ResourceManagement::getInstance();  // Access the resource manager
+
     std::cout << CYAN << "\nWith a wave of the wizard's hand, the city's essential utilities begin to materialize...\n" << RESET;
 
     // Create Water Utility
@@ -161,31 +138,31 @@ void createAndAssignUtilities(City* city) {
     Utilities* waterUtility = waterFactory.createUtility();
     city->addUtility(waterUtility);
     std::cout << GREEN << "\nWater Utility Created:\n" << RESET;
-    waterUtility->displayInfo();
-    
+    resourceManager.allocateResourcesToUtility("Water Utility", /*energy*/ 0, /*water*/ 300, /*budget*/ 500.0);
+    resourceManager.displayResourceStatus();
 
     // Create Waste Management Utility
     WasteFactory wasteFactory;
     Utilities* wasteUtility = wasteFactory.createUtility();
     city->addUtility(wasteUtility);
     std::cout << MAGENTA << "\nWaste Management Utility Created:\n" << RESET;
-    wasteUtility->displayInfo();
-    
+    resourceManager.allocateResourcesToUtility("Waste Management Utility", /*energy*/ 100, /*water*/ 0, /*budget*/ 300.0);
+    resourceManager.displayResourceStatus();
 
     // Create Sewage Utility
     SewageFactory sewageFactory;
     Utilities* sewageUtility = sewageFactory.createUtility();
     city->addUtility(sewageUtility);
     std::cout << YELLOW << "\nSewage Utility Created:\n" << RESET;
-    sewageUtility->displayInfo();
-    
+    resourceManager.allocateResourcesToUtility("Sewage Utility", /*energy*/ 50, /*water*/ 100, /*budget*/ 200.0);
 
     // Create Power Plant Utility
     PowerPlantFactory powerPlantFactory;
     Utilities* powerPlantUtility = powerPlantFactory.createUtility();
     city->addUtility(powerPlantUtility);
     std::cout << BLUE << "\nPower Plant Utility Created:\n" << RESET;
-    powerPlantUtility->displayInfo();
+    resourceManager.allocateResourcesToUtility("Power Plant Utility", /*energy*/ 500, /*water*/ 0, /*budget*/ 1000.0);
+    resourceManager.displayResourceStatus();
     pauseForUser();
 
     // Assign utilities to buildings
@@ -197,10 +174,11 @@ void createAndAssignUtilities(City* city) {
         building->addUtility(powerPlantUtility);
 
         std::cout << GREEN << "Utilities have been assigned to " << building->getType() << "\n" << RESET;
-        
     }
     pauseForUser();
 }
+
+
 
 void createAndAssignTransport(City* city) {
     std::cout << CYAN << BOLD << "\nThe wizard conjures essential transport infrastructure for the city...\n" << RESET;
@@ -521,7 +499,28 @@ void manageGovernment(City* city) {
                 }
                 break;
             }
-            // ... other cases remain the same
+
+            case 3: {
+                // Manage Policies Department
+                Policies* policiesDept = city->getGovernment()->getPoliciesDepartment();
+                if (policiesDept) {
+                    managePoliciesDepartment(policiesDept);
+                } else {
+                    std::cout << RED << "Failed to access Policies Department.\n" << RESET;
+                }
+                break;
+            }
+            case 4: {
+                // Manage Services Department
+                Services* servicesDept = city->getGovernment()->getServicesDepartment();
+                if (servicesDept) {
+                    manageServicesDepartment(servicesDept);
+                } else {
+                    std::cout << RED << "Failed to access Services Department.\n" << RESET;
+                }
+                break;
+            }
+
             case 5:
                 managingGovernment = false;
                 break;
@@ -1291,6 +1290,43 @@ int main(){
 
 
 //TESTING INDIVIDUAL PATTERNS - IGNORE
+
+
+
+// void testSingleton() {
+//     // Get the singleton instance
+//     ResourceManagement& resourceManager = ResourceManagement::getInstance();
+
+//     // Step 1: Create initial resources
+//     resourceManager.createResources();
+
+//     // Step 2: Update materials, energy, water, and budget
+//     resourceManager.updateMaterials(200, 100, 50);   // Adding resources
+//     resourceManager.updateEnergy(300);               // Increase energy
+//     resourceManager.updateWater(200);                // Increase water
+//     resourceManager.updateBudget(1500.0);            // Increase budget
+
+//     // Step 3: Display resource status after updates
+//     std::cout << "\nAfter updates:" << std::endl;
+//     resourceManager.displayResourceStatus();
+
+//     // Step 4: Supply resources to utilities
+//     resourceManager.supplyResources();
+
+//     // Step 5: Attempt to allocate some budget
+//     double allocationAmount = 800.0;
+//     if (resourceManager.allocateBudget(allocationAmount)) {
+//         std::cout << "\nBudget allocated successfully: " << allocationAmount << std::endl;
+//     } else {
+//         std::cout << "\nFailed to allocate budget: " << allocationAmount << std::endl;
+//     }
+
+//     // Step 6: Final display of resource status
+//     std::cout << "\nFinal Resource Status:" << std::endl;
+//     resourceManager.displayResourceStatus();
+// }
+
+
 // void testFactoryUtilities() {
 //     // Water Factory
 //     WaterFactory waterFactory;
