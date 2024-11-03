@@ -1044,14 +1044,6 @@ double citySatisfactionChecker(City* city){
     return citySatisfaction;
 }
 
-double buildingSatisfactionChecker(City* city, Building* building){
-    SatisfactionChecker* satisfactionChecker = new SatisfactionChecker();
-    for (int i = 0 ; i < building->)
-    delete satisfactionChecker;
-    return buildingSatisfaction;
-}
-
-
 
 void manageCitizens(City* city) {
     bool managingCitizens = true;
