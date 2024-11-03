@@ -26,12 +26,12 @@ Commercial::Commercial(std::string name, int satisfaction, double economicImpact
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
       capacity(capacity), area(area) {
         numBuildings++;
-		buildingRevenue = 1000;
+		buildingRevenue = 100;
       }
 
 Commercial::Commercial() {
 	numBuildings++;
-	buildingRevenue = 1000;
+	buildingRevenue = 100;
 }
 
 /**
@@ -204,7 +204,7 @@ void Commercial::getCitizenSatisfactionForBuilding(){
 }
 
 void Commercial::generateRevenue() {
-	buildingRevenue *= 50;
+	buildingRevenue *= 35;
 }
 
 void Commercial::addUtility(Utilities* utility) {

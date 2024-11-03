@@ -117,7 +117,7 @@ public:
     void setBuildingValue(double value);
 
 private: 
-	float propertyTaxRate = 0.015;
+	float propertyTaxRate = 0.10;
 };
 
 #endif

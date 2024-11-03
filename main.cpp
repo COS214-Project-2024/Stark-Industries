@@ -346,7 +346,7 @@ void addCommandsToTaxDepartment(Tax* taxDept, City* city){
 
 double taxCollectorVisitor(Tax* taxDept, City* city){
     for (int i = 0 ; i < city->buildings.size() ; i++){
-        city->buildings[i]->setBuildingValue(i*10000);
+        city->buildings[i]->setBuildingValue((i+1)*10000);
         if (city->buildings[i]->getBuildingType() == "Residential"){
             city->buildings[i]->collectRent();
         }

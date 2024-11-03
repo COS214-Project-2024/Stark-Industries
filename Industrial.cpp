@@ -143,7 +143,7 @@ void Industrial::notifyCitizens() {
 void Industrial::performAction(int type) {
 	if(type == 0) {
 		//collect tax
-		std::cout<<"Property Tax collected from Industrial Building"<<std::endl;
+		//std::cout<<"Property Tax collected from Industrial Building"<<std::endl;
 		payTax(0);
 	}
 	else if(type == 1) {

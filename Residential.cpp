@@ -227,7 +227,6 @@ std::string Residential::getBuildingType(){
 	return "Residential";
 }
 
-void Residential::setBuildingValue(double value){
-	buildingValue = value;
+void Residential::setRentalRate(double newRent){
+	rent = newRent;
 }
-

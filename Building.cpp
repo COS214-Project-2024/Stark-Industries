@@ -78,9 +78,9 @@ void Building::notifyCitizens() {
     }
 }
 
-void Building::setRentalRate(double newRentalRate) {
-	rent = newRentalRate;
-}
+// void Building::setRentalRate(double newRentalRate) {
+// 	rent = newRentalRate;
+// }
 
 void Building::addUtility(Utilities* utility) {
     //virtual

@@ -135,10 +135,10 @@ public:
 
 	std::string getBuildingType();
 
-	void setBuildingValue(double value);
+	void setRentalRate(double newRent);
 
 private:
-	float propertyTaxRate = 0.01;
+	float propertyTaxRate = 0.10;
 	float rentalTaxRate = 0.20;
 };
 

@@ -130,7 +130,7 @@ public:
 
 	std::string getBuildingType();
 private:
-	float propertyTaxRate = 0.015;
+	float propertyTaxRate = 0.10;
 	float salesTaxRate = 0.15;
 };
 
