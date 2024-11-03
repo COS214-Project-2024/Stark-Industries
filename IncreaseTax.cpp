@@ -1,7 +1,6 @@
 #include "IncreaseTax.h"
 
-IncreaseTax::IncreaseTax(Citizen * citizenReceiver) {
-	this->citizenReceivers.push_back(citizenReceiver);
+IncreaseTax::IncreaseTax() {
 }
 
 void IncreaseTax::execute() {
@@ -9,4 +8,8 @@ void IncreaseTax::execute() {
 		citizenReceivers[i]->performAction(1);
 	}
 	//buildingReceiver->performAction(1);
+}
+
+void IncreaseTax::addCitizenVector(vector<Citizen*> citizenList) {
+	this->citizenReceivers = citizenList;
 }

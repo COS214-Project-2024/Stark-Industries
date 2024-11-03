@@ -15,8 +15,9 @@ private:
 
 public:
 	vector<Citizen*> citizenReceivers;
-	IncreaseTax(Citizen* citizenReceiver);
+	IncreaseTax();
 	void execute();
+	void addCitizenVector(vector<Citizen*> citizenList);
 };
 
 #endif
