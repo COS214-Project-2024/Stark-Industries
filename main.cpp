@@ -522,10 +522,10 @@ void taxCollection(){
     collectTax->execute();
     TaxCollector* taxCollector = new TaxCollector();
     for (int i = 0 ; i < city->citizens.size() ; i++){
-        taxCollector->visit(city->citizens[i]);
+        city->citizens[i]->acceptTaxCollector(taxCollector);
     }
     for (int i = 0 ; i < city->buildings.size() ; i++){
-        taxCollector->visit(city->buildings[i]);
+        city->buildings[i]->acceptTaxCollector(taxCollector);
     }
     taxDept->collectTaxes(taxCollector->taxCollected);
 }
