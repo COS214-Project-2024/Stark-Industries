@@ -3,6 +3,10 @@
 #include <vector>
 #include <algorithm>
 
+City::City() {
+
+}
+
 void City::attach(Citizen* observer) {
     observerList.push_back(observer);
 	citizens.push_back(observer);
@@ -33,4 +37,12 @@ void City::buildingComplete(int String_buildtype, int Citizen_citizen) {
 bool City::inspectBuilding() {
 	// TODO - implement City::inspectBuilding
 	throw "Not yet implemented";
+}
+
+void City::attach(Building* building) {
+	buildings.push_back(building);
+}
+
+void City::detach(Building* building) {
+	buildings.erase(std::remove(buildings.begin(), buildings.end(), building), buildings.end());
 }

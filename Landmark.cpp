@@ -1,6 +1,8 @@
 #include "Landmark.h"
 #include <iostream>
 
+int Landmark::numBuildings = 0;
+
 /**
  * @brief Constructs a Landmark building with the given attributes.
  * 
@@ -15,12 +17,15 @@
  */
 Landmark::Landmark(std::string name, int satisfaction, double economicImpact, 
                    double resourceConsumption, bool constructionStatus, 
-                   int improvementLevel, bool resourcesAvailable, int notificationRadius)
+                   int improvementLevel, bool resourcesAvailable, int capacity, string area)
     : Building(name, satisfaction, economicImpact, resourceConsumption, 
-               constructionStatus, improvementLevel, resourcesAvailable, notificationRadius), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
+               constructionStatus, improvementLevel, resourcesAvailable, capacity, area), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
       resourceConsumption(resourceConsumption), constructionStatus(constructionStatus),
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
-      citizenNotificationRadius(notificationRadius) {}
+      capacity(capacity), area(area) 
+    {
+        numBuildings++;
+    }
 
 /**
  * @brief Returns the type of the building as its name.
@@ -79,7 +84,7 @@ void Landmark::doImprovements() {
         satisfaction += 10;  // Increase satisfaction for landmarks
         economicImpact *= 1.2;  // Boost economic impact significantly
 
-        std::cout << "Landmark improved! New Improvement Level: " 
+        std::cout << "Landmark improved!\nNew Improvement Level: " 
                   << improvementLevel << "\n";
 
         // Notify citizens about the improvement
@@ -95,6 +100,20 @@ void Landmark::doImprovements() {
  * @return True if resources are available, false otherwise.
  */
 bool Landmark::checkResourceAvailability() {
+	if (!resourcesAvailable){
+		citySatisfaction -= 10;
+			for (int i = 0 ; i < observerList.size(); i++) {
+			observerList[i]->buildingSatisfaction -= 10;
+			observerList[i]->citySatisfaction -= 8;
+		}
+	}
+	else {
+		citySatisfaction += 10;
+		for (int i = 0 ; i < observerList.size(); i++) {
+			observerList[i]->buildingSatisfaction += 10;
+			observerList[i]->citySatisfaction += 8;
+		}
+	}
     return resourcesAvailable;
 }
 
@@ -104,7 +123,7 @@ bool Landmark::checkResourceAvailability() {
  * Uses the base class implementation to notify all observers (citizens) about changes.
  */
 void Landmark::notifyCitizens() {
-    std::cout << "Notifying citizens about changes to the landmark: " << name << "\n";
+    std::cout << "NOTIFICATION: New changes to " << name << "\n";
     Building::notifyCitizens();  // Call the base class notify method
 }
 
@@ -122,4 +141,23 @@ void Landmark::payTax(float taxRate) {
 
 void Landmark::acceptTaxCollector(Visitor * taxCollector) {
     //Do nothing
+}
+
+int Landmark::getNumBuildings() {
+    return numBuildings;
+}
+
+Landmark::Landmark() {
+    
+}
+
+bool Landmark::populateBuilding() {
+    if (capacity > 0) {
+        capacity--;  // Decrease capacity by one
+        std::cout << "Citizen added to the building. Remaining capacity: " << capacity << std::endl;
+        return true;
+    } else {
+        std::cout << "Building is at full capacity. Cannot add more citizens." << std::endl;
+        return false;
+    }
 }

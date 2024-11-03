@@ -31,9 +31,9 @@ ResidentialCreator::ResidentialCreator() {
 Building* ResidentialCreator::createBuilding(string name, int satisfaction, double economicImpact, 
                                              double resourceConsumption, bool constructionStatus, 
                                              int improvementLevel, bool resourcesAvailable, 
-                                             int notificationRadius) {
+                                             int capacity, string area) {
     buildings = new Residential(name, satisfaction, economicImpact, resourceConsumption, 
                                 constructionStatus, improvementLevel, resourcesAvailable, 
-                                notificationRadius);
+                                capacity, area);
     return buildings;
 }

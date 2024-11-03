@@ -1,5 +1,8 @@
 #include "Industrial.h"
+#include "SatisfactionChecker.h"
 #include <iostream>
+
+int Industrial::numBuildings = 0;
 
 /**
  * @brief Constructs an Industrial building with the given attributes.
@@ -13,14 +16,18 @@
  * @param resourcesAvailable Boolean indicating if resources are available for improvements.
  * @param notificationRadius Radius within which citizens are notified of changes to the building.
  */
+
 Industrial::Industrial(std::string name, int satisfaction, double economicImpact, 
                        double resourceConsumption, bool constructionStatus, 
-                       int improvementLevel, bool resourcesAvailable, int notificationRadius)
+                       int improvementLevel, bool resourcesAvailable, int capacity, string area)
     : Building(name, satisfaction, economicImpact, resourceConsumption, 
-               constructionStatus, improvementLevel, resourcesAvailable, notificationRadius), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
+               constructionStatus, improvementLevel, resourcesAvailable, capacity, area), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
       resourceConsumption(resourceConsumption), constructionStatus(constructionStatus),
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
-      citizenNotificationRadius(notificationRadius) {}
+      capacity(capacity), area(area) 
+    {
+        numBuildings;
+    }
 
 Industrial::Industrial() {
 
@@ -84,11 +91,16 @@ void Industrial::doImprovements() {
         satisfaction += 5;  // Increase satisfaction
         economicImpact *= 1.1;  // Boost economic impact slightly
 
-        std::cout << "Industrial building improved! New Improvement Level: " 
+        std::cout << "Industrial building improved!\nNew Improvement Level: " 
                   << improvementLevel << "\n";
 
         // Notify citizens about the improvements
         notifyCitizens();
+
+		//update the citizens' satisfaction level for buildings 
+		for (int i = 0 ; i < observerList.size(); i++) {
+			observerList[i]->buildingSatisfaction += 5;
+		}
     } else {
         std::cout << "Resources unavailable for improvements.\n";
     }
@@ -100,6 +112,20 @@ void Industrial::doImprovements() {
  * @return True if resources are available, false otherwise.
  */
 bool Industrial::checkResourceAvailability() {
+	if (!resourcesAvailable){
+		citySatisfaction -= 10;
+			for (int i = 0 ; i < observerList.size(); i++) {
+			observerList[i]->buildingSatisfaction -= 10;
+			observerList[i]->citySatisfaction -= 8;
+		}
+	}
+	else {
+		citySatisfaction += 10;
+		for (int i = 0 ; i < observerList.size(); i++) {
+			observerList[i]->buildingSatisfaction += 10;
+			observerList[i]->citySatisfaction += 8;
+		}
+	}
     return resourcesAvailable;
 }
 
@@ -109,7 +135,7 @@ bool Industrial::checkResourceAvailability() {
  * Uses the base class implementation to notify all observers (citizens) about changes.
  */
 void Industrial::notifyCitizens() {
-    std::cout << "Notifying citizens about changes in the industrial building: " << name << "\n";
+    std::cout << "NOTIFICATION: New changes to " << name << "\n";
     Building::notifyCitizens();  // Call the base class notify method
 }
 
@@ -146,6 +172,33 @@ void Industrial::acceptTaxCollector(Visitor * taxCollector) {
 	taxCollector->visit(this);
 }
 
-  Building* Industrial::clone() const {
+Building* Industrial::clone() const {
     return new Industrial(*this); // Create a new Commercial object using the copy constructor
+}
+
+void Industrial::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){
+	satisfactionChecker->citySatisfaction(this);
+}
+
+int Industrial::getNumBuildings() {
+    return numBuildings;
+}
+
+bool Industrial::populateBuilding() {
+    if (capacity > 0) {
+        capacity--;  // Decrease capacity by one
+        std::cout << "Citizen added to the building. Remaining capacity: " << capacity << std::endl;
+        return true;
+    } else {
+        std::cout << "Building is at full capacity. Cannot add more citizens." << std::endl;
+        return false;
+    }
+}
+
+void Industrial::getCitizenSatisfactionForBuilding(){
+	std::cout << "--Satisfaction of the citizens in the '" << this->name << "' building-- \n";
+	SatisfactionChecker satisfactionChecker;
+	for (int i = 0; i < observerList.size(); i++) {
+		observerList[i]->acceptBuildingSatisfactionChecker(&satisfactionChecker);
+	}
 }

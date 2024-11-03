@@ -1,19 +1,41 @@
 // Housing.cpp
 #include "Housing.h"
+#include "CollectTax.h"
 #include <iostream>
+#include <cmath>
 
-Housing::Housing(double growthRate) : rate(growthRate)
-{}
+Housing::Housing(double growthRate, Residential* prototypeBuilding) 
+    : rate(growthRate), prototype(prototypeBuilding) {}
 
 void Housing::handleRequest(int growthFactor) {
-    if (growthFactor < 100 && growthFactor > 10) {
-        cout << "Handling Housing Growth: The housing is growing at a rate of " << rate << "%.\n";
-        GrowthHandler::handleRequest(growthFactor);
-    } else if (nextHandler) {
-        // cout << "Housing handler passes growth factor.\n";
+    if (growthFactor > 10) {
+        // Calculate the number of new buildings to create
+        int currentBuildings = prototype->getNumBuildings();
+        double increase = currentBuildings * (rate / 100.0) * growthFactor;
+        int newBuildings = static_cast<int>(std::ceil(increase));
+
+        std::cout << "Handling Housing Growth: The housing is growing at a rate of " << rate 
+                  << "%, adding " << newBuildings << " new residential buildings.\n";
+
+        // Create new Residential buildings by cloning
+        for (int i = 0; i < newBuildings; i++) {
+            Residential* newBuilding = dynamic_cast<Residential*>(prototype->clone());
+            // if (newBuilding) {
+            //     addBuilding(newBuilding); // Add the clone to the buildings collection
+            // }
+        }
+
+        // Pass the request to the next handler in the chain
         GrowthHandler::handleRequest(growthFactor);
     }
-    else {
-        cout << "Housing handler passes growth factor.\n";
-    }
+    // } else if (nextHandler) {
+    //     // Pass the growth factor to the next handler if there is one
+    //     GrowthHandler::handleRequest(growthFactor);
+    // } else {
+    //     std::cout << "Housing handler passes growth factor.\n";
+    // }
+}
+
+double Housing::getGrowthFactor() {
+    return rate;
 }
