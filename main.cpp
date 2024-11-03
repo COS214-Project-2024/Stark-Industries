@@ -64,38 +64,7 @@
 
 using namespace std;
 
-void testSingleton() {
-    // Get the singleton instance
-    ResourceManagement& resourceManager = ResourceManagement::getInstance();
 
-    // Step 1: Create initial resources
-    resourceManager.createResources();
-
-    // Step 2: Update materials, energy, water, and budget
-    resourceManager.updateMaterials(200, 100, 50);   // Adding resources
-    resourceManager.updateEnergy(300);               // Increase energy
-    resourceManager.updateWater(200);                // Increase water
-    resourceManager.updateBudget(1500.0);            // Increase budget
-
-    // Step 3: Display resource status after updates
-    std::cout << "\nAfter updates:" << std::endl;
-    resourceManager.displayResourceStatus();
-
-    // Step 4: Supply resources to utilities
-    resourceManager.supplyResources();
-
-    // Step 5: Attempt to allocate some budget
-    double allocationAmount = 800.0;
-    if (resourceManager.allocateBudget(allocationAmount)) {
-        std::cout << "\nBudget allocated successfully: " << allocationAmount << std::endl;
-    } else {
-        std::cout << "\nFailed to allocate budget: " << allocationAmount << std::endl;
-    }
-
-    // Step 6: Final display of resource status
-    std::cout << "\nFinal Resource Status:" << std::endl;
-    resourceManager.displayResourceStatus();
-}
 
 // ANSI color codes for styling the output
 #define RESET "\033[0m"
@@ -113,6 +82,12 @@ void pauseForUser() {
     std::cout << BOLD << BLUE << "\nPress enter to continue..." << RESET;
     std::cin.get();
 }
+
+void initializeResources() {
+    ResourceManagement& resourceManager = ResourceManagement::getInstance();
+    resourceManager.createResources();  // Initialize base resources
+}
+
 
 void createInitialBuildings(City* city) {
     std::cout << CYAN << "\nThe wizard raises their hands to the sky, channeling the powers of creation...\n" << RESET;
@@ -1239,6 +1214,43 @@ int main(){
 
 
 //TESTING INDIVIDUAL PATTERNS - IGNORE
+
+
+
+// void testSingleton() {
+//     // Get the singleton instance
+//     ResourceManagement& resourceManager = ResourceManagement::getInstance();
+
+//     // Step 1: Create initial resources
+//     resourceManager.createResources();
+
+//     // Step 2: Update materials, energy, water, and budget
+//     resourceManager.updateMaterials(200, 100, 50);   // Adding resources
+//     resourceManager.updateEnergy(300);               // Increase energy
+//     resourceManager.updateWater(200);                // Increase water
+//     resourceManager.updateBudget(1500.0);            // Increase budget
+
+//     // Step 3: Display resource status after updates
+//     std::cout << "\nAfter updates:" << std::endl;
+//     resourceManager.displayResourceStatus();
+
+//     // Step 4: Supply resources to utilities
+//     resourceManager.supplyResources();
+
+//     // Step 5: Attempt to allocate some budget
+//     double allocationAmount = 800.0;
+//     if (resourceManager.allocateBudget(allocationAmount)) {
+//         std::cout << "\nBudget allocated successfully: " << allocationAmount << std::endl;
+//     } else {
+//         std::cout << "\nFailed to allocate budget: " << allocationAmount << std::endl;
+//     }
+
+//     // Step 6: Final display of resource status
+//     std::cout << "\nFinal Resource Status:" << std::endl;
+//     resourceManager.displayResourceStatus();
+// }
+
+
 // void testFactoryUtilities() {
 //     // Water Factory
 //     WaterFactory waterFactory;
