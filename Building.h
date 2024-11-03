@@ -41,7 +41,6 @@ private:
 protected: 
 	double buildingRevenue;
 	double buildingValue;
-	std::vector<Citizen*> observerList; // vector so that multiple citizens can be attached
 
 public:
     /**
@@ -144,5 +143,7 @@ public:
     virtual void addUtility(Utilities* utility);
 
 	virtual std::string getBuildingType() = 0;
+
+	std::vector<Citizen*> observerList; // vector so that multiple citizens can be attached
 };
 #endif // BUILDING_H

@@ -721,7 +721,24 @@ void removeBuilding(City* city) {
     std::cout << GREEN << "Building removed from the city.\n" << RESET;
 }
 
+double buildingCitySatisfaction(Building* building){
+    SatisfactionChecker* satisfactionChecker = new SatisfactionChecker();
+    building->acceptCitySatisfactionChecker(satisfactionChecker);
+    double satisfaction = satisfactionChecker->citySatisfactionTotal;
+    delete satisfactionChecker;
+    return satisfaction;
+}
 
+double citizenSatisfactionForBuilding(Building* building){
+    SatisfactionChecker* satisfactionChecker = new SatisfactionChecker();
+    for (int i = 0 ; i < building->observerList.size() ; i++){
+        building->observerList[i]->acceptBuildingSatisfactionChecker(satisfactionChecker);
+    }
+    double satisfaction = satisfactionChecker->buildingSatisfactionTotal;
+    double avg = satisfaction / building->observerList.size();
+    delete satisfactionChecker;
+    return avg;
+}
 
 void viewAllBuildings(City* city) {
     const auto& buildings = city->listBuildings();
@@ -734,8 +751,13 @@ void viewAllBuildings(City* city) {
     std::cout << CYAN << "\n=== All Buildings in the City ===\n" << RESET;
     for (const auto& building : buildings) {
         std::cout << "Building: " << building->getType()
-                  << ", Satisfaction: " << building->calculateSatisfaction()
-                  << ", Economic Impact: " << building->calculateEconomicImpact() << "\n";
+                  << ", City Satisfaction: " << buildingCitySatisfaction(building)
+                  << ", Economic Impact: " << building->calculateEconomicImpact();
+        if (building->getBuildingType() == "Residential"){
+            double avgSatisfaction = citizenSatisfactionForBuilding(building);
+            std::cout << ", Average Citizen Satisfaction In Building: " << avgSatisfaction;
+        }
+        std::cout << "\n";
     }
     std::cout << MAGENTA << "=============================\n" << RESET;
 }
@@ -1020,6 +1042,13 @@ double citySatisfactionChecker(City* city){
     double citySatisfaction = satisfactionChecker->citySatisfactionTotal;
     delete satisfactionChecker;
     return citySatisfaction;
+}
+
+double buildingSatisfactionChecker(City* city, Building* building){
+    SatisfactionChecker* satisfactionChecker = new SatisfactionChecker();
+    for (int i = 0 ; i < building->)
+    delete satisfactionChecker;
+    return buildingSatisfaction;
 }
 
 
