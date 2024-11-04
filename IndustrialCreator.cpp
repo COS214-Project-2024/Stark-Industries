@@ -1,3 +1,8 @@
+/**
+ * @file IndustrialCreator.cpp
+ * @brief Implements the IndustrialCreator class, responsible for creating instances of Industrial buildings using the Factory Method pattern.
+ */
+
 #include "IndustrialCreator.h"
 #include "Industrial.h"
 
@@ -7,8 +12,7 @@
  * The IndustrialCreator is responsible for creating Industrial building instances
  * using the Factory Method pattern.
  */
-IndustrialCreator::IndustrialCreator() {
-}
+IndustrialCreator::IndustrialCreator() {}
 
 /**
  * @brief Creates a new Industrial building with specified parameters.
@@ -23,13 +27,14 @@ IndustrialCreator::IndustrialCreator() {
  * @param constructionStatus Initial construction status.
  * @param improvementLevel Initial improvement level.
  * @param resourcesAvailable Availability of resources.
- * @param notificationRadius Radius for citizen notifications.
+ * @param capacity Maximum capacity of the building.
+ * @param area Geographic area or zone of the building.
  * @return A pointer to the newly created Industrial building.
  */
-Building* IndustrialCreator::createBuilding(string name, int satisfaction, double economicImpact, 
+Building* IndustrialCreator::createBuilding(std::string name, int satisfaction, double economicImpact, 
                                             double resourceConsumption, bool constructionStatus, 
                                             int improvementLevel, bool resourcesAvailable, 
-                                            int capacity, string area) {
+                                            int capacity, std::string area) {
     buildings = new Industrial(name, satisfaction, economicImpact, resourceConsumption, 
                                constructionStatus, improvementLevel, resourcesAvailable, 
                                capacity, area);

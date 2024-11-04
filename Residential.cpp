@@ -1,5 +1,5 @@
-#include "Residential.h"
-#include "SatisfactionChecker.h"
+#include "Residential.h" ///< Header for the Residential class representing residential buildings.
+#include "SatisfactionChecker.h" ///< Header for the SatisfactionChecker class used to assess citizen satisfaction.
 #include <iostream>
 
 int Residential::numBuildings = 0;
@@ -28,6 +28,11 @@ Residential::Residential(std::string name, int satisfaction, double economicImpa
         numBuildings++;
     }
 
+/**
+ * @brief Default constructor for Residential class.
+ *
+ * This constructor initializes a Residential object with default values.
+ */
 Residential::Residential() {
 
 }
@@ -136,10 +141,25 @@ void Residential::notifyCitizens() {
     Building::notifyCitizens();  // Call the base class notify method
 }
 
+/**
+ * @brief Clones the current Residential object.
+ * 
+ * This method creates a new Residential object that is a copy of the current instance.
+ * 
+ * @return A pointer to the newly created Residential object.
+ */
 Building* Residential::clone() const {
     return new Residential(*this); // Create a new Commercial object using the copy constructor
 }
 
+/**
+ * @brief Performs a specified action related to taxation.
+ * 
+ * This function performs actions based on the given command type, which could be 
+ * collecting taxes, allocating taxes, or increasing taxes.
+ * 
+ * @param type An integer representing the type of action to perform.
+ */
 //command functions
 void Residential::performAction(int type) {
 	if(type == 0) {
@@ -160,6 +180,13 @@ void Residential::performAction(int type) {
 	}
 }
 
+/**
+ * @brief Pays tax for the residential building.
+ * 
+ * This function calculates and deducts property and rental income tax from the building's revenue.
+ * 
+ * @param taxRate The tax rate applied to the building's value and revenue.
+ */
 //visitor functions
 void Residential::payTax(float taxRate) {
 	//property and rental income tax
@@ -172,18 +199,38 @@ void Residential::payTax(float taxRate) {
 	taxPaid += rTax;
 }
 
+/**
+ * @brief Accepts a tax collector visitor to perform tax-related operations.
+ * 
+ * @param taxCollector Pointer to a Visitor object that performs tax collection.
+ */
 void Residential::acceptTaxCollector(Visitor * taxCollector) {
 	taxCollector->visit(this);
 }
 
+/**
+ * @brief Returns the total number of Residential buildings created.
+ * 
+ * @return An integer representing the total number of Residential buildings.
+ */
 int Residential::getNumBuildings() {
     return numBuildings;
 }
 
+/**
+ * @brief Accepts a city satisfaction checker visitor to evaluate city satisfaction.
+ * 
+ * @param satisfactionChecker Pointer to a Visitor object that checks city satisfaction.
+ */
 void Residential::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){
 	satisfactionChecker->citySatisfaction(this);
 }
 
+/**
+ * @brief Collects rent from citizens living in the residential building.
+ * 
+ * This function iterates through the list of observers (citizens) and collects rent.
+ */
 void Residential::collectRent(){
 	for (int i = 0 ; i < observerList.size(); i++) {
 		observerList[i]->payRent(rent);
@@ -192,6 +239,13 @@ void Residential::collectRent(){
 	}
 }
 
+/**
+ * @brief Populates the building by adding a citizen.
+ * 
+ * This function decreases the building's capacity and returns true if a citizen is added successfully.
+ * 
+ * @return True if a citizen is added, false if the building is at full capacity.
+ */
 bool Residential::populateBuilding() {
     if (capacity > 0) {
         capacity--;  // Decrease capacity by one
@@ -203,6 +257,11 @@ bool Residential::populateBuilding() {
     }
 }
 
+/**
+ * @brief Displays the satisfaction levels of citizens in the residential building.
+ * 
+ * This function uses the SatisfactionChecker to assess and print the satisfaction levels.
+ */
 void Residential::getCitizenSatisfactionForBuilding(){
 	std::cout << "--Satisfaction of the citizens in the '" << this->name << "' building-- \n";
 	SatisfactionChecker satisfactionChecker;
@@ -211,22 +270,58 @@ void Residential::getCitizenSatisfactionForBuilding(){
 	}
 }
 
+/**
+ * @brief Adds a utility to the residential building.
+ * 
+ * @param utility Pointer to a Utilities object representing a utility to be added.
+ */
 void Residential::addUtility(Utilities* utility) {
     utilities.push_back(utility);
 }
 
+/**
+ * @brief Returns the available capacity of the residential building.
+ * 
+ * This function returns the number of additional occupants that can be accommodated 
+ * in the building.
+ * 
+ * @return An integer representing the available capacity of the building.
+ */
 int Residential::getAvailableCapacity() const {
     return capacity;
 }
 
+/**
+ * @brief Returns the current count of occupants in the residential building.
+ * 
+ * This function counts and returns the number of citizens currently residing 
+ * in the residential building.
+ * 
+ * @return An integer representing the number of occupants in the building.
+ */
 int Residential::getOccupantCount() const{
 	return occupants.size();
 }
 
+/**
+ * @brief Returns the type of the building.
+ * 
+ * This function returns a string that identifies the building type as "Residential".
+ * 
+ * @return A string representing the building type.
+ */
 std::string Residential::getBuildingType(){
 	return "Residential";
 }
 
+/**
+ * @brief Sets the rental rate for the residential building.
+ * 
+ * This function updates the rental rate and decreases the satisfaction of all 
+ * observers (citizens) by 10 as a consequence of the rent adjustment.
+ * 
+ * @param newRent The new rental rate to be set for the building.
+ */
 void Residential::setRentalRate(double newRent){
 	rent = newRent;
 	for (int i = 0 ; i < observerList.size(); i++){
@@ -234,6 +329,13 @@ void Residential::setRentalRate(double newRent){
 	}
 }
 
+/**
+ * @brief Returns the current rental rate of the residential building.
+ * 
+ * This function retrieves and returns the current rental rate set for the building.
+ * 
+ * @return A double representing the current rental rate of the building.
+ */
 double Residential::getRent(){
 	return rent;
 }

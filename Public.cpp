@@ -1,15 +1,20 @@
-#include "Public.h"
+/**
+ * @file Public.cpp
+ * @brief Implements the Public class, representing a public transport system with properties such as seating capacity, maintenance status, and travel time.
+ */
 
+#include "Public.h"
 #include <iostream>
 
 /**
  * @brief Constructor to initialize Public transport properties.
+ * 
  * @param name The name of the public transport.
  * @param travelTime Travel time for the public transport.
  * @param fee The fee for using this transport.
  * @param seatingCapacity Total seating capacity of the public transport.
  */
-Public::Public(string name, double travelTime, double fee, int seatingCapacity) 
+Public::Public(std::string name, double travelTime, double fee, int seatingCapacity) 
     : name(name), isUnderMaintenance(false), travelTime(travelTime), fee(fee), 
       seatingCapacity(seatingCapacity), availableSeats(seatingCapacity) {}
 
@@ -31,6 +36,7 @@ double Public::commuteTime() {
 
 /**
  * @brief Calculate passenger satisfaction based on travel time.
+ * 
  * @return Satisfaction level as an integer (85 if travel time is less than 30, otherwise 70).
  */
 int Public::calculateSatisfaction() {
@@ -130,6 +136,7 @@ int Public::getAvailableCargoSpace() const {
 
 /**
  * @brief Attempt to load cargo onto the public transport.
+ * 
  * @param cargo The amount of cargo to load.
  * @return False as public transport does not support cargo; displays a message.
  */
@@ -140,6 +147,7 @@ bool Public::loadCargo(int cargo) {
 
 /**
  * @brief Attempt to unload cargo from the public transport.
+ * 
  * @param cargo The amount of cargo to unload; displays a message.
  */
 void Public::unloadCargo(int cargo) {

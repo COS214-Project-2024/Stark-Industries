@@ -1,3 +1,8 @@
+/**
+ * @file Building.cpp
+ * @brief Implements the Building class, which represents a structure with economic, social, and resource-related attributes.
+ */
+
 #include "Building.h"
 #include <iostream>
 #include <vector>
@@ -13,20 +18,28 @@
  * @param constructionStatus Status indicating if the building is completed.
  * @param improvementLevel Initial improvement level of the building.
  * @param resourcesAvailable Availability of resources for improvements.
- * @param notificationRadius Radius within which citizens are notified of changes.
+ * @param capacity Maximum occupancy of the building.
+ * @param area Location area or designation of the building.
  */
-Building::Building(string name, int satisfaction, double economicImpact, 
+Building::Building(std::string name, int satisfaction, double economicImpact, 
                    double resourceConsumption, bool constructionStatus, 
-                   int improvementLevel, bool resourcesAvailable, int capacity, string area) 
+                   int improvementLevel, bool resourcesAvailable, int capacity, std::string area) 
     : name(name), satisfaction(satisfaction), economicImpact(economicImpact),
       resourceConsumption(resourceConsumption), constructionStatus(constructionStatus),
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
       capacity(capacity), area(area) {}
 
 /**
- * @brief Placeholder method for getting building details (to be implemented).
+ * @brief Default constructor for the Building class.
  */
+Building::Building() {}
 
+/**
+ * @brief Displays the details of the building.
+ * 
+ * This method outputs the building's name, satisfaction score, economic impact,
+ * capacity, and area to the console.
+ */
 void Building::get() {
     std::cout << "Building Details:\n";
     std::cout << "Name: " << name << "\n";
@@ -34,20 +47,6 @@ void Building::get() {
     std::cout << "Economic Impact: " << economicImpact << "\n";
     std::cout << "Capacity: " << capacity << "\n";
     std::cout << "Area: " << area << "\n";
-}
-
-
-Building::Building() {
-
-}
-
-/**
- * @brief Placeholder method for setting building details (to be implemented).
- */
-void Building::set() {
-	// TODO - implement Building::set
-	
-    throw "Not yet implemented";
 }
 
 /**
@@ -70,29 +69,54 @@ void Building::detach(Citizen* observer) {
 
 /**
  * @brief Notifies all attached citizen observers about changes in the building.
+ * 
+ * Calls the update method on each observer to inform them of changes in the building's state.
  */
 void Building::notifyCitizens() {
-    // std::cout << "Notifying citizens about changes in " << name << "...\n";
     for (Citizen* citizen : observerList) {
-        citizen->observerUpdate("Building");  // Call the observer's update method
+        citizen->observerUpdate("Building");
     }
 }
 
+/**
+ * @brief Sets the rental rate for the building.
+ * 
+ * Adjusts the rental rate and decreases each citizen observer's satisfaction by 10 points.
+ * 
+ * @param newRentalRate The new rental rate to be set for the building.
+ */
 void Building::setRentalRate(double newRentalRate) {
-	rent = newRentalRate;
-    for (int i = 0 ; i < observerList.size(); i++){
+    rent = newRentalRate;
+    for (int i = 0; i < observerList.size(); i++) {
         observerList[i]->buildingSatisfaction -= 10;
     }
 }
 
+/**
+ * @brief Adds a utility to the building.
+ * 
+ * This method is intended to be overridden in derived classes for specific utility handling.
+ * 
+ * @param utility Pointer to the Utilities object to be added to the building.
+ */
 void Building::addUtility(Utilities* utility) {
-    //virtual
+    // Virtual function, intended for override
 }
 
+/**
+ * @brief Sets the building's market value.
+ * 
+ * @param value The new market value for the building.
+ */
 void Building::setBuildingValue(double value) {
-	buildingValue = value;
+    buildingValue = value;
 }
 
-double Building::getRent(){
+/**
+ * @brief Retrieves the current rental rate of the building.
+ * 
+ * @return The rental rate as a double.
+ */
+double Building::getRent() {
     return rent;
 }

@@ -1,3 +1,8 @@
+/**
+ * @file Industrial.cpp
+ * @brief Implements the Industrial class, representing an industrial building that influences satisfaction, economic impact, and resource consumption.
+ */
+
 #include "Industrial.h"
 #include "SatisfactionChecker.h"
 #include <iostream>
@@ -14,24 +19,25 @@ int Industrial::numBuildings = 0;
  * @param constructionStatus Boolean indicating whether construction is complete.
  * @param improvementLevel Initial improvement level of the building.
  * @param resourcesAvailable Boolean indicating if resources are available for improvements.
- * @param notificationRadius Radius within which citizens are notified of changes to the building.
+ * @param capacity Maximum capacity of the building.
+ * @param area Geographic area or location of the building.
  */
-
 Industrial::Industrial(std::string name, int satisfaction, double economicImpact, 
                        double resourceConsumption, bool constructionStatus, 
-                       int improvementLevel, bool resourcesAvailable, int capacity, string area)
+                       int improvementLevel, bool resourcesAvailable, int capacity, std::string area)
     : Building(name, satisfaction, economicImpact, resourceConsumption, 
-               constructionStatus, improvementLevel, resourcesAvailable, capacity, area), name(name), satisfaction(satisfaction), economicImpact(economicImpact),
+               constructionStatus, improvementLevel, resourcesAvailable, capacity, area), 
+      name(name), satisfaction(satisfaction), economicImpact(economicImpact),
       resourceConsumption(resourceConsumption), constructionStatus(constructionStatus),
       improvementLevel(improvementLevel), resourcesAvailable(resourcesAvailable),
-      capacity(capacity), area(area) 
-    {
-        numBuildings++;
-    }
-
-Industrial::Industrial() {
-
+      capacity(capacity), area(area) {
+    numBuildings++;
 }
+
+/**
+ * @brief Default constructor for the Industrial class.
+ */
+Industrial::Industrial() {}
 
 /**
  * @brief Returns the type of the building as its name.
@@ -81,26 +87,23 @@ bool Industrial::constructionComplete() {
 /**
  * @brief Performs improvements on the industrial building.
  * 
- * If resources are available, the improvement level and satisfaction are increased, 
- * and the economic impact is boosted. Citizens observing the building are notified 
+ * If resources are available, increases the improvement level and satisfaction, 
+ * and boosts the economic impact. Citizens observing the building are notified 
  * of the improvements.
  */
 void Industrial::doImprovements() {
     if (checkResourceAvailability()) {
         improvementLevel++;
-        satisfaction += 5;  // Increase satisfaction
-        economicImpact *= 1.1;  // Boost economic impact slightly
+        satisfaction += 5;
+        economicImpact *= 1.1;
 
-        std::cout << "Industrial building improved!\nNew Improvement Level: " 
-                  << improvementLevel << "\n";
+        std::cout << "Industrial building improved!\nNew Improvement Level: " << improvementLevel << "\n";
 
-        // Notify citizens about the improvements
         notifyCitizens();
 
-		//update the citizens' satisfaction level for buildings 
-		for (int i = 0 ; i < observerList.size(); i++) {
-			observerList[i]->buildingSatisfaction += 5;
-		}
+        for (int i = 0; i < observerList.size(); i++) {
+            observerList[i]->buildingSatisfaction += 5;
+        }
     } else {
         std::cout << "Resources unavailable for improvements.\n";
     }
@@ -112,20 +115,19 @@ void Industrial::doImprovements() {
  * @return True if resources are available, false otherwise.
  */
 bool Industrial::checkResourceAvailability() {
-	if (!resourcesAvailable){
-		citySatisfaction -= 10;
-			for (int i = 0 ; i < observerList.size(); i++) {
-			observerList[i]->buildingSatisfaction -= 10;
-			observerList[i]->citySatisfaction -= 8;
-		}
-	}
-	else {
-		citySatisfaction += 10;
-		for (int i = 0 ; i < observerList.size(); i++) {
-			observerList[i]->buildingSatisfaction += 10;
-			observerList[i]->citySatisfaction += 8;
-		}
-	}
+    if (!resourcesAvailable) {
+        citySatisfaction -= 10;
+        for (int i = 0; i < observerList.size(); i++) {
+            observerList[i]->buildingSatisfaction -= 10;
+            observerList[i]->citySatisfaction -= 8;
+        }
+    } else {
+        citySatisfaction += 10;
+        for (int i = 0; i < observerList.size(); i++) {
+            observerList[i]->buildingSatisfaction += 10;
+            observerList[i]->citySatisfaction += 8;
+        }
+    }
     return resourcesAvailable;
 }
 
@@ -136,57 +138,82 @@ bool Industrial::checkResourceAvailability() {
  */
 void Industrial::notifyCitizens() {
     std::cout << "NOTIFICATION: New changes to " << name << "\n";
-    Building::notifyCitizens();  // Call the base class notify method
+    Building::notifyCitizens();
 }
 
-//command functions
+/**
+ * @brief Performs a specific action based on the type provided.
+ * 
+ * @param type Action type: 0 for tax collection, 1 for tax allocation, 2 for tax increase.
+ */
 void Industrial::performAction(int type) {
-	if(type == 0) {
-		//collect tax
-		//std::cout<<"Property Tax collected from Industrial Building"<<std::endl;
-		payTax(0);
-	}
-	else if(type == 1) {
-		//allocate tax
-		std::cout<<"Tax allocated"<<std::endl;
-	}
-	else if(type == 2) {
-		//increase tax
-		std::cout<<"Tax increased"<<std::endl;
-	}
-	else {
-		std::cout<<"Invalid command"<<std::endl;
-	}
+    if (type == 0) {
+        payTax(0);
+    } else if (type == 1) {
+        std::cout << "Tax allocated\n";
+    } else if (type == 2) {
+        std::cout << "Tax increased\n";
+    } else {
+        std::cout << "Invalid command\n";
+    }
 }
 
-//visitor functions
+/**
+ * @brief Collects property tax from the industrial building.
+ * 
+ * @param taxRate The rate at which property tax is collected.
+ */
 void Industrial::payTax(float taxRate) {
-	double tax = this->propertyTaxRate * this->buildingValue;
-	this->buildingRevenue -= tax;
-	taxPaid += tax;
-	std::cout<<"Property Tax of: " << tax << " collected from " << this->name <<std::endl;
-
+    double tax = this->propertyTaxRate * this->buildingValue;
+    this->buildingRevenue -= tax;
+    taxPaid += tax;
+    std::cout << "Property Tax of: " << tax << " collected from " << this->name << std::endl;
 }
 
-void Industrial::acceptTaxCollector(Visitor * taxCollector) {
-	taxCollector->visit(this);
+/**
+ * @brief Accepts a tax collector visitor.
+ * 
+ * @param taxCollector Pointer to the Visitor object responsible for tax collection.
+ */
+void Industrial::acceptTaxCollector(Visitor* taxCollector) {
+    taxCollector->visit(this);
 }
 
+/**
+ * @brief Clones the industrial building instance.
+ * 
+ * @return A pointer to the newly created copy of the Industrial object.
+ */
 Building* Industrial::clone() const {
-    return new Industrial(*this); // Create a new Commercial object using the copy constructor
+    return new Industrial(*this);
 }
 
-void Industrial::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){
-	satisfactionChecker->citySatisfaction(this);
+/**
+ * @brief Accepts a city satisfaction checker visitor.
+ * 
+ * @param satisfactionChecker Pointer to the Visitor object for checking city satisfaction.
+ */
+void Industrial::acceptCitySatisfactionChecker(Visitor* satisfactionChecker) {
+    satisfactionChecker->citySatisfaction(this);
 }
 
+/**
+ * @brief Returns the total number of industrial buildings created.
+ * 
+ * @return Total count of Industrial buildings.
+ */
 int Industrial::getNumBuildings() {
     return numBuildings;
 }
 
+/**
+ * @brief Adds a citizen to the building if capacity is available.
+ * 
+ * @return True if the citizen is added, false if the building is at full capacity.
+ */
 bool Industrial::populateBuilding() {
     if (capacity > 0) {
-        capacity--;  // Decrease capacity by one
+        capacity--;
         std::cout << "Citizen added to the building. Remaining capacity: " << capacity << std::endl;
         return true;
     } else {
@@ -195,23 +222,40 @@ bool Industrial::populateBuilding() {
     }
 }
 
-void Industrial::getCitizenSatisfactionForBuilding(){
-	std::cout << "--Satisfaction of the citizens in the '" << this->name << "' building-- \n";
-	SatisfactionChecker satisfactionChecker;
-	for (int i = 0; i < observerList.size(); i++) {
-		observerList[i]->acceptBuildingSatisfactionChecker(&satisfactionChecker);
-	}
+/**
+ * @brief Displays satisfaction of citizens within the industrial building.
+ */
+void Industrial::getCitizenSatisfactionForBuilding() {
+    std::cout << "--Satisfaction of the citizens in the '" << this->name << "' building-- \n";
+    SatisfactionChecker satisfactionChecker;
+    for (int i = 0; i < observerList.size(); i++) {
+        observerList[i]->acceptBuildingSatisfactionChecker(&satisfactionChecker);
+    }
 }
 
+/**
+ * @brief Adds a utility to the industrial building.
+ * 
+ * @param utility Pointer to the Utilities object to add.
+ */
 void Industrial::addUtility(Utilities* utility) {
     utilities.push_back(utility);
 }
 
+/**
+ * @brief Gets the type of the building as "Industrial".
+ * 
+ * @return A string representing the building type.
+ */
 std::string Industrial::getBuildingType() {
-	return "Industrial";
+    return "Industrial";
 }
 
-void Industrial::setNumBuildings(int count) 
-{ 
+/**
+ * @brief Sets the total number of industrial buildings.
+ * 
+ * @param count The new total count of Industrial buildings.
+ */
+void Industrial::setNumBuildings(int count) { 
     numBuildings = count; 
 }

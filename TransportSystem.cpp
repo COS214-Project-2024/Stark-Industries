@@ -1,6 +1,13 @@
 #include "TransportSystem.h"
 #include <iostream>
 
+/**
+ * @class TransportSystem
+ * @brief Manages a transport system by dynamically setting and managing different transport strategies.
+ * 
+ * This class provides a flexible interface to handle different types of transport strategies, 
+ * allowing for strategy setting, maintenance operations, fee retrieval, and cargo/seat management.
+ */
 
 /**
  * @brief Default constructor that initializes the transport strategy to NULL.
