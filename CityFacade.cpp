@@ -760,7 +760,7 @@ void CityFacade::manageGovernment(City* city) {
         std::cout << GREEN << "1. 💰 Tax Department\n";
         std::cout << "2. 💵 Budget Department\n";
         std::cout << "3. 📜 Policies Department\n";
-        std::cout << "4. 🛠️ Services Department\n";
+        std::cout << "4. 🛠️  Services Department\n";
         std::cout << "5. 🔙 Return to Main Menu\n" << RESET;
         std::cout << BOLD << ORANGE << "Select an option: " << RESET;
 
@@ -1156,7 +1156,7 @@ void CityFacade::manageBuildings(City* city) {
         std::cout << GREEN << "1. 🏗️  Build New Building\n";
         std::cout << "2. 🔍 Inspect Building\n";
         std::cout << "3. 🔧 Improve Building\n";
-        std::cout << "4. 🗑️ Remove Building\n";
+        std::cout << "4. 🗑️  Remove Building\n";
         std::cout << "5. 📋 View All Buildings\n";
         std::cout << "6. 💸 Increase Rent of Residential Building\n";
         std::cout << "7. 🔙 Back to Main Menu\n" << RESET;
