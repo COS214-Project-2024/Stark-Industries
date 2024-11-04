@@ -1,3 +1,8 @@
+/**
+ * @file Department.cpp
+ * @brief Implements the Department class, which represents a department in an organization structure. This class acts as a base for the Composite pattern.
+ */
+
 #include "Department.h"
 #include <iostream>
 
@@ -8,9 +13,10 @@
  */
 Department::Department(const std::string& departmentName) : name(departmentName) {}
 
-Department::Department() {
-
-}
+/**
+ * @brief Default constructor for the Department class.
+ */
+Department::Department() {}
 
 /**
  * @brief Adds a child department to this department.
@@ -56,5 +62,3 @@ Department* Department::getChild(int index) {
 std::string Department::getName() const {
     return name;
 }
-
-

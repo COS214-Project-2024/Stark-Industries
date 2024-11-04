@@ -1,3 +1,8 @@
+/**
+ * @file CommercialCreator.cpp
+ * @brief Implements the CommercialCreator class, responsible for creating instances of Commercial buildings.
+ */
+
 #include "CommercialCreator.h"
 #include "Commercial.h"
 
@@ -7,8 +12,7 @@
  * Initializes a CommercialCreator object, which is responsible for creating 
  * instances of Commercial buildings.
  */
-CommercialCreator::CommercialCreator() {
-}
+CommercialCreator::CommercialCreator() {}
 
 /**
  * @brief Creates a new Commercial building.
@@ -23,17 +27,18 @@ CommercialCreator::CommercialCreator() {
  * @param constructionStatus Initial construction status.
  * @param improvementLevel Initial improvement level.
  * @param resourcesAvailable Availability of resources.
- * @param notificationRadius Radius for citizen notifications.
+ * @param capacity Maximum capacity of the building.
+ * @param area Geographic area or location of the building.
  * 
  * @return A pointer to the created Building object.
  */
-Building* CommercialCreator::createBuilding(string name, int satisfaction, 
+Building* CommercialCreator::createBuilding(std::string name, int satisfaction, 
                                             double economicImpact, 
                                             double resourceConsumption, 
                                             bool constructionStatus, 
                                             int improvementLevel, 
                                             bool resourcesAvailable, 
-                                            int capacity, string area) {
+                                            int capacity, std::string area) {
     buildings = new Commercial(name, satisfaction, economicImpact, 
                                resourceConsumption, constructionStatus, 
                                improvementLevel, resourcesAvailable, 
