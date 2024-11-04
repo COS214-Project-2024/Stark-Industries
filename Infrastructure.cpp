@@ -96,3 +96,7 @@ void Infrastructure::increaseLandmark(int growthFactor, Landmark* prototypeL, Ci
         }
         prototypeL->setNumBuildings(currentBuildings + newBuildings);
 }
+
+double Infrastructure::getGrowthFactor() {
+    return growthRate;
+}

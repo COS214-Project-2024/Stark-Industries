@@ -37,3 +37,7 @@ void Housing::handleRequest(int growthFactor, City* city) {
     //     std::cout << "Housing handler passes growth factor.\n";
     // }
 }
+
+double Housing::getGrowthFactor() {
+    return rate;
+}

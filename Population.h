@@ -15,6 +15,8 @@ public:
 	Population(double rate);
 
 	void handleRequest(int growthFactor, City* city);
+
+	double getGrowthFactor();
 };
 
 #endif

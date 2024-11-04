@@ -15,6 +15,8 @@ public:
 	Economic(double growthRate);
 
 	void handleRequest(int growthFactor, City* city);
+
+	double getGrowthFactor();
 };
 
 #endif

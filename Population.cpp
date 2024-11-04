@@ -56,3 +56,7 @@ void Population::handleRequest(int growthFactor, City* city) {
         GrowthHandler::handleRequest(growthFactor, city);
     }
 }
+
+double Population::getGrowthFactor() {
+    return populationGrowthRate;
+}

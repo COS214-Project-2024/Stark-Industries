@@ -31,4 +31,13 @@ void Economic::handleRequest(int growthFactor, City* city) {
         // Optional: Pass the request if not handled, or output a message
         std::cout << "Growth factor outside economic growth range or budget department not found.\n";
     }
+    // } else if (nextHandler) {
+    //     GrowthHandler::handleRequest(growthFactor);
+    // } else {
+    //     std::cout << "Economy handler passes growth factor.\n";
+    // }
+}
+
+double Economic::getGrowthFactor() {
+    return economicGrowthRate;
 }

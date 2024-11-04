@@ -38,6 +38,7 @@ public:
     void removeTrafficLight(double position);
     static int getRoadCount();
     ~Road();
+    std::vector<double> getTrafficLights();
 };
 
 #endif
