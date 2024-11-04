@@ -20,6 +20,7 @@ public:
 	virtual void execute();
 	virtual void addCommand(Command* command);
 	virtual void removeCommand(int i);
+	std::vector<std::string> getActivePolicies() const;
 };
 
 #endif
