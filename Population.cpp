@@ -54,6 +54,8 @@ void Population::handleRequest(int growthFactor, City* city) {
 
         // Proceed to the next handler if applicable
         GrowthHandler::handleRequest(growthFactor, city);
+
+        delete residentialBuilding;
     }
 }
 
