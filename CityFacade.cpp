@@ -110,7 +110,7 @@ void CityFacade::bigTestingMain() {
             continue; // Restart the loop
         }
 
-        std::cin.ignore();
+        // std::cin.ignore();
 
         switch (choice) {
             case 1:
@@ -545,7 +545,7 @@ void CityFacade::manageTaxDepartment(Tax* taxDept, Budget* budgetDept, City* cit
             continue; // Restart the loop
         }
 
-        std::cin.ignore();
+        // std::cin.ignore();
 
         switch (choice) {
             case 1: {
@@ -600,7 +600,7 @@ void CityFacade::manageBudgetDepartment(Budget* budgetDept) {
             continue; // Restart the loop
         }
 
-        std::cin.ignore();
+        // std::cin.ignore();
 
         switch (choice) {
             case 1: {
@@ -664,7 +664,7 @@ void CityFacade::managePoliciesDepartment(Policies* policiesDept) {
             continue; // Restart the loop
         }
 
-        std::cin.ignore();
+        // std::cin.ignore();
 
         switch (choice) {
             case 1: {
@@ -742,7 +742,7 @@ void CityFacade::manageServicesDepartment(Services* servicesDept) {
             continue; // Restart the loop
         }
 
-        std::cin.ignore();
+        // std::cin.ignore();
 
         switch (choice) {
             case 1: {
@@ -801,7 +801,7 @@ void CityFacade::manageGovernment(City* city) {
             continue; // Restart the loop
         }
 
-        std::cin.ignore();
+        // std::cin.ignore();
 
         switch (choice) {
             case 1: {
@@ -1207,7 +1207,7 @@ void CityFacade::manageBuildings(City* city) {
             continue; // Restart the loop
         }
 
-        std::cin.ignore();
+        // std::cin.ignore();
 
         switch (choice) {
             case 1:
@@ -1677,7 +1677,7 @@ void CityFacade::manageCitizens(City* city) {
             continue; // Restart the loop
         }
 
-        std::cin.ignore();
+        // std::cin.ignore();
 
         switch (choice) {
             case 1:
