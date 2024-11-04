@@ -1,13 +1,31 @@
+/**
+ * @file Road.cpp
+ * @brief Implementation of the Road class, representing a road infrastructure.
+ */
 #include "Road.h"
 #include <cmath>
 #include <iostream>
 #include <algorithm>
 
 int Road::roadCount = 0;
+
+/**
+ * @brief Constructs a Road object with the specified number of lanes and length.
+ * 
+ * Initializes the road and increments the road count.
+ * 
+ * @param numLanes Number of lanes in the road.
+ * @param roadLength Length of the road in kilometers.
+ */
 Road::Road(int numLanes, double roadLength) 
     : lanes(numLanes), length(roadLength), isUnderConstruction(true) {
        ++roadCount;} 
 
+/**
+ * @brief Builds the road and marks it as no longer under construction.
+ * 
+ * Outputs the details of the road being built.
+ */
 void Road::build() {
 
 
@@ -18,6 +36,14 @@ void Road::build() {
 
 
 
+/**
+ * @brief Updates the traffic conditions based on the time of day.
+ * 
+ * Calculates current traffic load and updates traffic statistics, 
+ * including vehicle count, average speed, and congestion level.
+ * 
+ * @param time The current time in hours (24-hour format).
+ */
 void Road::updateTraffic(int time) {
     double baseTraffic = capacity * 0.4;
     double rushHourFactor = 1.0;
@@ -45,16 +71,31 @@ void Road::updateTraffic(int time) {
 
 
 
+/**
+ * @brief Calculates the construction cost of the road.
+ * 
+ * @return The estimated cost of constructing the road.
+ */
 double Road::getCost() {
     return length * lanes * 1000; // Cost per km per lane
 
 }
 
+/**
+ * @brief Checks if the road is currently under construction.
+ * 
+ * @return True if the road is under construction; otherwise, false.
+ */
 bool Road::getConstructionStatus() {
     return isUnderConstruction;
 }
 
 
+/**
+ * @brief Deteriorates the road condition based on traffic load.
+ * 
+ * @param deteriorationFactor Factor affecting the rate of deterioration.
+ */
 void Road::deteriorate(double deteriorationFactor) {
     condition -= (deteriorationFactor * 100.0);
 
@@ -68,6 +109,12 @@ void Road::deteriorate(double deteriorationFactor) {
 }
 
 
+/**
+ * @brief Updates the road's capacity and type based on new specifications.
+ * 
+ * @param newLanes The new number of lanes for the road.
+ * @param newType The new type of the road.
+ */
 void Road::updateCapacity(int newLanes, RoadType newType) {
     lanes = newLanes;
     type = newType;
@@ -99,6 +146,11 @@ void Road::updateCapacity(int newLanes, RoadType newType) {
 }
 
 
+/**
+ * @brief Adds a traffic light at a specified position on the road.
+ * 
+ * @param position The position of the traffic light along the road length.
+ */
 void Road::addTrafficLight(double position) {
     if (position >= 0 && position <= length &&
         std::find(trafficLights.begin(), trafficLights.end(), position) == trafficLights.end()) {
@@ -106,6 +158,11 @@ void Road::addTrafficLight(double position) {
     }
 }
 
+/**
+ * @brief Removes a traffic light from a specified position on the road.
+ * 
+ * @param position The position of the traffic light to be removed.
+ */
 void Road::removeTrafficLight(double position) {
     auto it = std::find(trafficLights.begin(), trafficLights.end(), position);
     if (it != trafficLights.end()) {
@@ -113,14 +170,30 @@ void Road::removeTrafficLight(double position) {
     }
 }
 
+/**
+ * @brief Retrieves a list of traffic light positions on the road.
+ * 
+ * @return A vector containing the positions of traffic lights.
+ */
 std::vector<double> Road::getTrafficLights() {
     return trafficLights;
 }
+
+/**
+ * @brief Retrieves the total count of Road objects created.
+ * 
+ * @return The current count of road instances.
+ */
 // Getter for road count
 int Road::getRoadCount() {
     return roadCount;
 }
 
+/**
+ * @brief Destructor for the Road class.
+ * 
+ * Decreases the road count when a Road object is destroyed.
+ */
 Road::~Road() {
     roadCount--;
 }

@@ -1,3 +1,9 @@
+/**
+ * @class Train
+ * @brief Represents a train transport system, providing functionality for managing seats, cargo space, and other transport-related operations.
+ * 
+ * This class provides a specific implementation for Train transport within the transport strategy pattern.
+ */
 #include "Train.h"
 #include <iostream>
 
