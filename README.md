@@ -21,7 +21,7 @@ We have created various unit tests to test our classes and functionality.
 # Documentation
 
 -You can read our project report [here] (https://docs.google.com/document/d/18ImJh650S1Prg3kaAMT8tRrYhKC61SXkis_U83bfuCQ/edit?tab=t.0)
--You can view our final UML diagrams [here] ()
+-You can view our final UML diagrams [here] (https://github.com/COS214-Project-2024/Stark-Industries/tree/ReportsAndDiagrams/Diagrams)
 
 
 
