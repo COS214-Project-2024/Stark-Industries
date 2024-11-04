@@ -1,3 +1,12 @@
+/**
+ * @class CityFacade
+ * @brief A facade class that provides a high-level interface for managing a city simulation.
+ * 
+ * The CityFacade class is designed to encapsulate complex interactions within the city 
+ * management system, providing easy-to-use methods to control and manage various aspects 
+ * of city operations, buildings, citizens, transport, and more.
+ */
+
 #include <iostream>
 #include <string>
 #include <iomanip>
@@ -20,10 +29,29 @@
 #define ORANGE "\033[38;5;208m" 
 #define PURPLE "\033[38;5;93m"
 
+/**
+ * @brief Default constructor for the CityFacade class.
+ */
 CityFacade::CityFacade() {
-
 }
 
+/**
+ * @brief Main function to start and manage the city simulation.
+ * 
+ * This function introduces the simulation with a story-driven prompt, guides the user
+ * through the process of naming and creating the city, setting up initial buildings, utilities, 
+ * transport, government, and citizens, and provides a menu for managing various aspects of the city.
+ * 
+ * The user can interactively choose options to manage government, buildings, citizens, 
+ * transport, and city statistics. The simulation continues until the user decides to exit.
+ * 
+ * @details 
+ * - A city name is prompted from the user and used to create a new City object.
+ * - The city is initialized with essential structures, utilities, and citizens.
+ * - A looped main menu presents options for city management and viewing city stats.
+ * - Proper input handling ensures robustness against invalid inputs.
+ * - Resources are cleaned up upon exiting the simulation.
+ */
 void CityFacade::bigTestingMain() {
 
     std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed for random events
@@ -125,16 +153,39 @@ void CityFacade::bigTestingMain() {
 }
 
 //**********INITIAL SETUP**********/
+/**
+ * @brief Pauses the simulation, prompting the user to press enter to continue.
+ * 
+ * This method displays a message to the user, requesting them to press the enter key,
+ * which allows for pacing between stages of the city simulation.
+ */
 void CityFacade::pauseForUser() {
     std::cout << BOLD << BLUE << "\nPress enter to continue..." << RESET;
     std::cin.get();
 }
 
+/**
+ * @brief Initializes the city's resources at the start of the simulation.
+ * 
+ * This method calls the singleton instance of the `ResourceManagement` class 
+ * and initializes base resources needed for city operations.
+ */
 void CityFacade::initializeResources() {
     ResourceManagement& resourceManager = ResourceManagement::getInstance();
     resourceManager.createResources();  // Initialize base resources
 }
 
+/**
+ * @brief Initializes and adds the foundational buildings to the city.
+ * 
+ * This function creates an initial set of buildings, including a residential building,
+ * a commercial building, an industrial building, and a landmark. Each building is given
+ * a name, satisfaction rating, economic impact, resource consumption, construction status,
+ * improvement level, and specific location within the city. After creation, each building
+ * is added to the city and displayed to the user.
+ * 
+ * @param city Pointer to the City object where the buildings are added.
+ */
 void CityFacade::createInitialBuildings(City* city) {
     std::cout << PURPLE << "\n🌌 The wizard raises their hands to the sky, channeling the powers of creation... 🌌\n" << RESET;
     
@@ -173,6 +224,17 @@ void CityFacade::createInitialBuildings(City* city) {
     pauseForUser();
 }
 
+
+/**
+ * @brief Creates and assigns essential utilities to the city and its buildings.
+ * 
+ * This function initializes the primary utilities for the city, including water, waste management,
+ * sewage, and power. Each utility is created using its respective factory, added to the city, and 
+ * allocated resources through the resource manager. After creating utilities, they are assigned to
+ * each building in the city.
+ * 
+ * @param city Pointer to the City object where utilities are added and assigned to buildings.
+ */
 void CityFacade::createAndAssignUtilities(City* city) {
     ResourceManagement& resourceManager = ResourceManagement::getInstance();  // Access the resource manager
 
@@ -224,7 +286,15 @@ void CityFacade::createAndAssignUtilities(City* city) {
     pauseForUser();
 }
 
-
+/**
+ * @brief Creates and assigns essential transport infrastructure to the city.
+ * 
+ * This method utilizes factory classes to create primary city transport systems,
+ * including roads, railways, and runways. Each infrastructure element is built and 
+ * added to the city's infrastructure.
+ * 
+ * @param city Pointer to the City object where infrastructure is added.
+ */
 void CityFacade::createAndAssignTransport(City* city) {
     std::cout << PURPLE << BOLD << "\n🛤️ The wizard conjures essential transport infrastructure for the city...\n" << RESET;
 
@@ -253,7 +323,15 @@ void CityFacade::createAndAssignTransport(City* city) {
     pauseForUser();
 }
 
-
+/**
+ * @brief Sets up a government with various departments to manage the city.
+ * 
+ * This function creates a government structure with departments for budget, policies, 
+ * services, and taxation. It assigns the government to the city to handle administrative 
+ * and civic responsibilities.
+ * 
+ * @param city Pointer to the City object to which the government is assigned.
+ */
 void CityFacade::setupGovernment(City* city) {
     std::cout << PURPLE << BOLD << "\n🧙‍♂️ The wizard forms a government to lead the city...\n" << RESET;
 
@@ -284,7 +362,15 @@ void CityFacade::setupGovernment(City* city) {
     pauseForUser();
 }
 
-
+/**
+ * @brief Creates an initial population of citizens and assigns them to the city.
+ * 
+ * This function generates a small group of citizens with randomized names, incomes, 
+ * property values, and jobs, using a prototype citizen for predefined attributes. 
+ * Each citizen is assigned to an available residential building if space permits.
+ * 
+ * @param city Pointer to the City object where citizens are created and assigned.
+ */
 void CityFacade::createAndAssignCitizens(City* city) {
     std::cout << CYAN << "\n🧙‍♂️ The wizard decides to populate the city with its first citizens...\n" << RESET;
 
@@ -337,6 +423,13 @@ void CityFacade::createAndAssignCitizens(City* city) {
 
 
 //**********MAIN MENU**********/
+/**
+ * @brief Displays the main menu of the city simulation.
+ * 
+ * This function presents options for managing various aspects of the city,
+ * including government, buildings, citizens, transport, population, and city status.
+ * The user is prompted to select an option to proceed with the simulation.
+ */
 void CityFacade::showMainMenu() {
     std::cout << BOLD << BLUE << "\n========== 🏙️ Main Menu 🏙️ ==========\n" << RESET;
     std::cout << GREEN << "1. 🏛️ Manage Government\n";
@@ -350,7 +443,17 @@ void CityFacade::showMainMenu() {
 }
 //**********MAIN MENU**********/
 
-
+/**
+ * @brief Adds tax-related commands to the Tax department.
+ * 
+ * This function creates and configures tax-related commands, such as collecting
+ * and increasing taxes. These commands are then added to the Tax department.
+ * It also links the city's citizens and buildings to the commands for effective
+ * operation on each entity in the city.
+ * 
+ * @param taxDept Pointer to the Tax department where commands will be added.
+ * @param city Pointer to the City containing the citizens and buildings.
+ */
 void CityFacade::addCommandsToTaxDepartment(Tax* taxDept, City* city) {
     // Create command objects
     Command* collectTax = new CollectTax();
@@ -366,6 +469,18 @@ void CityFacade::addCommandsToTaxDepartment(Tax* taxDept, City* city) {
     taxDept->addCommand(increaseTax);
 }
 
+/**
+ * @brief Executes the tax collection process using the Visitor pattern.
+ * 
+ * This function initializes building values, collects rent or revenue based on
+ * building type, and adds necessary commands to the Tax department for tax-related
+ * operations. The TaxCollector visitor then traverses the city’s citizens and buildings,
+ * applying tax calculations to each entity. Finally, the total collected tax is returned.
+ * 
+ * @param taxDept Pointer to the Tax department managing tax operations.
+ * @param city Pointer to the City containing citizens and buildings for tax collection.
+ * @return The total amount of tax collected from citizens and buildings.
+ */
 double CityFacade::taxCollectorVisitor(Tax* taxDept, City* city) {
     for (int i = 0 ; i < city->buildings.size() ; i++){
         city->buildings[i]->setBuildingValue((i+1)*10000);
@@ -390,6 +505,14 @@ double CityFacade::taxCollectorVisitor(Tax* taxDept, City* city) {
 }
 
 //**********1. MANAGE GOVERNMENT OPTION**********/
+/**
+ * @brief Manages the Tax Department, allowing for tax rate increases, tax collection,
+ * and viewing total revenue collected.
+ * 
+ * @param taxDept Pointer to the Tax department for managing tax operations.
+ * @param budgetDept Pointer to the Budget department to allocate collected taxes.
+ * @param city Pointer to the City containing citizens and buildings to be taxed.
+ */
 void CityFacade::manageTaxDepartment(Tax* taxDept, Budget* budgetDept, City* city) { // Pass Budget pointer as parameter
     bool managingTax = true;
     while (managingTax) {
@@ -431,7 +554,14 @@ void CityFacade::manageTaxDepartment(Tax* taxDept, Budget* budgetDept, City* cit
 }
 
 
-
+/**
+ * @brief Manages the Budget Department, allowing for fund allocation and budget details viewing.
+ * 
+ * This function provides options to allocate funds from the budget and display the
+ * current budget details, which are operated within the Budget department.
+ * 
+ * @param budgetDept Pointer to the Budget department for budget operations.
+ */
 void CityFacade::manageBudgetDepartment(Budget* budgetDept) {
     bool managingBudget = true;
     while (managingBudget) {
@@ -468,7 +598,14 @@ void CityFacade::manageBudgetDepartment(Budget* budgetDept) {
 }
 
 
-
+/**
+ * @brief Manages the Policies Department, enabling policy addition, removal, and viewing active policies.
+ * 
+ * This function facilitates the addition and removal of city policies and displays
+ * a list of all active policies managed by the Policies department.
+ * 
+ * @param policiesDept Pointer to the Policies department for policy management.
+ */
 void CityFacade::managePoliciesDepartment(Policies* policiesDept) {
     bool managingPolicies = true;
     while (managingPolicies) {
@@ -514,7 +651,15 @@ void CityFacade::managePoliciesDepartment(Policies* policiesDept) {
 }
 
 
-
+/**
+ * @brief Manages the Services Department, allowing for the addition of new service programs
+ * and viewing current services.
+ * 
+ * This function allows the addition of various city service programs and displays a list
+ * of current service programs managed by the Services department.
+ * 
+ * @param servicesDept Pointer to the Services department for service program management.
+ */
 void CityFacade::manageServicesDepartment(Services* servicesDept) {
     bool managingServices = true;
     while (managingServices) {
@@ -551,7 +696,14 @@ void CityFacade::manageServicesDepartment(Services* servicesDept) {
 }
 
 
-// Function to handle the government management menu
+/**
+ * @brief Handles the main Government Management menu, allowing access to different departments.
+ * 
+ * This function displays options to manage various government departments, including Tax,
+ * Budget, Policies, and Services. It enables interaction with each department based on user choice.
+ * 
+ * @param city Pointer to the City containing the government and its departments.
+ */
 void CityFacade::manageGovernment(City* city) {
     bool managingGovernment = true;
     while (managingGovernment) {
@@ -618,7 +770,18 @@ void CityFacade::manageGovernment(City* city) {
 //**********1. MANAGE GOVERNMENT OPTION**********/
 
 
+
 //**********2. MANAGE BUILDINGS OPTION**********/
+/**
+ * @brief Constructs a new building based on user input and adds it to the city.
+ *
+ * This function asks the user for the type of building to construct, its name, and
+ * then uses the appropriate creator to create the building. It also checks if the
+ * city's budget can cover the cost of the building and deducts the cost from the
+ * budget if possible.
+ *
+ * @param city The city object to add the new building to.
+ */
 void CityFacade::buildNewBuilding(City* city) {
     int buildingType;
     std::string buildingName;
@@ -688,7 +851,14 @@ void CityFacade::buildNewBuilding(City* city) {
 
 
 
-
+/**
+ * @brief Allows the user to inspect a building in the city by selecting it from a list.
+ * 
+ * This function lists all buildings in the city, prompts the user to select a building to inspect, 
+ * and displays details of the selected building.
+ * 
+ * @param city Pointer to the City containing buildings to inspect.
+ */
 void CityFacade::inspectBuilding(City* city) {
     int buildingIndex;
     const auto& buildings = city->listBuildings();
@@ -718,6 +888,14 @@ void CityFacade::inspectBuilding(City* city) {
 }
 
 
+/**
+ * @brief Allows the user to improve a building in the city.
+ * 
+ * This function lists all buildings in the city, prompts the user to select a building to improve,
+ * and performs the improvement on the selected building.
+ * 
+ * @param city Pointer to the City containing buildings to improve.
+ */
 
 void CityFacade::improveBuilding(City* city) {
     int buildingIndex;
@@ -747,7 +925,14 @@ void CityFacade::improveBuilding(City* city) {
     std::cout << MAGENTA << "✨ Improvements complete for " << buildings[buildingIndex - 1]->getType() << ".\n" << RESET;
 }
 
-
+/**
+ * @brief Removes a building from the city, checking if it is a residential building with occupants.
+ * 
+ * This function lists all buildings, prompts the user to select one for removal, and deletes the
+ * selected building if it is not occupied (for residential buildings).
+ * 
+ * @param city Pointer to the City containing buildings to remove.
+ */
 void CityFacade::removeBuilding(City* city) {
     int buildingIndex;
     auto& buildings = city->listBuildings();  // Non-const to allow modifications
@@ -788,7 +973,14 @@ void CityFacade::removeBuilding(City* city) {
     std::cout << MAGENTA << "✅ Building successfully removed from the city.\n" << RESET;
 }
 
-
+/**
+ * @brief Calculates and returns the city satisfaction level for a specified building.
+ * 
+ * Uses a SatisfactionChecker to assess the satisfaction impact the building has on the city.
+ * 
+ * @param building Pointer to the Building whose city satisfaction level will be calculated.
+ * @return double representing the city satisfaction impact of the building.
+ */
 double CityFacade::buildingCitySatisfaction(Building* building) {
     SatisfactionChecker* satisfactionChecker = new SatisfactionChecker();
     building->acceptCitySatisfactionChecker(satisfactionChecker);
@@ -797,6 +989,14 @@ double CityFacade::buildingCitySatisfaction(Building* building) {
     return satisfaction;
 }
 
+/**
+ * @brief Calculates and returns the average citizen satisfaction level for a specified building.
+ * 
+ * Uses a SatisfactionChecker to calculate the average satisfaction level of citizens observing the building.
+ * 
+ * @param building Pointer to the Building for which citizen satisfaction is calculated.
+ * @return double representing the average citizen satisfaction in the building.
+ */
 double CityFacade::citizenSatisfactionForBuilding(Building* building) {
     SatisfactionChecker* satisfactionChecker = new SatisfactionChecker();
     for (int i = 0 ; i < building->observerList.size() ; i++){
@@ -808,6 +1008,14 @@ double CityFacade::citizenSatisfactionForBuilding(Building* building) {
     return avg;
 }
 
+/**
+ * @brief Displays a summary of all buildings in the city, including city satisfaction and economic impact.
+ * 
+ * This function iterates through all buildings in the city and prints details for each, 
+ * including city satisfaction, economic impact, and average citizen satisfaction (for residential buildings).
+ * 
+ * @param city Pointer to the City containing buildings to display.
+ */
 void CityFacade::viewAllBuildings(City* city) {
     const auto& buildings = city->listBuildings();
 
@@ -831,7 +1039,14 @@ void CityFacade::viewAllBuildings(City* city) {
     std::cout << MAGENTA << "=============================\n" << RESET;
 }
 
-
+/**
+ * @brief Increases the rent for a selected residential building in the city.
+ * 
+ * This function lists all residential buildings, prompts the user to select one, and increases its rent.
+ * The new rent must be greater than the current rent.
+ * 
+ * @param city Pointer to the City containing residential buildings to adjust rent.
+ */
 void CityFacade::increaseRent(City* city) {
     int buildingIndex;
     const auto& buildings = city->listBuildings();
@@ -877,6 +1092,14 @@ void CityFacade::increaseRent(City* city) {
     std::cout << GREEN << "✅ Rent increased to: " << newRent << "\n" << RESET;
 }
 
+/**
+ * @brief Manages building-related operations within the city.
+ * 
+ * This function provides options to build, inspect, improve, remove, view, and manage rent for buildings 
+ * in the city, allowing the user to interact with each operation through a menu.
+ * 
+ * @param city Pointer to the City containing buildings to manage.
+ */
 void CityFacade::manageBuildings(City* city) {
     bool buildingManagement = true;
     while (buildingManagement) {
@@ -927,6 +1150,16 @@ void CityFacade::manageBuildings(City* city) {
 
 
 //**********3. MANAGE CITIZENS OPTION**********/
+
+/**
+ * @brief Adds a custom citizen to the city with specified attributes.
+ * 
+ * Prompts the user to input a citizen's name, job, income, and property value.
+ * Attempts to assign the citizen to a residential building with available space.
+ * If no space is available, the citizen is not added.
+ * 
+ * @param city Pointer to the City where the citizen will be added.
+ */
 void CityFacade::addCustomCitizen(City* city) {
     if (city->getTotalPopulation() >= 200) {
         std::cout << RED << "🚫 Maximum population reached. Cannot add more citizens.\n" << RESET;
@@ -969,7 +1202,15 @@ void CityFacade::addCustomCitizen(City* city) {
 }
 
 
-
+/**
+ * @brief Adds multiple randomly generated citizens to the city.
+ * 
+ * Prompts the user to specify the number of citizens to add (between 1 and 10).
+ * Each citizen is generated with random attributes and assigned to a residential
+ * building if available.
+ * 
+ * @param city Pointer to the City where the citizens will be added.
+ */
 void CityFacade::addMultipleCitizens(City* city) {
     int numberOfCitizens;
     std::cout << "👥 Enter the number of citizens to add (1 to 10): ";
@@ -1026,7 +1267,15 @@ void CityFacade::addMultipleCitizens(City* city) {
 }
 
 
-
+/**
+ * @brief Displays detailed information for a selected citizen.
+ * 
+ * Lists all citizens in the city and prompts the user to select one.
+ * Displays the selected citizen's details, including name, income, job,
+ * property value, and satisfaction level.
+ * 
+ * @param city Pointer to the City containing citizens to view.
+ */
 void CityFacade::viewCitizenInformation(City* city) {
     const auto& citizens = city->getCitizens();
 
@@ -1059,7 +1308,13 @@ void CityFacade::viewCitizenInformation(City* city) {
 }
 
 
-
+/**
+ * @brief Displays a summary of all citizens in the city.
+ * 
+ * Iterates over all citizens in the city and prints their name, income, and job.
+ * 
+ * @param city Pointer to the City containing citizens to display.
+ */
 void CityFacade::viewAllCitizens(City* city) {
     const auto& citizens = city->getCitizens();
 
@@ -1077,7 +1332,14 @@ void CityFacade::viewAllCitizens(City* city) {
     std::cout << MAGENTA << "=================================\n" << RESET;
 }
 
-
+/**
+ * @brief Removes a citizen from the city.
+ * 
+ * Lists all citizens in the city and prompts the user to select one to remove.
+ * The selected citizen is deleted from memory and removed from the city's list of citizens.
+ * 
+ * @param city Pointer to the City containing citizens to remove.
+ */
 void CityFacade::removeCitizen(City* city) {
     auto& citizens = city->getCitizens();  // Non-const to allow modifications
 
@@ -1105,6 +1367,15 @@ void CityFacade::removeCitizen(City* city) {
     std::cout << GREEN << "✅ Citizen removed from the city.\n" << RESET;
 }
 
+/**
+ * @brief Calculates the average transport satisfaction level of all citizens.
+ * 
+ * Uses a SatisfactionChecker to assess the average transport satisfaction
+ * of all citizens in the city.
+ * 
+ * @param city Pointer to the City containing citizens to assess.
+ * @return double representing the average transport satisfaction.
+ */
 double CityFacade::averageCitizenTransportSatisfaction(City* city) {
     if (city->getCitizens().empty()) {
         std::cout << RED << "❌ No citizens available to calculate transport satisfaction.\n" << RESET;
@@ -1125,7 +1396,15 @@ double CityFacade::averageCitizenTransportSatisfaction(City* city) {
 }
 
 
-
+/**
+ * @brief Manages transport selection for a specified citizen.
+ * 
+ * Lists all citizens and prompts the user to select one. Then presents transport options 
+ * (Car, Bus, Plane, or Train) and allows the user to assign the selected transport to the citizen.
+ * Optionally, the user can choose to transport the citizen immediately.
+ * 
+ * @param city Pointer to the City containing citizens to manage transport for.
+ */
 void CityFacade::manageTransportForCitizen(City* city) {
     const auto& citizens = city->getCitizens();
 
@@ -1206,7 +1485,15 @@ void CityFacade::manageTransportForCitizen(City* city) {
     }
 }
 
-
+/**
+ * @brief Calculates the overall city satisfaction level.
+ * 
+ * Uses a SatisfactionChecker to calculate the city satisfaction level by
+ * assessing the satisfaction of all citizens and buildings in the city.
+ * 
+ * @param city Pointer to the City to calculate satisfaction for.
+ * @return double representing the total city satisfaction level.
+ */
 double CityFacade::citySatisfactionChecker(City* city) {
     SatisfactionChecker* satisfactionChecker = new SatisfactionChecker();
     for (int i = 0; i < city->citizens.size(); i++) {
@@ -1220,7 +1507,14 @@ double CityFacade::citySatisfactionChecker(City* city) {
     return citySatisfaction;
 }
 
-
+/**
+ * @brief Manages citizen-related operations within the city.
+ * 
+ * Provides options to add custom citizens, add multiple citizens, view citizen information,
+ * view all citizens, remove citizens, manage transport, and return to the main menu.
+ * 
+ * @param city Pointer to the City containing citizens to manage.
+ */
 void CityFacade::manageCitizens(City* city) {
     bool managingCitizens = true;
     while (managingCitizens) {
@@ -1280,6 +1574,16 @@ void CityFacade::manageCitizens(City* city) {
 
 
 //**********4. MANAGE TRANSPORT OPTION**********/
+/**
+ * @brief Manages the transport infrastructure within the city by providing options to build roads, runways, or railways.
+ * 
+ * Prompts the user to select a type of transport infrastructure to improve. Depending on the choice,
+ * it further asks for specific attributes like the number of lanes for a road, length and width for a runway, 
+ * or length for a railway. Once the inputs are validated, the corresponding infrastructure is created, built, 
+ * and added to the city.
+ * 
+ * @param city Pointer to the City where the transport infrastructure will be added.
+ */
 void CityFacade::manageTransport(City* city) {
     std::cout << CYAN << "\n🚇 How do you want to improve the transport system? \n" << RESET;
     std::cout << GREEN << "1. Build another road\n";
@@ -1383,6 +1687,18 @@ void CityFacade::manageTransport(City* city) {
 //**********4. MANAGE TRANSPORT OPTION**********/
 
 //**********5. INCREASE POPULATION OPTION**********/
+
+/**
+ * @brief Increases the city's population based on a user-defined growth factor.
+ * 
+ * Prompts the user to specify a growth factor to control the population increase (0 to 100). 
+ * The function validates the input, initializes buildings for potential expansion, and sets up a chain of responsibility 
+ * to manage population, housing, economic impact, and infrastructure adjustments accordingly. 
+ * The chain of responsibility includes `Population`, `Housing`, `Economic`, and `Infrastructure` handlers, 
+ * which process the increase request and make necessary changes to the city.
+ * 
+ * @param city Pointer to the City where the population growth will be managed.
+ */
 void CityFacade::increasePopulation(City* city) {
     std::cout << MAGENTA << "✨ You wish to welcome more people into your city!\n"
               << "By what growth factor would you like to increase the population (enter a number between 0 and 100): " << RESET;
@@ -1435,6 +1751,20 @@ void CityFacade::increasePopulation(City* city) {
 
 
 //**********6. SHOW STATS OPTION**********/
+
+/**
+ * @brief Displays comprehensive statistics of the city, including population, building types, utilities, transport infrastructure, and government financials.
+ * 
+ * This function provides a detailed report of the city's current status, showing key metrics across various domains:
+ * - **Population**: Total number of citizens and average city satisfaction.
+ * - **Building Statistics**: Total count of each building type (residential, commercial, industrial, landmarks).
+ * - **Utility Usage**: Displays each utility's capacity and usage.
+ * - **Transport Infrastructure**: Number of roads, railways, and runways in the city.
+ * - **Economic and Financial Overview**: Tax revenue, tax rate, and budget information from the government.
+ * - **Policies and Services**: Active policies and availability of healthcare and educational services.
+ * 
+ * @param city Pointer to the City object for which statistics are displayed.
+ */
 void CityFacade::displayCityStats(City* city) {
     std::cout << CYAN << "\n=== City Statistics ===\n" << RESET;
 
