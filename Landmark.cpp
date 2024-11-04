@@ -132,15 +132,19 @@ Building* Landmark::clone() const {
 }
 
 void Landmark::performAction(int type) {
-    //Do nothing
+    payTax(0);
 }
 
 void Landmark::payTax(float taxRate) {
-    //Do nothing
+    taxPaid += propertyTaxRate * buildingValue;
 }
 
 void Landmark::acceptTaxCollector(Visitor * taxCollector) {
-    //Do nothing
+    taxCollector->visit(this);
+}
+
+void Landmark::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){
+    satisfactionChecker->citySatisfaction(this);
 }
 
 int Landmark::getNumBuildings() {
@@ -160,4 +164,21 @@ bool Landmark::populateBuilding() {
         std::cout << "Building is at full capacity. Cannot add more citizens." << std::endl;
         return false;
     }
+}
+
+void Landmark::addUtility(Utilities* utility) {
+    utilities.push_back(utility);
+}
+
+std::string Landmark::getBuildingType(){
+    return "Landmark";
+}
+
+void Landmark::setBuildingValue(double value){
+    buildingValue = value;
+}
+
+void Landmark::setNumBuildings(int count) 
+{ 
+    numBuildings = count; 
 }

@@ -58,9 +58,9 @@ void Tax::trackRevenue(double revenue) {
  * 
  * This method prints the current tax rate and total revenue to the console.
  */
-void Tax::collectTaxes(double revenue) {
-	totalRevenue += revenue;
-    std::cout << "Collected taxes: " << revenue << std::endl;
+double Tax::collectTaxes(double revenue) {
+    totalRevenue += revenue;
+    //std::cout << "Collected taxes: " << revenue << std::endl;
 }
 
 void Tax::operate() {
@@ -82,4 +82,22 @@ void Tax::addCommand(Command* command) {
 
 void Tax::removeCommand(int i) {
 	commands.erase(commands.begin() + i);
+}
+
+double Tax::getTotalRevenue() {
+    return totalRevenue;
+}
+
+void Tax::increaseTax(){
+    commands[1]->execute();
+}
+
+void Tax::collectTaxes() {
+    commands[0]->execute();
+}
+
+Tax::~Tax() {
+    for (Command* command : commands) {
+        delete command;
+    }
 }

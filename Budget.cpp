@@ -49,6 +49,10 @@ double Budget::getAvailableBudget() const {
     return totalBudget - allocatedBudget;
 }
 
+double Budget::getTotalBudget() const {
+    return totalBudget;
+}
+
 void Budget::execute() {
     //Do nothing
 }
@@ -63,4 +67,9 @@ void Budget::removeCommand(int i) {
 
 Budget::Budget() {
     
+}
+
+void Budget::addCollectedTaxes(double amount) {
+    totalBudget += amount;
+    std::cout << "Budget updated with collected taxes. New total budget: " << totalBudget << "\n";
 }

@@ -46,6 +46,14 @@ void Services::addServiceProgram(const std::string& program) {
     std::cout << "Added service program: " << program << "\n";
 }
 
+int Services::getHealthcareFacilities(){
+    return healthcareFacilities;
+}
+
+int Services::getEducationalInstitutions(){
+    return educationalInstitutions;
+}
+
 void Services::execute() {
 
 }

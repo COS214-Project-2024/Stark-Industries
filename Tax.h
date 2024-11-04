@@ -18,8 +18,9 @@ public:
 	void setTaxRate(float rate);
 	float getTaxRate() const;
 	void trackRevenue(double revenue);
-	void collectTaxes(double revenue);
+	double collectTaxes(double revenue);
 	void operate();
+	double getTotalRevenue();
 	//getaxType
 	string getTaxType();
 
@@ -28,6 +29,11 @@ public:
 	void execute();
 	void addCommand(Command* command);
 	void removeCommand(int i);
+
+	void increaseTax();
+	void collectTaxes();
+
+	~Tax();
 };
 
 //order of commands is 0: Collect, 1: Increase

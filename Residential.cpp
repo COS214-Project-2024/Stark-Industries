@@ -144,7 +144,7 @@ Building* Residential::clone() const {
 void Residential::performAction(int type) {
 	if(type == 0) {
 		//collect tax
-		std::cout<<"Property Tax and Rental Income Tax collected from Residential Building"<<std::endl;
+		//std::cout<<"Property Tax and Rental Income Tax collected from Residential Building"<<std::endl;
 		payTax(0);
 	}
 	else if(type == 1) {
@@ -165,8 +165,7 @@ void Residential::payTax(float taxRate) {
 	//property and rental income tax
 	double pTax = buildingValue * propertyTaxRate;
 	double rTax = buildingRevenue * rentalTaxRate;	
-	std::cout<<"Property Tax: "<<pTax<<std::endl;
-	std::cout<<"Rental Tax: "<<rTax<<std::endl;
+	std::cout<<"Property Tax of: "<< pTax << " and Income Tax of: " << rTax << " collected from " << this->name << std::endl;
 	buildingRevenue -= pTax;
 	buildingRevenue -= rTax;
 	taxPaid += pTax;
@@ -182,14 +181,14 @@ int Residential::getNumBuildings() {
 }
 
 void Residential::acceptCitySatisfactionChecker(Visitor* satisfactionChecker){
-	satisfactionChecker->visit(this);
+	satisfactionChecker->citySatisfaction(this);
 }
 
 void Residential::collectRent(){
 	for (int i = 0 ; i < observerList.size(); i++) {
 		observerList[i]->payRent(rent);
 		buildingRevenue += rent;
-		std::cout << "Collected rent from " << observerList[i]->getName() << std::endl;
+		std::cout << "Collected rent from " << observerList[i]->getName() << "of: "<< rent<< std::endl;
 	}
 }
 
@@ -210,4 +209,31 @@ void Residential::getCitizenSatisfactionForBuilding(){
 	for (int i = 0; i < observerList.size(); i++) {
 		observerList[i]->acceptBuildingSatisfactionChecker(&satisfactionChecker);
 	}
+}
+
+void Residential::addUtility(Utilities* utility) {
+    utilities.push_back(utility);
+}
+
+int Residential::getAvailableCapacity() const {
+    return capacity;
+}
+
+int Residential::getOccupantCount() const{
+	return occupants.size();
+}
+
+std::string Residential::getBuildingType(){
+	return "Residential";
+}
+
+void Residential::setRentalRate(double newRent){
+	rent = newRent;
+	for (int i = 0 ; i < observerList.size(); i++){
+		observerList[i]->buildingSatisfaction -= 10;
+	}
+}
+
+double Residential::getRent(){
+	return rent;
 }

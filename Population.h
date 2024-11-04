@@ -1,6 +1,8 @@
 #ifndef POPULATION_H
 #define POPULATION_H
 
+#include "City.h"
+
 #include "GrowthHandler.h"
 #include <string>
 using namespace std;
@@ -12,7 +14,7 @@ public:
 
 	Population(double rate);
 
-	void handleRequest(int growthFactor);
+	void handleRequest(int growthFactor, City* city);
 
 	double getGrowthFactor();
 };

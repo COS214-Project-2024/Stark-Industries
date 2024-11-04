@@ -53,7 +53,18 @@ void Government::setState() {
 }
 
 void Government::add(Department* department) {
-    departments.push_back(department);
+        departments.push_back(department);
+
+        // Check the type of department being added and assign it to the specific pointer
+        if (Tax* tax = dynamic_cast<Tax*>(department)) {
+            taxDepartment = tax;
+        } else if (Budget* budget = dynamic_cast<Budget*>(department)) {
+            budgetDepartment = budget;
+        } else if (Policies* policies = dynamic_cast<Policies*>(department)) {
+            policiesDepartment = policies;
+        } else if (Services* services = dynamic_cast<Services*>(department)) {
+            servicesDepartment = services;
+        }
 }
 
 void Government::remove(Department* department) {

@@ -2,6 +2,7 @@
 #define ECONOMIC_H
 
 #include "GrowthHandler.h"
+#include "City.h"
 #include <string>
 using namespace std;
 
@@ -13,7 +14,7 @@ private:
 public:
 	Economic(double growthRate);
 
-	void handleRequest(int growthFactor);
+	void handleRequest(int growthFactor, City* city);
 
 	double getGrowthFactor();
 };

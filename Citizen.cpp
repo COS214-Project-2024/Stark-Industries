@@ -43,12 +43,12 @@ int Citizen::getNumCitizens() {
 
 void Citizen::get() {
 	// TODO - implement Citizen::get
-	throw "Not yet implemented";
+	// throw "Not yet implemented";
 }
 
 void Citizen::set() {
-	// TODO - implement Citizen::set
-	throw "Not yet implemented";
+	// // TODO - implement Citizen::set
+	// throw "Not yet implemented";
 }
 
 CitizenPrototype* Citizen::clone() {
@@ -75,8 +75,7 @@ void Citizen::resetNotification() {
 } 
 
 int Citizen::calculateSatisfaction() {
-	// TODO - implement Citizen::calculateSatisfaction
-	throw "Not yet implemented";
+	return satisfaction; //Mock implementation for testing
 }
 
 void Citizen::requestBuilding(int City_city, int String_buildtype) {
@@ -226,12 +225,12 @@ std::string Citizen::getName(){
 void Citizen::performAction(int type) {
 	if(type == 0) {
 		//collect tax
-		std::cout<<"Income Tax collected from citizens"<<std::endl;
+		//std::cout<<"Income Tax collected from citizens"<<std::endl;
 		payTax();
 	}
 	else if(type == 1) {
 		//increase tax
-		std::cout<<"Tax increased by 2%"<<std::endl;
+		//std::cout<<"Tax increased by 2%"<<std::endl;
 		setTaxRate();
 		citySatisfaction -= 10;
 	}
@@ -246,12 +245,12 @@ void Citizen::performAction(int type) {
 }
 
 void Citizen::payTax() {
-	std::cout<<"Time to collect Income Tax from citizens"<<std::endl;
+	//std::cout<<"Time to collect Income Tax from citizens"<<std::endl;
 	// citizens pay 15% of their income
 	double tax = this->income * taxRate;
 	income -= tax;
 	taxPaid += tax;
-	std::cout<<"Tax paid: "<<tax<<std::endl;
+	std::cout<<"Income Tax paid: "<<tax << " by " << this->name <<std::endl;
 	//will have to send to government
 }
 
@@ -259,8 +258,9 @@ void Citizen::getPaid(double income) {
 	this->income += income;
 }
 
-void Citizen::setTaxRate() {
-	taxRate *= 1.02;
+double Citizen::setTaxRate() {
+	taxRate += 0.02;
+	return taxRate;
 }
 
 void Citizen::acceptTaxCollector(Visitor * taxCollector) {
@@ -270,7 +270,7 @@ void Citizen::acceptTaxCollector(Visitor * taxCollector) {
 
 void Citizen::transport(){
         if(chosenTransport==NULL){
-            std::cout<<"Citizen has no yet selected its preffered transport";
+            std::cout<<"Citizen has not yet selected their preferred transport";
         }else{
             double time=chosenTransport->commuteTime();
          std::cout<< name<<  " is transportting via "<<chosenTransport->getType()<<" and the total time will be "<<time<<std::endl;
@@ -301,3 +301,8 @@ void Citizen::setNumCitizens(int num) {
 Citizen::Citizen() {
 	
 }
+
+double Citizen::getTaxRate(){
+	return taxRate;
+}
+

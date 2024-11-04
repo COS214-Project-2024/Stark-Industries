@@ -6,6 +6,7 @@
 #include "Commercial.h"
 #include "Industrial.h"
 #include "Landmark.h"
+#include "City.h"
 #include <iostream>
 using namespace std;
 
@@ -18,11 +19,11 @@ private:
 
 public:
     Infrastructure(double growthRate, Commercial* prototypeC, Industrial* prototypeI, Landmark* prototypeL);
-    void handleRequest(int growthFactor);
-    void increaseRoads(int numLanes, double roadLength);
-    void increaseCommercial(int growthFactor, Commercial* prototypeC);
-    void increaseIndustrial(int growthFactor, Industrial* prototypeI);
-    void increaseLandmark(int growthFactor, Landmark* prototypeL);
+    void handleRequest(int growthFactor, City* city);
+    void increaseRoads(int numLanes, double roadLength, City* city);
+    void increaseCommercial(int growthFactor, Commercial* prototypeC, City* city);
+    void increaseIndustrial(int growthFactor, Industrial* prototypeI, City* city);
+    void increaseLandmark(int growthFactor, Landmark* prototypeL, City* city);
     double getGrowthFactor();
 };
 

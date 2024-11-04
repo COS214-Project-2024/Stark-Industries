@@ -12,15 +12,11 @@ using namespace std;
 class CollectTax : public Command {
 
 public:
-	vector<Building*> buildingList;
-	vector<Citizen*> citizenList;
 	CollectTax(Citizen * citizenReceiver, Building * buildingReceiver);
 	CollectTax(){};
 	void addBuilding(Building * buildingReceiver);
 	void addCitizen(Citizen * citizenReceiver);
 	void execute();
-	void addBuildingVector(vector<Building*> buildingList);
-	void addCitizenVector(vector<Citizen*> citizenList);
 };
 
 #endif

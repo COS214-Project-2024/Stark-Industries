@@ -16,6 +16,9 @@ public:
     void citySatisfaction(Building* building); //visit
     void visit(Citizen* citizen);
     void visit(Building* building);
+    double citySatisfactionTotal = 0;
+    double buildingSatisfactionTotal = 0;
+    double transportSatisfactionTotal = 0;
 };
 
 #endif

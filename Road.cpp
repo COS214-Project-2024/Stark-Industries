@@ -112,6 +112,10 @@ void Road::removeTrafficLight(double position) {
         trafficLights.erase(it); // Remove the traffic light if it exists
     }
 }
+
+std::vector<double> Road::getTrafficLights() {
+    return trafficLights;
+}
 // Getter for road count
 int Road::getRoadCount() {
     return roadCount;

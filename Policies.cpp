@@ -55,6 +55,10 @@ void Policies::removePolicy(const std::string& policy) {
     }
 }
 
+size_t Policies::getActivePoliciesCount() {
+    return activePolicies.size();
+}
+
 void Policies::execute() {
     //Do nothing
 }

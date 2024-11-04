@@ -23,7 +23,7 @@ private:
 	// Building* observerList; //Building is abstract
 	string name;                 /**< Name of the citizen. */
     int income;                       /**< Income level of the citizen. */
-    double propertyValue;             /**< Property value owned by the citizen. */
+                 /**< Property value owned by the citizen. */
     double commuteTime;               /**< Commute time for the citizen. */
 	//bool isSatisfiedTrans;
     Transport* chosenTransport;       /**< Pointer to the chosen transport mode. */
@@ -31,10 +31,14 @@ private:
     bool hasPaid;                     /**< Flag indicating if the citizen has paid their taxes. */
 	int isSatisfiedTrans;
 	double satisfaction;
-	bool wasNotified;
+	bool wasNotified = false;
 	double taxRate = 0.15;
 	static int numCitizens;
+
+public:
 	string job;
+	double propertyValue;
+
 
 public:
 	// Array of 200 potential citizen names
@@ -168,7 +172,7 @@ public:
 	void performAction(int type);
 	//visitor functions
 	void payTax();
-	void setTaxRate();
+	double setTaxRate();
 	double taxPaid;
 	void transport();
 	virtual void acceptTaxCollector(Visitor * taxCollector);
@@ -184,7 +188,13 @@ public:
 	void acceptCitySatisfactionChecker(Visitor*);
 	void payRent(double);
 	void setNumCitizens(int);
+
+	double getTaxRate();
+
 	Citizen();
+
+
+
 };
 
 #endif

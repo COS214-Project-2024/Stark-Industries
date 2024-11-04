@@ -19,6 +19,8 @@ public:
 	std::string name = "Services";
 	void operate() override;
  	void addServiceProgram(const std::string& program);
+	int getHealthcareFacilities();
+	int getEducationalInstitutions();
 	virtual void execute();
 	virtual void addCommand(Command* command);
 	virtual void removeCommand(int i);
