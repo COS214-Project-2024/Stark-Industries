@@ -1,3 +1,8 @@
+/**
+ * @file Car.cpp
+ * @brief Implements the Car class, which represents a car transport system with seating capacity but without cargo support.
+ */
+
 #include "Car.h"
 #include <iostream>
 
@@ -7,7 +12,7 @@
  * @param travelTime Travel time for the car transport.
  * @param seatingCapacity Total seating capacity of the car transport.
  */
-Car::Car(string name, double travelTime, int seatingCapacity) 
+Car::Car(std::string name, double travelTime, int seatingCapacity) 
     : name(name), isUnderMaintenance(false), travelTime(travelTime), fee(0), 
       seatingCapacity(seatingCapacity), availableSeats(seatingCapacity) {}
 

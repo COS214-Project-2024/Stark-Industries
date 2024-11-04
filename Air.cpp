@@ -1,3 +1,8 @@
+/**
+ * @file Air.cpp
+ * @brief Implements the Air class, which manages air transport
+ */
+
 #include "Air.h"
 #include <iostream>
 

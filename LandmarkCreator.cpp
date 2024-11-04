@@ -1,3 +1,8 @@
+/**
+ * @file LandmarkCreator.cpp
+ * @brief Implements the LandmarkCreator class, which is responsible for creating instances of Landmark buildings using the Factory Method pattern.
+ */
+
 #include "LandmarkCreator.h"
 #include "Landmark.h"
 
@@ -23,13 +28,14 @@ LandmarkCreator::LandmarkCreator() {
  * @param constructionStatus Indicates if the landmark's construction is complete.
  * @param improvementLevel Initial improvement level of the landmark.
  * @param resourcesAvailable Whether resources are available for the landmark.
- * @param notificationRadius Radius within which citizens are notified about the landmark.
+ * @param capacity Maximum capacity of the landmark.
+ * @param area Geographic area or zone where the landmark is located.
  * @return A pointer to the newly created Landmark building.
  */
-Building* LandmarkCreator::createBuilding(string name, int satisfaction, double economicImpact, 
+Building* LandmarkCreator::createBuilding(std::string name, int satisfaction, double economicImpact, 
                                           double resourceConsumption, bool constructionStatus, 
                                           int improvementLevel, bool resourcesAvailable, 
-                                          int capacity, string area) {
+                                          int capacity, std::string area) {
     buildings = new Landmark(name, satisfaction, economicImpact, resourceConsumption, 
                              constructionStatus, improvementLevel, resourcesAvailable, 
                              capacity, area);

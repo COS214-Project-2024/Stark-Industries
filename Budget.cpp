@@ -1,3 +1,8 @@
+/**
+ * @file Budget.cpp
+ * @brief Implements the Budget class, which manages departmental budget allocation, tax reception, and other budgetary functions.
+ */
+
 #include "Budget.h"
 #include <iostream>
 
@@ -39,36 +44,84 @@ void Budget::operate() {
               << "\nAvailable Budget = " << getAvailableBudget() << "\n";
 }
 
+/**
+ * @brief Receives tax funds and adds them to the total budget.
+ * 
+ * The received tax amount is added to the total budget, and an allocation 
+ * attempt is made for the new total budget.
+ * 
+ * @param tax Amount of tax funds received.
+ */
 void Budget::receiveTax(double tax) {
-	totalBudget += tax;
-	std::cout << "Budget received: " << tax << std::endl;
-	allocateFunds(totalBudget);
+    totalBudget += tax;
+    std::cout << "Budget received: " << tax << std::endl;
+    allocateFunds(totalBudget);
 }
 
+/**
+ * @brief Gets the available budget by calculating the difference between the total and allocated budgets.
+ * 
+ * @return The available budget as a double.
+ */
 double Budget::getAvailableBudget() const {
     return totalBudget - allocatedBudget;
 }
 
+/**
+ * @brief Retrieves the total budget.
+ * 
+ * @return The total budget as a double.
+ */
 double Budget::getTotalBudget() const {
     return totalBudget;
 }
 
+/**
+ * @brief Executes the budget-related command.
+ * 
+ * Currently, this method does nothing and serves as a placeholder.
+ */
 void Budget::execute() {
-    //Do nothing
+    // Do nothing
 }
 
+/**
+ * @brief Adds a command to the budget department.
+ * 
+ * Currently, this method does nothing and serves as a placeholder.
+ * 
+ * @param command Pointer to a Command object to be added.
+ */
 void Budget::addCommand(Command* command) {
-    //Do nothing
+    // Do nothing
 }
 
+/**
+ * @brief Removes a command from the budget department by index.
+ * 
+ * Currently, this method does nothing and serves as a placeholder.
+ * 
+ * @param i Index of the command to remove.
+ */
 void Budget::removeCommand(int i) {
-    //Do nothing
+    // Do nothing
 }
 
+/**
+ * @brief Default constructor for the Budget class.
+ */
 Budget::Budget() {
-    
+    // Default initialization
 }
 
+/**
+ * @brief Adds collected taxes to the total budget.
+ * 
+ * The specified tax amount is added to the total budget, and a message 
+ * displays the updated budget total.
+ * 
+ * @param amount Amount of taxes collected and added to the budget.
+ */
 void Budget::addCollectedTaxes(double amount) {
     totalBudget += amount;
     std::cout << "Budget updated with collected taxes. New total budget: " << totalBudget << "\n";
