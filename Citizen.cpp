@@ -22,7 +22,7 @@ Citizen::Citizen(const std::string& name, int income, double propertyValue, stri
 		numCitizens++;
 	}
 
-int Citizen::satisfactionLevelTrans = 50;
+int Citizen::satisfactionLevelTrans = 80;
 
 Citizen::Citizen(const std::string& name, int income, int cargo)
     : name(name), income(income), commuteTime(0) , 
@@ -39,21 +39,6 @@ Citizen::Citizen(std::string name, double baseIncome) {
 
 int Citizen::getNumCitizens() {
 	return numCitizens;
-}
-
-void Citizen::get() {
-	// TODO - implement Citizen::get
-	// throw "Not yet implemented";
-}
-
-void Citizen::set() {
-	// // TODO - implement Citizen::set
-	// throw "Not yet implemented";
-}
-
-CitizenPrototype* Citizen::clone() {
-	// TODO - implement Citizen::clone
-	throw "Not yet implemented";
 }
 
 void Citizen::observerUpdate(string type) {
@@ -76,16 +61,6 @@ void Citizen::resetNotification() {
 
 int Citizen::calculateSatisfaction() {
 	return satisfaction; //Mock implementation for testing
-}
-
-void Citizen::requestBuilding(int City_city, int String_buildtype) {
-	// TODO - implement Citizen::requestBuilding
-	throw "Not yet implemented";
-}
-
-void Citizen::recieveMoveinDate() {
-	// TODO - implement Citizen::recieveMoveinDate
-	throw "Not yet implemented";
 }
 
 /**
@@ -149,12 +124,6 @@ if(cargo>=1){
     std::cout << name << " chose " << trans->getType() << " transport.\n";
     updateSatisfaction();
 }
-
-void Citizen::requestUtilitiesService() {
-	// TODO - implement Citizen::requestUtilitieService
-	throw "Not yet implemented";
-}
-
 
 /**
  * @brief Citizen leaves feedback, decreases satisfaction if transport experience was unsatisfactory.

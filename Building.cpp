@@ -42,15 +42,6 @@ Building::Building() {
 }
 
 /**
- * @brief Placeholder method for setting building details (to be implemented).
- */
-void Building::set() {
-	// TODO - implement Building::set
-	
-    throw "Not yet implemented";
-}
-
-/**
  * @brief Attaches a citizen observer to the building.
  * 
  * @param observer Pointer to the Citizen object to be added as an observer.

@@ -1,7 +1,6 @@
 #ifndef CITIZEN_H
 #define CITIZEN_H
 
-#include "CitizenPrototype.h"
 #include "Transport.h"
 #include "TransportSystem.h"
 // #include "Building.h"
@@ -17,7 +16,7 @@ using namespace std;
  * The Citizen class manages properties such as income, property value, and transport choices,
  * as well as satisfaction levels and requests for building and utility services.
  */
-class Citizen : CitizenPrototype {
+class Citizen {
 
 private:
 	// Building* observerList; //Building is abstract
@@ -113,7 +112,6 @@ public:
 
 	void get();
 	void set();
-	CitizenPrototype* clone();
 	int calculateSatisfaction();
 	void requestBuilding(int City_city, int String_buildtype);
 	void recieveMoveinDate();
@@ -181,8 +179,8 @@ public:
 
 
 	static int satisfactionLevelTrans;       /**< Satisfaction level related to transport. */
-	int buildingSatisfaction = 50;
-	int citySatisfaction = 50;
+	int buildingSatisfaction = 80;
+	int citySatisfaction = 80;
 	void acceptTransportSatisfactionChecker(Visitor * satisfactionChecker);
 	void acceptBuildingSatisfactionChecker(Visitor* satisfactionChecker);
 	void acceptCitySatisfactionChecker(Visitor*);
