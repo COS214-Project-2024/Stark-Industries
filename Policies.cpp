@@ -98,3 +98,8 @@ void Policies::addCommand(Command* command) {
 void Policies::removeCommand(int i) {
     // Do nothing
 }
+
+
+std::vector<std::string> Policies::getActivePolicies() const {
+    return activePolicies;
+}

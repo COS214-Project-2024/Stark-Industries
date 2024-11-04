@@ -44,9 +44,9 @@ void Population::handleRequest(int growthFactor, City* city) {
         }
     }
     
-    if (growthFactor < 100 && growthFactor > 0) {
+    if (growthFactor < 101 && growthFactor > 0) {
         int currentPopulation = c.getNumCitizens();
-        double increase = currentPopulation * (populationGrowthRate / 100.0) * growthFactor;
+        double increase = currentPopulation * (populationGrowthRate / 100.0);
 
         int newCitizens = static_cast<int>(std::ceil(increase));
         std::cout << "POPULATION GROWS:\n";
@@ -72,8 +72,6 @@ void Population::handleRequest(int growthFactor, City* city) {
         c.setNumCitizens(currentPopulation + newCitizens);
 
         GrowthHandler::handleRequest(growthFactor, city);
-
-        delete residentialBuilding;
     }
 }
 

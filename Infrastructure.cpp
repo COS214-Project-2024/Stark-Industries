@@ -74,7 +74,7 @@ void Infrastructure::increaseRoads(int numLanes, double roadLength, City* city) 
  */
 void Infrastructure::increaseCommercial(int growthFactor, Commercial* prototypeC, City* city) {
     int currentBuildings = prototypeC->getNumBuildings();
-    double increase = currentBuildings * (growthRate / 100.0) * growthFactor;
+    double increase = currentBuildings * (growthRate / 100.0);
     int newBuildings = static_cast<int>(std::ceil(increase));
 
     std::cout << "Adding " << newBuildings << " new commercial buildings.\n";
@@ -97,7 +97,7 @@ void Infrastructure::increaseCommercial(int growthFactor, Commercial* prototypeC
  */
 void Infrastructure::increaseIndustrial(int growthFactor, Industrial* prototypeI, City* city) {
     int currentBuildings = prototypeI->getNumBuildings();
-    double increase = currentBuildings * (growthRate / 100.0) * growthFactor;
+    double increase = currentBuildings * (growthRate / 100.0);
     int newBuildings = static_cast<int>(std::ceil(increase));
 
     std::cout << "Adding " << newBuildings << " new industrial buildings.\n";
@@ -120,7 +120,7 @@ void Infrastructure::increaseIndustrial(int growthFactor, Industrial* prototypeI
  */
 void Infrastructure::increaseLandmark(int growthFactor, Landmark* prototypeL, City* city) {
     int currentBuildings = prototypeL->getNumBuildings();
-    double increase = currentBuildings * (growthRate / 100.0) * growthFactor;
+    double increase = currentBuildings * (growthRate / 100.0);
     int newBuildings = static_cast<int>(std::ceil(increase));
 
     std::cout << "Adding " << newBuildings << " new landmarks.\n";
