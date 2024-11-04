@@ -538,7 +538,14 @@ void CityFacade::manageTaxDepartment(Tax* taxDept, Budget* budgetDept, City* cit
 
         int choice;
         std::cin >> choice;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
+            std::cout << RED << "❗ Invalid input. Please enter a number between 1 and 4.\n" << RESET;
+            continue; // Restart the loop
+        }
+
+        std::cin.ignore();
 
         switch (choice) {
             case 1: {
@@ -586,7 +593,14 @@ void CityFacade::manageBudgetDepartment(Budget* budgetDept) {
 
         int choice;
         std::cin >> choice;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
+            std::cout << RED << "❗ Invalid input. Please enter a number between 1 and 3.\n" << RESET;
+            continue; // Restart the loop
+        }
+
+        std::cin.ignore();
 
         switch (choice) {
             case 1: {
@@ -643,7 +657,14 @@ void CityFacade::managePoliciesDepartment(Policies* policiesDept) {
 
         int choice;
         std::cin >> choice;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
+            std::cout << RED << "❗ Invalid input. Please enter a number between 1 and 4.\n" << RESET;
+            continue; // Restart the loop
+        }
+
+        std::cin.ignore();
 
         switch (choice) {
             case 1: {
@@ -714,7 +735,14 @@ void CityFacade::manageServicesDepartment(Services* servicesDept) {
 
         int choice;
         std::cin >> choice;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
+            std::cout << RED << "❗ Invalid input. Please enter a number between 1 and 3.\n" << RESET;
+            continue; // Restart the loop
+        }
+
+        std::cin.ignore();
 
         switch (choice) {
             case 1: {
@@ -766,7 +794,14 @@ void CityFacade::manageGovernment(City* city) {
 
         int choice;
         std::cin >> choice;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
+            std::cout << RED << "❗ Invalid input. Please enter a number between 1 and 5.\n" << RESET;
+            continue; // Restart the loop
+        }
+
+        std::cin.ignore();
 
         switch (choice) {
             case 1: {
@@ -1152,11 +1187,11 @@ void CityFacade::increaseRent(City* city) {
 void CityFacade::manageBuildings(City* city) {
     bool buildingManagement = true;
     while (buildingManagement) {
-        std::cout << "\n" << CYAN << BOLD << "🏢 Manage Buildings 🏢\n" << RESET;
+        std::cout << "\n" << CYAN << BOLD << "🏢  Manage Buildings 🏢\n" << RESET;
         std::cout << GREEN << "1. 🏗️  Build New Building\n";
         std::cout << "2. 🔍 Inspect Building\n";
         std::cout << "3. 🔧 Improve Building\n";
-        std::cout << "4. 🗑️ Remove Building\n";
+        std::cout << "4. 🗑️  Remove Building\n";
         std::cout << "5. 📋 View All Buildings\n";
         std::cout << "6. 💸 Increase Rent of Residential Building\n";
         std::cout << "7. 🔙 Back to Main Menu\n" << RESET;
@@ -1164,7 +1199,15 @@ void CityFacade::manageBuildings(City* city) {
 
         int choice;
         std::cin >> choice;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
+        // Check for invalid input
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
+            std::cout << RED << "❗ Invalid input. Please enter a number between 1 and 7.\n" << RESET;
+            continue; // Restart the loop
+        }
+
+        std::cin.ignore();
 
         switch (choice) {
             case 1:
@@ -1448,6 +1491,8 @@ void CityFacade::removeCitizen(City* city) {
     std::cout << "Enter your choice: ";
     std::cin >> citizenIndex;
 
+	
+
     if (citizenIndex < 1 || citizenIndex > citizens.size()) {
         std::cout << RED << "⚠️ Invalid selection. Please choose a valid citizen.\n" << RESET;
         return;
@@ -1528,6 +1573,10 @@ void CityFacade::manageTransportForCitizen(City* city) {
     int transportType;
     std::cout << "Enter your choice: ";
     std::cin >> transportType;
+
+	
+
+	
 
     // Create or retrieve the selected transport type
     Transport* chosenTransport = nullptr;
@@ -1621,7 +1670,14 @@ void CityFacade::manageCitizens(City* city) {
 
         int choice;
         std::cin >> choice;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
+            std::cout << RED << "❗ Invalid input. Please enter a number between 1 and 7.\n" << RESET;
+            continue; // Restart the loop
+        }
+
+        std::cin.ignore();
 
         switch (choice) {
             case 1:
