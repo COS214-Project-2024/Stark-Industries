@@ -50,8 +50,6 @@ void Economic::handleRequest(int growthFactor, City* city) {
     } else {
         std::cout << "Growth factor outside economic growth range or budget department not found.\n";
     }
-
-    delete budgetDept;
 }
 
 /**
