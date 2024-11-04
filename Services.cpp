@@ -1,3 +1,7 @@
+/**
+ * @file Services.cpp
+ * @brief Implementation of the Services class, representing a services department.
+ */
 #include "Services.h"
 #include <iostream>
 
@@ -46,22 +50,48 @@ void Services::addServiceProgram(const std::string& program) {
     std::cout << "Added service program: " << program << "\n";
 }
 
+/**
+ * @brief Gets the number of healthcare facilities managed by the department.
+ * 
+ * @return The number of healthcare facilities.
+ */
 int Services::getHealthcareFacilities(){
     return healthcareFacilities;
 }
 
+/**
+ * @brief Gets the number of educational institutions managed by the department.
+ * 
+ * @return The number of educational institutions.
+ */
 int Services::getEducationalInstitutions(){
     return educationalInstitutions;
 }
 
+/**
+ * @brief Executes commands related to the services department.
+ * 
+ * This method can be implemented to execute a list of commands associated with 
+ * the services department.
+ */
 void Services::execute() {
-
+//do nothing
 }
 
+/**
+ * @brief Adds a command to the services department.
+ * 
+ * @param command A pointer to the Command object to be added.
+ */
 void Services::addCommand(Command* command) {
-
+//do nothing
 }
 
+/**
+ * @brief Removes a command from the services department by index.
+ * 
+ * @param i The index of the command to be removed.
+ */
 void Services::removeCommand(int i) {
-    
+  //do nothing  
 }

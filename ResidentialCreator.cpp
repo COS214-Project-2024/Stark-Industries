@@ -1,5 +1,6 @@
-#include "ResidentialCreator.h"
-#include "Residential.h"
+#include "ResidentialCreator.h" ///< Header for ResidentialCreator class.
+#include "Residential.h" ///< Header for Residential class, representing residential buildings.
+
 
 /**
  * @class ResidentialCreator
