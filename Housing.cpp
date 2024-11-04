@@ -31,7 +31,7 @@ void Housing::handleRequest(int growthFactor, City* city) {
     if (growthFactor > 10) {
         // Calculate the number of new buildings to create
         int currentBuildings = prototype->getNumBuildings();
-        double increase = currentBuildings * (rate / 100.0) * growthFactor;
+        double increase = currentBuildings * (rate / 100.0);
         int newBuildings = static_cast<int>(std::ceil(increase));
 
         std::cout << "HOUSING GROWS:\n";

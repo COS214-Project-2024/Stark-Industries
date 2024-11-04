@@ -14,6 +14,7 @@
 #include <limits>
 #include <ctime>
 #include <algorithm>
+#include <regex>
 
 #include "CityFacade.h"
 
@@ -66,8 +67,20 @@ void CityFacade::bigTestingMain() {
 
     // Prompt for the city name
     std::string cityName;
-    std::cout << GREEN << "🏙️ Enter the name of your new city: " << RESET;
-    std::getline(std::cin, cityName);
+    std::regex nameRegex("^[A-Za-z ]{1,50}$"); // Allows only alphabets and spaces, up to 50 characters
+
+    while (true) {
+        std::cout << GREEN << "🏙️  Enter the name of your new city: " << RESET;
+        std::getline(std::cin, cityName);
+
+        if (cityName.empty()) {
+            std::cout << RED << "❗ City name cannot be empty. Please enter a valid name.\n" << RESET;
+        } else if (!std::regex_match(cityName, nameRegex)) {
+            std::cout << RED << "❗ Invalid name. The city name can only contain alphabets and spaces, and must be up to 50 characters.\n" << RESET;
+        } else {
+            break; // Name is valid
+        }
+    }
 
     // Create the city with the entered name
     City* ourCity = new City(cityName);
@@ -97,18 +110,18 @@ void CityFacade::bigTestingMain() {
             continue; // Restart the loop
         }
 
-        std::cin.ignore();
+        // std::cin.ignore();
 
         switch (choice) {
             case 1:
                 // Manage Government
-                std::cout << YELLOW << "\n🏛️ You open the grand doors to the city hall...\n" << RESET;
+                std::cout << YELLOW << "\n🏛️  You open the grand doors to the city hall...\n" << RESET;
                 manageGovernment(ourCity);
                 break;
 
             case 2:
                 // Build and Manage Buildings
-                std::cout << CYAN << "\n🏗️ You look out over the land, ready to build...\n" << RESET;
+                std::cout << CYAN << "\n🏗️  You look out over the land, ready to build...\n" << RESET;
                 manageBuildings(ourCity);
                 break;
 
@@ -296,7 +309,7 @@ void CityFacade::createAndAssignUtilities(City* city) {
  * @param city Pointer to the City object where infrastructure is added.
  */
 void CityFacade::createAndAssignTransport(City* city) {
-    std::cout << PURPLE << BOLD << "\n🛤️ The wizard conjures essential transport infrastructure for the city...\n" << RESET;
+    std::cout << PURPLE << BOLD << "\n🛤️  The wizard conjures essential transport infrastructure for the city...\n" << RESET;
 
     RoadFactory roadFactory;
     RailwayFactory railwayFactory;
@@ -358,7 +371,7 @@ void CityFacade::setupGovernment(City* city) {
 
     // Assign the government to the city
     city->setGovernment(government);
-    std::cout << PURPLE << BOLD << "\n🏛️ Government and departments successfully established for the city.\n" << RESET;
+    std::cout << PURPLE << BOLD << "\n🏛️  Government and departments successfully established for the city.\n" << RESET;
     pauseForUser();
 }
 
@@ -431,8 +444,8 @@ void CityFacade::createAndAssignCitizens(City* city) {
  * The user is prompted to select an option to proceed with the simulation.
  */
 void CityFacade::showMainMenu() {
-    std::cout << BOLD << BLUE << "\n========== 🏙️ Main Menu 🏙️ ==========\n" << RESET;
-    std::cout << GREEN << "1. 🏛️ Manage Government\n";
+    std::cout << BOLD << BLUE << "\n========== 🏙️  Main Menu  🏙️ ==========\n" << RESET;
+    std::cout << GREEN << "1. 🏛️  Manage Government\n";
     std::cout << "2. 🏢 Build and Manage Buildings\n";
     std::cout << "3. 👥 Manage Citizens\n";
     std::cout << "4. 🚗 Manage Transport\n";
@@ -525,7 +538,14 @@ void CityFacade::manageTaxDepartment(Tax* taxDept, Budget* budgetDept, City* cit
 
         int choice;
         std::cin >> choice;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
+            std::cout << RED << "❗ Invalid input. Please enter a number between 1 and 4.\n" << RESET;
+            continue; // Restart the loop
+        }
+
+        // std::cin.ignore();
 
         switch (choice) {
             case 1: {
@@ -573,13 +593,32 @@ void CityFacade::manageBudgetDepartment(Budget* budgetDept) {
 
         int choice;
         std::cin >> choice;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
+            std::cout << RED << "❗ Invalid input. Please enter a number between 1 and 3.\n" << RESET;
+            continue; // Restart the loop
+        }
+
+        // std::cin.ignore();
 
         switch (choice) {
             case 1: {
                 double amount;
-                std::cout << ORANGE << "💰 Enter amount to allocate: " << RESET;
-                std::cin >> amount;
+                while (true) {
+                    std::cout << ORANGE << "💰 Enter amount to allocate (1 - 10,000): " << RESET;
+                    std::cin >> amount;
+
+                    // Validate that the input is within range and is a number
+                    if (std::cin.fail() || amount < 1 || amount > 10000) {
+                        std::cin.clear(); // Clear the error flag
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore invalid input
+                        std::cout << RED << "❌ Invalid amount. Please enter a number between 1 and 10,000.\n" << RESET;
+                    } else {
+                        break; // Valid input
+                    }
+                }
+
                 budgetDept->allocateFunds(amount);
                 std::cout << GREEN << "✅ Funds allocated: $" << amount << "\n" << RESET;
                 break;
@@ -618,23 +657,48 @@ void CityFacade::managePoliciesDepartment(Policies* policiesDept) {
 
         int choice;
         std::cin >> choice;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
+            std::cout << RED << "❗ Invalid input. Please enter a number between 1 and 4.\n" << RESET;
+            continue; // Restart the loop
+        }
+
+        // std::cin.ignore();
 
         switch (choice) {
             case 1: {
                 std::string policy;
-                std::cout << ORANGE << "📝 Enter policy to add: " << RESET;
+                std::cout << ORANGE << "📝 Enter policy to add " << RESET;
                 std::getline(std::cin, policy);
-                policiesDept->addPolicy(policy);
-                std::cout << GREEN << "✅ Policy added: \"" << policy << "\"\n" << RESET;
+
+                // Validate policy input
+                if (policy.length() > 20 || !std::regex_match(policy, std::regex("^[a-zA-Z0-9 ]+$"))) {
+                    std::cout << RED << "❌ Invalid policy name. Ensure it contains only letters, numbers, and spaces, and is no longer than 20 characters.\n" << RESET;
+                } else {
+                    policiesDept->addPolicy(policy);
+                    std::cout << GREEN << "✅ Policy added: \"" << policy << "\"\n" << RESET;
+                }
                 break;
             }
             case 2: {
                 std::string policy;
-                std::cout << ORANGE << "🗑️ Enter policy to remove: " << RESET;
+                std::cout << ORANGE << "📄 Current Active Policies:\n" << RESET;
+                std::vector<std::string> activePolicies = policiesDept->getActivePolicies();  // Assume this method returns a vector of active policy names
+                for (const auto& activePolicy : activePolicies) {
+                    std::cout << " - " << activePolicy << "\n";
+                }
+
+                std::cout << ORANGE << "🗑️  Enter policy to remove: " << RESET;
                 std::getline(std::cin, policy);
-                policiesDept->removePolicy(policy);
-                std::cout << GREEN << "✅ Policy removed: \"" << policy << "\"\n" << RESET;
+
+                // Check if policy is in the list of active policies
+                if (std::find(activePolicies.begin(), activePolicies.end(), policy) != activePolicies.end()) {
+                    policiesDept->removePolicy(policy);
+                    std::cout << GREEN << "✅ Policy removed: \"" << policy << "\"\n" << RESET;
+                } else {
+                    std::cout << RED << "❌ Policy \"" << policy << "\" does not exist in active policies.\n" << RESET;
+                }
                 break;
             }
             case 3:
@@ -671,15 +735,28 @@ void CityFacade::manageServicesDepartment(Services* servicesDept) {
 
         int choice;
         std::cin >> choice;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
+            std::cout << RED << "❗ Invalid input. Please enter a number between 1 and 3.\n" << RESET;
+            continue; // Restart the loop
+        }
+
+        // std::cin.ignore();
 
         switch (choice) {
             case 1: {
                 std::string program;
-                std::cout << ORANGE << "📝 Enter service program to add: " << RESET;
+                std::cout << ORANGE << "📝 Enter service program to add (letters, numbers, spaces; max 20 chars): " << RESET;
                 std::getline(std::cin, program);
-                servicesDept->addServiceProgram(program);
-                std::cout << GREEN << "✅ Service program added: \"" << program << "\"\n" << RESET;
+                
+                // Validate input to ensure only letters, numbers, and spaces, and max length of 20
+                if (program.size() > 20 || !std::all_of(program.begin(), program.end(), [](char c) { return std::isalnum(c) || std::isspace(c); })) {
+                    std::cout << RED << "❌ Invalid service program name. Please use only letters, numbers, and spaces, up to 20 characters.\n" << RESET;
+                } else {
+                    servicesDept->addServiceProgram(program);
+                    std::cout << GREEN << "✅ Service program added: \"" << program << "\"\n" << RESET;
+                }
                 break;
             }
             case 2:
@@ -711,13 +788,20 @@ void CityFacade::manageGovernment(City* city) {
         std::cout << GREEN << "1. 💰 Tax Department\n";
         std::cout << "2. 💵 Budget Department\n";
         std::cout << "3. 📜 Policies Department\n";
-        std::cout << "4. 🛠️ Services Department\n";
+        std::cout << "4. 🛠️  Services Department\n";
         std::cout << "5. 🔙 Return to Main Menu\n" << RESET;
         std::cout << BOLD << ORANGE << "Select an option: " << RESET;
 
         int choice;
         std::cin >> choice;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
+            std::cout << RED << "❗ Invalid input. Please enter a number between 1 and 5.\n" << RESET;
+            continue; // Restart the loop
+        }
+
+        // std::cin.ignore();
 
         switch (choice) {
             case 1: {
@@ -841,7 +925,7 @@ void CityFacade::buildNewBuilding(City* city) {
         if (newBuilding) {
             city->addBuilding(newBuilding);
             std::cout << GREEN << "✅ Building added to the city: " << buildingName << "\n";
-            std::cout << "🏗️ Building constructed: " << newBuilding->getType() << "\n" << RESET;
+            std::cout << "🏗️  Building constructed: " << newBuilding->getType() << "\n" << RESET;
         }
     } else {
         std::cout << RED << "🚫 Insufficient budget to construct this building.\n" << RESET;
@@ -1103,11 +1187,11 @@ void CityFacade::increaseRent(City* city) {
 void CityFacade::manageBuildings(City* city) {
     bool buildingManagement = true;
     while (buildingManagement) {
-        std::cout << "\n" << CYAN << BOLD << "🏢 Manage Buildings 🏢\n" << RESET;
-        std::cout << GREEN << "1. 🏗️ Build New Building\n";
+        std::cout << "\n" << CYAN << BOLD << "🏢  Manage Buildings 🏢\n" << RESET;
+        std::cout << GREEN << "1. 🏗️  Build New Building\n";
         std::cout << "2. 🔍 Inspect Building\n";
         std::cout << "3. 🔧 Improve Building\n";
-        std::cout << "4. 🗑️ Remove Building\n";
+        std::cout << "4. 🗑️  Remove Building\n";
         std::cout << "5. 📋 View All Buildings\n";
         std::cout << "6. 💸 Increase Rent of Residential Building\n";
         std::cout << "7. 🔙 Back to Main Menu\n" << RESET;
@@ -1115,7 +1199,15 @@ void CityFacade::manageBuildings(City* city) {
 
         int choice;
         std::cin >> choice;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
+        // Check for invalid input
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
+            std::cout << RED << "❗ Invalid input. Please enter a number between 1 and 7.\n" << RESET;
+            continue; // Restart the loop
+        }
+
+        // std::cin.ignore();
 
         switch (choice) {
             case 1:
@@ -1161,26 +1253,68 @@ void CityFacade::manageBuildings(City* city) {
  * @param city Pointer to the City where the citizen will be added.
  */
 void CityFacade::addCustomCitizen(City* city) {
-    if (city->getTotalPopulation() >= 200) {
-        std::cout << RED << "🚫 Maximum population reached. Cannot add more citizens.\n" << RESET;
-        return;
-    }
+    // if (city->getTotalPopulation() >= 200) {
+    //     std::cout << RED << "🚫 Maximum population reached. Cannot add more citizens.\n" << RESET;
+    //     return;
+    // }
 
     std::string name, job;
     int income;
     double propertyValue;
 
-    std::cout << "👤 Enter the name of the new citizen: ";
-    std::getline(std::cin, name);
+    // Validate the citizen's name
+    while (true) {
+        std::cout << "👤 Enter the name of the new citizen: ";
+        std::getline(std::cin, name);
 
-    std::cout << "💼 Enter the job of the new citizen: ";
-    std::getline(std::cin, job);
+        if (name.size() <= 25 && std::all_of(name.begin(), name.end(), [](char c) { return std::isalpha(c) || std::isspace(c); })) {
+            break;
+        } else {
+            std::cout << RED << "❌ Invalid name. Please use only letters and spaces, up to 25 characters.\n" << RESET;
+        }
+    }
 
-    std::cout << "💵 Enter the income of the new citizen: ";
-    std::cin >> income;
+    // Validate the citizen's job
+    while (true) {
+        std::cout << "💼 Enter the job of the new citizen: ";
+        std::getline(std::cin, job);
 
-    std::cout << "🏡 Enter the property value owned by the new citizen: ";
-    std::cin >> propertyValue;
+        if (job.size() <= 25 && std::all_of(job.begin(), job.end(), [](char c) { return std::isalpha(c) || std::isspace(c); })) {
+            break;
+        } else {
+            std::cout << RED << "❌ Invalid job title. Please use only letters and spaces, up to 25 characters.\n" << RESET;
+        }
+    }
+
+    // Validate the citizen's income
+    while (true) {
+        std::cout << "💵 Enter the income of the new citizen (max 100,000): ";
+        std::cin >> income;
+
+        if (std::cin.fail() || income < 0 || income > 100000) {
+            std::cin.clear();  // Clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Ignore invalid input
+            std::cout << RED << "❌ Invalid income. Please enter a positive number up to 100,000.\n" << RESET;
+        } else {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear any leftover input
+            break;
+        }
+    }
+
+    // Validate the citizen's property value
+    while (true) {
+        std::cout << "🏡 Enter the property value owned by the new citizen (between 50,000 and 1,000,000): ";
+        std::cin >> propertyValue;
+
+        if (std::cin.fail() || propertyValue < 50000 || propertyValue > 1000000) {
+            std::cin.clear();  // Clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Ignore invalid input
+            std::cout << RED << "❌ Invalid property value (between 50,000 and 1,000,000)\n" << RESET;
+        } else {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear any leftover input
+            break;
+        }
+    }
 
     Citizen* newCitizen = new Citizen(name, income, propertyValue, job);
 
@@ -1191,7 +1325,7 @@ void CityFacade::addCustomCitizen(City* city) {
         if (residentialBuilding && residentialBuilding->populateBuilding()) {
             city->attach(newCitizen);
             residentialBuilding->attach(newCitizen);
-            std::cout << GREEN << "✅ Citizen " << name << " has moved into " 
+            std::cout << GREEN << "✅ Citizen " << name << " has moved into "
                       << residentialBuilding->getType() << "\n" << RESET;
             return;
         }
@@ -1222,10 +1356,10 @@ void CityFacade::addMultipleCitizens(City* city) {
     }
 
     int currentPopulation = city->getTotalPopulation();
-    if (currentPopulation + numberOfCitizens > 200) {
-        std::cout << RED << "🚫 Adding " << numberOfCitizens << " citizens would exceed the maximum population limit of 200.\n" << RESET;
-        return;
-    }
+    // if (currentPopulation + numberOfCitizens > 200) {
+    //     std::cout << RED << "🚫 Adding " << numberOfCitizens << " citizens would exceed the maximum population limit of 200.\n" << RESET;
+    //     return;
+    // }
 
     // Check available capacity across residential buildings
     int availableCapacity = city->getAvailableHousingCapacity();
@@ -1357,6 +1491,8 @@ void CityFacade::removeCitizen(City* city) {
     std::cout << "Enter your choice: ";
     std::cin >> citizenIndex;
 
+	
+
     if (citizenIndex < 1 || citizenIndex > citizens.size()) {
         std::cout << RED << "⚠️ Invalid selection. Please choose a valid citizen.\n" << RESET;
         return;
@@ -1437,6 +1573,10 @@ void CityFacade::manageTransportForCitizen(City* city) {
     int transportType;
     std::cout << "Enter your choice: ";
     std::cin >> transportType;
+
+	
+
+	
 
     // Create or retrieve the selected transport type
     Transport* chosenTransport = nullptr;
@@ -1530,7 +1670,14 @@ void CityFacade::manageCitizens(City* city) {
 
         int choice;
         std::cin >> choice;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Clear input buffer
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
+            std::cout << RED << "❗ Invalid input. Please enter a number between 1 and 7.\n" << RESET;
+            continue; // Restart the loop
+        }
+
+        // std::cin.ignore();
 
         switch (choice) {
             case 1:
